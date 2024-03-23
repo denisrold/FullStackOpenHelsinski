@@ -37,4 +37,4 @@ sequence Diagram SPA
     
     browser->>browser: GET chrome-extension://gppongmhjkpfnbhagpmjfkannfbllamg/js/dom.js
     
-     Note right of browser: The browser executes the JavaScript to load the SPA and add logic to the DOM
+    Note right of browser: The browser executes the JavaScript to load the SPA and add logic to the DOM
