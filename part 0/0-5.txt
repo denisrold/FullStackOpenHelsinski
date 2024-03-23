@@ -1,0 +1,40 @@
+sequence Diagram SPA
+    participant browser
+    participant server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa/data.json
+    activate server
+    server-->>browser: [{ "content": "HTML es fácil", "date": "2023-1-1" }, ... ]
+    deactivate server
+
+    Note right of browser: El navegador procesa los datos JSON y renderiza las notas
+    browser->>browser: GET chrome-extension://gppongmhjkpfnbhagpmjfkannfbllamg/js/dom.js
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: CSS sheet
+    deactivate server
+
+    Note right of browser: The browser initializes the Single Page Application (SPA)
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa/main.js
+    activate server
+    server-->>browser: JavaScript file for the SPA
+    deactivate server
+
+    Note right of browser: The browser executes the JavaScript to load the SPA and add logic to the DOM
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa/data.json
+    activate server
+    server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
+    deactivate server
+
+    Note right of browser: The browser processes the JSON data and renders the notes
+    
+    browser->>browser: GET chrome-extension://gppongmhjkpfnbhagpmjfkannfbllamg/js/dom.js
+    
+     Note right of browser: The browser executes the JavaScript to load the SPA and add logic to the DOM
