@@ -7,7 +7,7 @@ sequence Diagram SPA
     server-->>browser: [{ "content": "HTML es fácil", "date": "2023-1-1" }, ... ]
     deactivate server
 
-    Note right of browser: El navegador procesa los datos JSON y renderiza las notas
+    Note right of browser: The browser processes the JSON data and renders the notes.
     browser->>browser: GET chrome-extension://gppongmhjkpfnbhagpmjfkannfbllamg/js/dom.js
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
