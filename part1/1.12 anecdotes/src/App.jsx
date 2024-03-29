@@ -33,7 +33,6 @@ function App() {
     if(votes[selected] > mostVoted.votes){
       setMostVoted({...mostVoted,votes:votes[selected], anecdote: anecdotes[selected]})
     };
-  console.log(mostVoted)
   },[votes])
 
   const MostVotedComponent = ()=>{
@@ -47,7 +46,7 @@ function App() {
       </>
     )
   }
-  
+
   const Button = ({handler,text})=><button onClick={handler}>{text}</button>
 
   return (
