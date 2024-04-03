@@ -7,8 +7,10 @@ const Note = ({content,important,toggleImportance,id })=>{
     ? 'make not important' : 'make important'
     return (
         <>
-        <li>{content}</li>
+        <li className='note'>
+        {content}
         <button onClick={handleImportance }>{label}</button>
+        </li>
         </>
         )
     }
