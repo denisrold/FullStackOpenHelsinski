@@ -4,6 +4,7 @@ import Form from "../components/Form";
 import Button from "../components/Button";
 import noteService from './services/notes'
 import Notifications from '../components/Notifications'
+import Footer from '../components/Footer';
 
 const App = () => {
   const [notesArray,setNotesArray] = useState([]);
@@ -69,6 +70,7 @@ const App = () => {
       {notesToShow.map((note)=><Note key={note.id} id={note.id} content={note.content} important={note.important} toggleImportance={toggleImportanceOf}/>)} 
       </ul>
       <Form addNote={addNote} handleNoteChange={handleNoteChange} value={newNote} /> 
+      <Footer />
     </div>
   )
 }
