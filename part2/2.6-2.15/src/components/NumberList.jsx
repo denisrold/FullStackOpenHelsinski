@@ -2,9 +2,9 @@ const NumberList = ({newFilter,filterPersons,persons,deleteContact})=>{
    
     const ContactList = ({personData})=>{
         return(
-            <div key={personData.id}>
+            <div className="ContactCointainer" key={personData.id}>
             <p >{personData.name} : {personData.number}</p>
-            <button id={personData.id} onClick={handleDelete}>Delete</button>
+            <button className="deleteButton" id={personData.id} onClick={handleDelete}>Delete</button>
             </div>
         )
     }

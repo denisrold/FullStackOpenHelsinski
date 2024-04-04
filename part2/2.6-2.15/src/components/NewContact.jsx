@@ -11,8 +11,8 @@ const NewContact = ({handleSubmit,handleNameChange,newName,handleNumberChange,ne
           number: <input  required  type='tel' onChange={handleNumberChange} value={newNumber}/>
         </div>
        
-        <div>
-          <button type="submit">add</button>
+        <div className="button-container">
+          <button type="submit">Add</button>
         </div>
       </form>
     </>
