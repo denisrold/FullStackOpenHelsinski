@@ -1,4 +1,8 @@
-const CountryList = ({filteredCountries,handleShow,show,indexCountry,hide})=>{
+import  axios  from "axios";
+import Weather from "./Weather";
+
+const CountryList = ({filteredCountries,handleShow,show,indexCountry,hide,API_KEY})=>{
+
  return(
 <>{
 filteredCountries.map(country => (
@@ -11,17 +15,18 @@ filteredCountries.map(country => (
 
            {!show && indexCountry==country.cca3 ?<div className='showCountry'>
             {country.capital[0] && <h3>Capital: {country.capital[0]}</h3>}
-            {country.area && <h3>Area: {country.area}</h3>}
+            {country.area && <h3>Area: {country.area} km² </h3>}
             <img src={country?.flags?.png} alt="flag" />
             <ul>
               <h2>
                 Language:
               </h2>
               {Object.keys(country.languages).map(languageCode => (
-              <li key={languageCode}>
+              <li className="listlang" key={languageCode}>
               {country.languages[languageCode]}
               </li>
           ))}
+          <Weather API_KEY={API_KEY} lat={country?.latlng[0]} long={country?.latlng[1]}/>
           </ul>
           </div>:null }
           </li>

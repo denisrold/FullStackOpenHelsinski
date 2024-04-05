@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CountryList from './CountryList';	
 
-const FilterShow = ({countries})=>{
+const FilterShow = ({countries,API_KEY})=>{
 
   const [filteredCountries , setFilteredCountries]= useState([]);
   const [show,setShow] = useState(true);
@@ -39,7 +39,7 @@ return (
       { filteredCountries && filteredCountries.length>=10?
       <h2 className="errorMessage">Too many matches, specify another filter</h2>
        :(
-       <CountryList filteredCountries={filteredCountries} handleShow={handleShow} show={show} indexCountry={indexCountry} hide={hide}/>
+       <CountryList filteredCountries={filteredCountries} API_KEY={API_KEY} handleShow={handleShow} show={show} indexCountry={indexCountry} hide={hide}/>
       )}
       </ul>
       </div>
