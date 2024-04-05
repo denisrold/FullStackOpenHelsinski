@@ -74,7 +74,7 @@ button:hover{
     font-weight: bold;
 }
 .weather-container{
-    padding-top:3rem ;
+    padding-top:1.5rem ;
 }
 
 .weather-card{
@@ -88,9 +88,11 @@ button:hover{
     font-weight: bolder;
     font-size: larger;
     margin-left: -1rem;
+    padding-bottom: 2rem;
 }
 .weather_list li {
     padding: .3rem;
+ 
 
 }
 .weather_list li:first-child::first-letter {

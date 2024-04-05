@@ -1,6 +1,4 @@
-import  axios  from "axios";
 import Weather from "./Weather";
-
 const CountryList = ({filteredCountries,handleShow,show,indexCountry,hide,API_KEY})=>{
 
  return(
@@ -26,8 +24,8 @@ filteredCountries.map(country => (
               {country.languages[languageCode]}
               </li>
           ))}
+          </ul> 
           <Weather API_KEY={API_KEY} lat={country?.latlng[0]} long={country?.latlng[1]}/>
-          </ul>
           </div>:null }
           </li>
         ))}

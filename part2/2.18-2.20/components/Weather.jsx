@@ -1,14 +1,14 @@
-import  axios  from "axios"
 import { useState } from "react"
+import service from '../src/services/services.js';
 
 const Weather = ({API_KEY,lat,long})=>{
     const [weather, setWeather] = useState([]);
 
-  const handleWeather =async ()=>{
-    const Weather = await API_KEY !="" && axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${API_KEY}`)
-    .then(res=> setWeather([res.data]))
-    Weather.length?setWeather([...Weather]):'';
-    console.log(weather);
+  const handleWeather = async ()=>{
+    if(weather.length)return;
+    const weatherResponse = await service.getWeather(lat,long,API_KEY)
+    .catch(err=>console.log(err))
+    setWeather([weatherResponse]);
   }
 
 return(

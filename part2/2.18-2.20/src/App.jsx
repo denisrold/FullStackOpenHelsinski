@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import FilterShow from '../components/FilterShow';
-import getAllCountries from './services/countries';
+import services from './services/services.js';
 
 function App({API_KEY}) {
   const [countries,setCountries] = useState([]);
   const getCountry = async ()=>{
-    setCountries([...await getAllCountries().catch((err)=>{console.log(err)})]);
+    setCountries([...await services.getAllCountries().catch((err)=>{console.log(err)})]);
   }
 
   useEffect(()=>{
