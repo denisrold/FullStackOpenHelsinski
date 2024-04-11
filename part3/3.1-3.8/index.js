@@ -1,8 +1,10 @@
 const express = require("express");
 const persons = require("./data.js");
 const morgan = require("morgan");
+const cors = require("cors");
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 morgan.token("body", (req) => {
   if (Object.keys(req.body).length) {

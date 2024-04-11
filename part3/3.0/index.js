@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-
+const cors = require("cors");
+app.use(cors());
 app.use(express.json());
 let notes = [
   {
@@ -38,11 +39,21 @@ app.get("/api/notes/:id", (request, response) => {
   }
 });
 
-app.delete("/api/notes/:id", (res, req) => {
-  const id = req.params.id;
-  const deletes = notes.filter((note) => note.id === id);
-  res.status(204).end();
+app.put("/api/notes/:id", (request, response) => {
+  const { id } = request.params;
+  const { content, important } = request.body;
+  const index = notes.findIndex((p) => p.id == Number(id));
+  newData = { id, content, important: important };
+  if (index == -1) return res.status(404).json({ 404: " ID Not Found" });
+  notes[index] = { ...newData };
+  response.json({ ...newData });
 });
+
+// app.delete("/api/notes/:id", (res, req) => {
+//   const id = req.params.id;
+//   const deletes = notes.filter((note) => note.id === id);
+//   res.status(204).end();
+// });
 
 const generateId = () => {
   const maxId = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0;
