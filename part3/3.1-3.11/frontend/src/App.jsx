@@ -120,7 +120,7 @@ useEffect(()=>{
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h2 className="_title">Phonebook</h2>
       <Message message={message} errorMessage={errorMessage} />
       <Filter newFilter={newFilter} handleFilter={handleFilter}/> 
       <NewContact handleSubmit={handleSubmit} newName={newName} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} newNumber={newNumber} />

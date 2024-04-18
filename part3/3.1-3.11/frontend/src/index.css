@@ -1,3 +1,12 @@
+body{
+  
+    padding-left: 1rem;
+}
+._title{
+    background-color: rgba(6, 204, 6, 0.696);
+    border-radius: 1rem;
+    padding: 1rem;
+}
 .message{
     color: rgb(23, 152, 21);
     background: lightgrey;
