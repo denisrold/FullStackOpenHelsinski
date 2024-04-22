@@ -9,6 +9,7 @@ require("dotenv").config();
 app.use(express.static("dist"));
 app.use(cors());
 app.use(express.json());
+//morgan configuration
 morgan.token("body", (req) => {
   if (Object.keys(req.body).length) {
     return JSON.stringify(req.body);
@@ -40,6 +41,7 @@ const phoneBookSchema = new mongoose.Schema({
   name: String,
   number: String,
 });
+
 //format mongo responses
 phoneBookSchema.set("toJSON", {
   transform: (document, returnedObject) => {
@@ -121,6 +123,7 @@ app.put("/api/persons/:id", (req, res) => {
 app.use(unknowEndPoint);
 
 const PORT = process.env.PORT || 3001;
+
 app.listen(PORT, () => {
   console.log(`Listen port ${PORT}`);
 });

@@ -2,32 +2,12 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
-require("dotenv").config();
+const Note = require("./models/note.js");
 
 app.use(express.static("dist"));
 app.use(cors());
 app.use(express.json());
 
-const user = process.env.MONGODB_USER;
-const password = process.env.MONGODB_PASSWORD;
-const url = `mongodb+srv://${user}:${password}@cluster0.by5femd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-mongoose.set("strictQuery", false);
-mongoose.connect(url);
-
-const noteSchema = new mongoose.Schema({
-  content: String,
-  important: Boolean,
-});
-const Note = mongoose.model("Note", noteSchema);
-
-noteSchema.set("toJSON", {
-  transform: (document, returnedObject) => {
-    //transform object _id to string and add to the object response.
-    returnedObject.id = returnedObject._id.toString();
-    delete returnedObject._id;
-    delete returnedObject.__v;
-  },
-});
 let notes = [
   {
     id: 1,
