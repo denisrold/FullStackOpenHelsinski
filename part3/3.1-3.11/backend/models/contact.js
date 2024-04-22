@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+//mongodb connection
 const url = process.env.MONGODB_URI;
 mongoose.set("strictQuery", false);
 mongoose
@@ -12,15 +13,13 @@ mongoose
     console.log("error connecting to MongoDB:", error.message);
   });
 
-const noteSchema = new mongoose.Schema({
-  content: String,
-  important: Boolean,
+const phoneBookSchema = new mongoose.Schema({
+  name: String,
+  number: String,
 });
 
-// change to module.exports
-//const Note = mongoose.model("Note", noteSchema);
-
-noteSchema.set("toJSON", {
+//format mongo responses
+phoneBookSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     //transform object _id to string and add to the object response.
     returnedObject.id = returnedObject._id.toString();
@@ -29,4 +28,4 @@ noteSchema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("Note", noteSchema);
+module.exports = mongoose.model("Contact", phoneBookSchema);
