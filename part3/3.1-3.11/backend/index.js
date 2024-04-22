@@ -17,7 +17,7 @@ morgan.token("body", (req) => {
 app.use(morgan(":method :url :body"));
 
 const unknowEndPoint = (request, response) => {
-  response.status(404).send({ error: "unknown endpoint. NOT FOUND" });
+  response.status(404).send({ error: "unknown endpoint. 404 NOT FOUND" });
 };
 
 //mongodb auth requeriments
@@ -122,7 +122,7 @@ app.use(unknowEndPoint);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log("Listen port 3001");
+  console.log(`Listen port ${PORT}`);
 });
 
 app.on("close", () => {
@@ -134,7 +134,7 @@ app.on("close", () => {
 
 // Handle Ctrl+C signal to gracefully shutdown the server
 process.on("SIGINT", () => {
-  server.close(() => {
+  app.close(() => {
     console.log("Server closed");
   });
 });
