@@ -21,23 +21,21 @@ const App = () => {
   //SERVER COMMUNICATION
   const addNote = (event) => {
     event.preventDefault();
-
-    let newID= (notesArray.length +1).toString();
+    
+    // let newID = (notesArray.length +1).toString();
     const newObject = {
-      id:newID,
       content: newNote,
       important: Math.random() > 0.5
     }
-    setNotesArray([...notesArray,newObject]);
 
     noteService.create(newObject)
     .then(createdNote => {
-      console.log(createdNote)
+
+      setNotesArray([...notesArray,createdNote]);
     })
     .catch(err=>console.log(err));
-    setNewNote('')
+    setNewNote('');
   }
-
 
   const handleNoteChange = (event)=>{
     setNewNote(event.target.value);
@@ -48,10 +46,12 @@ const App = () => {
       const note = notesArray.find(n => n.id === id)
       const changedNote = { ...note, important: !note.important }
      //update and errors.
+
       noteService.update(id, changedNote).then(updatedNote => {
+
         setNotesArray(notesArray.map(note => note.id !== id ? note : updatedNote))
       }).catch(error => {
-        setErrorMessage(`Note '${note.content}' was already removed from server`);
+        setErrorMessage(`Note '${note.content}' NotFound`);
         setTimeout(() =>{ 
           setErrorMessage(null) 
         }, 1000);

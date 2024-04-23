@@ -1,6 +1,5 @@
 const Note = ({content,important,toggleImportance,id })=>{
    const handleImportance=()=>{
-   
         toggleImportance(id);
     }
     const label = important
