@@ -1,6 +1,6 @@
 const Button = ({setShowAll,showAll})=>{
 return(
-    <div>
+    <div className="important_btn" >
     <button onClick={() => setShowAll(!showAll)}>
       show {showAll ? 'important' : 'all' }
     </button>

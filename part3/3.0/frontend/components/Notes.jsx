@@ -5,12 +5,12 @@ const Note = ({content,important,toggleImportance,id })=>{
     const label = important
     ? 'make not important' : 'make important'
     return (
-        <>
-        <li className='note'>
+        <div className={`noteContent ${important?"important":""}`}>
+        <li className={`note `}>
         {content}
-        <button onClick={handleImportance }>{label}</button>
         </li>
-        </>
+        <button className={`${important?"notimportant":""}`} onClick={handleImportance }>{label}</button>
+        </div>
         )
     }
     

@@ -66,11 +66,11 @@ const App = () => {
     <div>
       <h1>Notes</h1>
       <Notifications message={errorMessage} />
+      <Form addNote={addNote} handleNoteChange={handleNoteChange} value={newNote} /> 
       <Button setShowAll={setShowAll} showAll={showAll}/>
       <ul>
       {notesToShow.map((note)=><Note key={note.id} id={note.id} content={note.content} important={note.important} toggleImportance={toggleImportanceOf}/>)} 
       </ul>
-      <Form addNote={addNote} handleNoteChange={handleNoteChange} value={newNote} /> 
       <Footer />
     </div>
   )
