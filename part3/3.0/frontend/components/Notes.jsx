@@ -3,7 +3,7 @@ const Note = ({content,important,toggleImportance,id })=>{
         toggleImportance(id);
     }
     const label = important
-    ? 'make not important' : 'make important'
+    ? 'Not important' : 'Make important'
     return (
         <div className={`noteContent ${important?"important":""}`}>
         <li className={`note `}>
