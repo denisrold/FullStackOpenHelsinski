@@ -1,0 +1,177 @@
+body{
+    padding-left: 1rem;
+}
+
+.message{
+    display: flex;
+    justify-content: center;
+    color: rgb(12, 240, 8);
+    background: rgba(248, 248, 248, 0.666);
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 10px;
+}
+
+.errorMessage{
+    display: flex;
+    justify-content: center;
+    color: rgb(255, 0, 0);
+    background: rgba(248, 248, 248, 0.666);
+    font-size: 22px;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 10px;
+}
+
+body{
+    font-size: large;
+    font-family: sans-serif;
+}
+button{
+    padding: 0.5rem 1rem ;
+    color: green;
+    background-color: rgba(255, 255, 255, 0.463);
+    font-size: larger;
+    border:  solid rgba(0, 128, 0, 0.478);
+    border-radius: 1rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: all 0.3s ease
+}
+button:active{
+    scale: .98;
+    background-color: rgb(255, 255, 255);
+}
+.deleteButton{
+    color: red;
+    border:  solid rgba(255, 0, 0, 0.548);
+}
+
+.ContactCointainer{
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+    
+}
+
+input{
+    padding: 0.5rem 1rem ;
+    border:  solid rgba(0, 128, 0, 0.478);
+    background-color: rgba(255, 255, 255, 0.414);
+    border-radius: 1rem;
+    font-size: larger;
+}
+
+form{
+    font-weight: bold;
+}
+.titleContainer{
+    background-color: rgba(6, 204, 6, 0.696);
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family:Verdana, sans-serif;
+    margin-bottom: 5px;
+}
+
+.containerMenu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgb(65, 255, 65);
+    border-radius: 1rem;
+    padding-bottom: 2rem;
+    background-color: rgba(220, 220, 220, 0.432);
+}
+.containerFilter{
+    display: flex;
+    align-items: center;
+    width: 80%;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+}
+.containerFilter input{
+    width: 40%;
+}
+
+.inputsNew{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    color: rgb(70, 70, 80);
+}
+.inputsNew span {
+
+    margin: 1rem;
+}
+
+.inputsNew button{
+    margin-top: 1px;
+    margin: 0.3rem;
+}
+.inputsNew button:hover{
+ transform: scale(1.02);
+}
+.inputsNew button:active{
+    transform: scale(1)}
+
+.newContact{
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: x-large;
+    margin-bottom: 0.8rem;
+}
+
+.numbersListTitle{
+    display: flex;
+    justify-content: center;
+}
+.numbersListContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 0 2rem;
+    margin-bottom: 8rem;
+}
+
+.ContactCointainer{
+    width: 50%;
+    margin: .5rem auto;
+    align-items: center;
+}
+.ContactCointainer:first-child{
+    margin-top: 1.5rem;
+}
+.contactName{
+    color: rgb(40, 38, 38);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: larger;
+    margin-right: .5rem;
+}
+@media only screen and (max-width: 960px) {
+    .inputsNew{
+        flex-direction: column;
+    }
+    .inputsNew span {
+        margin: 0.3rem;
+        margin-top: 0.5rem;
+    }
+    .inputsNew button{
+        margin-top: 8px;
+        width: 100%;
+    }
+    .containerMenu{
+        padding-bottom: 0.5rem;
+    }
+    .newContact{
+        margin-bottom: 0.2rem;
+    }
+    .ContactCointainer{
+        width: 100%;
+    }
+}

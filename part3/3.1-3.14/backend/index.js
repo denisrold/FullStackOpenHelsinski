@@ -16,6 +16,7 @@ morgan.token("body", (req) => {
     return JSON.stringify(req.body);
   } else return;
 });
+
 app.use(morgan(":method :url :body"));
 
 const unknowEndPoint = (request, response) => {
@@ -42,23 +43,26 @@ app.get("/api/persons", (req, res) => {
     .then((result) => {
       res.json(result);
     })
-    .catch((err) => console.log(err, err.message));
+    .catch((err) => console.log(err.message));
 });
 
 app.get("/api/persons/:id", (req, res) => {
   const id = req.params.id;
-  const person = persons.find((p) => p.id === Number(id));
-  if (!person) return res.status(404).json({ 404: " ID Not Found" });
-  res.json({ person });
+  Contact.findById(id)
+    .then((p) => res.json(p))
+    .catch((err) => res.status(404).json({ 404: " ID Not Found" }));
 });
 
 //DELETE
 app.delete("/api/persons/:id", (req, res) => {
   const id = req.params.id;
-  const index = persons.findIndex((p) => p.id == Number(id));
-  if (index == -1) return res.status(404).json({ 404: " ID Not Found" });
-  persons.splice(index, 1);
-  res.json({ persons });
+  Contact.findByIdAndDelete(id)
+    .then((response) => res.status(200).json({ deleted: "OK" }))
+    .catch((err) => res.status(404).json({ error: "404 Not found." }));
+
+  // const index = persons.findIndex((p) => p.id == Number(id));
+  // if (index == -1) return res.status(404).json({ 404: " ID Not Found" });
+  // persons.splice(index, 1);
 });
 
 //CREATE
@@ -66,12 +70,21 @@ app.post("/api/persons", (req, res) => {
   const body = req.body;
   if (body.name == "" || body.number == "")
     return res.status(401).json({ error: "Not name or number" });
-
-  const notUniqueName = persons.find((p) => p.name === body.name);
-  if (notUniqueName)
-    return res.status(401).json({ error: "name must be unique" });
-  persons.push({ ...body, id: Math.floor(Math.random() * 100000) });
-  res.json({ name: body.name, number: body.number, id: body.id });
+  Contact.findOne({ name: body.name })
+    .then((existingContact) => {
+      if (existingContact)
+        return res
+          .status(400)
+          .json({ Error: `Name: ${body.name} already exist` });
+      else {
+        const newContact = new Contact({
+          name: body.name,
+          number: body.number,
+        });
+        newContact.save().then((c) => res.status(200).json(c));
+      }
+    })
+    .catch((err) => console.log(err.message));
 });
 
 //UPDATE
@@ -81,12 +94,15 @@ app.put("/api/persons/:id", (req, res) => {
   if (name == "" || number == "") {
     return res.status(401).json({ 401: "No data" });
   }
-  const index = persons.findIndex((p) => p.id == Number(id));
-  newData = { id, name, number };
-  if (index == -1) return res.status(404).json({ 404: " ID Not Found" });
-  persons[index] = { newData };
-
-  res.json({ persons });
+  Contact.findById(id)
+    .then((contact) => {
+      if (!contact) return res.status(404).json("ID not found");
+      contact.name = name;
+      contact.number = number;
+      contact.save();
+      res.status(200).json(contact);
+    })
+    .catch((err) => console.log({ err: err.message }));
 });
 
 app.use(unknowEndPoint);

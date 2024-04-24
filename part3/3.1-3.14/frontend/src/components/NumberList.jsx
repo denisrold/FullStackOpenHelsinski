@@ -3,7 +3,9 @@ const NumberList = ({newFilter,filterPersons,persons,deleteContact})=>{
     const ContactList = ({personData})=>{
         return(
             <div className="ContactCointainer" key={personData.id}>
-            <p >{personData.name} : {personData.number}</p>
+            <div> 
+                <span className="contactName">{personData.name}: </span><span> {personData.number}</span>
+            </div>
             <button className="deleteButton" id={personData.id} onClick={handleDelete}>Delete</button>
             </div>
         )
@@ -18,12 +20,14 @@ const NumberList = ({newFilter,filterPersons,persons,deleteContact})=>{
     }
     return (
         <>
-        <h2>Numbers</h2>
+        <h2 className="numbersListTitle">Numbers</h2>
+        <div className="numbersListContainer">
        { !persons.length?<h3>Loading...</h3>:
        newFilter? filterPersons.map((person)=><ContactList key={person.id} personData={person}/> ) 
         : 
         persons.map((person)=><ContactList key={person.id} personData={person}/> )}
        
+        </div>
         </>
     );
 }

@@ -120,10 +120,14 @@ useEffect(()=>{
 
   return (
     <div>
-      <h2 className="_title">Phonebook</h2>
-      <Message message={message} errorMessage={errorMessage} />
+      <div className='titleContainer'>
+        <h2 className="_title">Phonebook</h2>
+      </div>
+      <div className='containerMenu'>
       <Filter newFilter={newFilter} handleFilter={handleFilter}/> 
       <NewContact handleSubmit={handleSubmit} newName={newName} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} newNumber={newNumber} />
+      </div>
+      <Message message={message} errorMessage={errorMessage} />
       <NumberList newFilter={newFilter} filterPersons={filterPersons} persons={persons} deleteContact={handleDelete}/>
     </div>
   )

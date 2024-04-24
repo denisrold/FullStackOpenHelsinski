@@ -14,6 +14,6 @@ return (
         setMessage(name+"'s information has been "+ state)
         setTimeout(()=>{
           setMessage(null);
-        },5000)
+        },4000)
       }      
 export { Message, messageNotification};
