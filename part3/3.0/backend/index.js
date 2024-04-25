@@ -13,18 +13,14 @@ app.use(express.static("dist"));
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (request, response, next) => {
-  response.send("<h1>Hello World!</h1>");
-});
+app.get("/", (request, response, next) =>
+  response.send("<h1>Hello World!</h1>")
+);
 
 app.get("/api/notes", (request, response) => {
   Note.find({})
-    .then((result) => {
-      response.json(result);
-    })
-    .catch((err) => {
-      next(err);
-    });
+    .then((result) => response.json(result))
+    .catch((err) => next(err));
 });
 
 app.get("/api/notes/:id", (request, response, next) => {
@@ -34,27 +30,22 @@ app.get("/api/notes/:id", (request, response, next) => {
       if (!note) response.status(404).end();
       else response.json(note);
     })
-    .catch((error) => {
-      next(error);
-      //response.status(400).send({ error: "malformatted id" });
-    });
+    .catch((error) => next(error));
 });
 
 app.put("/api/notes/:id", (request, response, next) => {
   const { id } = request.params;
   const { content, important } = request.body;
-  Note.findById(id)
-    .then((note) => {
-      if (!note) response.status(404).json({ err: "no such note" });
-      else {
-        note.content = content;
-        note.important = important;
-        note.save().then((updatedNote) => response.json(updatedNote));
-      }
+  const note = {
+    content: content,
+    important: important,
+  };
+  Note.findByIdAndUpdate(id, note, { new: true })
+    .then((updatedNote) => {
+      if (!updatedNote) response.status(404).json({ err: "no such note" });
+      else response.json(updatedNote);
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch((err) => next(err));
 });
 
 // app.delete("/api/notes/:id", (res, req) => {
@@ -77,9 +68,7 @@ app.post("/api/notes", (request, response, next) => {
   note
     .save()
     .then((savedNote) => response.json(note))
-    .catch((err) => {
-      next(err);
-    });
+    .catch((err) => next(err));
 });
 
 app.use(unknowEndPoint);

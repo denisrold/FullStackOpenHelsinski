@@ -5,6 +5,7 @@ const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 const Contact = require("./models/contact.js");
+const errorHandler = require("./errorHandlers.js");
 
 app.use(express.static("dist"));
 app.use(cors());
@@ -24,47 +25,38 @@ const unknowEndPoint = (request, response) => {
 };
 
 //READ
-app.get("/api/info", async (req, res) => {
+app.get("/api/info", async (req, res, next) => {
   const info = await Contact.find({})
-    .then((result) => {
-      return result.length;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+    .then((result) => result.length)
+    .catch((err) => next(err));
 
   const date = new Date();
   res.send(`<h2>Phone has info of ${info} Peoples</h2>
   <h3>${date}</h3>`);
 });
 
-app.get("/api/persons", (req, res) => {
+app.get("/api/persons", (req, res, next) => {
   Contact.find({})
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((err) => {
-      console.log(err.message);
-      response.status(500).end();
-    });
+    .then((result) => res.json(result))
+    .catch((err) => next(err));
 });
 
-app.get("/api/persons/:id", (req, res) => {
+app.get("/api/persons/:id", (req, res, next) => {
   const id = req.params.id;
   Contact.findById(id)
-    .then((p) => res.json(p))
-    .catch((err) => {
-      console.log(err.message);
-      res.status(404).json({ 404: " ID Not Found" });
-    });
+    .then((p) => {
+      if (!p) res.status(404).json({ err: "no such contact" });
+      else res.json(p);
+    })
+    .catch((err) => next(err));
 });
 
 //DELETE
-app.delete("/api/persons/:id", (req, res) => {
+app.delete("/api/persons/:id", (req, res, next) => {
   const id = req.params.id;
   Contact.findByIdAndDelete(id)
     .then((response) => res.status(200).json({ deleted: "OK" }))
-    .catch((err) => res.status(404).json({ error: "404 Not found." }));
+    .catch((err) => next(err));
 
   // const index = persons.findIndex((p) => p.id == Number(id));
   // if (index == -1) return res.status(404).json({ 404: " ID Not Found" });
@@ -90,33 +82,29 @@ app.post("/api/persons", (req, res) => {
         newContact.save().then((c) => res.status(200).json(c));
       }
     })
-    .catch((err) => {
-      console.log(err.message);
-      res.status(500).end();
-    });
+    .catch((err) => next(err));
 });
 
 //UPDATE
-app.put("/api/persons/:id", (req, res) => {
+app.put("/api/persons/:id", (req, res, next) => {
   const { id } = req.params;
   const { name, number } = req.body;
-  if (name == "" || number == "") {
+  if (name == "" || number == "")
     return res.status(401).json({ 401: "No data" });
-  }
-  Contact.findById(id)
+  const contact = {
+    name: name,
+    number: number,
+  };
+  Contact.findByIdAndUpdate(id, contact, { new: true })
     .then((contact) => {
-      contact.name = name;
-      contact.number = number;
-      contact.save();
-      res.status(200).json(contact);
+      if (!contact) res.status(404).json({ err: "no such contact" });
+      else res.status(200).json(contact);
     })
-    .catch((err) => {
-      console.log({ err: err.message });
-      res.status(404).json("ID not found");
-    });
+    .catch((err) => next(err));
 });
 
 app.use(unknowEndPoint);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3001;
 
