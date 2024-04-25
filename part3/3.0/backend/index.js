@@ -48,11 +48,12 @@ app.put("/api/notes/:id", (request, response, next) => {
     .catch((err) => next(err));
 });
 
-// app.delete("/api/notes/:id", (res, req) => {
-//   const id = req.params.id;
-//   const deletes = notes.filter((note) => note.id === id);
-//   res.status(204).end();
-// });
+app.delete("/api/notes/:id", (req, res) => {
+  const { id } = req.params;
+  Note.findByIdAndDelete(id)
+    .then((response) => res.status(200).json({ deleted: "OK" }))
+    .catch((err) => next(err));
+});
 
 app.post("/api/notes", (request, response, next) => {
   const body = request.body;
