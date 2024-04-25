@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const Note = require("./models/note.js");
+const errorHandler = require("./errorHandler.js");
 
 const unknowEndPoint = (request, response) => {
   response.status(404).send({ error: "unknown endpoint. 404 NOT FOUND" });
@@ -12,7 +13,7 @@ app.use(express.static("dist"));
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (request, response) => {
+app.get("/", (request, response, next) => {
   response.send("<h1>Hello World!</h1>");
 });
 
@@ -22,12 +23,11 @@ app.get("/api/notes", (request, response) => {
       response.json(result);
     })
     .catch((err) => {
-      console.log(err.message);
-      response.status(500).end();
+      next(err);
     });
 });
 
-app.get("/api/notes/:id", (request, response) => {
+app.get("/api/notes/:id", (request, response, next) => {
   const id = request.params.id;
   Note.findById(id)
     .then((note) => {
@@ -35,12 +35,12 @@ app.get("/api/notes/:id", (request, response) => {
       else response.json(note);
     })
     .catch((error) => {
-      console.log(error);
-      response.status(400).send({ error: "malformatted id" });
+      next(error);
+      //response.status(400).send({ error: "malformatted id" });
     });
 });
 
-app.put("/api/notes/:id", (request, response) => {
+app.put("/api/notes/:id", (request, response, next) => {
   const { id } = request.params;
   const { content, important } = request.body;
   Note.findById(id)
@@ -53,8 +53,7 @@ app.put("/api/notes/:id", (request, response) => {
       }
     })
     .catch((err) => {
-      console.log(err.message);
-      response.status(500).json({ error: "Internal server error" });
+      next(err);
     });
 });
 
@@ -64,9 +63,9 @@ app.put("/api/notes/:id", (request, response) => {
 //   res.status(204).end();
 // });
 
-app.post("/api/notes", (request, response) => {
+app.post("/api/notes", (request, response, next) => {
   const body = request.body;
-  if (!body.content == undefined) {
+  if (!body.content) {
     return response.status(400).json({
       error: "content missing",
     });
@@ -79,12 +78,12 @@ app.post("/api/notes", (request, response) => {
     .save()
     .then((savedNote) => response.json(note))
     .catch((err) => {
-      console.log(err.message);
-      response.status(500).end();
+      next(err);
     });
 });
 
 app.use(unknowEndPoint);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
