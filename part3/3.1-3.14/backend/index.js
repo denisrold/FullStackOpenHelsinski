@@ -43,14 +43,20 @@ app.get("/api/persons", (req, res) => {
     .then((result) => {
       res.json(result);
     })
-    .catch((err) => console.log(err.message));
+    .catch((err) => {
+      console.log(err.message);
+      response.status(500).end();
+    });
 });
 
 app.get("/api/persons/:id", (req, res) => {
   const id = req.params.id;
   Contact.findById(id)
     .then((p) => res.json(p))
-    .catch((err) => res.status(404).json({ 404: " ID Not Found" }));
+    .catch((err) => {
+      console.log(err.message);
+      res.status(404).json({ 404: " ID Not Found" });
+    });
 });
 
 //DELETE
@@ -84,7 +90,10 @@ app.post("/api/persons", (req, res) => {
         newContact.save().then((c) => res.status(200).json(c));
       }
     })
-    .catch((err) => console.log(err.message));
+    .catch((err) => {
+      console.log(err.message);
+      res.status(500).end();
+    });
 });
 
 //UPDATE
@@ -96,13 +105,15 @@ app.put("/api/persons/:id", (req, res) => {
   }
   Contact.findById(id)
     .then((contact) => {
-      if (!contact) return res.status(404).json("ID not found");
       contact.name = name;
       contact.number = number;
       contact.save();
       res.status(200).json(contact);
     })
-    .catch((err) => console.log({ err: err.message }));
+    .catch((err) => {
+      console.log({ err: err.message });
+      res.status(404).json("ID not found");
+    });
 });
 
 app.use(unknowEndPoint);

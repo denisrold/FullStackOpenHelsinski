@@ -4,6 +4,10 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const Note = require("./models/note.js");
 
+const unknowEndPoint = (request, response) => {
+  response.status(404).send({ error: "unknown endpoint. 404 NOT FOUND" });
+};
+
 app.use(express.static("dist"));
 app.use(cors());
 app.use(express.json());
@@ -13,29 +17,45 @@ app.get("/", (request, response) => {
 });
 
 app.get("/api/notes", (request, response) => {
-  Note.find({}).then((result) => {
-    response.json(result);
-  });
+  Note.find({})
+    .then((result) => {
+      response.json(result);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      response.status(500).end();
+    });
 });
 
 app.get("/api/notes/:id", (request, response) => {
-  const id = Number(request.params.id);
-  const note = notes.find((note) => note.id === id);
-  if (note) {
-    response.json(note);
-  } else {
-    response.status(404).json({ Not: "notFound" });
-  }
+  const id = request.params.id;
+  Note.findById(id)
+    .then((note) => {
+      if (!note) response.status(404).end();
+      else response.json(note);
+    })
+    .catch((error) => {
+      console.log(error);
+      response.status(400).send({ error: "malformatted id" });
+    });
 });
 
-app.put("/api/notes/:id", async (request, response) => {
+app.put("/api/notes/:id", (request, response) => {
   const { id } = request.params;
   const { content, important } = request.body;
-
-  const note = await Note.findById(id);
-  note.content = content;
-  note.important = important;
-  note.save().then((newData) => response.json(newData));
+  Note.findById(id)
+    .then((note) => {
+      if (!note) response.status(404).json({ err: "no such note" });
+      else {
+        note.content = content;
+        note.important = important;
+        note.save().then((updatedNote) => response.json(updatedNote));
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+      response.status(500).json({ error: "Internal server error" });
+    });
 });
 
 // app.delete("/api/notes/:id", (res, req) => {
@@ -55,8 +75,16 @@ app.post("/api/notes", (request, response) => {
     content: body.content,
     important: body.important || false,
   });
-  note.save().then((savedNote) => response.json(note));
+  note
+    .save()
+    .then((savedNote) => response.json(note))
+    .catch((err) => {
+      console.log(err.message);
+      response.status(500).end();
+    });
 });
+
+app.use(unknowEndPoint);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
