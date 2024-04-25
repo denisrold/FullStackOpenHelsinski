@@ -32,10 +32,10 @@ button, form input{
   margin: 1rem;
   background-color: rgb(199, 252, 189);
   font-size: large;
-  box-shadow: 3px 0.5px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 0.5px 5px rgba(0, 0, 0, 0.607);
 }
 form input{
-  border: solid 2px rgba(0, 0, 0, 0.696);
+  border: solid 3px rgb(0, 0, 0);
 }
 
 button:hover{

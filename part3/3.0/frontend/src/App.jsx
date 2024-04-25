@@ -27,12 +27,11 @@ const App = () => {
       content: newNote,
       important: Math.random() > 0.5
     }
-
+    document.querySelector("#inputNote").value = "";
     noteService.create(newObject)
     .then(createdNote => {
-
       setNotesArray([...notesArray,createdNote]);
-    })
+        })
     .catch(err=>console.log(err));
     setNewNote('');
   }
