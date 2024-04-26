@@ -153,6 +153,13 @@ form{
     font-size: larger;
     margin-right: .5rem;
 }
+
+.errorList{
+    padding: 0;
+    margin: 0;
+}
+
+
 @media only screen and (max-width: 960px) {
     .inputsNew{
         flex-direction: column;

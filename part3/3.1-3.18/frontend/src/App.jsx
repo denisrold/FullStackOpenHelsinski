@@ -86,9 +86,9 @@ useEffect(()=>{
         }
       })
       .catch(error => {
-        console.error(error.response.data.error)
+        let errorFormat = error.response.data.error.split("Contact validation failed:")[1].split(",");
         setErrorMessage(true);
-        messageNotification(setMessage,setErrorMessage,"chamuko", 'created', error.response.data.error);
+        messageNotification(setMessage,setErrorMessage,"chamuko", 'created', errorFormat);
       })
     }
 

@@ -21,8 +21,16 @@ const phoneBookSchema = new mongoose.Schema({
     unique: true,
   },
   number: {
+    minLength: 8,
     type: String,
-    minLength: 5,
+    validate: {
+      validator: (value) => {
+        const formatoValido = /^\d{2,6}-\d+$/;
+        return formatoValido.test(value);
+      },
+      message: (props) => `invalid number / format xxxx-xxxxxx`,
+    },
+
     required: true,
   },
 });
