@@ -1,11 +1,14 @@
-const errorHandler = (error, request, response, next) => {
-  console.error(error.message);
-  if (error.name === "CastError") {
-    return response.status(404).send({ error: "malformatted id" });
-  } else {
-    response.status(500).json({ error: "Internal server error" });
+const errorHandler = (err, req, res, next) => {
+  console.error(err.message);
+  if (err.name === "CastError")
+    res.status(404).send({ error: "malformatted id" });
+  else if (err.name === "ValidationError")
+    res.status(400).json({ error: err.message });
+  else {
+    res.status(500).json({ error: "Internal server error" });
   }
-  next(error);
+  //next to other errors middlewares:
+  //next(err);
 };
 
 module.exports = errorHandler;

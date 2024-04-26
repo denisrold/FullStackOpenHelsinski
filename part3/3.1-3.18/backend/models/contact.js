@@ -14,8 +14,17 @@ mongoose
   });
 
 const phoneBookSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+  name: {
+    type: String,
+    minLength: 4,
+    required: true,
+    unique: true,
+  },
+  number: {
+    type: String,
+    minLength: 5,
+    required: true,
+  },
 });
 
 //format mongo responses

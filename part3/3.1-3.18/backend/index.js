@@ -6,18 +6,17 @@ const app = express();
 const mongoose = require("mongoose");
 const Contact = require("./models/contact.js");
 const errorHandler = require("./errorHandlers.js");
-
+//MIDDLEWARES
 app.use(express.static("dist"));
 app.use(cors());
 app.use(express.json());
 
-//morgan configuration
+//MORGAN CONFIGURATION  - SET.
 morgan.token("body", (req) => {
   if (Object.keys(req.body).length) {
     return JSON.stringify(req.body);
   } else return;
 });
-
 app.use(morgan(":method :url :body"));
 
 const unknowEndPoint = (request, response) => {
@@ -64,25 +63,30 @@ app.delete("/api/persons/:id", (req, res, next) => {
 });
 
 //CREATE
-app.post("/api/persons", (req, res) => {
-  const body = req.body;
-  if (body.name == "" || body.number == "")
-    return res.status(401).json({ error: "Not name or number" });
-  Contact.findOne({ name: body.name })
-    .then((existingContact) => {
-      if (existingContact)
-        return res
-          .status(400)
-          .json({ Error: `Name: ${body.name} already exist` });
-      else {
-        const newContact = new Contact({
-          name: body.name,
-          number: body.number,
-        });
-        newContact.save().then((c) => res.status(200).json(c));
-      }
-    })
+app.post("/api/persons", (req, res, next) => {
+  const { name, number } = req.body;
+  Contact.create({ name, number })
+    .then((response) => res.status(201).json(response))
     .catch((err) => next(err));
+
+  //************ PRE-VALIDATION VERSION: ***************
+
+  // if (body.name == "" || body.number == "")
+  //   return res.status(401).json({ error: "Not name or number" });
+  // Contact.findOne({ name: body.name })
+  //   .then((existingContact) => {
+  //     if (existingContact)
+  //       return res
+  //         .status(400)
+  //         .json({ Error: `Name: ${body.name} already exist` });
+  //     else {
+  //       const newContact = new Contact({
+  //         name: body.name,
+  //         number: body.number,
+  //       });
+  //       newContact.save().then((c) => res.status(201).json(c));
+  //     }
+  //   }).catch((err) => next(err));
 });
 
 //UPDATE
@@ -95,7 +99,11 @@ app.put("/api/persons/:id", (req, res, next) => {
     name: name,
     number: number,
   };
-  Contact.findByIdAndUpdate(id, contact, { new: true })
+  Contact.findByIdAndUpdate(id, contact, {
+    new: true,
+    runValidators: true,
+    context: "query",
+  })
     .then((contact) => {
       if (!contact) res.status(404).json({ err: "no such contact" });
       else res.status(200).json(contact);
