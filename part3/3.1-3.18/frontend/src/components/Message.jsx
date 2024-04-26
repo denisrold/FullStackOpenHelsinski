@@ -10,8 +10,12 @@ return (
         )
       }
 
-    const messageNotification = (setMessage,name,state)=>{
-        setMessage(name+"'s information has been "+ state)
+    const messageNotification = (setMessage,setErrorMessage,name,state,errors)=>{
+        if(errors)setMessage(errors);
+        else {
+          setErrorMessage(false);
+          setMessage(name+"'s information has been "+ state)}
+          
         setTimeout(()=>{
           setMessage(null);
         },4000)

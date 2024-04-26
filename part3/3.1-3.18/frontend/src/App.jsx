@@ -28,11 +28,6 @@ const App = () => {
   }
   ,[]);
  
-  useEffect(()=>{
-    setTimeout(()=>{
-      setErrorMessage(false);
-    },5000)
-},[errorMessage])
 
 useEffect(()=>{
   const filter = persons.filter((person) => { 
@@ -64,11 +59,11 @@ useEffect(()=>{
 
         services.update(id,editContact)
         .then(updatedPerson =>{
-          messageNotification(setMessage,updatedPerson.name, 'updated' );
+          messageNotification(setMessage,setErrorMessage,updatedPerson.name, 'updated' );
           setPersons(persons.map(person => person.id !== id ? person : updatedPerson))})
         .catch(err=>{
           setErrorMessage(true);
-          messageNotification(setMessage,newName,'deleted already from the server. Error.');
+          messageNotification(setMessage,setErrorMessage,newName,'deleted already from the server. Error.');
         })
         updateCotanct = true;
       }
@@ -78,18 +73,23 @@ useEffect(()=>{
 
     //CREATE CONTACT
     if(!updateCotanct){
-      const contactID = Math.random().toString();
       const newContact = {
         name:newName,
         number:newNumber,
-        id:contactID
       }
       
       services.create(newContact)
       .then(newPerson => {
-        messageNotification(setMessage,newPerson.name, 'created' );
-        setPersons([...persons,newPerson])})
-      .catch(error => console.log(error));
+        if(newPerson){   
+          messageNotification(setMessage,setErrorMessage,newPerson.name, 'created' );
+          setPersons([...persons,newPerson])
+        }
+      })
+      .catch(error => {
+        console.error(error.response.data.error)
+        setErrorMessage(true);
+        messageNotification(setMessage,setErrorMessage,"chamuko", 'created', error.response.data.error);
+      })
     }
 
     setNewFilter('');
@@ -102,7 +102,7 @@ useEffect(()=>{
   const handleDelete = (id)=>{
     services.deleteContact(id).catch(err=>console.log(err));
     setPersons((persons.filter(contact => contact.id != id)));
-    messageNotification(setMessage,persons.filter(contact => contact.id == id)[0].name, "deleted");
+    messageNotification(setMessage,setErrorMessage,persons.filter(contact => contact.id == id)[0].name, "deleted");
     setNewFilterPerson((persons.filter(contact => contact.id != id)));
   }
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "/api/persons";
+const baseUrl = "http://localhost:3001/api/persons";
 
 const getAll = () => {
   const request = axios.get(baseUrl);
@@ -10,6 +10,7 @@ const getAll = () => {
 const create = (newObject) => {
   const request = axios.post(baseUrl, newObject);
   return request.then((res) => res.data);
+  // .catch((err) => console.log(err.response.data.error));
 };
 
 const update = (id, newObject) => {
