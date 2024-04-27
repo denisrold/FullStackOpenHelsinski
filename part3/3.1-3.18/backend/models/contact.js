@@ -1,16 +1,16 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-//mongodb connection
+// mongodb connection
 const url = process.env.MONGODB_URI;
-mongoose.set("strictQuery", false);
+mongoose.set('strictQuery', false);
 mongoose
   .connect(url)
   .then((res) => {
-    console.log("Connected to MongoDB");
+    console.log('Connected to MongoDB');
   })
   .catch((error) => {
-    console.log("error connecting to MongoDB:", error.message);
+    console.log('error connecting to MongoDB:', error.message);
   });
 
 const phoneBookSchema = new mongoose.Schema({
@@ -28,21 +28,21 @@ const phoneBookSchema = new mongoose.Schema({
         const formatoValido = /^\d{2,6}-\d+$/;
         return formatoValido.test(value);
       },
-      message: (props) => `invalid number / format xxxx-xxxxxx`,
+      message: (props) => 'invalid number / format xxxx-xxxxxx',
     },
 
     required: true,
   },
 });
 
-//format mongo responses
-phoneBookSchema.set("toJSON", {
+// format mongo responses
+phoneBookSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    //transform object _id to string and add to the object response.
+    // transform object _id to string and add to the object response.
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
   },
 });
 
-module.exports = mongoose.model("Contact", phoneBookSchema);
+module.exports = mongoose.model('Contact', phoneBookSchema);
