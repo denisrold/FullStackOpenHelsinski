@@ -22,6 +22,7 @@ export default [
       "node_modules/**",
       "models/**",
       "mongoose/mongoose.js",
+      "utils/logger.js",
     ],
   },
   { languageOptions: { globals: globals.browser } },

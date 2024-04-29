@@ -1,18 +1,20 @@
-const morgan = require("morgan");
+const morgan = require('morgan');
 
-//MORGAN CONFIGURATION
+// MORGAN CONFIGURATION
+
 const requestMorgan = () => {
-  morgan.token("body", (req) => {
+  morgan.token('body', (req) => {
     if (Object.keys(req.body).length) {
       return JSON.stringify(req.body);
-    } else return;
+    }
+    return null;
   });
-  return morgan(":method :url :body");
+  return morgan(':method :url :body');
 };
 
-//404 NOT FOUND
+// 404 NOT FOUND
 const unknownEndPoint = (request, response) => {
-  response.status(404).send({ error: "unknown endpoint. 404 NOT FOUND" });
+  response.status(404).send({ error: 'unknown endpoint. 404 NOT FOUND' });
 };
 
 module.exports = { unknownEndPoint, requestMorgan };
