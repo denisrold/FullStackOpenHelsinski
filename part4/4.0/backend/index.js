@@ -5,7 +5,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const errorHandler = require("./utils/errorHandler");
 const { unknownEndPoint, requestMorgan } = require("./utils/middleware");
-const config = require("./utils/config");
+const { PORT } = require("./utils/config");
 const logger = require("./utils/logger");
 
 //MIDDLERWARES
@@ -22,8 +22,8 @@ app.use(unknownEndPoint);
 app.use(errorHandler);
 
 //SERVER ONLINE
-app.listen(config.PORT, () => {
-  logger.info(`\nServer running on port ${config.PORT}`);
+app.listen(PORT, () => {
+  logger.info(`\nServer running on port ${PORT}`);
 });
 
 //close app and mongodb disconnect.
@@ -33,7 +33,7 @@ app.on("close", () => {
     process.exit(0);
   });
 });
-process.on("SIGTERM", async () => {
+process.on("SIGINT", async () => {
   await mongoose.connection
     .close()
     .then(() => {

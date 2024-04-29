@@ -13,9 +13,6 @@ const noteSchema = new mongoose.Schema({
   important: Boolean,
 });
 
-// change to module.exports
-//const Note = mongoose.model("Note", noteSchema);
-
 noteSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     //transform object _id to string and add to the object response.
