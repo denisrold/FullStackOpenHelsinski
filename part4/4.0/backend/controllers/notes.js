@@ -4,8 +4,12 @@ const Note = require("../models/note");
 
 //ROUTES - ENDPOINTS
 notesRouter.get("/", async (request, response) => {
-  const res = await Note.find({}).catch((err) => next(err));
-  response.json(res);
+  try {
+    const res = await Note.find({});
+    response.json(res);
+  } catch (exception) {
+    next(exception);
+  }
 });
 
 notesRouter.get("/:id", (request, response, next) => {
@@ -44,17 +48,18 @@ notesRouter.delete("/:id", (req, res) => {
     .catch((err) => next(err));
 });
 
-notesRouter.post("", (request, response, next) => {
+notesRouter.post("", async (request, response, next) => {
   const body = request.body;
   const note = new Note({
     content: body.content,
     important: body.important || false,
   });
-
-  note
-    .save()
-    .then((savedNote) => response.status(201).json(note))
-    .catch((err) => next(err));
+  try {
+    const savedNote = await note.save();
+    response.status(201).json(savedNote);
+  } catch (exception) {
+    next(exception);
+  }
 });
 
 module.exports = notesRouter;
