@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const supertest = require("supertest");
 const app = require("../app");
 const helper = require("./test_helper");
+const note = require("../models/note");
 
 beforeEach(async () => {
   await Note.deleteMany({});
@@ -69,6 +70,28 @@ describe("newTesting", () => {
     const notesAtEnd = await helper.notesInDb();
 
     assert.strictEqual(notesAtEnd.length, helper.initialNotes.length);
+  });
+
+  test("a specific note can be viewed", async () => {
+    const notesAtStart = await helper.notesInDb();
+    const noteToView = notesAtStart[0];
+    const resultNote = await api
+      .get(`/api/notes/${noteToView.id}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    assert.deepStrictEqual(resultNote.body, noteToView);
+  });
+
+  test("note can be deleted", async () => {
+    const notesAtStart = await helper.notesInDb();
+    const noteToDelete = notesAtStart[0];
+    await api.delete(`/api/notes/${noteToDelete.id}`).expect(204);
+
+    const noteAtENd = await helper.notesInDb();
+
+    const notesEnd = noteAtENd.map((n) => n.content);
+    assert(!notesEnd.includes(noteToDelete.content));
+    assert.strictEqual(noteAtENd.length, notesAtStart.length - 1);
   });
 });
 

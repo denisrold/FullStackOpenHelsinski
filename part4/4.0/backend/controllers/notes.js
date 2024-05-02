@@ -41,11 +41,14 @@ notesRouter.put("/:id", (request, response, next) => {
     .catch((err) => next(err));
 });
 
-notesRouter.delete("/:id", (req, res) => {
+notesRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  Note.findByIdAndDelete(id)
-    .then((response) => res.status(200).json({ deleted: "OK" }))
-    .catch((err) => next(err));
+  try {
+    await Note.findByIdAndDelete(id);
+    res.status(204).json({ deleted: "OK" });
+  } catch (exception) {
+    next(exception);
+  }
 });
 
 notesRouter.post("", async (request, response, next) => {
