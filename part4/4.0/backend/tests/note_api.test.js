@@ -75,6 +75,7 @@ describe("newTesting", () => {
   test("a specific note can be viewed", async () => {
     const notesAtStart = await helper.notesInDb();
     const noteToView = notesAtStart[0];
+    console.log("ESTA ID NOTE", noteToView.id);
     const resultNote = await api
       .get(`/api/notes/${noteToView.id}`)
       .expect(200)

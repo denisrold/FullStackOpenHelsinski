@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+require("express-async-errors");
 const notesRouter = require("./controllers/notes");
 const cors = require("cors");
 const errorHandler = require("./utils/errorHandler");
