@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const supertest = require("supertest");
 const app = require("../app");
 const helper = require("./test_helper");
-const note = require("../models/note");
 
 beforeEach(async () => {
   await Note.deleteMany({});
@@ -71,12 +70,9 @@ describe("newTesting", () => {
     const newNote = {
       important: true,
     };
-
     await api.post("/api/notes").send(newNote).expect(400);
-
     //checking db
     const notesAtEnd = await helper.notesInDb();
-
     assert.strictEqual(notesAtEnd.length, helper.initialNotes.length);
   });
 
@@ -95,9 +91,7 @@ describe("newTesting", () => {
     const notesAtStart = await helper.notesInDb();
     const noteToDelete = notesAtStart[0];
     await api.delete(`/api/notes/${noteToDelete.id}`).expect(204);
-
     const noteAtENd = await helper.notesInDb();
-
     const notesEnd = noteAtENd.map((n) => n.content);
     assert(!notesEnd.includes(noteToDelete.content));
     assert.strictEqual(noteAtENd.length, notesAtStart.length - 1);
