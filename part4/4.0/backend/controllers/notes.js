@@ -3,10 +3,9 @@ const notesRouter = require("express").Router();
 const Note = require("../models/note");
 
 //ROUTES - ENDPOINTS
-notesRouter.get("/", (request, response) => {
-  Note.find({})
-    .then((result) => response.json(result))
-    .catch((err) => next(err));
+notesRouter.get("/", async (request, response) => {
+  const res = await Note.find({}).catch((err) => next(err));
+  response.json(res);
 });
 
 notesRouter.get("/:id", (request, response, next) => {
@@ -54,7 +53,7 @@ notesRouter.post("", (request, response, next) => {
 
   note
     .save()
-    .then((savedNote) => response.json(note))
+    .then((savedNote) => response.status(201).json(note))
     .catch((err) => next(err));
 });
 

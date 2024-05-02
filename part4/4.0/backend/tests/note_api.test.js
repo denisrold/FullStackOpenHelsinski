@@ -4,23 +4,13 @@ const assert = require("node:assert");
 const mongoose = require("mongoose");
 const supertest = require("supertest");
 const app = require("../app");
-
-const initialNotes = [
-  {
-    content: "HTML is easy",
-    important: false,
-  },
-  {
-    content: "Browser can execute only JavaScript",
-    important: true,
-  },
-];
+const helper = require("./test_helper");
 
 beforeEach(async () => {
   await Note.deleteMany({});
-  let noteObject = new Note(initialNotes[0]);
+  let noteObject = new Note(helper.initialNotes[0]);
   await noteObject.save();
-  noteObject = new Note(initialNotes[1]);
+  noteObject = new Note(helper.initialNotes[1]);
   await noteObject.save();
 });
 
@@ -36,7 +26,7 @@ describe("Testing Api Notes", () => {
   test("there are two notes", async () => {
     const response = await api.get("/api/notes");
 
-    assert.strictEqual(response.body.length, initialNotes.length);
+    assert.strictEqual(response.body.length, helper.initialNotes.length);
   });
 
   test("the first note is about HTTP methods", async () => {
@@ -44,6 +34,41 @@ describe("Testing Api Notes", () => {
     const contents = response.body.map((e) => e.content);
     //   assert.strictEqual(contents.includes("HTML is easy"), true);
     assert(contents.includes("HTML is easy"));
+  });
+});
+
+describe("newTesting", () => {
+  test("a valid note can be added ", async () => {
+    const newNote = {
+      content: "async/await simplifies making async calls",
+      important: true,
+    };
+
+    await api
+      .post("/api/notes")
+      .send(newNote)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+
+    //check db length
+    const notesAtEnd = await helper.notesInDb();
+    assert.strictEqual(notesAtEnd.length, helper.initialNotes.length + 1);
+    //checking exist added note.
+    const contents = notesAtEnd.map((n) => n.content);
+    assert(contents.includes("async/await simplifies making async calls"));
+  });
+
+  test("note without content is not added", async () => {
+    const newNote = {
+      important: true,
+    };
+
+    await api.post("/api/notes").send(newNote).expect(400);
+
+    //checking db
+    const notesAtEnd = await helper.notesInDb();
+
+    assert.strictEqual(notesAtEnd.length, helper.initialNotes.length);
   });
 });
 
