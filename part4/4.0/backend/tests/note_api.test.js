@@ -9,10 +9,18 @@ const note = require("../models/note");
 
 beforeEach(async () => {
   await Note.deleteMany({});
-  let noteObject = new Note(helper.initialNotes[0]);
-  await noteObject.save();
-  noteObject = new Note(helper.initialNotes[1]);
-  await noteObject.save();
+
+  //two forms of resolve PROMISES
+  // lineal order of note promises resolve.
+  // for (let note of helper.initialNotes) {
+  //   let newNote = new Note(note);
+  //   await newNote.save();
+  // }
+
+  //promiseAll Order together
+  const newNotes = helper.initialNotes.map((n) => new Note(n));
+  const promiseArray = newNotes.map((n) => n.save());
+  await Promise.all(promiseArray);
 });
 
 const api = supertest(app);
