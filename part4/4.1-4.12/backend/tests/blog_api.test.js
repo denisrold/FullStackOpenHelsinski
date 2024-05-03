@@ -115,11 +115,40 @@ describe("when there is initially some blogs saved", () => {
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length);
     });
   });
+
+  describe("upgrading a blog", () => {
+    test("blog can be upgraded", async () => {
+      const blogsAtStart = await helper.blogsInDb();
+      const blogToUpgrade = {
+        id: blogsAtStart[0].id,
+        likes: blogsAtStart[0].likes + 1,
+        title: blogsAtStart[0].title,
+        url: blogsAtStart[0].url,
+        author: blogsAtStart[0].author,
+      };
+
+      await api
+        .put(`/api/blogs/${blogToUpgrade.id}`)
+        .send(blogToUpgrade)
+        .expect(200);
+
+      const blogsAtENd = await helper.blogsInDb();
+      const blogsUpdatedIndex = blogsAtENd.findIndex(
+        (b) => b.title === blogsAtStart[0].title
+      );
+
+      assert.strictEqual(
+        blogsAtENd[blogsUpdatedIndex].likes,
+        blogsAtStart[0].likes + 1
+      );
+    });
+  });
+
   describe("deletion of a blog", () => {
-    test("blog can be deleted", async () => {
+    test("succeds with status code 204 if id is valid", async () => {
       const blogsAtStart = await helper.blogsInDb();
       const blogToDelete = blogsAtStart[0];
-      await api.delete(`/api/blogs/${blogToDelete.id}`).expect(200);
+      await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
       const blogAtENd = await helper.blogsInDb();
       const blogsEnd = blogAtENd.map((n) => n.title);
       assert(!blogsEnd.includes(blogToDelete.title));
