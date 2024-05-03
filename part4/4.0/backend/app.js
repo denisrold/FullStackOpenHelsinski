@@ -11,7 +11,7 @@ app.use(express.static("dist"));
 app.use(cors());
 app.use(express.json());
 //morgan configuration
-app.use(requestMorgan());
+if (!process.env.NOTE_ENV == "test") app.use(requestMorgan());
 //router
 app.use("/api/notes", notesRouter);
 //MIDDLEWARE 404 NOT FOUND / ERRORSHANDLER
