@@ -97,7 +97,9 @@ describe("When there is initially some notes saved", () => {
     test("succeds with status code 204 if id is valid", async () => {
       const notesAtStart = await helper.notesInDb();
       const noteToDelete = notesAtStart[0];
+
       await api.delete(`/api/notes/${noteToDelete.id}`).expect(204);
+
       const noteAtENd = await helper.notesInDb();
       const notesEnd = noteAtENd.map((n) => n.content);
       assert(!notesEnd.includes(noteToDelete.content));
