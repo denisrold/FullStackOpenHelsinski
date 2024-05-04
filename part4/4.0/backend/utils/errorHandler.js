@@ -2,11 +2,14 @@ const { error } = require("./logger");
 const errorHandler = (err, req, res, next) => {
   error(err.message);
   if (err.name === "CastError") res.status(400).send({ error: "Invalid ID" });
-  else if (err.name === "ValidationError") {
+  else if (err.name === "ValidationError")
     res.status(400).json({ error: err.message });
-  } else {
-    res.status(500).json({ error: "Internal server error" });
-  }
+  else if (
+    err.name === "MongoServerError" &&
+    err.message.includes("E11000 duplicate key error")
+  )
+    res.status(400).json({ error: "expected `username` to be unique" });
+  else res.status(500).json({ error: "Internal server error" });
   //next to other errors middlewares:
   next(err);
 };
