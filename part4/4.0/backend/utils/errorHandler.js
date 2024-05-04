@@ -9,7 +9,9 @@ const errorHandler = (err, req, res, next) => {
     err.message.includes("E11000 duplicate key error")
   )
     res.status(400).json({ error: "expected `username` to be unique" });
-  else res.status(500).json({ error: "Internal server error" });
+  else if (error.name === "JsonWebTokenError") {
+    return response.status(401).json({ error: "token invalid" });
+  } else res.status(500).json({ error: "Internal server error" });
   //next to other errors middlewares:
   next(err);
 };
