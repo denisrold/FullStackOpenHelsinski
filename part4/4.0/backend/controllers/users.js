@@ -12,10 +12,15 @@ usersRouter.get("/", async (request, response) => {
 
 usersRouter.post("/", async (request, response) => {
   const { username, name, password } = request.body;
-  // const existingUser = await User.findOne({ username });
-  // // if (existingUser) {
-  // //   response.status(400).json({ error: "expected `username` to be unique" });
-  // // }
+  //password verify
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+  if (!passwordRegex.test(password)) {
+    return response.status(400).json({
+      error:
+        "Password must contain at least 8 characters, including at least one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*).",
+    });
+  }
+  //password hash
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
   const user = new User({
