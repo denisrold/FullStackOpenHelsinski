@@ -11,6 +11,10 @@ const errorHandler = (err, req, res, next) => {
     res.status(400).json({ error: "expected `username` to be unique" });
   else if (error.name === "JsonWebTokenError") {
     return response.status(401).json({ error: "token invalid" });
+  } else if (error.name === "TokenExpiredError") {
+    return response.status(401).json({
+      error: "token expired",
+    });
   } else res.status(500).json({ error: "Internal server error" });
   //next to other errors middlewares:
   next(err);
