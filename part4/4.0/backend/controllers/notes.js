@@ -49,7 +49,12 @@ notesRouter.delete("/:id", async (req, res) => {
 
 notesRouter.post("", async (request, response) => {
   const body = request.body;
+
+  if (getTokenFrom(request) === null) {
+    return response.status(401).json({ error: "token invalid" });
+  }
   const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET);
+
   if (!decodedToken.id) {
     return response.status(401).json({ error: "token invalid" });
   }

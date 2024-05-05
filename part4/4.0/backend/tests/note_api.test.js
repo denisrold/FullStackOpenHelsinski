@@ -42,7 +42,6 @@ describe("When there is initially some notes saved", () => {
   test("a specific is within returned notes", async () => {
     const response = await api.get("/api/notes");
     const contents = response.body.map((e) => e.content);
-    //   assert.strictEqual(contents.includes("HTML is easy"), true);
     assert(contents.includes("HTML is easy"));
   });
 
@@ -92,7 +91,18 @@ describe("When there is initially some notes saved", () => {
       const contents = notesAtEnd.map((n) => n.content);
       assert(contents.includes("async/await simplifies making async calls"));
     });
-
+    test("fails with status code 401 if no token", async () => {
+      let tokenInfo = await helper.userToken("useruseruser");
+      const newNote = {
+        important: true,
+        userId: new mongoose.Types.ObjectId(tokenInfo.id),
+      };
+      await api.post("/api/notes").send(newNote).expect(401);
+      //checking db
+      const notesAtEnd = await helper.notesInDb();
+      const initialNotes = await helper.initialNotes();
+      assert.strictEqual(notesAtEnd.length, initialNotes.length);
+    });
     test("fails with status code 400 if data invalid", async () => {
       let tokenInfo = await helper.userToken();
 
