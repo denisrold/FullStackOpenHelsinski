@@ -8,12 +8,15 @@ const helper = require("./test_helper");
 
 beforeEach(async () => {
   await Note.deleteMany({});
+  //User for Token
+
   //two forms of resolve PROMISES
   // lineal order of note promises resolve.
   // for (let note of helper.initialNotes) {
   //   let newNote = new Note(note);
   //   await newNote.save();
   // }
+  await helper.userForToken();
   const notes = await helper.initialNotes();
   //promiseAll Order together
   const newNotes = notes.map((n) => new Note(n));
@@ -52,6 +55,7 @@ describe("When there is initially some notes saved", () => {
         .expect(200)
         .expect("Content-Type", /application\/json/);
       const resultNoteID = new mongoose.Types.ObjectId(resultNote.body.userId);
+      resultNote.body.userId = resultNoteID;
       assert.deepStrictEqual(resultNote.body, noteToView);
     });
     test("fails with a status code 404 invalid note id not found", async () => {
@@ -66,33 +70,45 @@ describe("When there is initially some notes saved", () => {
 
   describe("adition of a new note", () => {
     test("succeds with valid data", async () => {
+      let tokenInfo = await helper.userToken();
       const newNote = {
         content: "async/await simplifies making async calls",
         important: true,
+        userId: new mongoose.Types.ObjectId(tokenInfo.id),
       };
 
       await api
         .post("/api/notes")
+        .set("Authorization", `Bearer ${tokenInfo.token}`)
         .send(newNote)
         .expect(201)
         .expect("Content-Type", /application\/json/);
 
       //check db length
       const notesAtEnd = await helper.notesInDb();
-      assert.strictEqual(notesAtEnd.length, helper.initialNotes.length + 1);
+      const intialNotes = await helper.initialNotes();
+      assert.strictEqual(notesAtEnd.length, intialNotes.length + 1);
       //checking exist added note.
       const contents = notesAtEnd.map((n) => n.content);
       assert(contents.includes("async/await simplifies making async calls"));
     });
 
     test("fails with status code 400 if data invalid", async () => {
+      let tokenInfo = await helper.userToken();
+
       const newNote = {
         important: true,
+        userId: new mongoose.Types.ObjectId(tokenInfo.id),
       };
-      await api.post("/api/notes").send(newNote).expect(400);
+      await api
+        .post("/api/notes")
+        .send(newNote)
+        .set("Authorization", `Bearer ${tokenInfo.token}`)
+        .expect(400);
       //checking db
       const notesAtEnd = await helper.notesInDb();
-      assert.strictEqual(notesAtEnd.length, helper.initialNotes.length);
+      const initialNotes = await helper.initialNotes();
+      assert.strictEqual(notesAtEnd.length, initialNotes.length);
     });
   });
   describe("deletion of a note", () => {

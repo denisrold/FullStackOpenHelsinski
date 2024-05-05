@@ -11,15 +11,12 @@ const api = supertest(app);
 describe("when there is initially users in db", () => {
   beforeEach(async () => {
     await User.deleteMany({});
-
     const passwordHash = await bcrypt.hash("sekret", 10);
-
     const user = new User({
       username: "root",
       passwordHash,
       name: "usu ario2",
     });
-
     await user.save();
   });
   describe("User Creation", () => {
