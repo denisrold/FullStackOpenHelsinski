@@ -1,29 +1,35 @@
 const Note = require("../models/note");
 const User = require("../models/user");
+const mongoose = require("mongoose");
 
-const initialNotes = [
-  {
-    content: "HTML is easy",
-    important: false,
-  },
-  {
-    content: "Browser can execute only JavaScript",
-    important: true,
-  },
-];
+async function initialNotes() {
+  const userList = await usersInDb();
+  return (initialNotes = [
+    {
+      content: "HTML is easy",
+      important: false,
+      userId: new mongoose.Types.ObjectId(userList[0].id),
+    },
+    {
+      content: "Browser can execute only JavaScript",
+      important: true,
+      userId: new mongoose.Types.ObjectId(userList[0].id),
+    },
+  ]);
+}
 
-const initialUsers = [
-  {
-    username: "usuario1",
-    name: "usu ario1",
-    password: "123456",
-  },
-  {
-    username: "usuario2",
-    name: "usu ario2",
-    password: "123456",
-  },
-];
+// const initialNotes = [
+//   {
+//     content: "HTML is easy",
+//     important: false,
+//     userId:
+//   },
+//   {
+//     content: "Browser can execute only JavaScript",
+//     important: true,
+//   },
+// ];
+
 const nonExistingId = async () => {
   const note = new Note({ content: "willremovethissoon" });
   await note.save();
@@ -44,7 +50,6 @@ const usersInDb = async () => {
 
 module.exports = {
   initialNotes,
-  initialUsers,
   nonExistingId,
   notesInDb,
   usersInDb,

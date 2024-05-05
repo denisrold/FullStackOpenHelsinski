@@ -8,16 +8,15 @@ const helper = require("./test_helper");
 
 beforeEach(async () => {
   await Note.deleteMany({});
-
   //two forms of resolve PROMISES
   // lineal order of note promises resolve.
   // for (let note of helper.initialNotes) {
   //   let newNote = new Note(note);
   //   await newNote.save();
   // }
-
+  const notes = await helper.initialNotes();
   //promiseAll Order together
-  const newNotes = helper.initialNotes.map((n) => new Note(n));
+  const newNotes = notes.map((n) => new Note(n));
   const promiseArray = newNotes.map((n) => n.save());
   await Promise.all(promiseArray);
 });
@@ -33,7 +32,8 @@ describe("When there is initially some notes saved", () => {
 
   test("all notes are returned", async () => {
     const response = await api.get("/api/notes");
-    assert.strictEqual(response.body.length, helper.initialNotes.length);
+    const notesLength = await helper.initialNotes();
+    assert.strictEqual(response.body.length, notesLength.length);
   });
 
   test("a specific is within returned notes", async () => {
@@ -42,6 +42,7 @@ describe("When there is initially some notes saved", () => {
     //   assert.strictEqual(contents.includes("HTML is easy"), true);
     assert(contents.includes("HTML is easy"));
   });
+
   describe("viewing a specific Note", () => {
     test("succeds with a valid ID", async () => {
       const notesAtStart = await helper.notesInDb();
@@ -50,6 +51,7 @@ describe("When there is initially some notes saved", () => {
         .get(`/api/notes/${noteToView.id}`)
         .expect(200)
         .expect("Content-Type", /application\/json/);
+      const resultNoteID = new mongoose.Types.ObjectId(resultNote.body.userId);
       assert.deepStrictEqual(resultNote.body, noteToView);
     });
     test("fails with a status code 404 invalid note id not found", async () => {
