@@ -10,9 +10,9 @@ const errorHandler = (err, req, res, next) => {
     err.message.includes("E11000 duplicate key error")
   )
     res.status(400).json({ error: "expected `username` to be unique" });
-  else if (error.name === "JsonWebTokenError") {
+  else if (err.name === "JsonWebTokenError") {
     return res.status(401).json({ error: "token invalid" });
-  } else if (error.name === "TokenExpiredError") {
+  } else if (err.name === "TokenExpiredError") {
     return res.status(401).json({
       error: "token expired",
     });

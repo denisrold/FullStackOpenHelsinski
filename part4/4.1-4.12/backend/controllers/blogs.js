@@ -16,11 +16,7 @@ blogsRouter.post("", async (request, response) => {
   if (request.token === undefined)
     return response.status(401).json({ error: "token invalid" });
 
-  const decodeToken = jwt.verify(request.token, process.env.SECRET);
-  if (!decodeToken.id)
-    return response.status(401).json({ error: "token invalid" });
-
-  const user = await User.findById(decodeToken.id);
+  const user = await User.findById(request.user.id);
   if (!user) return response.status(401).json({ error: "invalid userId" });
 
   user.blogs = user.blogs.concat(blog.id);
@@ -61,9 +57,8 @@ blogsRouter.delete("/:id", async (req, res) => {
   if (req.token === undefined) {
     res.status(401).json({ error: "Invalid token" });
   }
-  const userToken = jwt.verify(req.token, process.env.SECRET);
   const blog = await Blog.findById(id);
-  if (blog.userId != userToken.id) {
+  if (blog.userId != req.user.id) {
     res.status(401).json({ error: "Invalid User Authorization" });
   }
   await Blog.findByIdAndDelete(id);
