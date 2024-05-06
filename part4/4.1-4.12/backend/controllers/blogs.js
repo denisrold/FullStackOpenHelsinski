@@ -13,7 +13,7 @@ blogsRouter.get("", async (request, response, next) => {
 
 blogsRouter.post("", async (request, response) => {
   const blog = new Blog(request.body);
-  if (request.token === null)
+  if (request.token === undefined)
     return response.status(401).json({ error: "token invalid" });
 
   const decodeToken = jwt.verify(request.token, process.env.SECRET);
@@ -58,6 +58,14 @@ blogsRouter.put("/:id", async (request, response) => {
 
 blogsRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;
+  if (req.token === undefined) {
+    res.status(401).json({ error: "Invalid token" });
+  }
+  const userToken = jwt.verify(req.token, process.env.SECRET);
+  const blog = await Blog.findById(id);
+  if (blog.userId != userToken.id) {
+    res.status(401).json({ error: "Invalid User Authorization" });
+  }
   await Blog.findByIdAndDelete(id);
   res.status(204).json({ deleted: "OK" });
 });
