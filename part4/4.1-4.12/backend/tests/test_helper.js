@@ -1,4 +1,21 @@
 const Blog = require("../models/blog");
+const User = require("../models/user");
+
+async function initialBlogsFn() {
+  const userList = await usersInDb();
+  return (initialBlogs = [
+    {
+      content: "HTML is easy",
+      important: false,
+      userId: new mongoose.Types.ObjectId(userList[0].id),
+    },
+    {
+      content: "Browser can execute only JavaScript",
+      important: true,
+      userId: new mongoose.Types.ObjectId(userList[0].id),
+    },
+  ]);
+}
 
 const initialBlogs = [
   {
@@ -29,9 +46,14 @@ const blogsInDb = async () => {
   const blogs = await Blog.find({});
   return blogs.map((blog) => blog.toJSON());
 };
+const usersInDb = async () => {
+  const users = await User.find({});
+  return users.map((blog) => blog.toJSON());
+};
 
 module.exports = {
   initialBlogs,
+  usersInDb,
   nonExistingId,
   blogsInDb,
 };

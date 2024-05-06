@@ -3,6 +3,7 @@ const app = express();
 require("express-async-errors");
 const cors = require("cors");
 const blogsRouter = require("./controllers/blogs");
+const usersRouter = require("./controllers/users");
 const { requestMorgan, unknownEndPoint } = require("./utils/middleware");
 const errorHandler = require("./utils/errorHandler");
 
@@ -10,6 +11,7 @@ const errorHandler = require("./utils/errorHandler");
 app.use(cors());
 app.use(express.json());
 if (!process.env.NODE_ENV == "test") app.use(requestMorgan());
+app.use("/api/users", usersRouter);
 app.use("/api/blogs", blogsRouter);
 app.use(unknownEndPoint);
 app.use(errorHandler);
