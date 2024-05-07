@@ -15,7 +15,6 @@ blogsRouter.post("", async (request, response) => {
   const blog = new Blog(request.body);
   if (request.token === undefined)
     return response.status(401).json({ error: "token invalid" });
-
   const user = await User.findById(request.user.id);
   if (!user) return response.status(401).json({ error: "invalid userId" });
 

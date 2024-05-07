@@ -1,6 +1,6 @@
 const Blog = require("../models/blog");
 const User = require("../models/user");
-const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
 async function initialBlogsFn() {
   await User.deleteMany({});
@@ -44,10 +44,24 @@ const usersInDb = async () => {
   const users = await User.find({});
   return users.map((blog) => blog.toJSON());
 };
+const userToken = async (req, res) => {
+  const user = await usersInDb();
+  const userIndex = user.findIndex((u) => u.username == "root");
+  const userForToken = {
+    username: user[userIndex].username,
+    id: user[userIndex].id,
+  };
+
+  const token = jwt.sign(userForToken, process.env.SECRET, {
+    expiresIn: 60 * 60,
+  });
+  return { token, id: user[userIndex].id };
+};
 
 module.exports = {
   initialBlogsFn,
   usersInDb,
   nonExistingId,
   blogsInDb,
+  userToken,
 };

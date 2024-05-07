@@ -61,64 +61,87 @@ describe("when there is initially some blogs saved", () => {
     });
   });
 
-  //  describe("adition of a new blog", () => {
-  //     test("succeds with valid data", async () => {
-  //       const blogAdd = {
-  //         title: "Esto es el titulo de testing",
-  //         author: "Juan Nieve",
-  //         url: "https://estaeslaurl.com",
-  //         likes: 200,
-  //       };
+  describe("adition of a new blog", () => {
+    test("succeds with valid data", async () => {
+      const initialBlogs = await helper.initialBlogsFn();
+      const token = await helper.userToken();
+      const blogAdd = {
+        title: "Esto es el titulo de testing",
+        author: "Juan Nieve",
+        url: "https://estaeslaurl.com",
+        likes: 200,
+        userId: token.id,
+      };
 
-  //       await api
-  //         .post("/api/blogs")
-  //         .send(blogAdd)
-  //         .expect(201)
-  //         .expect("Content-Type", /application\/json/);
+      await api
+        .post("/api/blogs")
+        .set("Authorization", `Bearer ${token.token}`)
+        .send(blogAdd)
+        .expect(201)
+        .expect("Content-Type", /application\/json/);
+      const blogAtEnd = await helper.blogsInDb();
+      assert.strictEqual(blogAtEnd.length, initialBlogs.length + 1);
+      const blogsTitles = blogAtEnd.map((n) => n.title);
+      assert(blogsTitles.includes("Esto es el titulo de testing"));
+    });
+    test("fails with a status 401  unauthorized", async () => {
+      const token = await helper.userToken();
+      const initialBlogs = await helper.initialBlogsFn();
+      const noteAdd = {
+        title: "Esto es el titulo de testing",
+        author: "Juan Nieve",
+        url: "https://estaeslaurl.com",
+        likes: 200,
+        userId: new mongoose.Types.ObjectId(token.id),
+      };
 
-  //       const blogAtEnd = await helper.blogsInDb();
-  //       assert.strictEqual(blogAtEnd.length, helper.initialBlogs.length + 1);
-  //       const blogsTitles = blogAtEnd.map((n) => n.title);
-  //       assert(blogsTitles.includes("Esto es el titulo de testing"));
-  //     });
+      await api.post("/api/blogs").send(noteAdd).expect(401);
+      const notesAtEnd = await helper.blogsInDb();
+      assert.strictEqual(notesAtEnd.length, initialBlogs.length);
+    });
 
-  //     test("fails with a status 400 if data invalid", async () => {
-  //       const noteAdd = {
-  //         author: "Juan Nieve",
-  //         url: "https://estaeslaurl.com",
-  //         likes: 200,
-  //       };
+    test("fails with a status 400 if data invalid", async () => {
+      const initialBlogs = await helper.initialBlogsFn();
+      const token = await helper.userToken();
+      const blogAdd = {
+        author: "Juan Nieve",
+        url: "https://estaeslaurl.com",
+        likes: 200,
+        userId: token.id,
+      };
 
-  //       await api.post("/api/blogs").send(noteAdd).expect(400);
-  //       const notesAtEnd = await helper.blogsInDb();
-  //       assert.strictEqual(notesAtEnd.length, helper.initialBlogs.length);
-  //     });
-  //     test("a blog without likes, likes default is zero", async () => {
-  //       const noteAdd = {
-  //         title: "El Titulo del Blog",
-  //         author: "Juan Nieve",
-  //         url: "https://estaeslaurl.com",
-  //       };
+      await api
+        .post("/api/blogs")
+        .set("Authorization", `Bearer ${token.token}`)
+        .send(blogAdd)
+        .expect(400)
+        .expect("Content-Type", /application\/json/);
+      const blogAtEnd = await helper.blogsInDb();
+      assert.strictEqual(blogAtEnd.length, initialBlogs.length);
+    });
+    test("a blog without likes, likes default is zero", async () => {
+      const token = await helper.userToken();
+      const noteAdd = {
+        title: "El Titulo del Blog",
+        author: "Juan Nieve",
+        url: "https://estaeslaurl.com",
+        userId: token.id,
+      };
 
-  //       await api.post("/api/blogs").send(noteAdd).expect(201);
-  //       const notesAtEnd = await helper.blogsInDb();
-  //       const indexNote = notesAtEnd.findIndex(
-  //         (b) => b.title === "El Titulo del Blog"
-  //       );
-  //       assert(notesAtEnd[indexNote].likes == 0);
-  //       assert.strictEqual(notesAtEnd.length, helper.initialBlogs.length + 1);
-  //     });
-
-  //     test("fails with a status 400 if data invalid", async () => {
-  //       const blogAdd = {
-  //         author: "Juan Nieve",
-  //         likes: 200,
-  //       };
-  //       await api.post("/api/blogs").send(blogAdd).expect(400);
-  //       const blogsAtEnd = await helper.blogsInDb();
-  //       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length);
-  //     });
-  //   });
+      await api
+        .post("/api/blogs")
+        .set("Authorization", `Bearer ${token.token}`)
+        .send(noteAdd)
+        .expect(201);
+      const notesAtEnd = await helper.blogsInDb();
+      const indexNote = notesAtEnd.findIndex(
+        (b) => b.title === "El Titulo del Blog"
+      );
+      assert(notesAtEnd[indexNote].likes == 0);
+      const initialBlogs = await helper.initialBlogsFn();
+      assert.strictEqual(notesAtEnd.length, initialBlogs.length + 1);
+    });
+  });
 
   //   describe("upgrading a blog", () => {
   //     test("blog can be upgraded", async () => {
