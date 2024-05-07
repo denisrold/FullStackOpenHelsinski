@@ -143,45 +143,64 @@ describe("when there is initially some blogs saved", () => {
     });
   });
 
-  //   describe("upgrading a blog", () => {
-  //     test("blog can be upgraded", async () => {
-  //       const blogsAtStart = await helper.blogsInDb();
-  //       const blogToUpgrade = {
-  //         id: blogsAtStart[0].id,
-  //         likes: blogsAtStart[0].likes + 1,
-  //         title: blogsAtStart[0].title,
-  //         url: blogsAtStart[0].url,
-  //         author: blogsAtStart[0].author,
-  //       };
+  describe("upgrading a blog", () => {
+    test("blog can be upgraded", async () => {
+      const blogsAtStart = await helper.blogsInDb();
+      const blogToUpgrade = {
+        id: blogsAtStart[0].id,
+        likes: blogsAtStart[0].likes + 1,
+        title: blogsAtStart[0].title,
+        url: blogsAtStart[0].url,
+        author: blogsAtStart[0].author,
+        userId: blogsAtStart[0].userId,
+      };
 
-  //       await api
-  //         .put(`/api/blogs/${blogToUpgrade.id}`)
-  //         .send(blogToUpgrade)
-  //         .expect(200);
+      await api
+        .put(`/api/blogs/${blogToUpgrade.id}`)
+        .send(blogToUpgrade)
+        .expect(200);
 
-  //       const blogsAtENd = await helper.blogsInDb();
-  //       const blogsUpdatedIndex = blogsAtENd.findIndex(
-  //         (b) => b.title === blogsAtStart[0].title
-  //       );
+      const blogsAtENd = await helper.blogsInDb();
+      const blogsUpdatedIndex = blogsAtENd.findIndex(
+        (b) => b.title === blogsAtStart[0].title
+      );
+      assert.strictEqual(
+        blogsAtENd[blogsUpdatedIndex].likes,
+        blogsAtStart[0].likes + 1
+      );
+    });
+  });
 
-  //       assert.strictEqual(
-  //         blogsAtENd[blogsUpdatedIndex].likes,
-  //         blogsAtStart[0].likes + 1
-  //       );
-  //     });
-  //   });
+  describe("deletion of a blog", () => {
+    test("succeds with status code 204 if id is valid", async () => {
+      const token = await helper.userToken();
+      const blogsAtStart = await helper.blogsInDb();
+      const blogToDelete = blogsAtStart[0];
 
-  //   describe("deletion of a blog", () => {
-  //     test("succeds with status code 204 if id is valid", async () => {
-  //       const blogsAtStart = await helper.blogsInDb();
-  //       const blogToDelete = blogsAtStart[0];
-  //       await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
-  //       const blogAtENd = await helper.blogsInDb();
-  //       const blogsEnd = blogAtENd.map((n) => n.title);
-  //       assert(!blogsEnd.includes(blogToDelete.title));
-  //       assert.strictEqual(blogAtENd.length, blogsAtStart.length - 1);
-  //     });
-  //   });
+      await api
+        .delete(`/api/blogs/${blogToDelete.id}`)
+        .set("Authorization", `Bearer ${token.token}`)
+        .expect(204);
+      const blogAtENd = await helper.blogsInDb();
+      const blogsEnd = blogAtENd.map((n) => n.title);
+      assert(!blogsEnd.includes(blogToDelete.title));
+      assert.strictEqual(blogAtENd.length, blogsAtStart.length - 1);
+    });
+    test("fails with status code 400 if id is invalid", async () => {
+      const token = await helper.userToken();
+      const invalidID = "asdads";
+      await api
+        .delete(`/api/blogs/${invalidID}`)
+        .set("Authorization", `Bearer ${token.token}`)
+        .expect(400);
+    });
+    test("fails with status code 401 unauthorized if no valid token", async () => {
+      const blogsAtStart = await helper.blogsInDb();
+      const blogToDelete = blogsAtStart[0];
+      const invalidID = "asdads";
+      await api.delete(`/api/blogs/${blogToDelete.id}`).expect(401);
+    });
+  });
 });
 
 after(async () => {
