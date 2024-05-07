@@ -5,14 +5,6 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 //ROUTES - ENDPOINTS
 
-const getTokenFrom = (request) => {
-  const authorization = request.get("authorization");
-  if (authorization && authorization.startsWith("Bearer ")) {
-    return authorization.replace("Bearer ", "");
-  }
-  return null;
-};
-
 notesRouter.get("/", async (request, response) => {
   const res = await Note.find({}).populate("userId", { username: 1, name: 1 });
   response.json(res);
@@ -43,6 +35,14 @@ notesRouter.put("/:id", async (request, response) => {
 
 notesRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;
+
+  if (req.token === undefined) {
+    res.status(401).json({ error: "Invalid token" });
+  }
+  const note = await Note.findById(id);
+  if (note.userId != req.user.id) {
+    res.status(401).json({ error: "Invalid User Authorization" });
+  }
   await Note.findByIdAndDelete(id);
   res.status(204).json({ deleted: "OK" });
 });
@@ -50,16 +50,10 @@ notesRouter.delete("/:id", async (req, res) => {
 notesRouter.post("", async (request, response) => {
   const body = request.body;
 
-  if (getTokenFrom(request) === null) {
+  if (request.token === undefined) {
     return response.status(401).json({ error: "token invalid" });
   }
-  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET);
-
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: "token invalid" });
-  }
-
-  const user = await User.findById(decodedToken.id);
+  const user = await User.findById(request.user.id);
   const note = new Note({
     content: body.content,
     important: body.important === "undefined" ? false : body.important,

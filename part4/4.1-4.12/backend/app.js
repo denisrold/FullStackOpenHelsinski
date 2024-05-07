@@ -8,7 +8,7 @@ const usersRouter = require("./controllers/users");
 const {
   requestMorgan,
   unknownEndPoint,
-  tokenExtractor,
+  userExtractor,
 } = require("./utils/middleware");
 const errorHandler = require("./utils/errorHandler");
 
@@ -17,8 +17,8 @@ app.use(cors());
 app.use(express.json());
 if (!process.env.NODE_ENV == "test") app.use(requestMorgan());
 app.use("/api/login", loginRouter);
-app.use("/api/users", tokenExtractor, usersRouter);
-app.use("/api/blogs", tokenExtractor, blogsRouter);
+app.use("/api/users", userExtractor, usersRouter);
+app.use("/api/blogs", userExtractor, blogsRouter);
 app.use(unknownEndPoint);
 app.use(errorHandler);
 

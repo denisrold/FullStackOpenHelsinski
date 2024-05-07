@@ -18,7 +18,7 @@ const unknownEndPoint = (request, response) => {
   response.status(404).send({ error: "unknown endpoint. 404 NOT FOUND" });
 };
 
-const tokenExtractor = (request, response, next) => {
+const userExtractor = (request, response, next) => {
   const authorization = request.get("authorization");
   if (authorization && authorization.startsWith("Bearer ")) {
     request.token = authorization.replace("Bearer ", "");
@@ -28,4 +28,4 @@ const tokenExtractor = (request, response, next) => {
   next();
 };
 
-module.exports = { unknownEndPoint, requestMorgan, tokenExtractor };
+module.exports = { unknownEndPoint, requestMorgan, userExtractor };
