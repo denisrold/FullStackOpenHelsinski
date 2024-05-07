@@ -1,27 +1,27 @@
-const Blog = require("../models/blog");
-const User = require("../models/user");
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
+const Blog = require('../models/blog');
+const User = require('../models/user');
 
 async function initialBlogsFn() {
   await User.deleteMany({});
   const user = await User.create({
-    username: "root",
-    name: "User",
-    password: "Password123*",
+    username: 'root',
+    name: 'User',
+    password: 'Password123*',
   });
   const id = user._id;
   return [
     {
-      title: "tremendo primer blog",
-      author: "jhon primero",
-      url: "https://estaeslaurl.com",
+      title: 'tremendo primer blog',
+      author: 'jhon primero',
+      url: 'https://estaeslaurl.com',
       likes: 392,
       userId: id,
     },
     {
-      title: "Esto es el tituo de un blog dos",
-      author: "Este es el nombre del autor",
-      url: "https://estaeslaurl.com",
+      title: 'Esto es el tituo de un blog dos',
+      author: 'Este es el nombre del autor',
+      url: 'https://estaeslaurl.com',
       likes: 100,
       userId: id,
     },
@@ -29,7 +29,7 @@ async function initialBlogsFn() {
 }
 
 const nonExistingId = async () => {
-  const blog = new Blog({ content: "willremovethissoon" });
+  const blog = new Blog({ content: 'willremovethissoon' });
   await blog.save();
   await blog.deleteOne();
 
@@ -46,7 +46,7 @@ const usersInDb = async () => {
 };
 const userToken = async (req, res) => {
   const user = await usersInDb();
-  const userIndex = user.findIndex((u) => u.username == "root");
+  const userIndex = user.findIndex((u) => u.username == 'root');
   const userForToken = {
     username: user[userIndex].username,
     id: user[userIndex].id,
