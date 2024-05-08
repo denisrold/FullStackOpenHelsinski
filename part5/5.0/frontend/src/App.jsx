@@ -5,12 +5,16 @@ import Button from "../components/Button";
 import noteService from './services/notes'
 import Notifications from '../components/Notifications'
 import Footer from '../components/Footer';
+import login from "./services/login";
 
 const App = () => {
   const [notesArray,setNotesArray] = useState([]);
   const [newNote,setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [username,setUsername] = useState('');
+  const [password,setPassword] = useState('');
+  const [user,setUser] = useState(null);
 
    useEffect(()=>{
    !notesArray.length ? noteService.getAll()
@@ -18,6 +22,28 @@ const App = () => {
 }
   ,[notesArray]);
 
+
+  //LOGIN
+  const handleLoggin =async  (event)=>{
+    event.preventDefault();
+    try{
+    const userLog = await login({username,password});
+    setUser(userLog);
+    setUsername('');
+    setPassword('');
+    console.log(user);
+  } catch(err){
+    setErrorMessage(err.response.data.error.replace(err.response.data.error[0],err.response.data.error[0].toUpperCase()) + '.')
+    setTimeout(() => {
+      setErrorMessage(null)
+    }, 3000)
+  }
+  
+};
+//handle logout
+const handleLogout=()=>{
+  setUser(null);
+}
   //SERVER COMMUNICATION
   const addNote = (event) => {
     event.preventDefault();
@@ -63,14 +89,33 @@ const App = () => {
 
   return (
     <div>
-      <h1>Notes</h1>
+      <h1 id="NOTES">Notes</h1>
+      {user&&
+      <div className="LogoutSesion">
+      <button className="sesionclose"  onClick={handleLogout}>Logout</button>
+      </div>}
+      {!user&&
+      <form className="userForm">
+        <div>
+          <input name="Username" type="text" value={username} onChange={(target)=>setUsername(target.target.value)} placeholder="Username" />
+        </div>
+        <div>
+          <input name="Password" type="password" value={password} onChange={(target)=>setPassword(target.target.value)} placeholder="Password" />
+        </div>
+        <button type="submit" onClick={handleLoggin}>Login</button>
+      </form>}
       <Notifications message={errorMessage} />
+      
+      {user &&
+      <>
       <Form addNote={addNote} handleNoteChange={handleNoteChange} value={newNote} /> 
       <Button setShowAll={setShowAll} showAll={showAll}/>
       <ul>
       {notesToShow.map((note)=><Note key={note.id} id={note.id} content={note.content} important={note.important} toggleImportance={toggleImportanceOf}/>)} 
       </ul>
       <Footer />
+      </>
+      }
     </div>
   )
 }
