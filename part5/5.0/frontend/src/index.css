@@ -38,11 +38,15 @@ h1{
     border-radius: 1rem;
     margin: 5rem auto 0 auto;
   }
+  .userForm input{
+    box-shadow:inset 0px 0px 5px rgba(51, 255, 0, 0.5) ;
+   
+  }
   .userForm div:nth-child(1){
     margin-top: 1rem;
   }
   .userForm button{
-    border: 3px solid black;
+    border:transparent;
 
   }
 button, form input{
@@ -52,11 +56,10 @@ button, form input{
   margin: 1rem;
   /* background-color: rgb(199, 252, 189); */
   font-size: large;
-  box-shadow: 3px 0.5px 5px rgba(0, 0, 0, 0.607);
+  border: transparent;
+  box-shadow: 1px 2px 10px rgba(51, 255, 0, 0.7)
 }
-form input{
-  border: solid 3px rgb(0, 0, 0);
-}form input:focus{
+form input:focus{
   outline: none;
 }
 
@@ -70,21 +73,26 @@ button:active{
 
 ul{
   list-style-type: none;
+  
 }
 
 form {
 display: flex;
 justify-content: center;
+
 }
 
 .important_btn {
   display: flex;
   justify-content: center;
+ 
   
 }
 .important_btn button{
-  padding: 1rem 30%;box-shadow: 1px 2px 10px rgba(51, 255, 0, 0.5) ;
+  padding: 1rem 30%;
+  box-shadow: 1px 2px 10px rgba(51, 255, 0, 0.7) ;
   font-weight:lighter;
+  border: transparent;
 
 }
 
@@ -95,6 +103,7 @@ justify-content: center;
 }
 
 .noteContent{
+  
   padding: 0 4rem;
   display: flex;
   justify-content: space-between;
@@ -117,17 +126,19 @@ justify-content: center;
     align-items: center;
     font-weight: bold;
     margin-top: 2rem;
+    background-color: rgba(0, 255, 0, 0.545);
+    margin: 0 -1rem -1rem -1rem;
 }
 
 .gotop{
-  box-shadow: 1px 2px 10px rgba(51, 255, 0, 1) ;
+  font-family: 'Courier New', Courier, monospace;
   margin: 2rem 0 3rem 0;
   border-radius: 50rem;
   padding: 1rem 2rem 1rem 2rem;
   text-decoration: none;
   color: black;
   transition: all .3s;
-
+  background-color: white;
 }
 .gotop:hover{
   box-shadow: 1px 2px 12px rgba(51, 255, 0, 0.8) ;
@@ -143,9 +154,17 @@ justify-content: center;
 .sesionclose{
  background-color: transparent;
  box-shadow: none;
- border: solid .5px black;
+ border: transparent;
   border-radius: 50rem;
   padding: 1rem;
   text-decoration: none;
   color: black;
-  transition: all .3s;}
+  transition: all .3s;box-shadow: 1px 2px 8px rgba(51, 255, 0, 0.5) ;
+    
+}
+
+  .addbutton{
+    box-shadow: 1px 2px 8px rgba(51, 255, 0, 0.1) ;
+    font-weight: bolder;
+    border: transparent;
+  }

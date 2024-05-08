@@ -90,10 +90,6 @@ const handleLogout=()=>{
   return (
     <div>
       <h1 id="NOTES">Notes</h1>
-      {user&&
-      <div className="LogoutSesion">
-      <button className="sesionclose"  onClick={handleLogout}>Logout</button>
-      </div>}
       {!user&&
       <form className="userForm">
         <div>
@@ -108,6 +104,9 @@ const handleLogout=()=>{
       
       {user &&
       <>
+      <div className="LogoutSesion">
+       <button className="sesionclose"  onClick={handleLogout}>Logout</button>
+      </div>
       <Form addNote={addNote} handleNoteChange={handleNoteChange} value={newNote} /> 
       <Button setShowAll={setShowAll} showAll={showAll}/>
       <ul>
