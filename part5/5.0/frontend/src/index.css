@@ -1,0 +1,83 @@
+h1{
+  font-family: Cambria, Cochin, Georgia,  Times, serif;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(0, 189, 0, 0.61);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.note {
+    color: rgb(14, 14, 14);
+    padding-top: 5px;
+    font-size: 15px;
+    font-family: Cambria,'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+
+  .error {
+    color: red;
+    background: lightgrey;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+button, form input{
+  padding: 1rem;
+  border-radius: 1rem;
+  border: none;
+  margin: 1rem;
+  background-color: rgb(199, 252, 189);
+  font-size: large;
+  box-shadow: 3px 0.5px 5px rgba(0, 0, 0, 0.607);
+}
+form input{
+  border: solid 3px rgb(0, 0, 0);
+}
+
+button:hover{
+  cursor: pointer;
+  transform: scale(1.01);
+}
+button:active{
+  transform: scale(0.99);
+}
+
+ul{
+  list-style-type: none;
+}
+
+form {
+display: flex;
+justify-content: center;
+}
+
+.important_btn {
+  display: flex;
+  justify-content: center;
+}
+.important_btn button{
+  padding: 1rem 30%;
+
+}
+
+.important{
+  border: solid rgba(0, 230, 0, 0.729);
+  border-radius: 1rem;
+  padding-left: 1rem;
+}
+
+.noteContent{
+  padding: 0 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.notimportant{
+  background-color: rgba(254, 29, 29, 0.397);
+}
