@@ -12,7 +12,7 @@ const App = () => {
   const [newNote,setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const[loading,setLoading] = useState(false);
+  const [loading,setLoading] = useState(false);
 
   const [user,setUser] = useState(null);
   useEffect(()=>{
@@ -37,7 +37,10 @@ const App = () => {
 // };
 //handle logout
 const handleLogout=()=>{
-  window.localStorage.removeItem('loggedNoteAppUser')
+  //only user Login token removed
+  window.localStorage.removeItem('loggedNoteAppUser');
+  //All States Removes: 
+  // window.localStorage.clear()
   setUser(null);
 }
   //SERVER COMMUNICATION
