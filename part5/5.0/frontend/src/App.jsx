@@ -12,19 +12,22 @@ const App = () => {
   const [newNote,setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const[loading,setLoading] = useState(false);
 
   const [user,setUser] = useState(null);
   useEffect(()=>{
     const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser');
-   
     if(loggedUserJSON){
+      setLoading(true)
         const userLog = JSON.parse(loggedUserJSON);
-        
-        window.localStorage.setItem('loggedNoteAppUser',JSON.stringify(userLog));
-
-        noteService.setToken(userLog.token);
-    }
+        setTimeout(()=>{
+          setLoading(false);
+          setUser(userLog);
+           noteService.setToken(userLog.token);
+        },1000)
+      }
 },[])
+
    useEffect(()=>{
    !notesArray.length ? noteService.getAll()
   .then(initialNotes=>setNotesArray(initialNotes)).catch(err=>console.log(err)) : ""
@@ -90,10 +93,11 @@ const handleLogout=()=>{
     </ul>
 
     </>)
+
   return (
     <div>
       <h1 id="NOTES">Notes</h1>
-      {!user&&
+      {loading ? <h1 className="LoadingState">Loading...</h1>:!user&&
       <LoginForm  loginHandle={{user,setUser,setErrorMessage}} />}     
       <Notifications message={errorMessage} />
       {user &&(

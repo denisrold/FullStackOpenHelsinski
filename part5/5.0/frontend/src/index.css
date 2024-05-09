@@ -12,16 +12,26 @@ h1{
   padding: 1rem;
   border-radius: 1rem;
 }
-.note {
-    color: rgb(14, 14, 14);
-    padding-top: 5px;
-    font-size: 15px;
-    font-family: Cambria,'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-top: 5px;
-    font-weight: 500;
-  }
 
-  .error {
+.note {
+  color: rgb(14, 14, 14);
+  padding-top: 5px;
+  font-size: 15px;
+  font-family: Cambria,'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 5px;
+  font-weight: 500;
+}
+.LoadingState{
+  font-weight: lighter;
+  color: rgb(0, 0, 0);
+  background-color: rgba(128, 128, 128, 0.122);
+  margin: 20vh auto 18vh auto;
+  height: 10rem;
+  width: 20rem;
+  align-items: center;
+}
+
+.error {
     color: red;
     background: lightgrey;
     font-size: 20px;  
@@ -184,3 +194,4 @@ justify-content: center;
     font-weight: bolder;
     border: transparent;
   }
+
