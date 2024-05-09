@@ -7,6 +7,7 @@ function App() {
   const [password,setPassword] = useState('');
   const [user,setUser] = useState(null);
   const [loadState,setLoadState] =useState(false);
+  const [errorMessage,setErrorMessage] = useState(null);
 
   const handleForm = async (event)=>{
     event.preventDefault();
@@ -16,12 +17,11 @@ function App() {
     window.localStorage.setItem('userLogged',JSON.stringify(userLog));
     setUser(userLog);
   }
-
   const handleLogout = async (event)=>{
     event.preventDefault();
     window.localStorage.removeItem('userLogged');
     setUser(null);
-    setLoadState(true);
+    setLoadState(false);
   }
 
 useEffect(()=>{
@@ -54,9 +54,15 @@ useEffect(()=>{
         </form>
       </section>)}
       {user&&(
-        <section className='logOutButton'>
+        <>
+        <section className='bodyContainer'>
+
+        </section>
+        <div className='logOutButton'>
           <button onClick={handleLogout}>Logout</button>
-        </section>)
+        </div>
+        </>
+        )
       }
       </>
   )
