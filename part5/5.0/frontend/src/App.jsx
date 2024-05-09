@@ -14,7 +14,17 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const [user,setUser] = useState(null);
+  useEffect(()=>{
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser');
+   
+    if(loggedUserJSON){
+        const userLog = JSON.parse(loggedUserJSON);
+        
+        window.localStorage.setItem('loggedNoteAppUser',JSON.stringify(userLog));
 
+        noteService.setToken(userLog.token);
+    }
+},[])
    useEffect(()=>{
    !notesArray.length ? noteService.getAll()
   .then(initialNotes=>setNotesArray(initialNotes)).catch(err=>console.log(err)) : ""
@@ -24,6 +34,7 @@ const App = () => {
 // };
 //handle logout
 const handleLogout=()=>{
+  window.localStorage.removeItem('loggedNoteAppUser')
   setUser(null);
 }
   //SERVER COMMUNICATION

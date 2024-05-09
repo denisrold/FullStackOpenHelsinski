@@ -1,15 +1,18 @@
 import loginService from '../src/services/login';
 import noteService from '../src/services/notes'
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 const LoginForm = ({loginHandle})=>{
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
     const {setUser,setErrorMessage}=loginHandle;
+
+   
     //LOGIN
     const handleLoggin = async  (event)=>{
         event.preventDefault();
         try{
         const userLog = await loginService.login({username,password});
+        window.localStorage.setItem('loggedNoteAppUser',JSON.stringify(userLog));
         noteService.setToken(userLog.token);
         setUser(userLog);
         setUsername('');
