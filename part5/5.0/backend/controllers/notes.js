@@ -2,7 +2,6 @@
 const notesRouter = require("express").Router();
 const Note = require("../models/note");
 const User = require("../models/user");
-const jwt = require("jsonwebtoken");
 //ROUTES - ENDPOINTS
 
 notesRouter.get("/", async (request, response) => {
@@ -49,7 +48,6 @@ notesRouter.delete("/:id", async (req, res) => {
 
 notesRouter.post("", async (request, response) => {
   const body = request.body;
-
   if (request.token === undefined) {
     return response.status(401).json({ error: "token invalid" });
   }

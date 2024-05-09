@@ -1,4 +1,5 @@
 const morgan = require("morgan");
+const jwt = require("jsonwebtoken");
 const requestMorgan = () => {
   morgan.token("body", (req) => {
     if (Object.keys(req.body).length) {
