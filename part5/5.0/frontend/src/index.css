@@ -1,8 +1,13 @@
+body{
+margin: 0 0 0 -1px;
+}
+
 h1{
   font-family: Cambria, Cochin, Georgia,  Times, serif;
   display: flex;
   justify-content: center;
-
+  margin-left: 1rem;
+  margin-right: 1rem;
   box-shadow: 1px 2px 10px rgba(51, 255, 0, 0.5) ;
   padding: 1rem;
   border-radius: 1rem;
@@ -26,6 +31,9 @@ h1{
     margin-bottom: 10px;
   }
 
+  .userFormContainer{
+    margin: 0 1rem 0 1rem;
+  }
   .userForm{
     border: 3px solid transparent;
     box-shadow: 1px 2px 10px rgba(51, 255, 0, 0.8) ;
@@ -104,7 +112,7 @@ justify-content: center;
 }
 
 .noteContent{
-  
+  margin: 0 1rem 5px -1rem;
   padding: 0 4rem;
   display: flex;
   justify-content: space-between;
@@ -115,20 +123,27 @@ justify-content: center;
 .notimportant{
   background-color: rgba(254, 29, 29, 0.397);
 }
-
-.footerStyle{
-  display: flex;
-  flex-direction: column;  
-  color: green;
-    font-family: italic;
-    font-size: 16px;
+.footer{
+   display: flex;
+   justify-content: center;
+   flex-direction: column;  
+   align-items: center;
+   font-family: italic;
+   font-weight: bold;
+   color: green;
+   background-color: rgba(0, 255, 0, 0.545);
+   font-size: 16px;
+  }
+.footerUser{
     padding:2rem;
     margin: 0 auto 0 auto;
-    align-items: center;
-    font-weight: bold;
     margin-top: 2rem;
-    background-color: rgba(0, 255, 0, 0.545);
     margin: 0 -1rem -1rem -1rem;
+}
+.footerNotUser{
+  margin-top: 9vh;
+  height: 20vh;
+  padding: 0 1rem 0 1rem;
 }
 
 .gotop{

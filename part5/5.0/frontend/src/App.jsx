@@ -67,25 +67,29 @@ const handleLogout=()=>{
   //FILTER NOTES
   const notesToShow = showAll? notesArray : notesArray.filter(note => note.important === true)
   
+  //NoteForm
+  const NoteForm = ()=>(<>
+    <div className="LogoutSesion">
+     <button className="sesionclose"  onClick={handleLogout}>Logout</button>
+    </div>
+    <Form addNote={addNote} handleNoteChange={handleNoteChange} value={newNote} /> 
+    <Button setShowAll={setShowAll} showAll={showAll}/>
+    <ul>
+    {notesToShow.map((note)=><Note key={note.id} id={note.id} content={note.content} important={note.important} toggleImportance={toggleImportanceOf}/>)} 
+    </ul>
+
+    </>)
   return (
     <div>
       <h1 id="NOTES">Notes</h1>
       {!user&&
       <LoginForm  loginHandle={{user,setUser,setErrorMessage}} />}     
       <Notifications message={errorMessage} />
-      {user &&
-      <>
-      <div className="LogoutSesion">
-       <button className="sesionclose"  onClick={handleLogout}>Logout</button>
-      </div>
-      <Form addNote={addNote} handleNoteChange={handleNoteChange} value={newNote} /> 
-      <Button setShowAll={setShowAll} showAll={showAll}/>
-      <ul>
-      {notesToShow.map((note)=><Note key={note.id} id={note.id} content={note.content} important={note.important} toggleImportance={toggleImportanceOf}/>)} 
-      </ul>
-      <Footer />
-      </>
+      {user &&(
+      NoteForm()
+       )
       }
+          <Footer user={user}/>
     </div>
   )
 }

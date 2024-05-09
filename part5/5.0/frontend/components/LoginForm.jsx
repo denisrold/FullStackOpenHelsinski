@@ -21,6 +21,7 @@ const LoginForm = ({loginHandle})=>{
   }
 };
     return(
+        <div className='userFormContainer'>
     <form className="userForm">
         <div>
             <input name="Username" type="text" value={username} onChange={({target})=>setUsername(target.value)} placeholder="Username" />
@@ -29,7 +30,8 @@ const LoginForm = ({loginHandle})=>{
             <input name="Password" type="password" value={password} onChange={({target})=>setPassword(target.value)} placeholder="Password" />
         </div>
         <button type="submit" onClick={handleLoggin}>Login</button>
-    </form>)
+    </form>
+        </div>)
 };
 
 export default LoginForm;
