@@ -4,7 +4,30 @@
   padding: 3rem;
   text-align: center;
 }
+.containerHeader{
+  margin-top: -2.5rem;
+}
+.loadStateContainer{
+  display: flex;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: larger;
+  justify-content: center;
+  margin: 7rem auto;
+  padding: 1rem;
+  max-width: 20rem;
+}
 
+.formContainer{
+  display: flex;
+  justify-content: center;
+  margin: 3rem auto;
+  padding: 1rem;
+  max-width: 20rem;
+}
+.formContainer input{
+padding: .3rem;
+margin: .3rem;
+}
 .errorContainer{
   display: flex;
   justify-content: center;
@@ -21,7 +44,7 @@
   align-items: center;
   border: solid 1.5px rgba(255, 255, 255, 0.675);
   border-radius: 3px;
-  width: 80vh;
+  width: 85%;
   height: 55vh;
   padding:1rem;
   max-width: 80vh;
@@ -39,9 +62,7 @@
 }
 
 @media screen and (max-width: 630px) {
-  .containerHeader{
-    margin-top: -2rem;
-  }
+
   .bodyContainer{
     height: auto;
     width: auto;

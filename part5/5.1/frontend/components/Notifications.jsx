@@ -4,7 +4,7 @@ const Notification = ({errorMessage,setErrorMessage}) => {
     if(errorMessage ===null){return}
     setTimeout(()=>{
       setErrorMessage(null)
-    },8000)
+    },2000)
     },[errorMessage])
   return (
     <div className="errorContainer">

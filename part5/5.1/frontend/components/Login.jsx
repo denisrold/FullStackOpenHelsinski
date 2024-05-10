@@ -4,7 +4,7 @@ const Login =({loginStates})=>{
     const {user,setUser,setErrorMessage,setLoadState,loadState} = loginStates;
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
-    
+
     const handleForm = async (event)=>{
         event.preventDefault();
         try{
@@ -35,7 +35,7 @@ useEffect(()=>{
   },[])
     return(
         <>
-        {loadState ? <h1>Loading...</h1>: 
+        {loadState ? (<div className='loadStateContainer'><h3>Loading...</h3></div>): 
         !user && (<section className='formContainer'>
             <form className='form'>
                 <div>
