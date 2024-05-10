@@ -5,6 +5,7 @@ import Notifications from '../components/Notifications';
 import Login from '../components/Login';
 import LogoutButton from '../components/LogoutButton';
 import blogService from './service/blogs';
+import Blogs from '../components/Blog';
 
 function App() {
   const [user,setUser] = useState(null);
@@ -15,7 +16,8 @@ function App() {
   const getBlogs= async ()=>{
     try{
     const response = await blogService.getBlogs();
-    setBlogs(response.data);}    
+    setBlogs(response.data);
+  }    
     catch(err){
       console.error(err.response.data);
     }
@@ -32,11 +34,10 @@ function App() {
       {errorMessage&&<Notifications errorMessage={errorMessage}  setErrorMessage={setErrorMessage}/>}
       {user&&(
         <>
+      
         <section className='bodyContainer'> 
         {blogs.length?blogs.map((b,i)=>(
-          <article key={i} className='blog'>
-             <h3>Esto es un body</h3>
-          </article>
+          <Blogs blog={b} key={i}/>
         ))
         :<h3>No Blogs</h3>}
         </section>
