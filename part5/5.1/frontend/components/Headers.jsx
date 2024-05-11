@@ -1,6 +1,6 @@
 const Header =()=>{
    return(
-    <header className='containerHeader'>
+    <header id="blog"className='containerHeader'>
       <h1>Bloggerse</h1>
     </header>
    ) 

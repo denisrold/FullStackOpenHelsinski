@@ -39,10 +39,10 @@ useEffect(()=>{
         !user && (<section className='formContainer'>
             <form className='form'>
                 <div>
-                    <input type="text" value={username} onChange={({target})=>setUsername(target.value)} placeholder='username'></input>
+                    <input required type="text" value={username} onChange={({target})=>setUsername(target.value)} placeholder='username'></input>
                 </div>
                 <div>
-                    <input type="password" value={password} onChange={({target})=>setPassword(target.value)} placeholder='password'></input>
+                    <input required type="password" value={password} onChange={({target})=>setPassword(target.value)} placeholder='password'></input>
                 </div>
                 <button onClick={handleForm}>Login</button>
             </form>

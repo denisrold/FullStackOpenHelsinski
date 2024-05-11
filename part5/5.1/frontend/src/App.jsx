@@ -6,13 +6,14 @@ import Login from '../components/Login';
 import LogoutButton from '../components/LogoutButton';
 import blogService from './service/blogs';
 import Blogs from '../components/Blog';
+import AddBlogs from '../components/AddBlogs';
 
 function App() {
   const [user,setUser] = useState(null);
   const [blogs,setBlogs] = useState([]);
   const [errorMessage,setErrorMessage] = useState(null);
   const [loadState,setLoadState] = useState(false);
-  
+
   const getBlogs= async ()=>{
     try{
     const response = await blogService.getBlogs();
@@ -41,6 +42,7 @@ function App() {
         ))
         :<h3>No Blogs</h3>}
         </section>
+        <AddBlogs/>
         <LogoutButton logoutStates={{setUser,setLoadState}}/>
         </>
         )

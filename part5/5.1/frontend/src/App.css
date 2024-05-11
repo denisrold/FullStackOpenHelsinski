@@ -7,6 +7,7 @@
 .containerHeader{
   margin-top: -2.5rem;
 }
+/* LOADING CONTAINERS LOGIN */
 .loadStateContainer{
   display: flex;
   font-family: 'Courier New', Courier, monospace;
@@ -37,7 +38,7 @@ margin: .3rem;
   padding: 1rem;
   margin-top:1rem;
 }
-
+/* BODY CONTAINER BLOGS */
 .bodyContainer{
   display: flex;
   flex-direction: column;
@@ -61,6 +62,92 @@ margin: .3rem;
   max-width: 70vh;
 }
 
+/* ADD BLOGS STYLES */
+.addNewBLog{
+  border: solid 1px rgb(255, 255, 255);
+  width: fit-content;
+  margin: 2rem auto 3rem auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  transition: all .3s;
+}
+.addNewBLog:hover{
+  color:  #646cff;
+  border: solid 1px  #646cff;
+}
+.addNewBLog a{
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+  transition: all .3s;
+}
+
+.createContainer{
+  border: solid 1.5px rgba(253, 253, 253, 0.647);
+  border-radius: 3px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.566);
+  background-color: rgba(0, 0, 0, 0.047);
+  margin: 1rem auto 1rem auto;
+  height: fit-content;
+  width: 40%;
+  padding: 0 1rem 0 1rem;
+}
+.addBlogsTitle{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: x-large;
+  max-width: 23rem;
+  margin: 0 auto 0 auto;
+  justify-content: space-evenly;
+}
+.titleAddBlogs{
+  width: 100%;
+  margin-top: -.5rem;
+}
+.addBlogsTitle button{
+margin-left: auto;
+width: fit-content;
+height: fit-content;
+font-size: small;
+}
+
+.formContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0rem;
+  padding: 1rem;
+  margin-bottom: 0;
+}
+.formContainer input{
+  padding: .5rem ;
+  padding-left: 1rem;
+}
+
+.form{
+  margin-bottom: 3rem;
+}
+.form button{
+  margin-top: .9rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.containerAbsolute{
+  position: relative;
+
+}
+.createContainer{
+  position: absolute;
+  bottom:-3rem;
+  left: 50%; /* Alinea el lado izquierdo del elemento al centro de la pantalla */
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.726);
+  min-width: 20rem;
+  backdrop-filter: blur(10px)
+}
 @media screen and (max-width: 630px) {
 
   .bodyContainer{
@@ -72,4 +159,20 @@ margin: .3rem;
   .blogContainer{
     width: auto;
   }
+  .formContainer{
+    flex-direction: column;
+  }
+  .formContainer input{
+    margin: 0 0 1rem 0;
+
+  }
+  .formContainer label{
+   font-size: x-large;
+   margin-bottom: .1rem;
+  }
+
+
+}
+@media screen and (max-width: 630px) {
+
 }
