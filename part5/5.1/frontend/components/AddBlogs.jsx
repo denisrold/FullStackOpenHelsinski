@@ -1,9 +1,24 @@
 import {useState} from 'react'; 
+import blogs from '../src/service/blogs';
 const AddBlogs = ()=>{
     const [addState,setAddState] = useState(false);
     const [title,setTitle] =useState("");
     const [url,setUrl] =useState("");
     const [author,setAuthor] =useState("");
+
+    const handleAddBlogs = async (event)=>{
+      event.preventDefault();
+      const userToken = window.localStorage.getItem('userLogged');
+      const JSONPARSE = await JSON.parse(userToken)
+      blogs.setToken(JSONPARSE.token);
+      const newBlog = {url,title,author};
+      try{
+        const response =await blogs.createBlogs(newBlog);
+        return response;
+      }catch(err){
+        console.log(err.response.data);
+      }
+    }
     return(
         <div className='containerAbsolute'>
     <section className={addState?'createContainer':null}>
@@ -24,7 +39,7 @@ const AddBlogs = ()=>{
                 <label>Url </label>
                 <input tipe="url" placeholder='https://exampleweb.com' required onChange={({target})=>setUrl(target.value)} name="url" value={url}/>
             </div>
-            <button type="submit">Add</button>
+            <button onClick={handleAddBlogs} type="submit">Add</button>
           </form>
           </>)}
         </section>
