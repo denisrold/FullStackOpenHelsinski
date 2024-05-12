@@ -1,11 +1,11 @@
 import {useState} from 'react'; 
 import blogs from '../src/service/blogs';
-const AddBlogs = ()=>{
+const AddBlogs = ({setNewBlog})=>{
     const [addState,setAddState] = useState(false);
     const [title,setTitle] =useState("");
     const [url,setUrl] =useState("");
     const [author,setAuthor] =useState("");
-
+    
     const handleAddBlogs = async (event)=>{
       event.preventDefault();
       const userToken = window.localStorage.getItem('userLogged');
@@ -13,12 +13,15 @@ const AddBlogs = ()=>{
       blogs.setToken(JSONPARSE.token);
       const newBlog = {url,title,author};
       try{
-        const response =await blogs.createBlogs(newBlog);
-        return response;
+      await blogs.createBlogs(newBlog);
+        setNewBlog(true);
+        setAddState(false);
       }catch(err){
         console.log(err.response.data);
       }
     }
+
+
     return(
         <div className='containerAbsolute'>
     <section className={addState?'createContainer':null}>

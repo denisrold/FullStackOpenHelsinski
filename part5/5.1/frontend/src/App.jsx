@@ -13,6 +13,7 @@ function App() {
   const [blogs,setBlogs] = useState([]);
   const [errorMessage,setErrorMessage] = useState(null);
   const [loadState,setLoadState] = useState(false);
+  const [newBlog,setNewBlog] = useState(false);
 
   const getBlogs= async ()=>{
     try{
@@ -25,8 +26,9 @@ function App() {
   }
 
   useEffect( ()=>{    
-      getBlogs()
-  },[])
+      getBlogs();
+      setNewBlog(false);
+  },[newBlog==true?newBlog:null])
 
   return (
     <>
@@ -42,7 +44,7 @@ function App() {
         ))
         :<h3>No Blogs</h3>}
         </section>
-        <AddBlogs/>
+        <AddBlogs setNewBlog={setNewBlog}/>
         <LogoutButton logoutStates={{setUser,setLoadState}}/>
         </>
         )
