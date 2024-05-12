@@ -26,10 +26,10 @@ const AddBlogs = ({setNewBlog})=>{
           setTitle('');
           setUrl('');
           setAuthor('');
-        },1500)
+        },2000)
       }catch(err){
         if(err.response.data.error.includes('Blog validation failed')){
-          setErrorMessage(err.response.data.error.split('.')[0].split(':')[2].replace("Path","").split('`').join(""));
+          setErrorMessage(err.response.data.error.split('.')[0].split(':')[2].replace("Path","").split('`').join("").replace(/\(([^)]+)\)/g, '"$1"'));
         }else{
           console.log(err.response.data)
         }

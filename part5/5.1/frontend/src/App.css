@@ -17,7 +17,7 @@
   padding: 1rem;
   max-width: 20rem;
 }
-
+/* FORM CONTAINER  */
 .formContainer{
   display: flex;
   justify-content: center;
@@ -29,15 +29,25 @@
 padding: .3rem;
 margin: .3rem;
 }
-.errorContainer{
+/* NOTIFICATIONS CONTAINERS */
+.notificationContainer{
   display: flex;
   justify-content: center;
   align-items: center;
   color: rgb(255, 255, 255);
   font-family: 'Courier New', Courier, monospace;
-  padding: 1rem;
-  margin-top:1rem;
 }
+.notificationContainer h3{
+  margin-top: 2rem;
+  border: solid 1.5px white;
+  border-radius: 5px;
+  padding: .5rem;
+  background-color: #1a1a1a;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-size: x-large;
+}
+
 /* BODY CONTAINER BLOGS */
 .bodyContainer{
   display: flex;
@@ -92,6 +102,8 @@ margin: .3rem;
   width: 40%;
   padding: 0 1rem 0 1rem;
 }
+
+/* ADDBLOGS STYLES */
 .addBlogsTitle{
   display: flex;
   flex-direction: column;
@@ -101,9 +113,12 @@ margin: .3rem;
   margin: 0 auto 0 auto;
   justify-content: space-evenly;
 }
+.addBlogsTitle button{
+  margin-bottom: 2rem;
+}
 .titleAddBlogs{
   width: 100%;
-  margin-top: -.5rem;
+  margin-top: -2rem;
 }
 .addBlogsTitle button{
 margin-left: auto;
@@ -142,7 +157,7 @@ font-size: small;
 .createContainer{
   position: absolute;
   bottom:-3rem;
-  left: 50%; /* Alinea el lado izquierdo del elemento al centro de la pantalla */
+  left: 50%; 
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.726);
   min-width: 20rem;
@@ -151,10 +166,10 @@ font-size: small;
 @media screen and (max-width: 630px) {
 
   .bodyContainer{
-    height: auto;
+    height: 70vh;
     width: auto;
     margin-bottom: .5rem;
-
+    overflow-y: auto;
   }
   .blogContainer{
     width: auto;

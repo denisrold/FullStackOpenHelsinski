@@ -4,10 +4,10 @@ const Notification = ({errorMessage,setErrorMessage}) => {
     if(errorMessage ===null){return}
     setTimeout(()=>{
       setErrorMessage(null)
-    },2000)
+    },3000)
     },[errorMessage])
   return (
-    <div className="errorContainer">
+    <div className='notificationContainer'>
       <h4 className="title">{`* ${errorMessage}`}</h4>
     </div>
   
