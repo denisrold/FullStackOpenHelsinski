@@ -1,10 +1,14 @@
 import {useState} from 'react'; 
 import blogs from '../src/service/blogs';
+import AddedMessage from './AddedMessage';
+import Notification from './Notifications';
 const AddBlogs = ({setNewBlog})=>{
     const [addState,setAddState] = useState(false);
+    const [addedState,setAddedState] = useState(false);
     const [title,setTitle] =useState("");
     const [url,setUrl] =useState("");
     const [author,setAuthor] =useState("");
+    const [errorMessage,setErrorMessage] = useState("");
     
     const handleAddBlogs = async (event)=>{
       event.preventDefault();
@@ -16,15 +20,27 @@ const AddBlogs = ({setNewBlog})=>{
       await blogs.createBlogs(newBlog);
         setNewBlog(true);
         setAddState(false);
+        setAddedState(true);
+        setTimeout(()=>{
+          setAddedState(false);
+          setTitle('');
+          setUrl('');
+          setAuthor('');
+        },1500)
       }catch(err){
-        console.log(err.response.data);
+        if(err.response.data.error.includes('Blog validation failed')){
+          setErrorMessage(err.response.data.error.split('.')[0].split(':')[2].replace("Path","").split('`').join(""));
+        }else{
+          console.log(err.response.data)
+        }
       }
     }
 
-
     return(
-        <div className='containerAbsolute'>
-    <section className={addState?'createContainer':null}>
+        <div className='containerAbsolute'> 
+        {addedState&&<AddedMessage newBlog={{title,author}}/>}
+       
+        <section className={addState?'createContainer':null}>
         {!addState &&(<div className='addNewBLog'><a href='#form' onClick={()=>setAddState(true)}>Add new blog</a></div>)}
           {addState&&(<>
           <header className='addBlogsTitle'>
@@ -34,6 +50,7 @@ const AddBlogs = ({setNewBlog})=>{
              </div>
           </header>
           <form id="form" className='form'>
+          {errorMessage&&<Notification errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>}
             <div className='formContainer'>
                 <label>Title </label>
                 <input tipe="text" placeholder='the blogverse title' required name="title" onChange={({target})=>setTitle(target.value)} value={title}/>
@@ -46,6 +63,7 @@ const AddBlogs = ({setNewBlog})=>{
           </form>
           </>)}
         </section>
+        
         </div>
     )
 }
