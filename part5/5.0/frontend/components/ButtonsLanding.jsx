@@ -4,10 +4,15 @@ const ButtonLanding = ({user,setUser,setErrorMessage})=>{
     const [buttonUser,setButtonUser] = useState(null);
     return(
         <>
-        {!user&&buttonUser==null&&(<section className="buttonsLandingContainer">
+        {!user&&buttonUser==null&&(
+        <>
+        <section className="landingBody">Landing</section>
+        <section className="buttonsLandingContainer">
             <button onClick={()=>setButtonUser('login')}>Login</button>
             <button onClick={()=>setButtonUser(null)}>Register</button>
-        </section>)}
+        </section>
+        </>)
+        }
         {buttonUser&&<LoginForm setButtonUser={setButtonUser} loginHandle={{user,setUser,setErrorMessage} } />}
         </>
     )

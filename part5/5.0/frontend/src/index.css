@@ -83,7 +83,9 @@ h1{
     margin-bottom: 10px;
     text-align: center;
   }
-
+  .landingBody{
+    min-height: 43vh;
+  }
   .userFormContainer{
     margin: 0 1rem 0 1rem;
   }
@@ -176,6 +178,8 @@ justify-content: center;
 .notimportant{
   background-color: rgba(254, 29, 29, 0.397);
 }
+/* FOOTER CONTAINER */
+
 .footer{
    display: flex;
    justify-content: center;
@@ -187,6 +191,7 @@ justify-content: center;
    background-color: rgba(0, 255, 0, 0.545);
    font-size: 16px;
   }
+
 .footerUser{
     padding:2rem;
     margin: 0 auto 0 auto;
@@ -237,4 +242,5 @@ justify-content: center;
     font-weight: bolder;
     border: transparent;
   }
-
+ 
+ 
