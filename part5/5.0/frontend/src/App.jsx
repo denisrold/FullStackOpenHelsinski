@@ -6,6 +6,7 @@ import noteService from './services/notes'
 import Notifications from '../components/Notifications'
 import Footer from '../components/Footer';
 import LoginForm from "../components/LoginForm";
+import ButtonLanding from "../components/ButtonsLanding";
 
 const App = () => {
   const [notesArray,setNotesArray] = useState([]);
@@ -13,8 +14,8 @@ const App = () => {
   const [showAll, setShowAll] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading,setLoading] = useState(false);
-
   const [user,setUser] = useState(null);
+
   useEffect(()=>{
     const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser');
     if(loggedUserJSON){
@@ -100,8 +101,10 @@ const handleLogout=()=>{
   return (
     <div>
       <h1 id="NOTES">Notes</h1>
-      {loading ? <h1 className="LoadingState">Loading...</h1>:!user&&
-      <LoginForm  loginHandle={{user,setUser,setErrorMessage}} />}     
+      {loading ? <h1 className="LoadingState">Loading...</h1>:!user&&(
+      <ButtonLanding user={user} setUser={setUser} setErrorMessage={setErrorMessage}/>
+      )
+      }     
       <Notifications message={errorMessage} />
       {user &&(
       NoteForm()

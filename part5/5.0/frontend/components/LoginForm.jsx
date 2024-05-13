@@ -1,12 +1,13 @@
 import loginService from '../src/services/login';
 import noteService from '../src/services/notes'
+import BackLoginButton from './BackLoginButton';
+
 import {useState,useEffect} from 'react';
-const LoginForm = ({loginHandle})=>{
+const LoginForm = ({loginHandle,setButtonUser })=>{
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
     const {setUser,setErrorMessage}=loginHandle;
 
-   
     //LOGIN
     const handleLoggin = async  (event)=>{
         event.preventDefault();
@@ -36,7 +37,9 @@ const LoginForm = ({loginHandle})=>{
         </div>
         <button type="submit" onClick={handleLoggin}>Login</button>
     </form>
-        </div>)
+    <p className='loginToRegister'>Don't have an account yet? <a onClick={()=>setButtonUser(null)}>Register.</a></p>
+    <BackLoginButton setButtonUser={setButtonUser}/>
+    </div>)
 };
 
 export default LoginForm;

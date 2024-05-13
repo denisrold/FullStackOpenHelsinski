@@ -13,6 +13,47 @@ h1{
   border-radius: 1rem;
 }
 
+/* BUTTONS LANDING PAGE AND LOGIN. */
+.buttonsLandingContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.buttonsLandingContainer button{
+  width: 20rem;
+  font-weight: normal;
+}
+
+.backContainer{
+  display: flex;
+  justify-content: center;
+}
+.loginToRegister{
+  margin:0 auto 2rem;
+  text-align: center;
+  padding-right: 5rem;
+  padding-left: 5rem;
+
+}
+.userFormContainer p a {
+  font-size: large;
+  text-decoration: underline;
+  margin-left: 5px;
+}
+.userFormContainer p a:hover {
+  cursor: pointer;
+ 
+}
+.backButtonContent{
+  display: flex;
+}
+.backButton{
+  margin-top:-4px;
+    width: 2rem;
+    height: 1.5rem;
+}
+
+
 .note {
   color: rgb(14, 14, 14);
   padding-top: 5px;
