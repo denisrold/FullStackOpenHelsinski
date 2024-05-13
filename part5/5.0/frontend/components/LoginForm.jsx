@@ -17,7 +17,7 @@ const LoginForm = ({loginHandle,visible,setVisible })=>{
         setUser(userLog);
         setUsername('');
         setPassword('');
-  
+        setErrorMessage(null)
     } catch(err){
         setErrorMessage(err.response.data.error.replace(err.response.data.error[0],err.response.data.error[0].toUpperCase()) + '.')
         setTimeout(() => {

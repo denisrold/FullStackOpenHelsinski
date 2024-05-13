@@ -4,6 +4,7 @@ import Form from "../components/Form";
 import Button from "../components/Button";
 import noteService from '../src/services/notes.js'
 import Notifications from "./Notifications.jsx";
+import Toggable from "./Togglable.jsx";
 const NoteForm = ({notesArray,errorMessage,setNotesArray,setErrorMessage,setUser})=>{
     const [newNote,setNewNote] = useState("");
     const [showAll, setShowAll] = useState(true);
@@ -12,6 +13,7 @@ const NoteForm = ({notesArray,errorMessage,setNotesArray,setErrorMessage,setUser
         window.localStorage.removeItem('loggedNoteAppUser');
         //All States Removes: 
         // window.localStorage.clear()
+        setErrorMessage(null);
         setUser(null);
       }
     const toggleImportanceOf = (id) => {
@@ -47,7 +49,7 @@ const NoteForm = ({notesArray,errorMessage,setNotesArray,setErrorMessage,setUser
           setNotesArray([...notesArray,createdNote]);
             })
         .catch(err=>{setErrorMessage(err.response.data.error.split('Path')[1].replace(/`/g, ''));
-            setTimeout(()=>{setErrorMessage(null)},3000)
+            setTimeout(()=>{setErrorMessage(null)},1500)
       });
         setNewNote('');
       }
@@ -58,12 +60,13 @@ const NoteForm = ({notesArray,errorMessage,setNotesArray,setErrorMessage,setUser
         <div className="LogoutSesion">
             <button className="sesionclose"  onClick={handleLogout}>Logout</button>
         </div>
+        <Toggable buttonLabel='Add new note'>
         <section className="addFormContainer">
             <Form addNote={addNote} handleNoteChange={handleNoteChange} value={newNote} /> 
             <Notifications message={errorMessage} />
         </section>
+        </Toggable>
         <Button setShowAll={setShowAll} showAll={showAll}/>
-
         <ul>
             {notesToShow.map((note)=><Note key={note.id} id={note.id} content={note.content} important={note.important} toggleImportance={toggleImportanceOf}/>)} 
         </ul>
