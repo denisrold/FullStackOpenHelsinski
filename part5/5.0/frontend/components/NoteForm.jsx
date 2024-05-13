@@ -58,8 +58,10 @@ const NoteForm = ({notesArray,errorMessage,setNotesArray,setErrorMessage,setUser
         <div className="LogoutSesion">
             <button className="sesionclose"  onClick={handleLogout}>Logout</button>
         </div>
-        <Form addNote={addNote} handleNoteChange={handleNoteChange} value={newNote} /> 
-        <Notifications message={errorMessage} />
+        <section className="addFormContainer">
+            <Form addNote={addNote} handleNoteChange={handleNoteChange} value={newNote} /> 
+            <Notifications message={errorMessage} />
+        </section>
         <Button setShowAll={setShowAll} showAll={showAll}/>
 
         <ul>
