@@ -2,7 +2,7 @@ import loginService from '../src/services/login';
 import noteService from '../src/services/notes'
 import BackLoginButton from './BackLoginButton';
 import {useState} from 'react';
-const LoginForm = ({loginHandle,setButtonUser })=>{
+const LoginForm = ({loginHandle,visible,setVisible })=>{
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
     const {setUser,setErrorMessage}=loginHandle;
@@ -36,8 +36,8 @@ const LoginForm = ({loginHandle,setButtonUser })=>{
         </div>
         <button type="submit" onClick={handleLoggin}>Login</button>
     </form>
-    <p className='loginToRegister'>Don't have an account yet? <a onClick={()=>setButtonUser(null)}>Register.</a></p>
-    <BackLoginButton setButtonUser={setButtonUser}/>
+    <p className='loginToRegister'>Don't have an account yet? <a onClick={()=>setVisible(!visible)}>Register.</a></p>
+    <BackLoginButton visible={visible} setVisible={setVisible}/>
     </div>)
 };
 

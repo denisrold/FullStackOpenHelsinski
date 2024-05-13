@@ -45,7 +45,12 @@ h1{
  
 }
 .backButtonContent{
+  box-shadow: none;
   display: flex;
+  transition: all .2s;
+}
+.backButtonContent:hover{
+  scale: 1.02;
 }
 .backButton{
   margin-top:-4px;
@@ -83,8 +88,13 @@ h1{
     margin-bottom: 10px;
     text-align: center;
   }
-  .landingBody{
-    min-height: 43vh;
+  .landingContainer{
+    margin-top: 4.5rem;
+    padding: 1rem;
+    min-height: 50vh; 
+    text-align: center;
+    border:1.5px solid black;
+    margin-bottom: 3rem;
   }
   .userFormContainer{
     margin: 0 1rem 0 1rem;

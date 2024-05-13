@@ -1,19 +1,10 @@
-import { useState } from "react";
-import LoginForm from "./LoginForm";
+import Toggable from "./Togglable";
 const ButtonLanding = ({user,setUser,setErrorMessage})=>{
-    const [buttonUser,setButtonUser] = useState(null);
     return(
         <>
-        {!user&&buttonUser==null&&(
-        <>
-        <section className="landingBody">Landing</section>
-        <section className="buttonsLandingContainer">
-            <button onClick={()=>setButtonUser('login')}>Login</button>
-            <button onClick={()=>setButtonUser(null)}>Register</button>
-        </section>
-        </>)
-        }
-        {buttonUser&&<LoginForm setButtonUser={setButtonUser} loginHandle={{user,setUser,setErrorMessage} } />}
+        <Toggable buttonLabel={{Login:"Login",Register:"Register"} } user={user}  loginHandle={{setUser,setErrorMessage}}>
+
+        </Toggable>
         </>
     )
 }
