@@ -1,8 +1,7 @@
 import loginService from '../src/services/login';
 import noteService from '../src/services/notes'
 import BackLoginButton from './BackLoginButton';
-
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 const LoginForm = ({loginHandle,setButtonUser })=>{
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');

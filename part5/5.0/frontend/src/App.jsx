@@ -102,14 +102,14 @@ const handleLogout=()=>{
     <div>
       <h1 id="NOTES">Notes</h1>
       {loading ? <h1 className="LoadingState">Loading...</h1>:!user&&(
-      <ButtonLanding user={user} setUser={setUser} setErrorMessage={setErrorMessage}/>
+        <ButtonLanding user={user} setUser={setUser} setErrorMessage={setErrorMessage}/>
       )
-      }     
-      <Notifications message={errorMessage} />
+    }     
       {user &&(
-      NoteForm()
-       )
-      }
+        NoteForm()
+      )
+    }
+          <Notifications message={errorMessage} />
           <Footer user={user}/>
     </div>
   )
