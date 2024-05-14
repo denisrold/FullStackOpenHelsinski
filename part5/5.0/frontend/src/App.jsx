@@ -6,7 +6,7 @@ import ButtonLanding from "../components/ButtonsLanding";
 import NoteForm from "../components/NoteForm";
 
 const App = () => {
-  const [notesArray,setNotesArray] = useState([]);
+
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading,setLoading] = useState(false);
   const [user,setUser] = useState(null);
@@ -24,12 +24,7 @@ const App = () => {
       }
 },[])
 
-   useEffect(()=>{
-   !notesArray.length ? noteService.getAll()
-  .then(initialNotes=>setNotesArray(initialNotes)).catch(err=>console.log(err)) : ""
-}
-  ,[notesArray]);
- 
+  
   return (
     <div>
       <h1 id="NOTES">Notes</h1>
@@ -41,7 +36,7 @@ const App = () => {
       )
     }     
       {user &&(
-        <NoteForm  notesArray={notesArray} setNotesArray={setNotesArray} errorMessage={errorMessage} setErrorMessage={setErrorMessage} setUser={setUser}/>
+        <NoteForm  errorMessage={errorMessage} setErrorMessage={setErrorMessage} setUser={setUser}/>
       )
     }
           <Footer user={user}/>

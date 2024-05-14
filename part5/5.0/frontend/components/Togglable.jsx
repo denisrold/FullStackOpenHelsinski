@@ -29,16 +29,16 @@ const Toggable = (props)=>{
 else{
     return(
         <section >
-        <div style={hideWhitVisible}>
-            {props.children}
-            <section className="toggleable toggleableClose ">
-                <button  onClick={toggleVisibility}>cancel</button>
-            </section>
-        </div>
         <div style={showHideVisible}>
-            <section className="toggleable">
+        {props.children}
+        <section className="toggleable toggleableClose ">
+                <button  onClick={toggleVisibility}>cancel</button>
+        </section>
+        </div>
+        <div style={hideWhitVisible}>
+        <section className="toggleable">
             <button  onClick={toggleVisibility}>{props.buttonLabel}</button>
-            </section>
+        </section>
         </div>
         </section>
     )

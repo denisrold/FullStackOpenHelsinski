@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Note from "../components/Notes";
 import Form from "../components/Form";
 import Button from "../components/Button";
 import noteService from '../src/services/notes.js'
 import Notifications from "./Notifications.jsx";
 import Toggable from "./Togglable.jsx";
-const NoteForm = ({notesArray,errorMessage,setNotesArray,setErrorMessage,setUser})=>{
+const NoteForm = ({errorMessage,setErrorMessage,setUser})=>{
     const [newNote,setNewNote] = useState("");
     const [showAll, setShowAll] = useState(true);
+    const [notesArray,setNotesArray] = useState([]);
     const handleLogout=()=>{
         //only user Login token removed
         window.localStorage.removeItem('loggedNoteAppUser');
@@ -16,6 +17,14 @@ const NoteForm = ({notesArray,errorMessage,setNotesArray,setErrorMessage,setUser
         setErrorMessage(null);
         setUser(null);
       }
+
+      useEffect(()=>{
+        !notesArray.length ? noteService.getAll()
+       .then(initialNotes=>setNotesArray(initialNotes)).catch(err=>console.log(err)) : ""
+     }
+       ,[notesArray]);
+ 
+       
     const toggleImportanceOf = (id) => {
         const note = notesArray.find(n => n.id === id)
         const changedNote = { ...note, important: !note.important }
