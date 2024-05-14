@@ -4,17 +4,10 @@ import noteService from '../src/services/notes.js'
 import Notifications from "./Notifications.jsx";
 import Toggable from "./Togglable.jsx";
 
-const NoteForm = ({errorMessage,setErrorMessage,setUser,notesArray,setNotesArray})=>{
+const NoteForm = ({errorMessage,setErrorMessage,notesArray,setNotesArray})=>{
     const [newNote,setNewNote] = useState("");
-    const handleLogout=()=>{
-        //only user Login token removed
-        window.localStorage.removeItem('loggedNoteAppUser');
-        //All States Removes: 
-        // window.localStorage.clear()
-        setErrorMessage(null);
-        setUser(null);
-      }
-      useEffect(()=>{
+
+  useEffect(()=>{
         !notesArray.length ? noteService.getAll()
        .then(initialNotes=>setNotesArray(initialNotes)).catch(err=>console.log(err)) : ""
      }
@@ -27,7 +20,7 @@ const NoteForm = ({errorMessage,setErrorMessage,setUser,notesArray,setNotesArray
         event.preventDefault();
         const newObject = {
           content: newNote,
-          important: Math.random() > 0.5
+          important: true,
         }
         document.querySelector("#inputNote").value = "";
         noteService.create(newObject)
@@ -42,10 +35,7 @@ const NoteForm = ({errorMessage,setErrorMessage,setUser,notesArray,setNotesArray
 
     return(
     <>
-        <div className="LogoutSesion">
-            <button className="sesionclose"  onClick={handleLogout}>Logout</button>
-        </div>
-        <Toggable buttonLabel='Add new note'>
+        <Toggable buttonLabel='Create Notes'>
           <section className="addFormContainer">
               <Form addNote={addNote} handleNoteChange={handleNoteChange} value={newNote} /> 
               <Notifications message={errorMessage} />

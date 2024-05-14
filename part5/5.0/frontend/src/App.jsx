@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import ButtonLanding from "../components/ButtonsLanding";
 import NoteForm from "../components/NoteForm";
 import GetShowNotes from '../components/GetShowNotes'
+import LogoutSession from "../components/LogoutSession";
 
 const App = () => {
   const [notesArray,setNotesArray] = useState([]);
@@ -34,12 +35,14 @@ const App = () => {
         </>
       )
     }     
-      {user &&(
-        <NoteForm setNotesArray={setNotesArray} notesArray={notesArray} errorMessage={errorMessage} setErrorMessage={setErrorMessage} setUser={setUser}/>
+      {user &&(<>
+        <LogoutSession setErrorMessage={setErrorMessage} setUser={setUser}/>
+        <NoteForm setNotesArray={setNotesArray} notesArray={notesArray} errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>
+        <GetShowNotes notesArray={notesArray} setNotesArray={setNotesArray}/>
+      </>
       )
     } 
-          <GetShowNotes notesArray={notesArray} setNotesArray={setNotesArray}/>
-          <Footer user={user}/>
+      <Footer user={user}/>
     </div>
   )
 }
