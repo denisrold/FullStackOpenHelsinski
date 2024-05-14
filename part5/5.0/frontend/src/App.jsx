@@ -4,9 +4,10 @@ import Notifications from '../components/Notifications'
 import Footer from '../components/Footer';
 import ButtonLanding from "../components/ButtonsLanding";
 import NoteForm from "../components/NoteForm";
+import GetShowNotes from '../components/GetShowNotes'
 
 const App = () => {
-
+  const [notesArray,setNotesArray] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading,setLoading] = useState(false);
   const [user,setUser] = useState(null);
@@ -23,8 +24,6 @@ const App = () => {
         },1000)
       }
 },[])
-
-  
   return (
     <div>
       <h1 id="NOTES">Notes</h1>
@@ -36,9 +35,10 @@ const App = () => {
       )
     }     
       {user &&(
-        <NoteForm  errorMessage={errorMessage} setErrorMessage={setErrorMessage} setUser={setUser}/>
+        <NoteForm setNotesArray={setNotesArray} notesArray={notesArray} errorMessage={errorMessage} setErrorMessage={setErrorMessage} setUser={setUser}/>
       )
-    }
+    } 
+          <GetShowNotes notesArray={notesArray} setNotesArray={setNotesArray}/>
           <Footer user={user}/>
     </div>
   )
