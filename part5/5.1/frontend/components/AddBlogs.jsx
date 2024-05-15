@@ -2,6 +2,8 @@ import {useState} from 'react';
 import blogs from '../src/service/blogs';
 import AddedMessage from './AddedMessage';
 import Notification from './Notifications';
+import Toggable from './Toggable';
+
 const AddBlogs = ({setNewBlog})=>{
     const [addState,setAddState] = useState(false);
     const [addedState,setAddedState] = useState(false);
@@ -39,18 +41,19 @@ const AddBlogs = ({setNewBlog})=>{
     return(
         <div className='containerAbsolute'> 
         {addedState&&<AddedMessage newBlog={{title,author}}/>}
-       
         <section className={addState?'createContainer':null}>
-        {!addState &&(<div className='addNewBLog'><a href='#form' onClick={()=>setAddState(true)}>Add new blog</a></div>)}
-          {addState&&(<>
+        {/* {!addState &&(<div className='addNewBLog'><a href='#form' onClick={()=>setAddState(true)}>Add new blog</a></div>)}
+          {addState&&(
+          <>
           <header className='addBlogsTitle'>
             <button onClick={()=>setAddState(false)}>x</button>
             <div className='titleAddBlogs'>
               <h3 onClick={()=>setAddState(true)}>Add Blogs</h3>
              </div>
-          </header>
-          <form id="form" className='form'>
-          {errorMessage&&<Notification errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>}
+          </header> */}
+          <div className='ToggableAddBlogs'>  
+          <Toggable buttonLabel={'Add Blog'}>
+          <form id="form" className='formAdd'>
             <div className='formContainer'>
                 <label>Title </label>
                 <input tipe="text" placeholder='the blogverse title' required name="title" onChange={({target})=>setTitle(target.value)} value={title}/>
@@ -59,9 +62,13 @@ const AddBlogs = ({setNewBlog})=>{
                 <label>Url </label>
                 <input tipe="url" placeholder='https://exampleweb.com' required onChange={({target})=>setUrl(target.value)} name="url" value={url}/>
             </div>
-            <button onClick={handleAddBlogs} type="submit">Add</button>
+            <button onClick={handleAddBlogs} style={{display:errorMessage&&'none', marginTop:'1.65rem'}} type="submit">Add</button>
+            {errorMessage&&<Notification errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>}
           </form>
-          </>)}
+          </Toggable>
+          </div>
+          {/* </>
+        )} */}
         </section>
         
         </div>

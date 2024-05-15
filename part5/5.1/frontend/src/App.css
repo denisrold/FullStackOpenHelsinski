@@ -142,10 +142,15 @@ font-size: small;
   padding-left: 1rem;
 }
 
-.form{
-  margin-bottom: 3rem;
+.ToggableAddBlogs{
+  margin:2rem;
+  border:solid 1px black;
+  padding-bottom: .5rem;
 }
-.form button{
+.formAdd{
+
+}
+.formAdd button{
   margin-top: .9rem;
   padding-left: 4rem;
   padding-right: 4rem;
