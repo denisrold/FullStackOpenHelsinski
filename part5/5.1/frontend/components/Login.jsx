@@ -1,5 +1,6 @@
 import {useEffect,useState} from'react'
 import loginService from '../src/service/login';
+import Toggable from './Toggable';
 const Login =({loginStates})=>{
     const {user,setUser,setErrorMessage,setLoadState,loadState} = loginStates;
     const [username,setUsername] = useState('');
@@ -36,17 +37,22 @@ useEffect(()=>{
     return(
         <>
         {loadState ? (<div className='loadStateContainer'><h3>Loading...</h3></div>): 
-        !user && (<section className='formContainer'>
-            <form className='form'>
-                <div>
-                    <input required type="text" value={username} onChange={({target})=>setUsername(target.value)} placeholder='username'></input>
-                </div>
-                <div>
-                    <input required type="password" value={password} onChange={({target})=>setPassword(target.value)} placeholder='password'></input>
-                </div>
-                <button onClick={handleForm}>Login</button>
-            </form>
-        </section>)
+        !user && (
+        <Toggable buttonLabel={"Login"} setErrorMessage={setErrorMessage}>
+          <section className='formContainer'>
+              <form className='form'>
+                  <div>
+                      <input required type="text" value={username} onChange={({target})=>setUsername(target.value)} placeholder='username'></input>
+                  </div>
+                  <div>
+                      <input required type="password" value={password} onChange={({target})=>setPassword(target.value)} placeholder='password'></input>
+                  </div>
+                  <button onClick={handleForm}>Login</button>
+                  <p className='loginToRegister'>Don't have an account yet? <a onClick={()=>{}}>Register.</a></p>
+              </form>
+          </section>
+        </Toggable>
+        )
         }
         </>
     )

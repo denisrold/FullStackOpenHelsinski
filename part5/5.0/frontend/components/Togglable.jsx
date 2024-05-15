@@ -36,10 +36,10 @@ else{
     return(
         <section >
         <div style={showHideVisible}>
-        {props.children}
-        <section className="toggleable toggleableClose ">
-                <button  onClick={toggleVisibility}>cancel</button>
-        </section>
+            {props.children}
+            <section className="toggleable toggleableClose ">
+                    <button  onClick={toggleVisibility}>cancel</button>
+            </section>
         </div>
         <div style={hideWhitVisible}>
         <section className="toggleable">

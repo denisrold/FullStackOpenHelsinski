@@ -7,6 +7,7 @@ import LogoutButton from '../components/LogoutButton';
 import blogService from './service/blogs';
 import Blogs from '../components/Blog';
 import AddBlogs from '../components/AddBlogs';
+import Toggable from '../components/Toggable';
 
 function App() {
   const [user,setUser] = useState(null);

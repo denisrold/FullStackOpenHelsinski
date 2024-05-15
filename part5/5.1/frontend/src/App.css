@@ -176,6 +176,7 @@ font-size: small;
     width: auto;
   }
   .formContainer{
+ 
     flex-direction: column;
   }
   .formContainer input{
