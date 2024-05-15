@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState,useEffect,useRef } from "react";
 import Form from "../components/Form";
 import noteService from '../src/services/notes.js'
 import Notifications from "./Notifications.jsx";
@@ -6,7 +6,7 @@ import Toggable from "./Togglable.jsx";
 
 const NoteForm = ({errorMessage,setErrorMessage,notesArray,setNotesArray})=>{
     const [newNote,setNewNote] = useState("");
-
+    const noteFormRef = useRef();
   useEffect(()=>{
         !notesArray.length ? noteService.getAll()
        .then(initialNotes=>setNotesArray(initialNotes)).catch(err=>console.log(err)) : ""
@@ -25,6 +25,7 @@ const NoteForm = ({errorMessage,setErrorMessage,notesArray,setNotesArray})=>{
         document.querySelector("#inputNote").value = "";
         noteService.create(newObject)
         .then(createdNote => {
+          noteFormRef.current.toggleVisibility();
           setNotesArray([...notesArray,createdNote]);
             })
         .catch(err=>{setErrorMessage(err.response.data.error.split('Path')[1].replace(/`/g, ''));
@@ -34,14 +35,12 @@ const NoteForm = ({errorMessage,setErrorMessage,notesArray,setNotesArray})=>{
       }
 
     return(
-    <>
-        <Toggable buttonLabel='Create Notes'>
+      <Toggable buttonLabel='Create Notes' ref={noteFormRef}>
           <section className="addFormContainer">
               <Form addNote={addNote} handleNoteChange={handleNoteChange} value={newNote} /> 
               <Notifications message={errorMessage} />
           </section>
-        </Toggable>
-    </>
+      </Toggable>
     )}
 
     export default NoteForm;
