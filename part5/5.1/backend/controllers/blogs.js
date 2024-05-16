@@ -55,6 +55,29 @@ blogsRouter.put("/:id", async (request, response) => {
   else response.status(200).json(updatedBlog);
 });
 
+blogsRouter.put("/likes/:id", async (request, response) => {
+  const { id } = request.params;
+  const { title, author, url, likes } = request.body;
+
+  const toUpdatedBlog = await Blog.findById(id);
+
+  const blog = {
+    title,
+    author,
+    url,
+    likes: toUpdatedBlog.likes + 1,
+  };
+
+  const updatedBlog = await Blog.findByIdAndUpdate(id, blog, {
+    new: true,
+    // runValidators: true,
+    // context: "query",
+  });
+
+  if (!updatedBlog) response.status(404).json({ err: "no such blog" });
+  else response.status(200).json(updatedBlog);
+});
+
 blogsRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;
   if (req.token === undefined) {

@@ -1,7 +1,22 @@
 import Toggable from "./Toggable";
+import blogService from '../src/service/blogs';
+import { useEffect,useState } from "react";
+
 const Blogs = ({blog})=>{
-    const {title,author,likes,userId,url} = blog
-    return(
+  const [like ,setLike] = useState();
+    useEffect(()=>{
+      setLike(blog.likes);
+    },[setLike])
+    const {title,author,likes,userId,url} = blog;
+    const handleLikes= async()=>{
+    try{
+      await blogService.updateLikes(blog);
+      const response = await blogService.getBlogsByID(blog.id);
+      setLike(response.likes);
+    }catch(err){console.error(err)}
+
+    }
+     return(
         <section  className='blogContainer'>
              <h4>{title}</h4>
              <Toggable buttonLabel={"show"} buttonlabelCancel={"hide"}>
@@ -10,9 +25,9 @@ const Blogs = ({blog})=>{
                 </h5>
                 <article className='likeContainer'>
                   <span>
-                  Likes: <span style={{fontWeight:'bolder'}}>{likes}</span>
+                  Likes: <span style={{fontWeight:'bolder'}}>{like}</span>
                   </span>
-                  <button>like</button>
+                  <button onClick={handleLikes}>like</button>
                 </article>
                 <h5>
                   User: {userId.name}
