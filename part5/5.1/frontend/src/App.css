@@ -142,13 +142,30 @@ font-size: small;
   padding-left: 1rem;
 }
 
+.likeContainer{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.likeContainer button{
+  margin: 0;
+  margin-left: 1rem;
+}
+
 .ToggableAddBlogs{
-  margin:2rem;
+  margin:2rem auto;
+  /* width: fit-content;
+  padding: 2rem; */
   border:solid 1px black;
   padding-bottom: .5rem;
-}
-.formAdd{
 
+}
+/* BACK BUTTON */
+.backButtonContainer{height: 2.3rem;}
+.backButton{
+  color: white;
+  width: 1rem;
+  height: 1rem;
 }
 .formAdd button{
   margin-top: .9rem;
