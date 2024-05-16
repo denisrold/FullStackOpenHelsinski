@@ -7,9 +7,13 @@ const Blogs = ({blog})=>{
     useEffect(()=>{
       setLike(blog.likes);
     },[setLike])
+
     const {title,author,likes,userId,url} = blog;
     const handleLikes= async()=>{
     try{
+      const userToken = window.localStorage.getItem('userLogged');
+      const JSONPARSE = await JSON.parse(userToken)
+      blogService.setToken(JSONPARSE.token);
       await blogService.updateLikes(blog);
       const response = await blogService.getBlogsByID(blog.id);
       setLike(response.likes);

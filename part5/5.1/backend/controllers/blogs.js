@@ -2,6 +2,7 @@ const blogsRouter = require("express").Router();
 const jwt = require("jsonwebtoken");
 const Blog = require("../models/blog");
 const User = require("../models/user");
+const { default: mongoose } = require("mongoose");
 
 blogsRouter.get("", async (request, response, next) => {
   const blogs = await Blog.find({}).populate("userId", {
@@ -56,26 +57,42 @@ blogsRouter.put("/:id", async (request, response) => {
 });
 
 blogsRouter.put("/likes/:id", async (request, response) => {
+  if (request.token === undefined)
+    response.status(401).json({ error: "token invalid" });
+  const { title, author, url, likesUserId } = request.body;
   const { id } = request.params;
-  const { title, author, url, likes } = request.body;
+  const userId = request.user.id;
 
   const toUpdatedBlog = await Blog.findById(id);
-
-  const blog = {
-    title,
-    author,
-    url,
-    likes: toUpdatedBlog.likes + 1,
-  };
+  let blog = {};
+  if (toUpdatedBlog.likesUserId.includes(userId)) {
+    const indexUser = toUpdatedBlog.likesUserId.findIndex(
+      (user) => user == userId
+    );
+    const newLikes = toUpdatedBlog.likesUserId.splice(indexUser, 1);
+    blog = {
+      title,
+      author,
+      url,
+      likesUserId: toUpdatedBlog.likesUserId.splice(indexUser, 1),
+      likes: toUpdatedBlog.likes - 1,
+    };
+  } else {
+    blog = {
+      title,
+      author,
+      url,
+      likesUserId: likesUserId.concat(userId),
+      likes: toUpdatedBlog.likes + 1,
+    };
+  }
 
   const updatedBlog = await Blog.findByIdAndUpdate(id, blog, {
     new: true,
     // runValidators: true,
     // context: "query",
   });
-
-  if (!updatedBlog) response.status(404).json({ err: "no such blog" });
-  else response.status(200).json(updatedBlog);
+  response.status(200).json(updatedBlog);
 });
 
 blogsRouter.delete("/:id", async (req, res) => {
