@@ -56,42 +56,32 @@ blogsRouter.put("/:id", async (request, response) => {
   else response.status(200).json(updatedBlog);
 });
 
+////likes unlikes
 blogsRouter.put("/likes/:id", async (request, response) => {
   if (request.token === undefined)
     response.status(401).json({ error: "token invalid" });
-  const { title, author, url, likesUserId } = request.body;
+  const { unlike } = request.body;
   const { id } = request.params;
   const userId = request.user.id;
-
-  const toUpdatedBlog = await Blog.findById(id);
-  let blog = {};
-  if (toUpdatedBlog.likesUserId.includes(userId)) {
-    const indexUser = toUpdatedBlog.likesUserId.findIndex(
-      (user) => user == userId
+  let updatedBlog = {};
+  if (unlike) {
+    updatedBlog = await Blog.findByIdAndUpdate(
+      id,
+      { $inc: { likes: -1 }, $pull: { likesUserId: userId } },
+      {
+        new: true,
+      }
     );
-    const newLikes = toUpdatedBlog.likesUserId.splice(indexUser, 1);
-    blog = {
-      title,
-      author,
-      url,
-      likesUserId: toUpdatedBlog.likesUserId.splice(indexUser, 1),
-      likes: toUpdatedBlog.likes - 1,
-    };
   } else {
-    blog = {
-      title,
-      author,
-      url,
-      likesUserId: likesUserId.concat(userId),
-      likes: toUpdatedBlog.likes + 1,
-    };
+    updatedBlog = await Blog.findByIdAndUpdate(
+      id,
+      { $inc: { likes: 1 }, $push: { likesUserId: userId } },
+      {
+        new: true,
+      }
+    );
   }
 
-  const updatedBlog = await Blog.findByIdAndUpdate(id, blog, {
-    new: true,
-    // runValidators: true,
-    // context: "query",
-  });
   response.status(200).json(updatedBlog);
 });
 

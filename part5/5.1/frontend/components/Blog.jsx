@@ -1,22 +1,39 @@
 import Toggable from "./Toggable";
 import blogService from '../src/service/blogs';
+import userService from "../src/service/user";
 import { useEffect,useState } from "react";
 
 const Blogs = ({blog})=>{
-  const [like ,setLike] = useState();
+  const {title,author,likes,userId,url,id} = blog;
+  const [like ,setLike] = useState(0);
+  const [unlikes,setUnlike] =useState(false);
+ 
+  const getUserLike = async ()=>{
+    const userToken = window.localStorage.getItem('userLogged');
+    const JSONPARSE = await JSON.parse(userToken);
+    const res = await blogService.getBlogsByID(id);
+    userService.setToken(JSONPARSE.token);
+    const userId =await userService.userId();
+    const arrayUser = res.likesUserId.find(u=>u == userId);
+    if(!arrayUser)setUnlike(false)
+    else setUnlike(true);
+    setLike(res.likes);
+  }
     useEffect(()=>{
-      setLike(blog.likes);
-    },[setLike])
+      getUserLike();
+    },[]);
 
-    const {title,author,likes,userId,url} = blog;
+    //Likes or Unlikes.
     const handleLikes= async()=>{
     try{
+      //USER AND LIKES INFO.
       const userToken = window.localStorage.getItem('userLogged');
-      const JSONPARSE = await JSON.parse(userToken)
+      const JSONPARSE = await JSON.parse(userToken);
       blogService.setToken(JSONPARSE.token);
-      await blogService.updateLikes(blog);
-      const response = await blogService.getBlogsByID(blog.id);
-      setLike(response.likes);
+      //like or unlike user.
+      setUnlike(!unlikes);
+      const service = await blogService.updateLikes(blog,unlikes);
+      setLike(service.likes);
     }catch(err){console.error(err)}
 
     }
@@ -29,7 +46,7 @@ const Blogs = ({blog})=>{
                 </h5>
                 <article className='likeContainer'>
                   <span>
-                  Likes: <span style={{fontWeight:'bolder'}}>{like}</span>
+                  Likes: <span className={`${unlikes&&'Liked'}`}style={{fontWeight:'bolder'}}>{like}</span>
                   </span>
                   <button onClick={handleLikes}>like</button>
                 </article>

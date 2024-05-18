@@ -29,6 +29,7 @@ const blogSchema = new mongoose.Schema({
   likesUserId: [
     {
       type: String,
+      unique: true,
       ref: "User",
     },
   ],
