@@ -8,12 +8,10 @@ usersRouter.get("/", async (req, res) => {
 });
 //likes likess
 usersRouter.get("/userid", async (req, res) => {
-  console.log("entre");
   if (req.token === undefined) {
     res.status(401).json({ error: "Invalid token" });
   }
   const userId = req.user.id;
-  console.log(userId);
   res.status(200).json(userId);
 });
 
