@@ -24,9 +24,17 @@ const update = (id, newObject) => {
   return request.then((res) => res.data);
 };
 
+const deleteNote = (id) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = axios.delete(`${baseUrl}/${id}`, config);
+  return response.data;
+};
 export default {
   getAll,
   create,
   update,
   setToken,
+  deleteNote,
 };

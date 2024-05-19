@@ -1,18 +1,17 @@
 
-import blogService from '../src/service/blogs';
-const DeleteBlog = ({blog,setNewBlog})=>{
-    const {id} = blog;
+import noteService from '../src/services/notes';
+const DeleteNote = ({note,setNewNote})=>{
+    const {id} = note;
     const handleDelete = async ()=>{
         try {
-            if(windows.confirm("Do you really want to delete blog?")){  
+            if(window.confirm("Do you really want to delete this Note?")){  
                  //get token with userdata
                 const getUserToken = window.localStorage.getItem('userLogged');
                 const {token} = await JSON.parse(getUserToken);
-                blogService.setToken(token);
-                //get this blog by id
-                const res = await blogService.getBlogsByID(id);
-                await blogService.deleteBlogs(id);
-                setNewBlog(true);
+                noteService.setToken(token);
+                //Delete Note
+                await noteService.deleteBlogs(id);
+                setNewNote(true);
             }
             else{
                 return;
@@ -28,4 +27,4 @@ const DeleteBlog = ({blog,setNewBlog})=>{
     )
 }
 
-export default DeleteBlog;
+export default DeleteNote;
