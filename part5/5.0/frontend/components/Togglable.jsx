@@ -28,7 +28,7 @@ const Toggable = forwardRef((props,refs)=>{
             </section>
         </div>
         <div style={showHideVisible}>
-            <LoginForm setErrorMessage={setErrorMessage} visible={visible} setVisible={setVisible} user={user} loginHandle={{setErrorMessage,setUser}} />
+            <LoginForm setErrorMessage={setErrorMessage} setChangesNotes={props.setChangesNotes} visible={visible} setVisible={setVisible} user={user} loginHandle={{setErrorMessage,setUser}} />
         </div>
        </>)
    }

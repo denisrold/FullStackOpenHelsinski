@@ -34,7 +34,6 @@ notesRouter.put("/:id", async (request, response) => {
 
 notesRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;
-
   if (req.token === undefined) {
     res.status(401).json({ error: "Invalid token" });
   }

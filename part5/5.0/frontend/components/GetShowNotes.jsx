@@ -3,7 +3,7 @@ import { useState } from "react";
 import Button from "./Button";
 import noteService from "../src/services/notes";
 
-const GetShowNotes = ({notesArray,setNotesArray})=>{
+const GetShowNotes = ({setChangesNotes, notesArray,setNotesArray})=>{
     const [showAll, setShowAll] = useState(true);
     const notesToShow = showAll? notesArray : notesArray.filter(note => note.important === true)
    
@@ -25,7 +25,7 @@ const GetShowNotes = ({notesArray,setNotesArray})=>{
     <>
      <Button setShowAll={setShowAll} showAll={showAll}/>
         <ul>
-            {notesToShow.map((note)=><Note key={note.id} id={note.id} content={note.content} important={note.important} toggleImportance={toggleImportanceOf}/>)} 
+            {notesToShow.map((note)=><Note setChangesNotes={setChangesNotes} setNotesArray={setNotesArray} key={note.id} id={note.id} content={note.content} important={note.important} toggleImportance={toggleImportanceOf}/>)} 
         </ul>
     </>
     )
