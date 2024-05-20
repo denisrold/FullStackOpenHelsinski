@@ -1,11 +1,11 @@
-const ButtonImportance = ({setShowAll,showAll})=>{
-return(
+const ButtonImportance = ({ setShowAll,showAll }) => {
+  return(
     <div className="important_btn" >
-    <button onClick={() => setShowAll(!showAll)}>
+      <button onClick={() => setShowAll(!showAll)}>
       show {showAll ? 'important' : 'all' }
-    </button>
+      </button>
     </div>
-)
+  )
 }
 
 export default ButtonImportance;
