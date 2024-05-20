@@ -13,7 +13,7 @@ function App() {
   const [blogs,setBlogs] = useState([]);
   const [errorMessage,setErrorMessage] = useState(null);
   const [loadState,setLoadState] = useState(false);
-  const [newBlog,setNewBlog] = useState(false);
+  const [newBlog,setNewBlog] = useState(true);
 
   const getBlogs = async () => {
     try{
@@ -27,10 +27,12 @@ function App() {
 
   useEffect(() => {
     if(newBlog){
-      getBlogs();
-      setNewBlog(false);
+      if(user){
+        getBlogs();
+        setNewBlog(false);
+      }
     }
-  },[newBlog])
+  },[newBlog,user])
 
   return (
     <>

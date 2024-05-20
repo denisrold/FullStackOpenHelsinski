@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-const Notification = ({errorMessage,setErrorMessage}) => {
-  useEffect(()=>{
-    if(errorMessage ===null){return}
-    setTimeout(()=>{
+const Notification = ({ errorMessage,setErrorMessage }) => {
+
+  useEffect(() => {
+    if(errorMessage ===null){ return }
+    setTimeout(() => {
       setErrorMessage(null)
     },3000)
-    },[errorMessage])
+  },[errorMessage])
   return (
     <div className='notificationContainer'>
-      <h4 className="title">{`* ${errorMessage}`}</h4>
+      <h4 className="title">{ `* ${ errorMessage }` }</h4>
     </div>
-  
   );
 };
 
