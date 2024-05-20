@@ -27,18 +27,18 @@ const LoginForm = ({loginHandle,visible,setVisible,setChangesNotes })=>{
   }
 };
     return(
-        <div className='userFormContainer'>
-    <form className="userForm">
-        <div>
-            <input name="Username" type="text" value={username} onChange={({target})=>setUsername(target.value)} placeholder="Username" />
-        </div>
-        <div>
-            <input name="Password" type="password" value={password} onChange={({target})=>setPassword(target.value)} placeholder="Password" />
-        </div>
-        <button type="submit" onClick={handleLoggin}>Login</button>
-    </form>
-    <p className='loginToRegister'>Don't have an account yet? <a onClick={()=>setVisible(!visible)}>Register.</a></p>
-    <BackLoginButton visible={visible} setVisible={setVisible}/>
+    <div className='userFormContainer'>
+        <form className="userForm">
+            <div>
+                <input name="Username" type="text" value={username} onChange={({target})=>setUsername(target.value)} placeholder="Username" />
+            </div>
+            <div>
+                <input name="Password" type="password" value={password} onChange={({target})=>setPassword(target.value)} placeholder="Password" />
+            </div>
+            <button type="submit" onClick={handleLoggin}>Login</button>
+        </form>
+        <p className='loginToRegister'>Don't have an account yet? <a onClick={()=>setVisible(!visible)}>Register.</a></p>
+        <BackLoginButton visible={visible} setVisible={setVisible}/>
     </div>)
 };
 

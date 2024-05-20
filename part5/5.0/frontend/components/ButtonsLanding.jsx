@@ -5,7 +5,7 @@ const ButtonLanding = ({setChangesNotes,user,setUser,setErrorMessage})=>{
     
     return(
         <>
-        <Toggable setChangesNotes={setChangesNotes} login={true} buttonLabel={{Login:"Login",Register:"Register"} }  user={user} loginHandle={{setUser,setErrorMessage}}>
+        <Toggable setChangesNotes={setChangesNotes} login={true} buttonLabel={"Login" } buttonLabelRegister={"Register"} user={user} loginHandle={{setUser,setErrorMessage}}>
             <section className="landingContainer">Landing...</section>
         </Toggable>
         </>

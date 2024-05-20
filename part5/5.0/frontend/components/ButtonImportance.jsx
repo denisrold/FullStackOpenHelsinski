@@ -1,4 +1,4 @@
-const Button = ({setShowAll,showAll})=>{
+const ButtonImportance = ({setShowAll,showAll})=>{
 return(
     <div className="important_btn" >
     <button onClick={() => setShowAll(!showAll)}>
@@ -8,4 +8,4 @@ return(
 )
 }
 
-export default Button;
+export default ButtonImportance;

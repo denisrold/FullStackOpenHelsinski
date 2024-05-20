@@ -1,6 +1,6 @@
 import Note from "./Notes";
 import { useState } from "react";
-import Button from "./Button";
+import ButtonImportance from "./ButtonImportance";
 import noteService from "../src/services/notes";
 
 const GetShowNotes = ({setChangesNotes, notesArray,setNotesArray})=>{
@@ -23,7 +23,7 @@ const GetShowNotes = ({setChangesNotes, notesArray,setNotesArray})=>{
       }
     return(
     <>
-     <Button setShowAll={setShowAll} showAll={showAll}/>
+     <ButtonImportance setShowAll={setShowAll} showAll={showAll}/>
         <ul>
             {notesToShow.map((note)=><Note setChangesNotes={setChangesNotes} setNotesArray={setNotesArray} key={note.id} id={note.id} content={note.content} important={note.important} toggleImportance={toggleImportanceOf}/>)} 
         </ul>

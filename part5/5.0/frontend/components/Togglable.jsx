@@ -1,6 +1,8 @@
 
 import LoginForm from "./LoginForm";
 import {useState , forwardRef, useImperativeHandle} from 'react';
+import PropTypes from 'prop-types'
+
 const Toggable = forwardRef((props,refs)=>{
     const [visible,setVisible] = useState(false);
     const hideWhitVisible = {display:visible?'none':''};
@@ -14,9 +16,10 @@ const Toggable = forwardRef((props,refs)=>{
         toggleVisibility
     }
 })
-        
+    //TOGGLABLE LOGIN
     if(props.login){
-       const {Login,Register} = props?.buttonLabel;
+       const Login = props.buttonLabel;
+       const Register = props.buttonLabelRegister
        const user = props?.user;
        const {setErrorMessage,setUser} = props?.loginHandle; 
        return(<>
@@ -33,6 +36,7 @@ const Toggable = forwardRef((props,refs)=>{
        </>)
    }
 else{
+     //TOGGLABLE NORMAL
     return(
         <section >
         <div style={showHideVisible}>
@@ -50,4 +54,8 @@ else{
     )
 }
 })
+
+Toggable.propTypes = {
+    buttonLabel: PropTypes.string.isRequired,
+}
 export default Toggable;
