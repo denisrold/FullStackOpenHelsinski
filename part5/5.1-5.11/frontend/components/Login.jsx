@@ -1,8 +1,8 @@
-import {useEffect,useState} from'react'
-import loginService from '../src/service/login';
+import { useEffect,useState } from 'react'
+import loginService from "../src/service/login"
 import Toggable from './Toggable';
-const Login =({loginStates})=>{
-    const {user,setUser,setErrorMessage,setLoadState,loadState} = loginStates;
+import PropTypes from 'prop-types'
+const Login =({user,setUser,setErrorMessage,setLoadState,loadState})=>{
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
 
@@ -58,4 +58,10 @@ useEffect(()=>{
     )
 }
 
+Login.propTypes={
+  setUser:PropTypes.func.isRequired,
+  setErrorMessage:PropTypes.func.isRequired,
+  setLoadState:PropTypes.func.isRequired,
+  loadState:PropTypes.bool.isRequired
+}
 export default Login;

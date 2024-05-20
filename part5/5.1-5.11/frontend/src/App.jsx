@@ -7,7 +7,6 @@ import LogoutButton from '../components/LogoutButton';
 import blogService from './service/blogs';
 import Blogs from '../components/Blog';
 import AddBlogs from '../components/AddBlogs';
-import Toggable from '../components/Toggable';
 
 function App() {
   const [user,setUser] = useState(null);
@@ -16,41 +15,47 @@ function App() {
   const [loadState,setLoadState] = useState(false);
   const [newBlog,setNewBlog] = useState(false);
 
-  const getBlogs= async ()=>{
+  const getBlogs = async () => {
     try{
-    const response = await blogService.getBlogs();
-    setBlogs(response.data);
-  }    
+      const response = await blogService.getBlogs();
+      setBlogs(response.data);
+    }
     catch(err){
       console.error(err.response.data);
     }
   }
 
-  useEffect( ()=>{    
+  useEffect(() => {
+    if(newBlog){
       getBlogs();
       setNewBlog(false);
-  },[newBlog==true?newBlog:null])
+    }
+  },[newBlog])
 
   return (
     <>
-    <Header/>
-    <Login loginStates={{user,setUser,setErrorMessage,setLoadState,loadState}}/>
+      <Header/>
+      <Login
+        user={user}
+        setUser={setUser}
+        setErrorMessage={setErrorMessage}
+        setLoadState={setLoadState}
+        loadState={loadState}/>
       {errorMessage&&<Notifications errorMessage={errorMessage}  setErrorMessage={setErrorMessage}/>}
       {user&&(
         <>
-      
-        <section className='bodyContainer'> 
-        {blogs.length?blogs.map((b,i)=>(
-          <Blogs blog={b} setNewBlog={setNewBlog} key={i}/>
-        ))
-        :<h3>No Blogs</h3>}
-        </section>
-        <AddBlogs setNewBlog={setNewBlog}/>
-        <LogoutButton logoutStates={{setUser,setLoadState}}/>
+          <section className='bodyContainer'>
+            {blogs.length?blogs.map((b,i) => (
+              <Blogs blog={b} setNewBlog={setNewBlog} key={i}/>
+            ))
+              :<h3>No Blogs</h3>}
+          </section>
+          <AddBlogs setNewBlog={setNewBlog}/>
+          <LogoutButton logoutStates={ { setUser,setLoadState } }/>
         </>
-        )
+      )
       }
-      </>
+    </>
   )
 }
 
