@@ -33,4 +33,6 @@ const Toggable = (props) => {
 Toggable.propTypes = {
   buttonLabel : PropTypes.string.isRequired
 }
+//displayname in components
+Toggable.displayName = 'Togglable'
 export default Toggable;
