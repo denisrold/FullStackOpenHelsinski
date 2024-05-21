@@ -1,4 +1,5 @@
 import DeleteNote from "./DeleteNote";
+import NoteContent from "./NoteContent";
 const Note = ({ setChangesNotes,content,important,toggleImportance,id }) => {
   const handleImportance=() => {
     toggleImportance(id);
@@ -7,9 +8,10 @@ const Note = ({ setChangesNotes,content,important,toggleImportance,id }) => {
     ? 'Not important' : 'Make important'
   return (
     <section className={`noteContent ${important?"important":""}`}>
-      <li className={`note notelength`}>
+      <NoteContent content={content}/>
+      {/* <li className={`note notelength`}>
         {content}
-      </li>
+      </li> */}
       <article className="noteButtonContainer">
         <DeleteNote  setChangesNotes={setChangesNotes} note={id}/>
         <button className={`importantButton ${important?"notimportant":""}`} onClick={handleImportance }>

@@ -12,4 +12,10 @@ export default defineConfig({
       },
     },
   },
+  test: {
+    environment: "jsdom",
+    //Con globals: true, no es necesario importar palabras clave como describe, test y expect en las pruebas.
+    globals: true,
+    setupFiles: "./testSetup.js",
+  },
 });
