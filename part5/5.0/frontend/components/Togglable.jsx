@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 
 const Toggable = forwardRef((props,refs) => {
   const [visible,setVisible] = useState(false);
-  const hideWhitVisible = { display:visible?'none':'' };
-  const showHideVisible = { display:visible?'':'none' };
+  const  showHideVisible = { display:visible?'none':'' };
+  const hideWhitVisible = { display:visible?'':'none' };
   const toggleVisibility =() => {
     setVisible(!visible);
   }
@@ -21,15 +21,16 @@ const Toggable = forwardRef((props,refs) => {
     const Register = props.buttonLabelRegister
     const user = props?.user;
     const { setErrorMessage,setUser } = props.loginHandle;
-    return(<>
-      <div style={ hideWhitVisible }>
+    return(
+    <>
+      <div id="togglableContent" style={ showHideVisible }>
         { props.children }
         <section className="buttonsLandingContainer">
           <button onClick={ toggleVisibility }>{ Login }</button>
           <button onClick={ toggleVisibility }>{ Register }</button>
         </section>
       </div>
-      <div style={ showHideVisible }>
+      <div style={ hideWhitVisible }>
         <LoginForm setErrorMessage={ setErrorMessage } setChangesNotes={ props.setChangesNotes } visible={ visible } setVisible={ setVisible } user={ user } loginHandle={ { setErrorMessage,setUser } } />
       </div>
     </>)
@@ -38,15 +39,15 @@ const Toggable = forwardRef((props,refs) => {
     //TOGGLABLE NORMAL
     return(
       <section >
-        <div style={ showHideVisible }>
+        <div style={  hideWhitVisible }>
           { props.children }
           <section className="toggleable toggleableClose ">
-            <button  onClick={ toggleVisibility }>cancel</button>
+            <button id='testCancelbutton' onClick={ toggleVisibility }>cancel</button>
           </section>
         </div>
-        <div style={ hideWhitVisible }>
+        <div style={ showHideVisible  }>
           <section className="toggleable">
-            <button  onClick={ toggleVisibility }>{ props.buttonLabel }</button>
+            <button id='testbutton' onClick={ toggleVisibility }>{ props.buttonLabel }</button>
           </section>
         </div>
       </section>
