@@ -2,21 +2,30 @@ import Toggable from "./Toggable";
 import Likes from './Likes';
 import DeleteBlog from "./DeleteBlog";
 
-const Blogs = ({ blog,setNewBlog }) => {
+const Blogs = ({user, blog,setNewBlog }) => {
   const { title,author,userId,url } = blog;
+
   return(
     <section  className='blogContainer'>
-      <h4>{ title }</h4>
-      <Toggable buttonLabel={ "show" } buttonlabelCancel={ "hide" }>
         <article className="flexRow">
-          <h5>Author: { author }</h5>
-          <h5>User: { userId.name }</h5>
+          <h4>
+            { title }
+          </h4>
+          <h4 id='testAuthor'>
+            by: { author }
+          </h4>
         </article>
-        <Likes blog={ blog } />
+      <Toggable buttonLabel={ "show" } buttonlabelCancel={ "hide" }>
+        <h5>
+          User: { userId.name }
+        </h5>
         <h5>
           url: { url }
         </h5>
-      <DeleteBlog setNewBlog={ setNewBlog } blog={ blog }/>
+       {!!user.token && ( <>
+        <Likes blog={ blog } />
+        <DeleteBlog setNewBlog={ setNewBlog } blog={ blog }/>
+        </>)}
       </Toggable>
     </section>
   )

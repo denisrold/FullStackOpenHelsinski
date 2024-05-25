@@ -48,7 +48,7 @@ function App() {
         <>
           <section className='bodyContainer'>
             {blogs.length?blogs.map((b,i) => (
-              <Blogs blog={b} setNewBlog={setNewBlog} key={i}/>
+              <Blogs user={user} blog={b} setNewBlog={setNewBlog} key={i}/>
             ))
               :<h3>No Blogs</h3>}
           </section>
