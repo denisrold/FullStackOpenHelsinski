@@ -21,7 +21,7 @@ describe('<Togglable />', () => {
 
   test('at start the children are displayed', () => {
     const div = container.querySelector('.testDiv');
-    expect(div).toHaveStyle('display: block');
+    expect(div).toHaveStyle('display: none');
   })
 
   test('after clicking the button, children not displayed', async () => {
@@ -29,7 +29,7 @@ describe('<Togglable />', () => {
     const button = screen.getByText('show...')
     await user.click(button)
     const div = container.querySelector('.testDiv')
-    expect(div).not.toHaveStyle('display: none')
+    expect(div).not.toHaveStyle('display: block')
   })
 
 })

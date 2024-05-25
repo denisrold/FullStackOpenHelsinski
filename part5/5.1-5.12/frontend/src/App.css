@@ -8,6 +8,11 @@
   margin-top: -2.5rem;
 }
 
+.flexRow{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
 /* LOADING CONTAINERS LOGIN */
 .loadStateContainer{
   display: flex;
