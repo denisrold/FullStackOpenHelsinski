@@ -51,6 +51,6 @@ describe('Blogs Components views', ()=>{
   expect(screen.getByText(/Test User/i)).toHaveStyle('display: block');
   expect(screen.getByText(/https54544545/i)).toHaveStyle('display: block');
   })
-  test('rendering Likes in Like components',() => {
-  })
+
+  
 })

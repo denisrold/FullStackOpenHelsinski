@@ -13,7 +13,7 @@ const Likes =({ blog }) => {
     const res = await blogService.getBlogsByID(id);
     //get UserId
     userService.setToken(token);
-    const userId =await userService.userId();
+    const userId = await userService.userId();
     const arrayUser = res.likesUserId.find(u => u === userId);
     if(!arrayUser)setUnlike(false)
     else setUnlike(true);
