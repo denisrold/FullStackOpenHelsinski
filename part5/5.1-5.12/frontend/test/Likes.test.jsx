@@ -2,29 +2,26 @@ import { render, screen } from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 import Likes from '../components/Likes';
 
-
 // Mockear el controlador de eventos
-let handle = vi.fn();
-    test('calls handleLikes twice when the like button is clicked twice', async () => {
-    
-        // Mock like's components (replic original); 
+test('calls handleLikes twice when the like button is clicked twice', async () => {
+        let handle = vi.fn();
+        // Mock like's components (original replic); 
         vi.mock('../components/Likes', () => ({
-          default: ({ blog }) => (
+          default: ({ blog,handle }) => (
             <>
               <section className='likeContainer'>
                 <span>
-                    Likes:
+                  Likes:
                   <span className={ 'Liked' }style={{ fontWeight:'bolder' }}>100</span>
                 </span>
-                <button onClick={handle}>
-                </button>
+                <button onClick={handle}></button>
               </section>
             </>
           ),
         }));
     
         // Renderizar el componente Likes
-        render(<Likes blog={{}} />);
+        render(<Likes blog={{}} handle={handle} />);
     
         const user = userEvent.setup();
         const likeButton = screen.getByRole('button');
