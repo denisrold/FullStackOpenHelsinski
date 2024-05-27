@@ -42,15 +42,13 @@ describe('Blogs Components views', ()=>{
 
   const user = userEvent.setup();
   const { container } = render( <Blogs user={false} blog={blog} />);    
-  screen.debug(container);
   const showButton = screen.getByText('show');
   await user.click(showButton);
   expect(container).toHaveTextContent("Test User");
   expect(container).toHaveTextContent("https54544545");
-  screen.debug(container);
   expect(screen.getByText(/Test User/i)).toHaveStyle('display: block');
   expect(screen.getByText(/https54544545/i)).toHaveStyle('display: block');
   })
 
-  
+
 })

@@ -19,17 +19,13 @@ test('calls handleLikes twice when the like button is clicked twice', async () =
             </>
           ),
         }));
-    
         // Renderizar el componente Likes
         render(<Likes blog={{}} handle={handle} />);
-    
         const user = userEvent.setup();
         const likeButton = screen.getByRole('button');
-        
         // Simular dos clics en el botón "like"
         await user.click(likeButton);
         await user.click(likeButton);
-    
         // Verificar que el controlador de eventos fue llamado dos veces
         expect(handle).toHaveBeenCalledTimes(2);
       });

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import blogs from '../src/service/blogs';
 import AddedMessage from './AddedMessage';
-import Notification from './Notifications';
 import Toggable from './Toggable';
+import AddForm from './AddForm';
 
 const AddBlogs = ({ setNewBlog }) => {
   const [addState,setAddState] = useState(false);
@@ -43,18 +43,7 @@ const AddBlogs = ({ setNewBlog }) => {
       <section className={addState?'createContainer':null}>
         <div className='ToggableAddBlogs'>
           <Toggable buttonLabel={'Add Blog'}>
-            <form id="form" className='formAdd'>
-              <div className='formContainer'>
-                <label>Title </label>
-                <input type="text" placeholder='the blogverse title' required name="title" onChange={({ target }) => setTitle(target.value)} value={ title }/>
-                <label>Author </label>
-                <input type="text" placeholder='Jhon Travis' required name="author" onChange={({ target }) => setAuthor(target.value)} value={ author }/>
-                <label>Url </label>
-                <input type="url" placeholder='https://exampleweb.com' required onChange={({ target }) => setUrl(target.value)} name="url" value={ url }/>
-              </div>
-              <button onClick={handleAddBlogs} style={{ display:errorMessage&&'none', marginTop:'1.65rem' }} type="submit">Add</button>
-              {errorMessage&&<Notification errorMessage={ errorMessage } setErrorMessage={setErrorMessage}/>}
-            </form>
+            <AddForm errorMessage={errorMessage} author={author} setAuthor={setAuthor} setTitle={setTitle} title={title}  setErrorMessage={setErrorMessage} handleAddBlogs={handleAddBlogs} setUrl={setUrl} url={url}/>
           </Toggable>
         </div>
       </section>
