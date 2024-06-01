@@ -26,7 +26,7 @@ const Toggable = forwardRef((props,refs) => {
       <div id="togglableContent" style={ showHideVisible }>
         { props.children }
         <section className="buttonsLandingContainer">
-          <button onClick={ toggleVisibility }>{ Login }</button>
+          <button  name="Login" onClick={ toggleVisibility }>{ Login }</button>
           <button onClick={ toggleVisibility }>{ Register }</button>
         </section>
       </div>

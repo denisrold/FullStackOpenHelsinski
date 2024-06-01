@@ -35,7 +35,7 @@ const LoginForm = ({ loginHandle,visible,setVisible,setChangesNotes }) => {
         <div>
           <input name="Password" type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder="Password" />
         </div>
-        <button type="submit" onClick={handleLoggin}>Login</button>
+        <button type="submit" name="Login" onClick={handleLoggin}>Login</button>
       </form>
       <p className='loginToRegister'>Don't have an account yet? <a onClick={() => setVisible(!visible)}>Register.</a></p>
       <BackLoginButton visible={visible} setVisible={setVisible}/>

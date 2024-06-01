@@ -17,17 +17,17 @@ const NoteForm = ({ errorMessage,setErrorMessage,notesArray,setNotesArray,setCha
       content: newNote,
       important: true,
     }
-    document.querySelector("#inputNote").value = "";
     noteService.create(newObject)
-      .then(createdNote => {
-        noteFormRef.current.toggleVisibility();
-        setNotesArray([...notesArray,createdNote]);
-        setChangesNotes(true);
-      })
-      .catch(err => {setErrorMessage(err.response.data.error.split('Path')[1].replace(/`/g, ''));
-        setTimeout(() => {setErrorMessage(null)},1500)
-      });
+    .then(createdNote => {
+      noteFormRef.current.toggleVisibility();
+      setNotesArray([...notesArray,createdNote]);
+      setChangesNotes(true);
+    })
+    .catch(err => {setErrorMessage(err.response.data.error.split('Path')[1].replace(/`/g, ''));
+    setTimeout(() => {setErrorMessage(null)},1500)
+  });
     setNewNote('');
+    document.querySelector("#inputNote").value = "";
   }
 
   return(

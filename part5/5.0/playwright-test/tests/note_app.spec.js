@@ -12,4 +12,14 @@ describe("Note app", () => {
       )
     ).toBeVisible();
   });
+
+  test("can be login", async ({ page }) => {
+    await page.goto("http://localhost:5173");
+    await page.getByRole("button", { name: "Login" }).click();
+    await page.getByRole("textbox").first().fill("rooter");
+    await page.getByRole("textbox").last().fill("Password123*");
+    await page.getByRole("button", { name: "Login" }).click();
+
+    await expect(page.getByText("toor logged in")).toBeVisible();
+  });
 });

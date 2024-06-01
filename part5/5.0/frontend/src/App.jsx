@@ -46,7 +46,10 @@ const App = () => {
       )
       }
       {user &&(<>
-        <LogoutSession setErrorMessage={ setErrorMessage } setUser={ setUser }/>
+        <section className="showuserContainer">
+          <h3>{user.name} logged in</h3>
+          <LogoutSession setErrorMessage={ setErrorMessage } setUser={ setUser }/>
+        </section>
         <NoteForm setChangesNotes={ setChangesNotes } setNotesArray={ setNotesArray } notesArray={ notesArray } errorMessage={ errorMessage } setErrorMessage={ setErrorMessage }/>
         <GetShowNotes setChangesNotes={ setChangesNotes } notesArray={ notesArray } setNotesArray={ setNotesArray }/>
       </>
