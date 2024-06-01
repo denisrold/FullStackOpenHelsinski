@@ -23,6 +23,10 @@ if (!process.env.NOTE_ENV == "test") app.use(requestMorgan());
 app.use("/api/login", loginRouter);
 app.use("/api/notes", userExtractor, notesRouter);
 app.use("/api/users", userExtractor, usersRouter);
+if (process.env.NODE_ENV === "test") {
+  const testingRouter = require("./controllers/testing");
+  app.use("/api/testing", testingRouter);
+}
 //MIDDLEWARE 404 NOT FOUND / ERRORSHANDLER
 app.use(unknownEndPoint);
 //errors configuration

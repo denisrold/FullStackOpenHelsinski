@@ -30,10 +30,10 @@ const LoginForm = ({ loginHandle,visible,setVisible,setChangesNotes }) => {
     <div className='userFormContainer'>
       <form className="userForm">
         <div>
-          <input name="Username" type="text" value={username} onChange={({ target }) => setUsername(target.value)} placeholder="Username" />
+          <input  data-testid='username' name="Username" type="text" value={username} onChange={({ target }) => setUsername(target.value)} placeholder="Username" />
         </div>
         <div>
-          <input name="Password" type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder="Password" />
+          <input data-testid='password' name="Password" type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder="Password" />
         </div>
         <button type="submit" name="Login" onClick={handleLoggin}>Login</button>
       </form>
