@@ -90,10 +90,14 @@ describe("Note app", () => {
       test("one of those can be made nonimportant", async ({ page }) => {
         const buttonNoteList = await page.getByTestId("importance").all();
         const firstNote = await page.getByText("first note");
+        const secondNote = await page.getByText("second note");
         await buttonNoteList[0].click();
-        const notImportantElements = await page.locator(".notimportant").all();
+        const notImportantElements = await page.locator(".notimportant");
+        const ImportantElements = await page.locator(".import");
         await expect(firstNote).toBeVisible();
-        await expect(notImportantElements[0]).toBeVisible();
+        await expect(notImportantElements).toBeVisible();
+        await expect(secondNote).toBeVisible();
+        await expect(ImportantElements).toBeVisible();
       });
     });
   });
