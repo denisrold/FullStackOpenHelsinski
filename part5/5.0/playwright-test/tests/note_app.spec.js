@@ -87,17 +87,19 @@ describe("Note app", () => {
         await expect(page.locator(".notimportant")).not.toBeVisible();
       });
 
-      test("one of those can be made nonimportant", async ({ page }) => {
-        const buttonNoteList = await page.getByTestId("importance").all();
-        const firstNote = await page.getByText("first note");
-        const secondNote = await page.getByText("second note");
-        await buttonNoteList[0].click();
-        const notImportantElements = await page.locator(".notimportant");
-        const ImportantElements = await page.locator(".import");
-        await expect(firstNote).toBeVisible();
-        await expect(notImportantElements).toBeVisible();
-        await expect(secondNote).toBeVisible();
-        await expect(ImportantElements).toBeVisible();
+      test("new trying toggle importance text.", async ({ page }) => {
+        // select elements
+        const otherNoteText = await page.getByText("first note");
+        const secondNoteText = await page.getByText("second note");
+        // GO TO FATHER NODE.
+        const otherNoteElement = await otherNoteText.locator("..");
+        const secondNoteElement = await secondNoteText.locator("..");
+        //change importante to not important
+        await otherNoteElement.locator(".notimportant").click();
+        //verify new class has to be .important.
+        await expect(otherNoteElement.locator(".important")).toBeVisible();
+        //verify second Note is important.
+        await expect(secondNoteElement.locator(".notimportant")).toBeVisible();
       });
     });
   });
