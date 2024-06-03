@@ -40,12 +40,12 @@ const Login =({ user,setUser,setErrorMessage,setLoadState,loadState }) => {
             <section className='formContainer'>
               <form className='form'>
                 <div>
-                  <input required type="text" value={username} onChange={({ target }) => setUsername(target.value)} placeholder='username'></input>
+                  <input data-testid='username' required type="text" value={username} onChange={({ target }) => setUsername(target.value)} placeholder='username'></input>
                 </div>
                 <div>
-                  <input required type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder='password'></input>
+                  <input data-testid='password' required type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder='password'></input>
                 </div>
-                <button onClick={handleForm}>Login</button>
+                <button buttonLabel={"Login"} onClick={handleForm}>Login</button>
                 <p className='loginToRegister'>Don't have an account yet? <a onClick={() => { console.log("go to Register")}}>Register.</a></p>
               </form>
             </section>

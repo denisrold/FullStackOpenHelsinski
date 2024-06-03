@@ -26,6 +26,7 @@ describe("Note app", () => {
 
     test("user can be login", async ({ page }) => {
       await loginWith(page, "rooter", "Password123*");
+      await page.getByText("toor logged in");
       await expect(page.getByText("toor logged in")).toBeVisible();
     });
 
@@ -70,6 +71,7 @@ describe("Note app", () => {
 
     test("a new note can be created", async ({ page }) => {
       await createNote(page, "a note created by playwright");
+      await page.getByText("a note created by playwright");
       await expect(
         page.getByText("a note created by playwright")
       ).toBeVisible();
@@ -78,28 +80,33 @@ describe("Note app", () => {
       beforeEach(async ({ page }) => {
         await createNote(page, "first note", true);
         await createNote(page, "second note", true);
+        await createNote(page, "third note", true);
       });
 
-      test("importance can be changed", async ({ page }) => {
-        await page.getByTestId("importance").click();
-        await expect(page.locator(".notimportant")).toBeVisible();
-        await page.getByTestId("importance").click();
-        await expect(page.locator(".notimportant")).not.toBeVisible();
-      });
-
-      test("new trying toggle importance text.", async ({ page }) => {
-        // select elements
+      // make important have class .notimportant
+      // make not important have class .important
+      test("importance can be changed checking two notes", async ({ page }) => {
         const otherNoteText = await page.getByText("first note");
         const secondNoteText = await page.getByText("second note");
-        // GO TO FATHER NODE.
+        // select FATHER NODE.
         const otherNoteElement = await otherNoteText.locator("..");
         const secondNoteElement = await secondNoteText.locator("..");
-        //change importante to not important
+        //change important to not important
         await otherNoteElement.locator(".notimportant").click();
-        //verify new class has to be .important.
+        //verify new class has to be .important for make not important..
         await expect(otherNoteElement.locator(".important")).toBeVisible();
-        //verify second Note is important.
+        //verify second Note is important with class .notimportant.
         await expect(secondNoteElement.locator(".notimportant")).toBeVisible();
+      });
+
+      test("importance can be changed with three element", async ({ page }) => {
+        const otherNoteText = await page.getByText("second note");
+        page.pause();
+        const otherdNoteElement = await otherNoteText.locator("..");
+        page.pause();
+        await otherdNoteElement.locator("#testID").click();
+        page.pause();
+        await expect(otherdNoteElement.locator(".important")).toBeVisible();
       });
     });
   });
