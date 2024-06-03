@@ -49,7 +49,7 @@ function App() {
           <h3 name='userInfo'>{user.name} logged in</h3>
           <section className='bodyContainer'>
             {blogs.length?blogs.map((b,i) => (
-              <Blogs user={user} blog={b} setNewBlog={setNewBlog} key={i}/>
+              <Blogs errorMessage={errorMessage} setErrorMessage={setErrorMessage} user={user} blog={b} setNewBlog={setNewBlog} key={i}/>
             ))
               :<h3>No Blogs</h3>}
           </section>

@@ -1,12 +1,13 @@
+import { useEffect, useState } from "react";
 import Toggable from "./Toggable";
 import Likes from './Likes';
 import DeleteBlog from "./DeleteBlog";
 import EditBlog from "./EditBlog";
-import { useEffect, useState } from "react";
 import UpdateBlogView from "./UpdateBlogView";
 import userService from '../src/service/user';
+import Notification from "./Notifications";
 
-const Blogs = ({user, blog,setNewBlog }) => {
+const Blogs = ({user, blog,setNewBlog,errorMessage,setErrorMessage }) => {
   const [updateBlog,setUpdateBlog] = useState({id:'',editState:false});
   const [userLoggedId,setUserLoggedId] = useState('');
   const { title,author,userId,url } = blog;
@@ -27,7 +28,7 @@ const Blogs = ({user, blog,setNewBlog }) => {
     <section  className='blogContainer'>
         {updateBlog.id==blog.id && updateBlog.editState?(
           (<>
-            <UpdateBlogView setNewBlog={setNewBlog} blog={blog} setUpdateBlog={setUpdateBlog}/>
+            <UpdateBlogView errorMessage={errorMessage} setNewBlog={setNewBlog} setErrorMessage={setErrorMessage} blog={blog} setUpdateBlog={setUpdateBlog}/>
           </>)
         ):
         (<>

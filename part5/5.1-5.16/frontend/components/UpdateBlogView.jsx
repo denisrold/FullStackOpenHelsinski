@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import blogService from '../src/service/blogs';
+import Notification from './Notifications';
 
-const UpdateBlogView = ({setNewBlog,blog,setUpdateBlog}) => {
+const UpdateBlogView = ({errorMessage,setErrorMessage,setNewBlog,blog,setUpdateBlog}) => {
     const { title,author,url,userId,id } = blog;
     const [updateTitle,setUpdateTitle] = useState(title)
     const [updateAuthor,setUpdateAuthor] = useState(author)
@@ -29,9 +30,9 @@ const UpdateBlogView = ({setNewBlog,blog,setUpdateBlog}) => {
             }
           }
           catch(err){
+            setErrorMessage(err.response.data.error.split('.')[0].split(':')[2].replace("Path","").split('`').join("").replace(/\(([^)]+)\)/g, '"$1"'));
             console.log(err)
         }
-        setUpdateBlog({id:'',editState:false});
       };
 
     const handleCancel = (e) => {
@@ -51,8 +52,11 @@ const UpdateBlogView = ({setNewBlog,blog,setUpdateBlog}) => {
                 <h5>
                   url: <input onChange={(e)=>setUpdateUrl(e.target.value)} value={ updateUrl }/>
                 </h5>
-                <button name='editBlog' type='submit' onClick={handleEdit}>edit</button>
-                <button onClick={handleCancel}>cancel</button>
+                {errorMessage&&<Notification errorMessage={ errorMessage } setErrorMessage={setErrorMessage}/>}
+                {!errorMessage&&(<>
+                    <button name='editBlog' type='submit' onClick={handleEdit}>edit</button>
+                    <button onClick={handleCancel}>cancel</button>
+                </>)}
               </form>
             </article>
         </>

@@ -56,7 +56,7 @@ blogsRouter.put("/:id", async (request, response) => {
     { $set: updateBlog },
     {
       new: true,
-      // runValidators: true,
+      runValidators: true,
       // context: "query",
     }
   );
