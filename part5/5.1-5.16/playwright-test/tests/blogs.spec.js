@@ -13,8 +13,22 @@ describe("Testing Blog App", () => {
     });
     await page.goto("/");
   });
-  test("user can loggin", async ({ page }) => {
-    await loginWith(page, "rooter", "Password123*");
-    await expect(page.getByText("logged in")).toBeVisible();
+
+  test("Login form is shown", async ({ page }) => {
+    await page.getByRole("button", { name: "Login" }).click();
+    await expect(page.locator('[name="LoginForm"]')).toBeVisible();
+  });
+
+  describe("Login", () => {
+    test("succeeds with correct credentials", async ({ page }) => {
+      await loginWith(page, "rooter", "Password123*");
+      await expect(page.locator('[name="userInfo"]')).toBeVisible();
+    });
+    test("fails with wrong credentials", async ({ page }) => {
+      await loginWith(page, "rooter", "wrong*");
+      await expect(
+        page.getByText("* Invalid username or password.")
+      ).toBeVisible();
+    });
   });
 });

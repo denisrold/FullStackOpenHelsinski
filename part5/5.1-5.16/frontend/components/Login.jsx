@@ -38,7 +38,7 @@ const Login =({ user,setUser,setErrorMessage,setLoadState,loadState }) => {
         !user && (
           <Toggable buttonLabel={"Login"} setErrorMessage={setErrorMessage}>
             <section className='formContainer'>
-              <form className='form'>
+              <form name="LoginForm" className='form'>
                 <div>
                   <input data-testid='username' required type="text" value={username} onChange={({ target }) => setUsername(target.value)} placeholder='username'></input>
                 </div>

@@ -46,7 +46,7 @@ function App() {
       {errorMessage&&<Notifications errorMessage={errorMessage}  setErrorMessage={setErrorMessage}/>}
       {user&&(
         <>
-          <h3>{user.name} logged in</h3>
+          <h3 name='userInfo'>{user.name} logged in</h3>
           <section className='bodyContainer'>
             {blogs.length?blogs.map((b,i) => (
               <Blogs user={user} blog={b} setNewBlog={setNewBlog} key={i}/>
