@@ -23,7 +23,7 @@ const Toggable = (props) => {
       </div>
       <div style={hideWhitVisible}>
         <section className="">
-          <button name='Login' onClick={toggleVisibility}>{props.buttonLabel}</button>
+          <button name={props.buttonLabel} onClick={toggleVisibility}>{props.buttonLabel}</button>
         </section>
       </div>
     </section>

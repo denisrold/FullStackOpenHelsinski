@@ -10,7 +10,7 @@ const AddForm = ({errorMessage, setAuthor,author,setTitle,title,setErrorMessage,
         <label>Url </label>
         <input type="url" placeholder='https://exampleweb.com' required onChange={({ target }) => setUrl(target.value)} name="url" value={ url }/>
       </div>
-      <button onClick={handleAddBlogs} style={{ display:errorMessage&&'none', marginTop:'1.65rem' }} type="submit">Add</button>
+      <button name='addFormButton' onClick={handleAddBlogs} style={{ display:errorMessage&&'none', marginTop:'1.65rem' }} type="submit">Add</button>
       {errorMessage&&<Notification errorMessage={ errorMessage } setErrorMessage={setErrorMessage}/>}
     </form>
   )

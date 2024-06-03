@@ -143,10 +143,12 @@ font-size: small;
   padding: 1rem;
   margin-bottom: 0;
 }
+
 .formContainer input{
   padding: .5rem ;
   padding-left: 1rem;
 }
+
 .likeContainer{
   display:flex;
   justify-content:center;

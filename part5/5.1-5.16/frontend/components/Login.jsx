@@ -45,7 +45,7 @@ const Login =({ user,setUser,setErrorMessage,setLoadState,loadState }) => {
                 <div>
                   <input data-testid='password' required type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder='password'></input>
                 </div>
-                <button buttonLabel={"Login"} onClick={handleForm}>Login</button>
+                <button name="Login" onClick={handleForm}>Login</button>
                 <p className='loginToRegister'>Don't have an account yet? <a onClick={() => { console.log("go to Register")}}>Register.</a></p>
               </form>
             </section>

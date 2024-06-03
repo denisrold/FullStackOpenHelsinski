@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 require("express-async-errors");
 const cors = require("cors");
+
 const loginRouter = require("./controllers/login");
 const blogsRouter = require("./controllers/blogs");
 const usersRouter = require("./controllers/users");
@@ -17,13 +18,15 @@ const errorHandler = require("./utils/errorHandler");
 app.use(cors());
 app.use(express.json());
 if (!process.env.NODE_ENV == "test") app.use(requestMorgan());
+
 app.use("/api/login", loginRouter);
 app.use("/api/users", userExtractor, usersRouter);
 app.use("/api/blogs", userExtractor, blogsRouter);
-if (!process.env.NODE_ENV == "test") {
+if (process.env.NODE_ENV === "test") {
   const testingRouter = require("./controllers/testing");
   app.use("/api/testing", testingRouter);
 }
+
 app.use(unknownEndPoint);
 app.use(errorHandler);
 
