@@ -37,26 +37,29 @@ blogsRouter.get("/:id", async (request, response) => {
 
 blogsRouter.put("/:id", async (request, response) => {
   const { id } = request.params;
-  if (req.token === undefined) {
+  if (request.token === undefined) {
     res.status(401).json({ error: "Invalid token" });
   }
   const blog = await Blog.findById(id);
-  if (blog.userId != req.user.id) {
+  if (blog.userId != request.user.id) {
     res.status(401).json({ error: "Invalid User Authorization" });
   }
-  const { title, author, url, likes } = request.body;
+  const { title, author, url } = request.body;
   const updateBlog = {
     title,
     author,
     url,
-    likes,
   };
 
-  const updatedBlog = await Blog.findByIdAndUpdate(id, updateBlog, {
-    new: true,
-    // runValidators: true,
-    // context: "query",
-  });
+  const updatedBlog = await Blog.findByIdAndUpdate(
+    id,
+    { $set: updateBlog },
+    {
+      new: true,
+      // runValidators: true,
+      // context: "query",
+    }
+  );
   if (!updatedBlog) response.status(404).json({ err: "no such blog" });
   else response.status(200).json(updatedBlog);
 });

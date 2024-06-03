@@ -6,9 +6,8 @@ import { useState } from "react";
 import UpdateBlogView from "./UpdateBlogView";
 
 const Blogs = ({user, blog,setNewBlog }) => {
-  const [updateBlog,setUpdateBlog] = useState({id:'6653737f19b133519593abd2',editState:true});
+  const [updateBlog,setUpdateBlog] = useState({id:'',editState:false});
   const { title,author,userId,url } = blog;
-
   return(
     <section  className='blogContainer'>
         {updateBlog.id==blog.id && updateBlog.editState?(
@@ -35,7 +34,7 @@ const Blogs = ({user, blog,setNewBlog }) => {
          {!!user.token && ( <>
           <Likes blog={ blog } />
           <section className="blogButtons">
-          <EditBlog setNewBlog={ setNewBlog } blog={ blog }/>
+          <EditBlog setUpdateBlog={setUpdateBlog} blog={blog}/>
           <DeleteBlog setNewBlog={ setNewBlog } blog={ blog }/>
           </section>
           </>)}

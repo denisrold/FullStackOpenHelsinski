@@ -1,10 +1,7 @@
-import { useState } from 'react';
-import blogService from '../src/service/blogs';
-const EditBlog = ({ blog,setNewBlog }) => {
-  const [updateBlog,setUpdateBlog] =useState({});
-  const { id } = blog;
+const EditBlog = ({blog,setUpdateBlog}) => {
+  const {id} = blog;
   const handleEdit = async () => {
-    
+    setUpdateBlog({id:id,editState:true})
   }
     return(
     <>
