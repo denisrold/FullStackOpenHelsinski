@@ -51,7 +51,7 @@ const UpdateBlogView = ({setNewBlog,blog,setUpdateBlog}) => {
                 <h5>
                   url: <input onChange={(e)=>setUpdateUrl(e.target.value)} value={ updateUrl }/>
                 </h5>
-                <button type='submit' onClick={handleEdit}>edit</button>
+                <button name='editBlog' type='submit' onClick={handleEdit}>edit</button>
                 <button onClick={handleCancel}>cancel</button>
               </form>
             </article>

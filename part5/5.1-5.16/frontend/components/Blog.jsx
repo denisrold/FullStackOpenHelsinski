@@ -2,12 +2,27 @@ import Toggable from "./Toggable";
 import Likes from './Likes';
 import DeleteBlog from "./DeleteBlog";
 import EditBlog from "./EditBlog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UpdateBlogView from "./UpdateBlogView";
+import userService from '../src/service/user';
 
 const Blogs = ({user, blog,setNewBlog }) => {
   const [updateBlog,setUpdateBlog] = useState({id:'',editState:false});
+  const [userLoggedId,setUserLoggedId] = useState('');
   const { title,author,userId,url } = blog;
+  
+  const getLoggedUserId = async () => {
+    const getUserToken = window.localStorage.getItem('userLogged');
+    const { token } = await JSON.parse(getUserToken);
+    userService.setToken(token);
+    const ID = await userService.userId(); 
+    setUserLoggedId(ID);
+  }
+
+  useEffect(()=>{
+    getLoggedUserId()
+  },[])
+
   return(
     <section  className='blogContainer'>
         {updateBlog.id==blog.id && updateBlog.editState?(
@@ -33,11 +48,13 @@ const Blogs = ({user, blog,setNewBlog }) => {
           </h5>
          {!!user.token && ( <>
           <Likes blog={ blog } />
-          <section className="blogButtons">
-          <EditBlog setUpdateBlog={setUpdateBlog} blog={blog}/>
-          <DeleteBlog setNewBlog={ setNewBlog } blog={ blog }/>
-          </section>
-          </>)}
+         {userLoggedId == userId.id&& ( 
+            <section className="blogButtons">
+              <EditBlog setUpdateBlog={setUpdateBlog} blog={blog}/>
+              <DeleteBlog setNewBlog={ setNewBlog } blog={ blog }/>
+            </section>)}
+          </>
+        )}
         </Toggable>
         </>)
         }
