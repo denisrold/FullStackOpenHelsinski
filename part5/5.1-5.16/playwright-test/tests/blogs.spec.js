@@ -21,11 +21,7 @@ describe("Testing Blog App", () => {
     });
 
     test("succeeds with correct credentials", async ({ page }) => {
-      //   await loginWith(page, "rooter", "Password123*");
-      await page.getByRole("button", { name: "Login" }).click();
-      await page.getByTestId("username").fill("rooter");
-      await page.getByTestId("password").fill("Password123*");
-      await page.getByRole("button", { name: "Login" }).click();
+      await loginWith(page, "rooter", "Password123*");
       const userInfo = page.locator('[name="userInfo"]').waitFor();
       await expect(page.locator('[name="userInfo"]')).toBeVisible();
     });

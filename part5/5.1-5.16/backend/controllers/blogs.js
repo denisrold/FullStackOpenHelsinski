@@ -37,15 +37,22 @@ blogsRouter.get("/:id", async (request, response) => {
 
 blogsRouter.put("/:id", async (request, response) => {
   const { id } = request.params;
+  if (req.token === undefined) {
+    res.status(401).json({ error: "Invalid token" });
+  }
+  const blog = await Blog.findById(id);
+  if (blog.userId != req.user.id) {
+    res.status(401).json({ error: "Invalid User Authorization" });
+  }
   const { title, author, url, likes } = request.body;
-  const blog = {
+  const updateBlog = {
     title,
     author,
     url,
     likes,
   };
 
-  const updatedBlog = await Blog.findByIdAndUpdate(id, blog, {
+  const updatedBlog = await Blog.findByIdAndUpdate(id, updateBlog, {
     new: true,
     // runValidators: true,
     // context: "query",
