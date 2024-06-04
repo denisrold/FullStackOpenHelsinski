@@ -59,10 +59,10 @@ describe("Testing Blog App", () => {
     });
 
     test("a new blog can be edited", async ({ page }) => {
+      //event dialog configuration.
       await page.on("dialog", async (dialog) => {
         await dialog.accept();
       });
-
       await page.getByRole("button", { name: "show" }).click();
       await page.waitForSelector(".blogButtons");
       const sectionEdit = await page.locator(".blogButtons");
@@ -71,10 +71,25 @@ describe("Testing Blog App", () => {
       await page.getByTestId("updateAuthor").fill("Test Author");
       await page.getByTestId("updateUrl").fill("http://testutl.co");
       await page.getByTestId("editBlog").click();
-
       await page.waitForSelector("#testTitle");
       const upgradedVisible = await page.getByText("Test Title");
       await expect(upgradedVisible).toBeVisible();
+    });
+    test("likes function its ok", async ({ page }) => {
+      await page.getByRole("button", { name: "show" }).click();
+      await page.getByTestId("likeButton").click();
+      await expect(page.locator(".heartLike")).toBeVisible();
+    });
+
+    test("a blog can be deleted", async ({ page }) => {
+      await page.on("dialog", async (dialog) => {
+        await dialog.accept();
+      });
+      await page.getByRole("button", { name: "show" }).click();
+      await page.waitForSelector(".blogButtons");
+      await page.locator("#deleteButton").click();
+      await page.getByTestId("noBlogs");
+      await expect(page.getByTestId("noBlogs")).toBeVisible();
     });
   });
 });

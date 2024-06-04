@@ -51,7 +51,7 @@ function App() {
             {blogs.length?blogs.map((b,i) => (
               <Blogs errorMessage={errorMessage} setErrorMessage={setErrorMessage} user={user} blog={b} setNewBlog={setNewBlog} key={i}/>
             ))
-              :<h3>No Blogs</h3>}
+              :<h3 data-testid="noBlogs">No Blogs</h3>}
           </section>
           <AddBlogs setNewBlog={setNewBlog}/>
           <LogoutButton logoutStates={ { setUser,setLoadState } }/>
