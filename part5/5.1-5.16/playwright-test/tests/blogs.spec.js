@@ -91,5 +91,25 @@ describe("Testing Blog App", () => {
       await page.getByTestId("noBlogs");
       await expect(page.getByTestId("noBlogs")).toBeVisible();
     });
+
+    test("Cant delete blogs created by other user", async ({
+      page,
+      request,
+    }) => {
+      await request.post("/api/users", {
+        data: {
+          name: "new user",
+          username: "cantdelete",
+          password: "Password123*",
+        },
+      });
+      await page.getByTestId("LogoutButton").click();
+      await loginWith(page, "cantdelete", "Password123*");
+      await page.getByRole("button", { name: "show" }).click();
+      const sectionEdit = await page.locator(".blogButtons");
+      const user = await page.getByText("toor");
+      await expect(user).toBeVisible();
+      await expect(sectionEdit).not.toBeVisible();
+    });
   });
 });

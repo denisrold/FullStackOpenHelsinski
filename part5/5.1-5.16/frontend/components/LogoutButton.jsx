@@ -8,7 +8,7 @@ const LogoutButton = ({ logoutStates }) => {
   }
   return(
     <div className='logOutButton'>
-      <button onClick={ handleLogout }>Logout</button>
+      <button data-testid="LogoutButton" onClick={ handleLogout }>Logout</button>
     </div>
   )
 }
