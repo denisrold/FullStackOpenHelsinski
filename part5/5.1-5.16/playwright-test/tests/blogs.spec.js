@@ -1,5 +1,5 @@
 const { describe, test, expect, beforeEach } = require("@playwright/test");
-const { loginWith } = require("./helper");
+const { loginWith, newBlog } = require("./helper");
 
 describe("Testing Blog App", () => {
   beforeEach(async ({ page, request }) => {
@@ -50,6 +50,31 @@ describe("Testing Blog App", () => {
       await expect(
         page.getByRole("heading", { name: "New Title", exact: true })
       ).toBeVisible();
+    });
+  });
+  describe("When added blogs i can", () => {
+    beforeEach(async ({ page }) => {
+      await loginWith(page, "rooter", "Password123*");
+      await newBlog(page, "New Title", "New Author", "http://localweb.co");
+    });
+
+    test("a new blog can be edited", async ({ page }) => {
+      await page.on("dialog", async (dialog) => {
+        await dialog.accept();
+      });
+
+      await page.getByRole("button", { name: "show" }).click();
+      await page.waitForSelector(".blogButtons");
+      const sectionEdit = await page.locator(".blogButtons");
+      await sectionEdit.locator("#openEditButton").click();
+      await page.getByTestId("updateTitle").fill("Test Title");
+      await page.getByTestId("updateAuthor").fill("Test Author");
+      await page.getByTestId("updateUrl").fill("http://testutl.co");
+      await page.getByTestId("editBlog").click();
+
+      await page.waitForSelector("#testTitle");
+      const upgradedVisible = await page.getByText("Test Title");
+      await expect(upgradedVisible).toBeVisible();
     });
   });
 });

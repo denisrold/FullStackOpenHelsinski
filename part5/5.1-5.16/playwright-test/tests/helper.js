@@ -5,4 +5,12 @@ const loginWith = async (page, username, password) => {
   await page.getByRole("button", { name: "Login" }).click();
 };
 
-export { loginWith };
+const newBlog = async (page, title, author, url) => {
+  await page.getByRole("button", { name: "Add Blog" }).click();
+  const formContainer = await page.locator(".formAdd");
+  await formContainer.locator('input[name="title"]').fill(title);
+  await formContainer.locator('input[name="author"]').fill(author);
+  await formContainer.locator('input[name="url"]').fill(url);
+  await formContainer.getByText("Add").click();
+};
+export { loginWith, newBlog };

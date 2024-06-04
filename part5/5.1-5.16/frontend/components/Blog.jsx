@@ -33,7 +33,7 @@ const Blogs = ({user, blog,setNewBlog,errorMessage,setErrorMessage }) => {
         ):
         (<>
         <article className="flexRow">
-          <h4>
+          <h4 id='testTitle'>
             { title }
           </h4>
           <h4 id='testAuthor'>
