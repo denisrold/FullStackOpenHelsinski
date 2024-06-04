@@ -5,7 +5,6 @@ import DeleteBlog from "./DeleteBlog";
 import EditBlog from "./EditBlog";
 import UpdateBlogView from "./UpdateBlogView";
 import userService from '../src/service/user';
-import Notification from "./Notifications";
 
 const Blogs = ({user, blog,setNewBlog,errorMessage,setErrorMessage }) => {
   const [updateBlog,setUpdateBlog] = useState({id:'',editState:false});
@@ -25,7 +24,7 @@ const Blogs = ({user, blog,setNewBlog,errorMessage,setErrorMessage }) => {
   },[])
 
   return(
-    <section  className='blogContainer'>
+    <section data-testid="blogContainer" className='blogContainer'>
         {updateBlog.id==blog.id && updateBlog.editState?(
           (<>
             <UpdateBlogView errorMessage={errorMessage} setNewBlog={setNewBlog} setErrorMessage={setErrorMessage} blog={blog} setUpdateBlog={setUpdateBlog}/>

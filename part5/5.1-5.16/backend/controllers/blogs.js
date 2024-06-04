@@ -3,10 +3,12 @@ const Blog = require("../models/blog");
 const User = require("../models/user");
 
 blogsRouter.get("", async (request, response, next) => {
-  const blogs = await Blog.find({}).populate("userId", {
-    username: 1,
-    name: 1,
-  });
+  const blogs = await Blog.find({})
+    .populate("userId", {
+      username: 1,
+      name: 1,
+    })
+    .sort({ likes: -1 });
   response.status(200).json(blogs);
 });
 

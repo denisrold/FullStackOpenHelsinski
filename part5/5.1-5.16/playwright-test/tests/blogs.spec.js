@@ -75,6 +75,7 @@ describe("Testing Blog App", () => {
       const upgradedVisible = await page.getByText("Test Title");
       await expect(upgradedVisible).toBeVisible();
     });
+
     test("likes function its ok", async ({ page }) => {
       await page.getByRole("button", { name: "show" }).click();
       await page.getByTestId("likeButton").click();
@@ -110,6 +111,48 @@ describe("Testing Blog App", () => {
       const user = await page.getByText("toor");
       await expect(user).toBeVisible();
       await expect(sectionEdit).not.toBeVisible();
+    });
+  });
+  describe("Order Blogs By likes", () => {
+    beforeEach(async ({ page }) => {
+      await loginWith(page, "rooter", "Password123*");
+      await newBlog(page, "New Title", "New Author", "http://localweb.co");
+    });
+    test("blogs sort by likes", async ({ page }) => {
+      await page
+        .getByRole("heading", { name: "New Title", exact: true })
+        .waitFor();
+      const formContainer = await page.locator(".formAdd");
+      await formContainer.locator('input[name="title"]').fill("TestLikeSort");
+      await formContainer.locator('input[name="author"]').fill("Test Author");
+      await formContainer
+        .locator('input[name="url"]')
+        .fill("http://newTest.com");
+      await formContainer.getByText("Add").click();
+      await page
+        .getByRole("heading", { name: "TestLikeSort", exact: true })
+        .waitFor();
+      await expect(
+        page.getByRole("heading", { name: "TestLikeSort", exact: true })
+      ).toBeVisible();
+      //like to second blog.NOW MOST LIKED.
+      const blog = await page.getByRole("heading", {
+        name: "TestLikeSort",
+        exact: true,
+      });
+      await blog.locator("../..").getByRole("button", { name: "show" }).click();
+      await blog.locator("../..").getByTestId("likeButton").click();
+      await page.waitForTimeout(1000);
+      // refresh page
+      await page.reload();
+      // waiting reload complete
+      await page.waitForLoadState("domcontentloaded");
+      await page.waitForTimeout(2000);
+      await page.waitForSelector(".bodyContainer");
+      const bodyContainer = await page.getByTestId("blogContainer");
+      const titles = await bodyContainer.locator("h4").allTextContents();
+      // most likes first :)
+      expect(titles[0]).toBe("TestLikeSort");
     });
   });
 });
