@@ -46,7 +46,7 @@ const Login =({ user,setUser,setErrorMessage,setLoadState,loadState }) => {
                   <input data-testid='password' required type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder='password'></input>
                 </div>
                 <button name="Login" onClick={handleForm}>Login</button>
-                <p className='loginToRegister'>Don't have an account yet? <a onClick={() => { console.log("go to Register")}}>Register.</a></p>
+                <p className="loginToRegister">Don&apos;t have an account yet?<a onClick={() => { console.log("go to Register")}}>Register.</a></p>
               </form>
             </section>
           </Toggable>

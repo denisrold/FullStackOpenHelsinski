@@ -1,9 +1,9 @@
-const EditBlog = ({blog,setUpdateBlog}) => {
-  const {id} = blog;
+const EditBlog = ({ blog,setUpdateBlog }) => {
+  const { id } = blog;
   const handleEdit = async () => {
-    setUpdateBlog({id:id,editState:true})
+    setUpdateBlog({ id:id,editState:true })
   }
-    return(
+  return(
     <>
       <button id='openEditButton' onClick={handleEdit}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="editButton">
@@ -11,7 +11,7 @@ const EditBlog = ({blog,setUpdateBlog}) => {
         </svg>
       </button>
     </>
-    )
+  )
 };
 
 export default EditBlog;

@@ -1,6 +1,6 @@
 import Notification from './Notifications';
-const AddForm = ({errorMessage, setAuthor,author,setTitle,title,setErrorMessage, handleAddBlogs, setUrl, url})=>{
-  return(        
+const AddForm = ({ errorMessage, setAuthor,author,setTitle,title,setErrorMessage, handleAddBlogs, setUrl, url }) => {
+  return(
     <form id="form" className='formAdd'>
       <div className='formContainer'>
         <label>Title </label>
