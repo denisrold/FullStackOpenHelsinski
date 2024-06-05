@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const mongoDBConection = require("../mongoose/mongoose");
+const mongoose = require('mongoose');
+const mongoDBConection = require('../mongoose/mongoose');
 
 mongoDBConection();
 const blogSchema = new mongoose.Schema({
@@ -24,23 +24,23 @@ const blogSchema = new mongoose.Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
   },
   likesUserId: [
     {
       type: String,
-      ref: "User",
+      ref: 'User',
     },
   ],
 });
 
-blogSchema.set("toJSON", {
+blogSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    //transform object _id to string and add to the object response.
+    // transform object _id to string and add to the object response.
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
   },
 });
 
-module.exports = mongoose.model("Blog", blogSchema);
+module.exports = mongoose.model('Blog', blogSchema);

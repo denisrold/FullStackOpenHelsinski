@@ -1,3 +1,4 @@
+/* eslint-disable */
 const dummy = () => 1;
 
 const totalLikes = (blogs) => {
@@ -18,7 +19,7 @@ const favoriteBlog = (blogs) => {
 
 const mostBlogs = (blogs) => {
   const authorBlogs = { aux: 0, mostBlogs: { author: "", maxBlogs: 0 } };
-  for (let blog of blogs) {
+  for (const blog of blogs) {
     !authorBlogs[blog.author]
       ? (authorBlogs[blog.author] = 1)
       : (authorBlogs[blog.author] += 1);

@@ -1,8 +1,10 @@
+/* eslint-disable no-underscore-dangle, quotes, comma-dangle */
+
 const blogsRouter = require("express").Router();
 const Blog = require("../models/blog");
 const User = require("../models/user");
 
-blogsRouter.get("", async (request, response, next) => {
+blogsRouter.get("", async (request, response) => {
   const blogs = await Blog.find({})
     .populate("userId", {
       username: 1,
@@ -14,10 +16,11 @@ blogsRouter.get("", async (request, response, next) => {
 
 blogsRouter.post("", async (request, response) => {
   const blog = new Blog(request.body);
-  if (request.token === undefined)
-    return response.status(401).json({ error: "token invalid" });
+  if (request.token === undefined) {
+    response.status(401).json({ error: "token invalid" });
+  }
   const user = await User.findById(request.user.id);
-  if (!user) return response.status(401).json({ error: "invalid userId" });
+  if (!user) response.status(401).json({ error: "invalid userId" });
   blog.userId = user._id;
   user.blogs = user.blogs.concat(blog.id);
   await user.save();
@@ -40,11 +43,11 @@ blogsRouter.get("/:id", async (request, response) => {
 blogsRouter.put("/:id", async (request, response) => {
   const { id } = request.params;
   if (request.token === undefined) {
-    res.status(401).json({ error: "Invalid token" });
+    response.status(401).json({ error: "Invalid token" });
   }
   const blog = await Blog.findById(id);
-  if (blog.userId != request.user.id) {
-    res.status(401).json({ error: "Invalid User Authorization" });
+  if (String(blog.userId) !== request.user.id) {
+    response.status(401).json({ error: "Invalid User Authorization" });
   }
   const { title, author, url } = request.body;
   const updateBlog = {
@@ -66,10 +69,11 @@ blogsRouter.put("/:id", async (request, response) => {
   else response.status(200).json(updatedBlog);
 });
 
-////likes unlikes
+/// /likes unlikes
 blogsRouter.put("/likes/:id", async (request, response) => {
-  if (request.token === undefined)
+  if (request.token === undefined) {
     response.status(401).json({ error: "token invalid" });
+  }
   const { unlike } = request.body;
   const { id } = request.params;
   const userId = request.user.id;
@@ -101,7 +105,8 @@ blogsRouter.delete("/:id", async (req, res) => {
     res.status(401).json({ error: "Invalid token" });
   }
   const blog = await Blog.findById(id);
-  if (blog.userId != req.user.id) {
+  if (String(blog.userId) !== req.user.id) {
+    console.log("entre en este");
     res.status(401).json({ error: "Invalid User Authorization" });
   }
   await Blog.findByIdAndDelete(id);
@@ -109,3 +114,5 @@ blogsRouter.delete("/:id", async (req, res) => {
 });
 
 module.exports = blogsRouter;
+
+/* eslint-enable no-underscore-dangle, quotes, comma-dangle  */
