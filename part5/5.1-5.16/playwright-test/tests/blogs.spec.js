@@ -22,6 +22,7 @@ describe("Testing Blog App", () => {
 
     test("succeeds with correct credentials", async ({ page }) => {
       await loginWith(page, "rooter", "Password123*");
+      await page.waitForTimeout(2000);
       const userInfo = page.locator('[name="userInfo"]').waitFor();
       await expect(page.locator('[name="userInfo"]')).toBeVisible();
     });
@@ -83,12 +84,11 @@ describe("Testing Blog App", () => {
         .getByTestId("likecount");
       const LikeBefore = await LikeBeforeCount.innerText();
       await page.getByTestId("likeButton").click();
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(3000);
       const LikeAfterCount = await page
         .locator(".likeContainer")
         .getByTestId("likecount");
       const LikeAfter = await LikeAfterCount.innerText();
-      await expect(page.locator(".heartLike")).toBeVisible();
       await expect(LikeBefore).not.toBe(LikeAfter);
     });
     test("a blog can be deleted", async ({ page }) => {

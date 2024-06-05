@@ -1,4 +1,5 @@
 const loginWith = async (page, username, password) => {
+  await page.waitForTimeout(1000);
   await page.getByRole("button", { name: "Login" }).click();
   await page.getByTestId("username").fill(username);
   await page.getByTestId("password").fill(password);
