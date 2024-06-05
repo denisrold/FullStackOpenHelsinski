@@ -57,7 +57,6 @@ describe("Testing Blog App", () => {
       await loginWith(page, "rooter", "Password123*");
       await newBlog(page, "New Title", "New Author", "http://localweb.co");
     });
-
     test("a new blog can be edited", async ({ page }) => {
       //event dialog configuration.
       await page.on("dialog", async (dialog) => {
@@ -76,12 +75,22 @@ describe("Testing Blog App", () => {
       await expect(upgradedVisible).toBeVisible();
     });
 
-    test("likes function its ok", async ({ page }) => {
+    test("like a blog", async ({ page }) => {
       await page.getByRole("button", { name: "show" }).click();
+      await page.waitForSelector(".Liked");
+      const LikeBeforeCount = await page
+        .locator(".likeContainer")
+        .getByTestId("likecount");
+      const LikeBefore = await LikeBeforeCount.innerText();
       await page.getByTestId("likeButton").click();
+      await page.waitForTimeout(2000);
+      const LikeAfterCount = await page
+        .locator(".likeContainer")
+        .getByTestId("likecount");
+      const LikeAfter = await LikeAfterCount.innerText();
       await expect(page.locator(".heartLike")).toBeVisible();
+      await expect(LikeBefore).not.toBe(LikeAfter);
     });
-
     test("a blog can be deleted", async ({ page }) => {
       await page.on("dialog", async (dialog) => {
         await dialog.accept();
@@ -92,7 +101,6 @@ describe("Testing Blog App", () => {
       await page.getByTestId("noBlogs");
       await expect(page.getByTestId("noBlogs")).toBeVisible();
     });
-
     test("Cant delete blogs created by other user", async ({
       page,
       request,
@@ -113,6 +121,7 @@ describe("Testing Blog App", () => {
       await expect(sectionEdit).not.toBeVisible();
     });
   });
+
   describe("Order Blogs By likes", () => {
     beforeEach(async ({ page }) => {
       await loginWith(page, "rooter", "Password123*");

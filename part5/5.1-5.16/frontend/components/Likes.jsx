@@ -39,7 +39,7 @@ const Likes =({ blog }) => {
     <section className='likeContainer'>
       <span>
           Likes:
-        <span className={ 'Liked' }style={{ fontWeight:'bolder' }}> { like }</span>
+        <span data-testid='likecount' className={ 'Liked' }style={{ fontWeight:'bolder' }}> { like }</span>
       </span>
       <button data-testid='likeButton' onClick={handleLikes}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`heart ${unlikes?"heartLike":''}`}>
