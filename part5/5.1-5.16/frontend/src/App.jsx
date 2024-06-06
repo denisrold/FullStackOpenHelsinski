@@ -14,6 +14,7 @@ function App() {
   const [errorMessage,setErrorMessage] = useState(null);
   const [loadState,setLoadState] = useState(false);
   const [newBlog,setNewBlog] = useState(true);
+  
 
   const getBlogs = async () => {
     try{

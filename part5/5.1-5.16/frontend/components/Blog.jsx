@@ -24,7 +24,7 @@ const Blogs = ({ user, blog,setNewBlog,errorMessage,setErrorMessage }) => {
   }
 
   useEffect(() => {
-    getLoggedUserId()
+    if(!userLoggedId.length)getLoggedUserId()
   },[])
 
   return(
