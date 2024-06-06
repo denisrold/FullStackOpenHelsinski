@@ -32,6 +32,11 @@ const Login =({ user,setUser,setErrorMessage,setLoadState,loadState }) => {
       },1000)
     }
   },[])
+  const handleDemo =(e)=>{
+    e.preventDefault()
+    setUsername('rooter');
+    setPassword('Password123*');
+  }
   return(
     <>
       {loadState ? (<div className='loadStateContainer'><h3>Loading...</h3></div>):
@@ -40,12 +45,13 @@ const Login =({ user,setUser,setErrorMessage,setLoadState,loadState }) => {
             <section className='formContainer'>
               <form name="LoginForm" className='form'>
                 <div>
-                  <input data-testid='username' required type="text" value={username} onChange={({ target }) => setUsername(target.value)} placeholder='username'></input>
+                  <input data-testid='username' required type="text" value={username} onChange={({ target }) => setUsername(target.value)} placeholder='user'></input>
                 </div>
                 <div>
                   <input data-testid='password' required type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder='password'></input>
                 </div>
                 <button name="Login" onClick={handleForm}>Login</button>
+                <button onClick={handleDemo}>userDemo</button>
                 <p className="loginToRegister">Don&apos;t have an account yet?<a onClick={() => { console.log("go to Register")}}>Register.</a></p>
               </form>
             </section>
