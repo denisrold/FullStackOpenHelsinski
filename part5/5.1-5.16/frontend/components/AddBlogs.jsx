@@ -11,6 +11,7 @@ const AddBlogs = ({ setNewBlog }) => {
   const [url,setUrl] =useState("");
   const [author,setAuthor] =useState("");
   const [errorMessage,setErrorMessage] = useState("");
+
   const handleAddBlogs = async (event) => {
     event.preventDefault();
     const userToken = window.localStorage.getItem('userLogged');
@@ -43,7 +44,7 @@ const AddBlogs = ({ setNewBlog }) => {
       <section className={addState?'createContainer':null}>
         <div className='ToggableAddBlogs'>
           <Toggable buttonLabel={'Add Blog'}>
-            <AddForm errorMessage={errorMessage} author={author} setAuthor={setAuthor} setTitle={setTitle} title={title}  setErrorMessage={setErrorMessage} handleAddBlogs={handleAddBlogs} setUrl={setUrl} url={url}/>
+            <AddForm  errorMessage={errorMessage} author={author} setAuthor={setAuthor} setTitle={setTitle} title={title}  setErrorMessage={setErrorMessage} handleAddBlogs={handleAddBlogs} setUrl={setUrl} url={url}/>
           </Toggable>
         </div>
       </section>

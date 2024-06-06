@@ -12,11 +12,15 @@ const Blogs = ({ user, blog,setNewBlog,errorMessage,setErrorMessage }) => {
   const { title,author,userId,url } = blog;
 
   const getLoggedUserId = async () => {
-    const getUserToken = window.localStorage.getItem('userLogged');
-    const { token } = await JSON.parse(getUserToken);
-    userService.setToken(token);
-    const ID = await userService.userId();
-    setUserLoggedId(ID);
+    try{
+      const getUserToken = window.localStorage.getItem('userLogged');
+      let token = ''
+      if(getUserToken) token = await JSON.parse(getUserToken).token
+      userService.setToken(token);
+      const ID = await userService.userId();
+      setUserLoggedId(ID);
+    }
+    catch(err){console.log(err)}
   }
 
   useEffect(() => {

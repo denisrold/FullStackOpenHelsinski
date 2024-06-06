@@ -3,7 +3,6 @@ const Blog = require('../models/blog');
 const User = require('../models/user');
 
 testingRouter.get('/', async (request, response) => {
-  console.log('ok');
   response.status(200).end();
 });
 

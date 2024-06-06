@@ -1,4 +1,4 @@
-const { test, after, beforeEach, describe } = require("node:test");
+const { test, after, beforeEach, describe, afterEach } = require("node:test");
 const assert = require("node:assert");
 const mongoose = require("mongoose");
 const supertest = require("supertest");
@@ -14,6 +14,9 @@ beforeEach(async () => {
   const newBlogs = initialBlogs.map((b) => new Blog(b));
   const promiseArray = newBlogs.map((b) => b.save());
   await Promise.all(promiseArray);
+});
+afterEach(async () => {
+  await User.deleteMany({});
 });
 
 const api = supertest(app);

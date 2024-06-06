@@ -15,6 +15,7 @@ module.exports = {
   rules: {
     indent: ["error", 2],
     eqeqeq: "error",
+    "react-hooks/exhaustive-deps": "off",
     "no-irregular-whitespace": "off",
     "no-trailing-spaces": "error",
     "object-curly-spacing": ["error", "always"],

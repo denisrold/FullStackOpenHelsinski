@@ -6,18 +6,23 @@ const Likes =({ blog }) => {
   const [unlikes,setUnlike] =useState(false);
   const { id } = blog;
   const getUserLike = async () => {
-    //gettoken with userdata
-    const getUserToken = window.localStorage.getItem('userLogged');
-    const { token } = await JSON.parse(getUserToken);
-    //get this blog by id
-    const res = await blogService.getBlogsByID(id);
-    //get UserId
-    userService.setToken(token);
-    const userId = await userService.userId();
-    const arrayUser = res.likesUserId.find(u => u === userId);
-    if(!arrayUser)setUnlike(false)
-    else setUnlike(true);
-    setLike(res.likes);
+    try{
+      //gettoken with userdata
+      const getUserToken = window.localStorage.getItem('userLogged');
+      const { token } = await JSON.parse(getUserToken);
+      //get this blog by id
+      const res = await blogService.getBlogsByID(id);
+      //get UserId
+      userService.setToken(token);
+      const userId = await userService.userId();
+      const arrayUser = res.likesUserId.find(u => u === userId);
+      if(!arrayUser)setUnlike(false)
+      else setUnlike(true);
+      setLike(res.likes);
+    }
+    catch(err){
+      console.error(err);
+    }
   }
   useEffect(() => {
     getUserLike();
