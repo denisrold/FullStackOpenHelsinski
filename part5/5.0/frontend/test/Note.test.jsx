@@ -37,12 +37,7 @@ test('Render content button', async () => {
     //debugger
     const user = userEvent.setup()
     const {container} =  render(<Note toggleImportance={mockHandler}/>)
-    
-    /*GET BY TEXT
-    const user = userEvent.setup()
-    const button = screen.getByText('make not important')
-    */
-   //get by id 
+
     const button = container.querySelector('#testID');
     await user.click(button)
     expect(mockHandler.mock.calls).toHaveLength(1)

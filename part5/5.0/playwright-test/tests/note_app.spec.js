@@ -101,11 +101,11 @@ describe("Note app", () => {
 
       test("importance can be changed with three element", async ({ page }) => {
         const otherNoteText = await page.getByText("second note");
-        page.pause();
+        // page.pause();
         const otherdNoteElement = await otherNoteText.locator("..");
-        page.pause();
+        // page.pause();
         await otherdNoteElement.locator("#testID").click();
-        page.pause();
+        // page.pause();
         await expect(otherdNoteElement.locator(".important")).toBeVisible();
       });
     });

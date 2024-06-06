@@ -15,5 +15,4 @@ test('<Form /> updates parent state and calls onSubmit', async () => {
   expect(createNote).toHaveBeenCalledTimes(1);
   expect(input).toHaveValue('testing a form...');
   expect(createNote.mock.calls[0][0].target.elements[0].value).toBe('testing a form...');
-  console.log(createNote.mock.calls)
 });

@@ -26,6 +26,12 @@ const LoginForm = ({ loginHandle,visible,setVisible,setChangesNotes }) => {
       }, 3000)
     }
   };
+
+  const handleDemoUser = (e) => {
+    e.preventDefault();
+    setUsername('rooter');
+    setPassword('Password123*');
+  }
   return(
     <div className='userFormContainer'>
       <form className="userForm">
@@ -36,6 +42,7 @@ const LoginForm = ({ loginHandle,visible,setVisible,setChangesNotes }) => {
           <input data-testid='password' name="Password" type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder="Password" />
         </div>
         <button type="submit" name="Login" onClick={handleLoggin}>Login</button>
+        <button  onClick={handleDemoUser}>Demo user</button>
       </form>
       <p className='loginToRegister'>Don't have an account yet? <a onClick={() => setVisible(!visible)}>Register.</a></p>
       <BackLoginButton visible={visible} setVisible={setVisible}/>

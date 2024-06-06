@@ -7,12 +7,14 @@ import NoteForm from "../components/NoteForm";
 import GetShowNotes from '../components/GetShowNotes'
 import LogoutSession from "../components/LogoutSession";
 
+
 const App = () => {
   const [notesArray,setNotesArray] = useState([]);
   const [changesNotes,setChangesNotes]= useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading,setLoading] = useState(false);
   const [user,setUser] = useState(null);
+
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser');
     if(!user){

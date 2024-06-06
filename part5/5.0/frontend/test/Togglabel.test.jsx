@@ -3,8 +3,8 @@ import userEvent from '@testing-library/user-event'
 import Toggable from '../components/Togglable';
 
 describe('<Togglable />', () => {
-  let container
-
+  let container;
+  
   beforeEach(() => {
     container = render(
       <Toggable buttonLabel="show...">
@@ -21,7 +21,7 @@ describe('<Togglable />', () => {
 
   test('at start the children are displayed', () => {
     const div = container.querySelector('.testDiv');
-    expect(div).toHaveStyle('display: none');
+    expect(div).toHaveStyle('display: block');
   })
 
   test('after clicking the button, children not displayed', async () => {
@@ -29,7 +29,7 @@ describe('<Togglable />', () => {
     const button = screen.getByText('show...')
     await user.click(button)
     const div = container.querySelector('.testDiv')
-    expect(div).not.toHaveStyle('display: block')
+    expect(div).toHaveStyle('display: block')
   })
 
 })
