@@ -1,23 +1,27 @@
-const { error } = require("./logger");
+/* eslint-disable consistent-return */
+const { error } = require('./logger');
+
 const errorHandler = (err, req, res, next) => {
   error(err.message);
-  if (err.name === "CastError") res.status(400).send({ error: "Invalid ID" });
-  else if (err.name === "ValidationError")
+  if (err.name === 'CastError') res.status(400).send({ error: 'Invalid ID' });
+  else if (err.name === 'ValidationError') {
     res.status(400).json({ error: err.message });
-  else if (
-    err.name === "MongoServerError" &&
-    err.message.includes("E11000 duplicate key error")
-  )
-    res.status(400).json({ error: "expected `username` to be unique" });
-  else if (error.name === "JsonWebTokenError") {
-    return res.status(401).json({ error: "token invalid" });
-  } else if (error.name === "TokenExpiredError") {
+  } else if (
+    err.name === 'MongoServerError'
+    && err.message.includes('E11000 duplicate key error')
+  ) {
+    res.status(400).json({ error: 'expected `username` to be unique' });
+  } else if (error.name === 'JsonWebTokenError') {
+    return res.status(401).json({ error: 'token invalid' });
+  } else if (error.name === 'TokenExpiredError') {
     return res.status(401).json({
-      error: "token expired",
+      error: 'token expired',
     });
-  } else res.status(500).json({ error: "Internal server error" });
-  //next to other errors middlewares:
+  } else res.status(500).json({ error: 'Internal server error' });
+  // next to other errors middlewares:
   next(err);
 };
 
 module.exports = errorHandler;
+
+/* eslint-enable consistent-return */

@@ -1,19 +1,19 @@
-const Note = require("../models/note");
-const User = require("../models/user");
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
+const Note = require('../models/note');
 
 async function initialNotes() {
   const userList = await usersInDb();
   return (initialNotes = [
     {
-      content: "HTML is easy",
+      content: 'HTML is easy',
       important: false,
       userId: new mongoose.Types.ObjectId(userList[0].id),
     },
     {
-      content: "Browser can execute only JavaScript",
+      content: 'Browser can execute only JavaScript',
       important: true,
       userId: new mongoose.Types.ObjectId(userList[0].id),
     },
@@ -33,7 +33,7 @@ async function initialNotes() {
 // ];
 
 const nonExistingId = async () => {
-  const note = new Note({ content: "willremovethissoon" });
+  const note = new Note({ content: 'willremovethissoon' });
   await note.save();
   await note.deleteOne();
   return note._id.toString();
@@ -43,22 +43,22 @@ const notesInDb = async () => {
   const notes = await Note.find({});
   return notes.map((note) => note.toJSON());
 };
-//beforeEach creating user
+// beforeEach creating user
 const userForToken = async () => {
   await User.deleteMany({});
-  const passwordHash = await bcrypt.hash("Password1*", 10);
+  const passwordHash = await bcrypt.hash('Password1*', 10);
   const user = new User({
-    username: "rooter",
+    username: 'rooter',
     passwordHash,
-    name: "Jhon Rooter",
+    name: 'Jhon Rooter',
   });
 
   await user.save();
 };
-//TokenGenerate
+// TokenGenerate
 const userToken = async () => {
   const oneUser = await usersInDb();
-  const indexUser = oneUser.findIndex((u) => u.username === "rooter");
+  const indexUser = oneUser.findIndex((u) => u.username === 'rooter');
   const useForToken = {
     username: oneUser[indexUser].name,
     id: oneUser[indexUser].id,
