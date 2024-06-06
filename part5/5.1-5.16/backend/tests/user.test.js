@@ -19,6 +19,7 @@ describe("when there is initially users in db", () => {
     });
     await user.save();
   });
+
   describe("User Creation", () => {
     test("creation succeeds with a fresh username", async () => {
       const usersAtStart = await helper.usersInDb();
@@ -35,7 +36,8 @@ describe("when there is initially users in db", () => {
         .expect("Content-Type", /application\/json/);
 
       const usersAtEnd = await helper.usersInDb();
-      assert.strictEqual(usersAtEnd.length, usersAtStart.length + 1);
+      const finalUsers = usersAtStart.length + 1;
+      assert.strictEqual(usersAtEnd.length, finalUsers);
       const usernames = usersAtEnd.map((u) => u.username);
       assert(usernames.includes(newUser.username));
     });
@@ -43,10 +45,9 @@ describe("when there is initially users in db", () => {
       const usersAtStart = await helper.usersInDb();
       const newUser = {
         username: "roote",
-        name: "usuario2",
+        name: "usu ario2",
         password: "Aasdfg123*",
       };
-
       const result = await api
         .post("/api/users")
         .send(newUser)

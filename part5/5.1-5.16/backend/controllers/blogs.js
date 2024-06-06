@@ -106,7 +106,6 @@ blogsRouter.delete("/:id", async (req, res) => {
   }
   const blog = await Blog.findById(id);
   if (String(blog.userId) !== req.user.id) {
-    console.log("entre en este");
     res.status(401).json({ error: "Invalid User Authorization" });
   }
   await Blog.findByIdAndDelete(id);
