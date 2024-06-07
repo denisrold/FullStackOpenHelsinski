@@ -10,7 +10,6 @@ const Blogs = ({ user, blog,setNewBlog,errorMessage,setErrorMessage }) => {
   const [updateBlog,setUpdateBlog] = useState({ id:'',editState:false });
   const [userLoggedId,setUserLoggedId] = useState('');
   const { title,author,userId,url } = blog;
-
   const getLoggedUserId = async () => {
     try{
       const getUserToken = window.localStorage.getItem('userLogged');
@@ -43,7 +42,7 @@ const Blogs = ({ user, blog,setNewBlog,errorMessage,setErrorMessage }) => {
             by: { author }
             </h4>
           </article>
-          <Toggable buttonLabel={ "show" } buttonlabelCancel={ "hide" }>
+          <Toggable buttonLabel={ "show" } buttonlabelCancel={ "hide" } >
             <h5>
             User: { userId.name }
             </h5>

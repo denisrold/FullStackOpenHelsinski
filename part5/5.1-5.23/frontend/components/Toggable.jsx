@@ -1,15 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useState, forwardRef, useImperativeHandle } from 'react'
+
 import PropTypes from 'prop-types'
-const Toggable = (props) => {
+const Toggable = forwardRef((props,refs) => {
   const [visible, setVisible] = useState(false)
   const hideWhitVisible = { display:visible?'none':'' }
   const showHideVisible = { display:visible?'':'none' }
+  
   const toggleVisibility = () => {
     if(props.setErrorMessage){
       props.setErrorMessage(null);
     }
     setVisible(!visible)
   }
+  useImperativeHandle(refs, () => {
+    return {
+      toggleVisibility
+    }})
+
   return(
     <section >
       <div style={showHideVisible}>
@@ -28,7 +35,7 @@ const Toggable = (props) => {
       </div>
     </section>
   )
-}
+})
 
 Toggable.propTypes = {
   buttonLabel : PropTypes.string.isRequired

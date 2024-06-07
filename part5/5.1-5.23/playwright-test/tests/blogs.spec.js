@@ -127,17 +127,12 @@ describe("Testing Blog App", () => {
       await loginWith(page, "rooter", "Password123*");
       await newBlog(page, "New Title", "New Author", "http://localweb.co");
     });
+
     test("blogs sort by likes", async ({ page }) => {
       await page
         .getByRole("heading", { name: "New Title", exact: true })
         .waitFor();
-      const formContainer = await page.locator(".formAdd");
-      await formContainer.locator('input[name="title"]').fill("TestLikeSort");
-      await formContainer.locator('input[name="author"]').fill("Test Author");
-      await formContainer
-        .locator('input[name="url"]')
-        .fill("http://newTest.com");
-      await formContainer.getByText("Add").click();
+      await newBlog(page, "TestLikeSort", "Test Author", "http://newTest.com");
       await page
         .getByRole("heading", { name: "TestLikeSort", exact: true })
         .waitFor();

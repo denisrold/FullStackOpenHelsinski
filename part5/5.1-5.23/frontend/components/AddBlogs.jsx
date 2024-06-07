@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useRef } from 'react';
 import blogs from '../src/service/blogs';
 import AddedMessage from './AddedMessage';
 import Toggable from './Toggable';
@@ -11,6 +11,7 @@ const AddBlogs = ({ setNewBlog }) => {
   const [url,setUrl] =useState("");
   const [author,setAuthor] =useState("");
   const [errorMessage,setErrorMessage] = useState("");
+  const blogFormRef = useRef();
 
   const handleAddBlogs = async (event) => {
     event.preventDefault();
@@ -23,6 +24,7 @@ const AddBlogs = ({ setNewBlog }) => {
       setNewBlog(true);
       setAddState(false);
       setAddedState(true);
+      blogFormRef.current.toggleVisibility();
       setTimeout(() => {
         setAddedState(false);
         setTitle('');
@@ -43,7 +45,7 @@ const AddBlogs = ({ setNewBlog }) => {
       {addedState&&<AddedMessage newBlog={ { title,author } }/>}
       <section className={addState?'createContainer':null}>
         <div className='ToggableAddBlogs'>
-          <Toggable buttonLabel={'Add Blog'}>
+          <Toggable buttonLabel={'Add Blog'} ref={blogFormRef}>
             <AddForm  errorMessage={errorMessage} author={author} setAuthor={setAuthor} setTitle={setTitle} title={title}  setErrorMessage={setErrorMessage} handleAddBlogs={handleAddBlogs} setUrl={setUrl} url={url}/>
           </Toggable>
         </div>
