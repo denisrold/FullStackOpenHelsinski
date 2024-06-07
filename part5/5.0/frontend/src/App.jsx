@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import sessionService from './services/sessionStorage';
 import noteService from './services/notes'
 import Notifications from '../components/Notifications'
 import Footer from '../components/Footer';
@@ -16,6 +17,7 @@ const App = () => {
   const [user,setUser] = useState(null);
 
   useEffect(() => {
+    sessionService.getData("tokenExpires", 0, 1, "loggedNoteAppUser");
     const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser');
     if(!user){
       if(loggedUserJSON){
@@ -29,6 +31,7 @@ const App = () => {
       }
     }
   },[user])
+
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteAppUser');
     if(loggedUserJSON){
@@ -37,6 +40,7 @@ const App = () => {
     }
   }
   ,[changesNotes]);
+
   return (
     <div>
       <h1 id="NOTES">Notes</h1>

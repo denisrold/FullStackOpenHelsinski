@@ -1,6 +1,7 @@
 import loginService from '../src/services/login';
 import noteService from '../src/services/notes'
 import BackLoginButton from './BackLoginButton';
+import sessionService from '../src/services/sessionStorage';
 import { useState } from 'react';
 const LoginForm = ({ loginHandle,visible,setVisible,setChangesNotes }) => {
   const [username,setUsername] = useState('');
@@ -12,7 +13,8 @@ const LoginForm = ({ loginHandle,visible,setVisible,setChangesNotes }) => {
     event.preventDefault();
     try{
       const userLog = await loginService.login({ username,password });
-      window.localStorage.setItem('loggedNoteAppUser',JSON.stringify(userLog));
+      sessionService.saveData("tokenExpires", "loggedNoteAppUser");
+      sessionService.saveUserSession('loggedNoteAppUser',userLog);
       noteService.setToken(userLog.token);
       setUser(userLog);
       setChangesNotes(true);

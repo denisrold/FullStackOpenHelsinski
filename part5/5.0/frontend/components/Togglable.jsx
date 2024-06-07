@@ -1,7 +1,9 @@
 
 
 import { useState , forwardRef, useImperativeHandle } from 'react';
-import PropTypes from 'prop-types'
+
+import PropTypes from 'prop-types';
+
 const Toggable = forwardRef((props,refs) => {
   const [visible,setVisible] = useState(false);
   const showHideVisible = { display:visible?'none':'' };

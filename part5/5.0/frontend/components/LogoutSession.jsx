@@ -1,7 +1,8 @@
+import sessionService from '../src/services/sessionStorage';
 const LogoutSession = ({ setErrorMessage,setUser }) => {
   const handleLogout=() => {
-    //only user Login token removed
-    window.localStorage.removeItem('loggedNoteAppUser');
+    sessionService.removeStorageData('loggedNoteAppUser');
+    sessionService.removeStorageData('tokenExpires');
     //All States Removes:
     // window.localStorage.clear()
     setErrorMessage(null);
