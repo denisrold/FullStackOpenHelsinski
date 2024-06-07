@@ -1,8 +1,13 @@
+import sessionStorage from "../src/service/sessionStorage";
+
 const LogoutButton = ({ logoutStates }) => {
   const { setUser,setLoadState }= logoutStates;
   const handleLogout = async (event) => {
     event.preventDefault();
-    window.localStorage.removeItem('userLogged');
+    //sesions storage
+    sessionStorage.removeStorageData('tokenExpires');
+    sessionStorage.removeStorageData('userLogged');
+    // window.localStorage.removeItem('userLogged');
     setUser(null);
     setLoadState(false);
   }

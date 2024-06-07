@@ -1,4 +1,5 @@
 import { useEffect,useState } from 'react'
+import sessionStorage from '../src/service/sessionStorage';
 import loginService from "../src/service/login"
 import Toggable from './Toggable';
 import PropTypes from 'prop-types'
@@ -12,7 +13,10 @@ const Login =({ user,setUser,setErrorMessage,setLoadState,loadState }) => {
       setErrorMessage(false);
       setUsername('');
       setPassword('');
-      window.localStorage.setItem('userLogged',JSON.stringify(userLog));
+      //newsession
+      sessionStorage.saveUserSession('userLogged',userLog);
+      sessionStorage.saveData('tokenExpires','userLogged')
+      // window.localStorage.setItem('userLogged',JSON.stringify(userLog));
       setUser(userLog);
     }
     catch(err){
@@ -22,6 +26,8 @@ const Login =({ user,setUser,setErrorMessage,setLoadState,loadState }) => {
     }
   }
   useEffect(() => {
+    //newSesiontoken
+    sessionStorage.getData("tokenExpires", 0, 1, "userLogged");
     const loggedUser = window.localStorage.getItem('userLogged');
     if(loggedUser){
       setLoadState(true)

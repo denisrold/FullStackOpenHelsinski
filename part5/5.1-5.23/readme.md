@@ -16,7 +16,8 @@
 <h1>DEPLOYED BLOGGERSE APP:</h1>
 https://blogapp-jkur.onrender.com/
 
--1 Problem with localStorage. 
-navigator localStorage dont delete userToken when expires. (i think to fix in future feateures);
-
-solution: For now, when the token expires, you have to log out and log back in.
+1 new feature 07/06:
+    fixed problem : { 
+        1 Problem with localStorage. 
+        navigator localStorage dont delete userToken when expires. (i think to fix in future feateures);
+    }
