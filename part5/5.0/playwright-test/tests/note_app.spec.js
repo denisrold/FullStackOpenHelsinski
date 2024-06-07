@@ -15,7 +15,7 @@ describe("Note app", () => {
 
   describe("login", () => {
     test("front page can be opened", async ({ page }) => {
-      const locator = await page.getByText("Notes");
+      const locator = await page.locator("#NOTES");
       await expect(locator).toBeVisible();
       await expect(
         page.getByText(
