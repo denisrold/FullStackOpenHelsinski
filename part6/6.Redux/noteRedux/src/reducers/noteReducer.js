@@ -14,6 +14,5 @@ const noteReducer = (state = [], action) => {
       return state;
   }
 };
-export const store = createStore(noteReducer);
 
 export default noteReducer;

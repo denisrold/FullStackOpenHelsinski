@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {storeReducer} from "./reducers/noteReducer";
 import './index.css'
-
-storeReducer.dispatch({
+import { createStore } from "redux";
+import noteReducer from './reducers/noteReducer';
+const store = createStore(noteReducer);
+store.dispatch({
   type: "NEW_NOTE",
   payload: {
     content: "the app state is in redux store",
@@ -12,7 +13,7 @@ storeReducer.dispatch({
   },
 });
 
-storeReducer.dispatch({
+store.dispatch({
   type: "NEW_NOTE",
   payload: {
     content: "state changes are made with actions",
@@ -25,7 +26,7 @@ const App = () => {
   return (
     <div>
       <ul>
-        {storeReducer.getState().map(note => (
+        {store.getState().map(note => (
           <li key={note.id}>
             {note.content}
             <strong>
