@@ -1,43 +1,31 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createStore } from "redux";
+import {storeReducer} from "./reducers/noteReducer";
 import './index.css'
 
-const noteReducer = ( state =[] , action ) => {
-  switch(action.type){
-    case 'NEW_NOTE':
-      return state.concat(action.payload);
-    default:
-      return state;
-    }
-  }    
-
-const store = createStore(noteReducer);
-
-
-store.dispatch({
-  type: 'NEW_NOTE',
+storeReducer.dispatch({
+  type: "NEW_NOTE",
   payload: {
-    content: 'the app state is in redux store',
+    content: "the app state is in redux store",
     important: true,
-    id: 1
-  }
-})
+    id: 1,
+  },
+});
 
-store.dispatch({
-  type: 'NEW_NOTE',
+storeReducer.dispatch({
+  type: "NEW_NOTE",
   payload: {
-    content: 'state changes are made with actions',
+    content: "state changes are made with actions",
     important: false,
-    id: 2
-  }
-})
+    id: 2,
+  },
+});
 
 const App = () => {
   return (
     <div>
       <ul>
-        {store.getState().map(note => (
+        {storeReducer.getState().map(note => (
           <li key={note.id}>
             {note.content}
             <strong>
