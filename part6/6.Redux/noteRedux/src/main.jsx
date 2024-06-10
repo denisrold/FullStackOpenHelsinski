@@ -8,9 +8,9 @@ import store from'./reducers/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 const renderApp = ()=> root.render(
-<Provider store={store}>
-  <App />
-</Provider>
+  <Provider store={store}>
+    <App />
+  </Provider>
 )
 renderApp();
 store.subscribe(renderApp);
