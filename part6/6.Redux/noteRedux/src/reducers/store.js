@@ -1,7 +1,14 @@
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 import noteReducer from "./noteReducer";
+import filterReducer from "./filterReducer";
 
-const store = createStore(noteReducer);
+const reducer = combineReducers({
+  note: noteReducer,
+  filter: filterReducer,
+});
+
+const store = createStore(reducer);
+
 store.dispatch({
   type: "NEW_NOTE",
   payload: {
