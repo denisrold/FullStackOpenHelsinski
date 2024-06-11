@@ -26,6 +26,8 @@ const reducer = (state = initialState, action) => {
       state[anecdoteIndex].votes += 1;
       return [...state];
     }
+    case "ADD":
+      return [...state, action.payload];
     default:
       return state;
   }

@@ -1,13 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux'
-import newVote from './reducers/actions';
+import FormAnecdote from './components/FormAnecdote';
+import Vote from './components/Vote'
 
 const App = () => {
-  const anecdotes = useSelector(state => state)
-  const dispatch = useDispatch()
-
-const vote = (id) => {
-    dispatch(newVote(id))
-  }
+  const anecdotes = useSelector(state => state).sort((a,b) => b.votes - a.votes );
 
   return (
     <div>
@@ -17,17 +13,11 @@ const vote = (id) => {
           <div>
             {anecdote.content}
           </div>
-          <div>
-            has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id)}>vote</button>
-          </div>
+          <Vote id={anecdote.id} votes={anecdote.votes}/>
         </div>
       )}
       <h2>create new</h2>
-      <form>
-        <div><input /></div>
-        <button>create</button>
-      </form>
+      <FormAnecdote />
     </div>
   )
 }
