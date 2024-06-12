@@ -14,4 +14,10 @@ export const createAnecdote = (content) => {
   };
 };
 
+export const filters = (payload) => {
+  return {
+    type: "FILTER",
+    payload: payload,
+  };
+};
 export default newVote;
