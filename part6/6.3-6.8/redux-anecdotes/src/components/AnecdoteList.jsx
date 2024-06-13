@@ -5,8 +5,7 @@ const AnecdoteList = ()=>{
   const anecdotes = useSelector(state => {
     const anecdotes = state.anecdoteReducer;
     const filter = state.filterReducer;
-    const filterAnecdotes = anecdotes.filter( a => a.content.toLowerCase().includes(filter.toLowerCase()));
-    return filterAnecdotes.sort((a,b) => b.votes - a.votes );
+    return anecdotes.filter( a => a.content.toLowerCase().includes(filter.toLowerCase()));
   })
 
 return(

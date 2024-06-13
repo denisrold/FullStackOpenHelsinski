@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const anecdotesAtStart = [
   "If it hurts, do it more often",
@@ -38,6 +38,7 @@ const noteSlice = createSlice({
       // state[anecdoteIndex].votes += 1;
       const anecdote = state.find((a) => a.id === action.payload);
       anecdote.votes += 1;
+      return state.sort((a, b) => b.votes - a.votes);
     },
   },
 });
