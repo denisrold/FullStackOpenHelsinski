@@ -8,6 +8,7 @@ const AnecdoteList = ()=>{
     const filterAnecdotes = anecdotes.filter( a => a.content.toLowerCase().includes(filter.toLowerCase()));
     return filterAnecdotes.sort((a,b) => b.votes - a.votes );
   })
+
 return(
   <>
     {anecdotes.map(anecdote =>

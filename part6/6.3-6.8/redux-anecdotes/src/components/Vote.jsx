@@ -1,10 +1,10 @@
-import newVote from '../reducers/actions';
 import { useDispatch } from 'react-redux';
+import  { newVote } from '../reducers/anecdoteReducer';
 
 const Vote = ({ id ,votes }) => {
     const dispatch = useDispatch()
-
     const vote = (id) => {
+      console.log(newVote(id))
         dispatch(newVote(id))
       }  
     return(
