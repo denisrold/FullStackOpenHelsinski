@@ -41,4 +41,5 @@ const noteSlice = createSlice({
 });
 
 export const { createAnecdote, newVote } = noteSlice.actions;
+
 export default noteSlice.reducer;

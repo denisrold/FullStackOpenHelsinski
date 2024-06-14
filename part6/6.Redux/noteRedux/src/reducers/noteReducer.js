@@ -1,4 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import noteService from "../../services/notes";
 // const initialState = [
 //   {
 //     content: "reducer defines how redux store works",
@@ -16,11 +17,11 @@ const noteSlice = createSlice({
   name: "notes",
   initialState: [],
   reducers: {
-    createNote(state, action) {
-      const content = action.payload;
-      // console.log(current(state));
-      state.push(content);
-    },
+    // createNote(state, action) {
+    //   const content = action.payload;
+    //   // console.log(current(state));
+    //   state.push(content);
+    // },
     toggleImportanceOf(state, action) {
       const id = action.payload;
       const noteToChange = state.find((n) => n.id === id);
@@ -34,7 +35,7 @@ const noteSlice = createSlice({
       state.push(action.payload);
     },
     setNotes(state, action) {
-      state.push(action.payload);
+      state.push(...action.payload);
     },
   },
 });
@@ -55,6 +56,27 @@ const noteSlice = createSlice({
 //   }
 // };
 
-export const { createNote, toggleImportanceOf, appendNote, setNotes } =
-  noteSlice.actions;
+export const { toggleImportanceOf, appendNote, setNotes } = noteSlice.actions;
+
+//asyncs dispatchs
+export const initializeNotes = () => {
+  return async (dispatch) => {
+    const notes = await noteService.getAll();
+    dispatch(setNotes(notes));
+  };
+};
+export const createNote = (content) => {
+  return async (dispatch) => {
+    const newNote = await noteService.createNew(content);
+    dispatch(appendNote(newNote));
+  };
+};
+
+export const toggleImportanceById = (id) => {
+  return async (dispatch) => {
+    await noteService.toggleImportance(id);
+    dispatch(toggleImportanceOf(id));
+  };
+};
+
 export default noteSlice.reducer;

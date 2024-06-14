@@ -6,7 +6,7 @@ import anecdoteService from '../service/anecdotes';
 const Vote = ({ id ,votes,anecdote }) => {
     const dispatch = useDispatch()
     const vote = (id) => {
-        anecdoteService.vote(id);
+        const addedVote = anecdoteService.vote(id);
         dispatch(newVote(id));
         dispatch(notification('you voted ' + anecdote))
         setTimeout(()=>{dispatch(deleteNotification())},5000)
