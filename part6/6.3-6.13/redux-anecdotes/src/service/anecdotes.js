@@ -10,6 +10,16 @@ const getAll = async () => {
     console.log(e);
   }
 };
+
+const createAnecdote = async (content) => {
+  try {
+    const object = { votes: 0, content: content };
+    const response = await axios.post(baseUrl, object);
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
 const getById = async (id) => {
   try {
     const response = await axios.get(baseUrl + `/${id}`);
@@ -29,4 +39,4 @@ const vote = async (id) => {
   }
 };
 
-export default { getAll, vote };
+export default { getAll, vote, createAnecdote };
