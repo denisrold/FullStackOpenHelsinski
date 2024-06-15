@@ -7,7 +7,7 @@ const Notification = () => {
   const style = {
     marginTop:10,
     marginBottom:10,
-    border: "solid",
+    textAlign:'center',
     padding: 10,
     borderWidth: 1,
     minHeight: 60,
