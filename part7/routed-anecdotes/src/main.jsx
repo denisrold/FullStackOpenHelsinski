@@ -6,9 +6,12 @@ import {
     Routes, Route, Link, useMatch
   
   } from 'react-router-dom'
-
+  import { NotificationProvider  } from "./NotificationContext";
 ReactDOM.createRoot(document.getElementById('root')).render(
-<Router>
-<App />
-</Router>
+  
+  <NotificationProvider>
+  <Router>
+    <App />
+  </Router>
+  </NotificationProvider>
 )

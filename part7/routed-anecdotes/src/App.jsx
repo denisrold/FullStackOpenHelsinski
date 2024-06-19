@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Routes, Route, useMatch } from 'react-router-dom'
 import Menu from '../components/Menu';
 import AnecdoteById from '../components/AnecodoteById';
@@ -6,11 +6,13 @@ import AnecdoteList from '../components/AnecdoteList';
 import About from '../components/About';
 import Footer from '../components/Footer';
 import CreateNew from '../components/CreateNew';
-
-
+import Notification from '../components/Notification';
 
 
 const App = () => {
+  const [notification, setNotification] = useState('')
+  const [newNotification,setNewNotification] = useState(false);
+
   const [anecdotes, setAnecdotes] = useState([
     {
       content: 'If it hurts, do it more often',
@@ -33,13 +35,7 @@ const match = useMatch("/anecdotes/:id");
 const anecdote = match
 ? anecdotes.find(anecdote => anecdote.id === Number(match.params.id))
 : null
-
-  const [notification, setNotification] = useState('')
-
-  const addNew = (anecdote) => {
-    anecdote.id = Math.round(Math.random() * 10000)
-    setAnecdotes(anecdotes.concat(anecdote))
-  }
+  console.log(notification)
   const anecdoteById = (id) =>
     anecdotes.find(a => a.id === id)
 
@@ -56,11 +52,17 @@ const anecdote = match
       <div>
         <h1>Software anecdotes</h1>
         <Menu />
+        
         <Routes>
-        <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />}/>
+        <Route path="/" element={(
+          <>
+            <Notification  notification={notification} newNotification={newNotification} setNewNotification={setNewNotification} setNotification={setNotification}/>
+            <AnecdoteList anecdotes={anecdotes} />
+          </>
+            )}/>
         <Route path="/anecdotes/:id" element={<AnecdoteById anecdote={anecdote} />}/>
         <Route path="/about" element={<About />}/>
-        <Route path="/create" element={<CreateNew addNew={addNew} />}/>
+        <Route path="/create" element={<CreateNew anecdotes={anecdotes}  setNewNotification={setNewNotification} setNotification={setNotification} setAnecdote={setAnecdotes} />}/>
         </Routes>
         <Footer />
       </div>

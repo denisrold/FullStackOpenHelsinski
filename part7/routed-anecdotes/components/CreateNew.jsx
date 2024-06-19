@@ -1,21 +1,30 @@
 
 
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useNotificationDispatch } from "../src/NotificationContext";
 
 const CreateNew = (props) => {
+  const navigate = useNavigate();
     const [content, setContent] = useState('')
     const [author, setAuthor] = useState('')
     const [info, setInfo] = useState('')
-  
-  
+    const dispatch = useNotificationDispatch()
+    const addNew = (anecdote) => {
+      anecdote.id = Math.round(Math.random() * 10000)
+      props.setAnecdote(props.anecdotes.concat(anecdote))
+      props.setNotification(anecdote.content + ' has been created');
+      dispatch({type:'ADD',payload:anecdote.content + ' has been created'})
+    }
     const handleSubmit = (e) => {
       e.preventDefault()
-      props.addNew({
+      addNew({
         content,
         author,
         info,
         votes: 0
       })
+      navigate('/')
     }
   
     return (

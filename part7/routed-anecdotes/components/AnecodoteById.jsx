@@ -1,10 +1,13 @@
 
 const AnecdoteById = ({ anecdote }) => {
+
     return (
       <div>
-        Este es una anecdota
+        <h1>{anecdote.content}</h1>
+        <p>Author: {anecdote.author}</p>
+        <p>has {anecdote.votes} votes</p>
         <p>
-          {anecdote.content}
+          for more info see <a target="_blank noopener norel" href={anecdote.info}>{anecdote.info}</a> 
         </p>
       </div>
       )
