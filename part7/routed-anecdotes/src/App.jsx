@@ -1,17 +1,13 @@
 import { useState } from 'react'
-import {
-  Routes, Route, Link, useMatch
-} from 'react-router-dom'
+import { Routes, Route, useMatch } from 'react-router-dom'
 import Menu from '../components/Menu';
 import AnecdoteById from '../components/AnecodoteById';
 import AnecdoteList from '../components/AnecdoteList';
 import About from '../components/About';
 import Footer from '../components/Footer';
 import CreateNew from '../components/CreateNew';
-// const match = useMatch('/anecdotes/:id');
-// const anecdote = match
-// ? anecdotes.find(anecdote => anecdote.id === Number(match.params.id))
-// : null
+
+
 
 
 const App = () => {
@@ -31,6 +27,12 @@ const App = () => {
       id: 2
     }
   ])
+
+//UseMatch for use Params ID
+const match = useMatch("/anecdotes/:id");
+const anecdote = match
+? anecdotes.find(anecdote => anecdote.id === Number(match.params.id))
+: null
 
   const [notification, setNotification] = useState('')
 
@@ -56,7 +58,7 @@ const App = () => {
         <Menu />
         <Routes>
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />}/>
-        <Route path="/anecdotes/:id" element={<AnecdoteById anecdotes={anecdotes} />}/>
+        <Route path="/anecdotes/:id" element={<AnecdoteById anecdote={anecdote} />}/>
         <Route path="/about" element={<About />}/>
         <Route path="/create" element={<CreateNew addNew={addNew} />}/>
         </Routes>
