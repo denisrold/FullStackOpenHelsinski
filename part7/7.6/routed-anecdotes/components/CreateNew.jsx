@@ -1,32 +1,38 @@
 
 
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useNotificationDispatch } from "../src/NotificationContext";
+import  { useField } from '../hook/hooks'
 
 const CreateNew = (props) => {
   const navigate = useNavigate();
-    const [content, setContent] = useState('')
-    const [author, setAuthor] = useState('')
-    const [info, setInfo] = useState('')
+  const content = useField('text');
+  const author = useField('text')
+  const info = useField('text')
+  
     const dispatch = useNotificationDispatch()
+
     const addNew = (anecdote) => {
       anecdote.id = Math.round(Math.random() * 10000)
       props.setAnecdote(props.anecdotes.concat(anecdote))
-      props.setNotification(anecdote.content + ' has been created');
-      dispatch({type:'ADD',payload:anecdote.content + ' has been created'})
+      dispatch({type:'ADD',payload:'A new anecdote: '+ anecdote.content + ' has been created'})
     }
     const handleSubmit = (e) => {
       e.preventDefault()
       addNew({
-        content,
-        author,
-        info,
+        content:content.value,
+        author:author.value,
+        info:info.value,
         votes: 0
       })
       navigate('/')
     }
-  
+    const handleReset = (e) => {
+      e.preventDefault();
+      content.onClick(e.target.value,true);
+      author.onClick(e.target.value,true);
+      info.onClick(e.target.value,true);
+    }
     return (
       
       <div>
@@ -34,17 +40,18 @@ const CreateNew = (props) => {
         <form onSubmit={handleSubmit}>
           <div>
             content
-            <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+            <input {...content} />
           </div>
           <div>
             author
-            <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+            <input {...author} />
           </div>
           <div>
             url for more info
-            <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+            <input {...info} />
           </div>
           <button>create</button>
+          <button onClick={(e)=>handleReset(e)}>reset</button>
         </form>
       </div>
     )

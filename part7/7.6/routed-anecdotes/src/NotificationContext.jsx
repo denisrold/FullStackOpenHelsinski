@@ -1,6 +1,7 @@
 
 import { createContext, useReducer, useContext } from 'react'
 
+//CREATE REDUCER
 const notificationReducer = (state, action) => {
     switch (action.type) {
       case "ADD":
@@ -13,18 +14,24 @@ const notificationReducer = (state, action) => {
           return state
     }
   }
+
+  //CREATE CONTEXT
   const NotificationContext = createContext()
 
+  //CREATE PROVIDER
   export const NotificationProvider  = (props) => {
+    //USEREDUCER
     const [notification, notificationDispatch] = useReducer(notificationReducer, '')
     return (
         <NotificationContext.Provider value={[notification, notificationDispatch] }>
+          {/* HERE GOES MAIN.JSX <APP> */}
           {props.children}
         </NotificationContext.Provider>
       )
   }
 
   //separando el counterFunction dispatch y counter
+  
   //COUNTER
   export const useNotificationValue = () => {
     const context = useContext(NotificationContext);

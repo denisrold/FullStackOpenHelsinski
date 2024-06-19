@@ -35,7 +35,6 @@ const match = useMatch("/anecdotes/:id");
 const anecdote = match
 ? anecdotes.find(anecdote => anecdote.id === Number(match.params.id))
 : null
-  console.log(notification)
   const anecdoteById = (id) =>
     anecdotes.find(a => a.id === id)
 
@@ -52,17 +51,16 @@ const anecdote = match
       <div>
         <h1>Software anecdotes</h1>
         <Menu />
-        
         <Routes>
         <Route path="/" element={(
           <>
-            <Notification  notification={notification} newNotification={newNotification} setNewNotification={setNewNotification} setNotification={setNotification}/>
+            <Notification />
             <AnecdoteList anecdotes={anecdotes} />
           </>
             )}/>
         <Route path="/anecdotes/:id" element={<AnecdoteById anecdote={anecdote} />}/>
         <Route path="/about" element={<About />}/>
-        <Route path="/create" element={<CreateNew anecdotes={anecdotes}  setNewNotification={setNewNotification} setNotification={setNotification} setAnecdote={setAnecdotes} />}/>
+        <Route path="/create" element={<CreateNew anecdotes={anecdotes}  setAnecdote={setAnecdotes} />}/>
         </Routes>
         <Footer />
       </div>

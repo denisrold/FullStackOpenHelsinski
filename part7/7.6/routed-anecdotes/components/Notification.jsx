@@ -2,9 +2,9 @@
 import { useNotificationDispatch, useNotificationValue } from "../src/NotificationContext"
 import { useEffect } from "react";
 const Notification = () => {   
+    //Global state Context
     const dispatch = useNotificationDispatch();
     const notificationState = useNotificationValue()
-
     useEffect(() => {
         if (notificationState.length) {
           const timer = setTimeout(() => {
@@ -19,7 +19,7 @@ const Notification = () => {
 
     return(
         <>
-         <h3>{notificationState}</h3>
+         <h3 style={{color:'darkgreen'}}>{notificationState}</h3>
         </>
     )
 }

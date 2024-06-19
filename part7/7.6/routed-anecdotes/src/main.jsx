@@ -1,17 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import {
-    BrowserRouter as Router,
-    Routes, Route, Link, useMatch
-  
-  } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
   import { NotificationProvider  } from "./NotificationContext";
 ReactDOM.createRoot(document.getElementById('root')).render(
   
   <NotificationProvider>
-  <Router>
-    <App />
-  </Router>
+    <Router>
+      <App />
+    </Router>
   </NotificationProvider>
 )
