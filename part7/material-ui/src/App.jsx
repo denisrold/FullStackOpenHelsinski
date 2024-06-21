@@ -10,8 +10,7 @@ import Home from '../components/Home'
 import NotesById from '../components/NotesById'
 import Login from '../components/Login'
 import { useState,useEffect } from 'react'
-import { Alert } from 'react-bootstrap'
-import { Container } from '@mui/material'
+import { Container,Alert } from '@mui/material'
 
 
 const App = () => {
@@ -35,7 +34,7 @@ const App = () => {
     <Container >
     <Menu user={user}/>
     {(message &&
-   <Alert variant="success">
+   <Alert severity="success">
      {message}
    </Alert>
      )}
