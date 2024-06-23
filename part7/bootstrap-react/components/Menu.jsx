@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Navbar,Nav } from 'react-bootstrap'
+import { Navbar,Nav } from '@mui/material'
 
 const Menu = ({ user }) => {
   const padding = {
