@@ -1,0 +1,10 @@
+.container {
+    margin: 10;
+    background-color: #dee8e4;
+    padding: 3rem;
+    font-size: large;
+  }
+.container div {
+    padding-top: 1rem;
+}  
+  
