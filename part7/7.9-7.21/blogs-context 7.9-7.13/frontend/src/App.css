@@ -1,0 +1,240 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3rem;
+  text-align: center;
+}
+.containerHeader{
+  margin-top: -2.5rem;
+}
+
+.flexRow{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+}
+/* LOADING CONTAINERS LOGIN */
+.loadStateContainer{
+  display: flex;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: larger;
+  justify-content: center;
+  margin: 7rem auto;
+  padding: 1rem;
+  max-width: 20rem;
+}
+/* FORM CONTAINER  */
+.formContainer{
+  display: flex;
+  justify-content: center;
+  margin: 3rem auto;
+  padding: 1rem;
+  max-width: 20rem;
+}
+.formContainer input{
+padding: .3rem;
+margin: .3rem;
+}
+/* NOTIFICATIONS CONTAINERS */
+.notificationContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  font-family: 'Courier New', Courier, monospace;
+}
+.notificationContainer h3{
+  margin-top: 2rem;
+  border: solid 1.5px white;
+  border-radius: 5px;
+  padding: .5rem;
+  background-color: #1a1a1a;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-size: x-large;
+}
+
+/* BODY CONTAINER BLOGS */
+.bodyContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: solid 1.5px rgba(255, 255, 255, 0.675);
+  border-radius: 3px;
+  width: 85%;
+  height: 55vh;
+  padding:1rem;
+  max-width: 80vh;
+  overflow-y: auto;
+  margin: 0 auto 0 auto;
+}
+.blogContainer{
+  border: solid 1px red;
+  border-radius: 3px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 70vh;
+  max-width: 70vh;
+}
+
+/* ADD BLOGS STYLES */
+.addNewBLog{
+  border: solid 1px rgb(255, 255, 255);
+  width: fit-content;
+  margin: 2rem auto 3rem auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  transition: all .3s;
+}
+.addNewBLog:hover{
+  color:  #646cff;
+  border: solid 1px  #646cff;
+}
+.addNewBLog a{
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+  transition: all .3s;
+}
+
+.createContainer{
+  border: solid 1.5px rgba(253, 253, 253, 0.647);
+  border-radius: 3px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.566);
+  background-color: rgba(0, 0, 0, 0.047);
+  margin: 1rem auto 1rem auto;
+  height: fit-content;
+  width: 40%;
+  padding: 0 1rem 0 1rem;
+}
+
+/* ADDBLOGS STYLES */
+.addBlogsTitle{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: x-large;
+  max-width: 23rem;
+  margin: 0 auto 0 auto;
+  justify-content: space-evenly;
+}
+.addBlogsTitle button{
+  margin-bottom: 2rem;
+}
+.titleAddBlogs{
+  width: 100%;
+  margin-top: -2rem;
+}
+.addBlogsTitle button{
+margin-left: auto;
+width: fit-content;
+height: fit-content;
+font-size: small;
+}
+
+.formContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0rem;
+  padding: 1rem;
+  margin-bottom: 0;
+}
+
+.formContainer input{
+  padding: .5rem ;
+  padding-left: 1rem;
+}
+
+.likeContainer{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.likeContainer button{
+  margin: 0;
+  margin-left: 1rem;
+}
+
+.heart{
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: -.1rem -.5rem -.5rem -.5rem;
+}
+.heartLike{
+  align-items: center;
+  color: red; 
+  fill: red;
+}
+/* Blogs buttons */
+.deleteIcon{
+  margin: auto -.3rem -.15rem;
+  height: 1.2rem;
+}
+.editButton{
+  margin: auto -.3rem -.15rem;
+  height: 1.2rem;
+
+}
+.ToggableAddBlogs{
+  margin:2rem auto;
+  /* width: fit-content;
+  padding: 2rem; */
+  border:solid 1px black;
+  padding-bottom: .5rem;
+
+}
+/* BACK BUTTON */
+.backButtonContainer{height: 2.3rem;}
+.backButton{
+  color: white;
+  width: 1rem;
+  height: 1rem;
+}
+.formAdd button{
+  margin-top: .9rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.containerAbsolute{
+  position: relative;
+
+}
+.createContainer{
+  position: absolute;
+  bottom:-3rem;
+  left: 50%; 
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.726);
+  min-width: 20rem;
+  backdrop-filter: blur(10px)
+}
+@media screen and (max-width: 630px) {
+
+  .bodyContainer{
+    height: 70vh;
+    width: auto;
+    margin-bottom: .5rem;
+    overflow-y: auto;
+  }
+  .blogContainer{
+    width: auto;
+  }
+  .formContainer{
+ 
+    flex-direction: column;
+  }
+  .formContainer input{
+    margin: 0 0 1rem 0;
+
+  }
+  .formContainer label{
+   font-size: x-large;
+   margin-bottom: .1rem;
+  }
+
+}
