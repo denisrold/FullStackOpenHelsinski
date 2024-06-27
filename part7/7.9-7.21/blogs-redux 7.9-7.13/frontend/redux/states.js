@@ -1,1 +1,1 @@
-export const notificationState = [];
+export const initialState = { notification: null };

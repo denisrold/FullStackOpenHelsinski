@@ -1,11 +1,14 @@
-import { notificationState } from "../states";
+import { initialState } from "../states";
 
-const notificationReducer = (state = notificationState, action) => {
+const notificationReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_NOTIFICATION":
-      return [...action.payload];
+    case "ADD_NOTIFICATION": {
+      const { content } = action.payload;
+      return { ...state, notification: content };
+    }
     case "CLEAR_NOTIFICATION":
-      return [...action.payload];
+      const { content } = action.payload;
+      return { ...state, notification: content };
     default:
       return state;
   }

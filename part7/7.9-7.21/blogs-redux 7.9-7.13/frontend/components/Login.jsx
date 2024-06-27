@@ -1,16 +1,20 @@
 import { useEffect,useState } from 'react'
+import { useDispatch ,useSelector } from 'react-redux';
+import { createNotification, clearNotification } from '../redux/notificationReducer/notificationAction';
 import sessionStorage from '../src/service/sessionStorage';
 import loginService from "../src/service/login"
 import Toggable from './Toggable';
 import PropTypes from 'prop-types'
-const Login =({ user,setUser,setErrorMessage,setLoadState,loadState }) => {
+
+const Login =({ user,setUser,setLoadState,loadState }) => {
+  const dispatch = useDispatch();
   const [username,setUsername] = useState('');
   const [password,setPassword] = useState('');
   const handleForm = async (event) => {
     event.preventDefault();
     try{
       const userLog = await loginService.login({ username,password });
-      setErrorMessage(false);
+      dispatch(clearNotification());
       setUsername('');
       setPassword('');
       //newsession
@@ -20,7 +24,8 @@ const Login =({ user,setUser,setErrorMessage,setLoadState,loadState }) => {
       setUser(userLog);
     }
     catch(err){
-      setErrorMessage(err.response.data.error.replace(err.response.data.error[0],err.response.data.error[0].toUpperCase()) + '.');
+      let errorMessage = err.response.data.error.replace(err.response.data.error[0],err.response.data.error[0].toUpperCase()) + '.' 
+      dispatch(createNotification(errorMessage))
       setUsername('');
       setPassword('');
     }
@@ -47,7 +52,7 @@ const Login =({ user,setUser,setErrorMessage,setLoadState,loadState }) => {
     <>
       {loadState ? (<div className='loadStateContainer'><h3>Loading...</h3></div>):
         !user && (
-          <Toggable buttonLabel={"Login"} setErrorMessage={setErrorMessage}>
+          <Toggable buttonLabel={"Login"} dispatch={dispatch}>
             <section className='formContainer'>
               <form name="LoginForm" className='form'>
                 <div>
@@ -70,7 +75,6 @@ const Login =({ user,setUser,setErrorMessage,setLoadState,loadState }) => {
 
 Login.propTypes={
   setUser:PropTypes.func.isRequired,
-  setErrorMessage:PropTypes.func.isRequired,
   setLoadState:PropTypes.func.isRequired,
   loadState:PropTypes.bool.isRequired
 }

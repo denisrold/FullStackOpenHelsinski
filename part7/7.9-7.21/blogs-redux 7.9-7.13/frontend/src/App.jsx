@@ -1,5 +1,6 @@
 import './App.css'
 import { useState,useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Header from '../components/Headers';
 import Notifications from '../components/Notifications';
 import Login from '../components/Login';
@@ -15,6 +16,7 @@ function App() {
   const [loadState,setLoadState] = useState(false);
   const [newBlog,setNewBlog] = useState(true);
   
+  const notification = useSelector(state=>state.notification)
 
   const getBlogs = async () => {
     try{
@@ -41,10 +43,9 @@ function App() {
       <Login
         user={user}
         setUser={setUser}
-        setErrorMessage={setErrorMessage}
         setLoadState={setLoadState}
         loadState={loadState}/>
-      {errorMessage&&<Notifications errorMessage={errorMessage}  setErrorMessage={setErrorMessage}/>}
+      {notification&&<Notifications errorMessage={errorMessage}  setErrorMessage={setErrorMessage}/>}
       {user&&(
         <>
           <h3 name='userInfo'>{user.name} logged in</h3>
