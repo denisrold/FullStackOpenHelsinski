@@ -1,3 +1,5 @@
+import blogService from "../../src/service/blogs";
+
 export const createBlog = (content) => {
   return {
     type: "ADD_BLOG",
@@ -23,11 +25,18 @@ export const updateBlog = (content) => {
   };
 };
 
-export const getBlogs = (content) => {
+export const getBlogs = async (content) => {
+  const response = [];
+  console.log("getBlogs content", content);
+  try {
+    response = [...(await blogService.getBlogs())];
+  } catch (err) {
+    console.error(err.response.data);
+  }
   return {
     type: "GET_BLOG",
     payload: {
-      content,
+      content: response.data,
     },
   };
 };

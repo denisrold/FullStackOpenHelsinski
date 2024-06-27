@@ -9,7 +9,7 @@ const blogReducer = (state = blogState, action) => {
     case "UPDATE_BLOG":
       return { ...state, blogs: [...state.blogs, action.payload] };
     case "GET_BLOG":
-      return { ...state, blogs: [...state.blogs, action.payload] };
+      return { ...state, blogs: [...action.payload] };
     default:
       return state;
   }

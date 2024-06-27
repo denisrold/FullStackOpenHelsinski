@@ -6,7 +6,7 @@ import { createNotification } from '../redux/notificationReducer/notificationAct
 
 const UpdateBlogView = ({ setNewBlog,blog,setUpdateBlog }) => {
   const dispatch = useDispatch();
-  const notification = useSelector(state=>state.notification);
+  const {notification} = useSelector(state=>state.notification);
   const { title,author,url,userId,id } = blog;
   const [updateTitle,setUpdateTitle] = useState(title)
   const [updateAuthor,setUpdateAuthor] = useState(author)

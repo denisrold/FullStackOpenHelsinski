@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 
 const Login =({ user,setUser,setLoadState,loadState }) => {
   const dispatch = useDispatch();
-  const notification = useSelector(state => state.notification);
+  const { notification } = useSelector(state => state.notification);
   const [username,setUsername] = useState('');
   const [password,setPassword] = useState('');
   const handleForm = async (event) => {

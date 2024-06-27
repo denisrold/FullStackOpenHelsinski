@@ -1,7 +1,7 @@
 import Notification from './Notifications';
 import { useSelector } from 'react-redux';
 const AddForm = ({ setAuthor,author,setTitle,title, handleAddBlogs, setUrl, url }) => {
-  const notification = useSelector(state=>state.notification);
+  const { notification } = useSelector(state=>state.notification);
   return(
     <form id="form" className='formAdd'>
       <div className='formContainer'>
