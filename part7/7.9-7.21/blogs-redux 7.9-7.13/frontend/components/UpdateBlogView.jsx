@@ -2,7 +2,7 @@ import { useState } from 'react';
 import blogService from '../src/service/blogs';
 import Notification from './Notifications';
 import { useDispatch, useSelector } from 'react-redux';
-import { createNotification } from '../redux/notificationReducer/notificationAction';
+import { createNotification } from '../redux/notificationReducer/notificationReducer';
 
 const UpdateBlogView = ({ setNewBlog,blog,setUpdateBlog }) => {
   const dispatch = useDispatch();

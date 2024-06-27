@@ -1,12 +1,13 @@
-import { createStore, combineReducers } from "redux";
 import notificationReducer from "./notificationReducer/notificationReducer";
 import blogReducer from "./blogReducer/blogReducer";
+import { configureStore } from "@reduxjs/toolkit";
 
-const reducer = combineReducers({
-  notification: notificationReducer,
-  blogs: blogReducer,
+const store = configureStore({
+  reducer: {
+    notification: notificationReducer,
+    blogs: blogReducer,
+  },
 });
 
-const store = createStore(reducer);
 console.log(store.getState());
 export default store;

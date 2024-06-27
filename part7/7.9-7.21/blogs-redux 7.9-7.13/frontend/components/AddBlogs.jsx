@@ -4,7 +4,7 @@ import AddedMessage from './AddedMessage';
 import Toggable from './Toggable';
 import AddForm from './AddForm';
 import { useDispatch } from 'react-redux';
-import { createNotification } from '../redux/notificationReducer/notificationAction';
+import { createNotification } from '../redux/notificationReducer/notificationReducer';
 
 const AddBlogs = ({ setNewBlog }) => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import { useEffect,useState } from 'react'
 import { useDispatch , useSelector } from 'react-redux';
-import { createNotification, clearNotification } from '../redux/notificationReducer/notificationAction';
+import { createNotification, clearNotification } from '../redux/notificationReducer/notificationReducer';
 import Notifications from './Notifications';
 import sessionStorage from '../src/service/sessionStorage';
 import loginService from "../src/service/login"

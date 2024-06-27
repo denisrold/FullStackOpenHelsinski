@@ -26,13 +26,14 @@ export const updateBlog = (content) => {
 };
 
 export const getBlogs = async (content) => {
-  const response = [];
+  let response;
   console.log("getBlogs content", content);
   try {
-    response = [...(await blogService.getBlogs())];
+    response = await blogService.getBlogs();
   } catch (err) {
     console.error(err.response.data);
   }
+  console.log("getBlogs response", response.data);
   return {
     type: "GET_BLOG",
     payload: {

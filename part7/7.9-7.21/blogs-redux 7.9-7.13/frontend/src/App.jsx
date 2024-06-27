@@ -1,19 +1,24 @@
 import './App.css'
-import { useState,useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Headers';
 import Login from '../components/Login';
 import LogoutButton from '../components/LogoutButton';
 import blogService from './service/blogs';
 import Blogs from '../components/Blog';
 import AddBlogs from '../components/AddBlogs';
+import { getBlogs } from '../redux/blogReducer/blogAction'
 
 function App() {
+  const dispatch = useDispatch();
   const [user,setUser] = useState(null);
   const [blogs,setBlogs] = useState([]);
   const [loadState,setLoadState] = useState(false);
   const [newBlog,setNewBlog] = useState(true);
 
+  // const bloges = useSelector(state => state.blogs.blogs);
+  // dispatch(getBlogs())
+  // console.log('estos bloges',bloges);
   const getBlogs = async () => {
     try{
       const response = await blogService.getBlogs();
