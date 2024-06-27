@@ -1,6 +1,6 @@
-import { initialState } from "../states";
+import { notificationState } from "../states";
 
-const notificationReducer = (state = initialState, action) => {
+const notificationReducer = (state = notificationState, action) => {
   switch (action.type) {
     case "ADD_NOTIFICATION": {
       const { content } = action.payload;
