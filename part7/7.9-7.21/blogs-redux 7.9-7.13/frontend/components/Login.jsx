@@ -1,6 +1,7 @@
 import { useEffect,useState } from 'react'
-import { useDispatch ,useSelector } from 'react-redux';
+import { useDispatch , useSelector } from 'react-redux';
 import { createNotification, clearNotification } from '../redux/notificationReducer/notificationAction';
+import Notifications from './Notifications';
 import sessionStorage from '../src/service/sessionStorage';
 import loginService from "../src/service/login"
 import Toggable from './Toggable';
@@ -8,6 +9,7 @@ import PropTypes from 'prop-types'
 
 const Login =({ user,setUser,setLoadState,loadState }) => {
   const dispatch = useDispatch();
+  const notification = useSelector(state => state.notification);
   const [username,setUsername] = useState('');
   const [password,setPassword] = useState('');
   const handleForm = async (event) => {
@@ -69,6 +71,7 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
           </Toggable>
         )
       }
+      {notification&&<Notifications/>}
     </>
   )
 }

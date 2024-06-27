@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import blogService from '../src/service/blogs';
 import Notification from './Notifications';
+import { useDispatch, useSelector } from 'react-redux';
+import { createNotification } from '../redux/notificationReducer/notificationAction';
 
-const UpdateBlogView = ({ errorMessage,setErrorMessage,setNewBlog,blog,setUpdateBlog }) => {
+const UpdateBlogView = ({ setNewBlog,blog,setUpdateBlog }) => {
+  const dispatch = useDispatch();
+  const notification = useSelector(state=>state.notification);
   const { title,author,url,userId,id } = blog;
   const [updateTitle,setUpdateTitle] = useState(title)
   const [updateAuthor,setUpdateAuthor] = useState(author)
@@ -31,7 +35,8 @@ const UpdateBlogView = ({ errorMessage,setErrorMessage,setNewBlog,blog,setUpdate
       }
     }
     catch(err){
-      setErrorMessage(err.response.data.error.split('.')[0].split(':')[2].replace("Path","").split('`').join("").replace(/\(([^)]+)\)/g, '"$1"'));
+      let errorMessage = err.response.data.error.split('.')[0].split(':')[2].replace("Path","").split('`').join("").replace(/\(([^)]+)\)/g, '"$1"')
+      dispatch(createNotification(errorMessage));
       console.log(err)
     }
   };
@@ -53,8 +58,8 @@ const UpdateBlogView = ({ errorMessage,setErrorMessage,setNewBlog,blog,setUpdate
           <h5>
                   url: <input data-testid='updateUrl' onChange={(e) => setUpdateUrl(e.target.value)} value={ updateUrl }/>
           </h5>
-          {errorMessage&&<Notification errorMessage={ errorMessage } setErrorMessage={setErrorMessage}/>}
-          {!errorMessage&&(<>
+          {notification&&<Notification />}
+          {!notification&&(<>
             <button data-testid='editBlog' type='submit' onClick={handleEdit}>edit</button>
             <button onClick={handleCancel}>cancel</button>
           </>)}

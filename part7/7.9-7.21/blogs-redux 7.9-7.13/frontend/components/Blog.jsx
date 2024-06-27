@@ -6,7 +6,7 @@ import EditBlog from "./EditBlog";
 import UpdateBlogView from "./UpdateBlogView";
 import userService from '../src/service/user';
 
-const Blogs = ({ user, blog,setNewBlog,errorMessage,setErrorMessage }) => {
+const Blogs = ({ user, blog,setNewBlog }) => {
   const [updateBlog,setUpdateBlog] = useState({ id:'',editState:false });
   const [userLoggedId,setUserLoggedId] = useState('');
   const { title,author,userId,url } = blog;
@@ -30,7 +30,7 @@ const Blogs = ({ user, blog,setNewBlog,errorMessage,setErrorMessage }) => {
     <section data-testid="blogContainer" className='blogContainer'>
       {updateBlog.id === blog.id && updateBlog.editState?(
         (<>
-          <UpdateBlogView errorMessage={errorMessage} setNewBlog={setNewBlog} setErrorMessage={setErrorMessage} blog={blog} setUpdateBlog={setUpdateBlog}/>
+          <UpdateBlogView setNewBlog={setNewBlog} blog={blog} setUpdateBlog={setUpdateBlog}/>
         </>)
       ):
         (<>
