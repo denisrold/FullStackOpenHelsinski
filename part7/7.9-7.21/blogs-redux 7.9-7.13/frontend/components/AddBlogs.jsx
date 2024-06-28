@@ -1,52 +1,44 @@
-import { useState,useRef } from 'react';
+import { useState,useRef, useEffect } from 'react';
 import AddedMessage from './AddedMessage';
 import Toggable from './Toggable';
 import AddForm from './AddForm';
-import { useDispatch } from 'react-redux';
-import { createNotification } from '../redux/notificationReducer/notificationReducer';
+import { useDispatch,useSelector } from 'react-redux';
 import { createBlog } from '../redux/blogReducer/blogReducer';
+import { clearStatus } from '../redux/statusReducer/statusReducer';
 
-
-
-const AddBlogs = ({ setNewBlog }) => {
+const AddBlogs = () => {
   const dispatch = useDispatch();
-  const [addState,setAddState] = useState(false);
-  const [addedState,setAddedState] = useState(false);
+  const statusCreate = useSelector(state=>state.status.states.updated)
+  const [newBlog,setNewBlog] = useState({})
   const [title,setTitle] = useState("");
   const [url,setUrl] = useState("");
   const [author,setAuthor] = useState("");
   const blogFormRef = useRef();
 
-  const handleAddBlogs = async (event) => {
+  const handleAddBlogs = (event) => {
     event.preventDefault();
     const newBlog = { url,title,author };
-    try {
-      const {response} =await dispatch(createBlog(newBlog));
-      if(response){
-        setNewBlog(true);
-        setAddState(false);
-        setAddedState(true);
-        blogFormRef.current.toggleVisibility();
-        setTimeout(() => {
-          setAddedState(false);
-          setTitle('');
-          setUrl('');
-          setAuthor('');
-        },2000)
-      }
-    }
-    catch(err){
-      if(err.response.data.error.includes('Blog validation failed')){
-        let errorMessage = err.response.data.error.split('.')[0].split(':')[2].replace("Path","").split('`').join("").replace(/\(([^)]+)\)/g, '"$1"');
-        dispatch(createNotification(errorMessage));
-      }else{
-        console.log(err.response.data)
-      }
-    }
+     dispatch(createBlog(newBlog))
   }
+
+ useEffect(()=>{
+  if(statusCreate){
+    blogFormRef.current.toggleVisibility();
+   const timedOut = setTimeout(() => {
+    setAddedState(false);
+    setTitle('');
+    setUrl('');
+    setAuthor('');
+    dispatch(clearStatus())
+  },2000)
+  return ()=> clearTimeout(timedOut);
+  }
+ 
+ },[statusCreate])
+
   return(
     <div className='containerAbsolute'>
-      {addedState&&<AddedMessage newBlog={ { title,author } }/>}
+      {statusCreate && <AddedMessage newBlog={ { title,author } }/>}
       <section className={addState?'createContainer':null}>
         <div className='ToggableAddBlogs'>
           <Toggable buttonLabel={'Add Blog'} ref={blogFormRef}>

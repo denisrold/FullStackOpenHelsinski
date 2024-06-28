@@ -11,15 +11,14 @@ import { initializeBlogs } from '../redux/blogReducer/blogReducer';
 
 function App() {
   const dispatch = useDispatch();
-  const bloges = useSelector(state => state.blogs);
+  const  { blogs }  = useSelector(state => state.blogs);
   const [user,setUser] = useState(null);
   const [loadState,setLoadState] = useState(false);
   const [newBlog,setNewBlog] = useState(true);
 
-
   const getBlogs = async () => {
     try{
-     dispatch(initializeBlogs());
+      dispatch(initializeBlogs());
     }
     catch(err){
       console.error(err.response.data);
@@ -51,12 +50,12 @@ function App() {
         <>
           <h3 name='userInfo'>{user.name} logged in</h3>
           <section className='bodyContainer'>
-            {bloges.length?bloges.map((b,i) => (
+            {blogs.length?blogs.map((b,i) => (
               <Blogs user={user} blog={b} setNewBlog={setNewBlog} key={i}/>
             ))
               :<h3 data-testid="noBlogs">No Blogs</h3>}
           </section>
-          <AddBlogs setNewBlog={setNewBlog}/>
+          <AddBlogs />
           <LogoutButton logoutStates={ { setUser,setLoadState } }/>
         </>
       )
