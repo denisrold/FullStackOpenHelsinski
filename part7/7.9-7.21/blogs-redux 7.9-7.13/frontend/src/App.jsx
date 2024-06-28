@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Headers';
 import Login from '../components/Login';
 import LogoutButton from '../components/LogoutButton';
-import blogService from './service/blogs';
 import Blogs from '../components/Blog';
 import AddBlogs from '../components/AddBlogs';
 import { initializeBlogs } from '../redux/blogReducer/blogReducer';

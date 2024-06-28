@@ -1,18 +1,31 @@
 import Notification from './Notifications';
-import { useSelector } from 'react-redux';
-const AddForm = ({ setAuthor,author,setTitle,title, handleAddBlogs, setUrl, url }) => {
+import { useSelector,useDispatch } from 'react-redux';
+import { createBlog } from '../redux/blogReducer/blogReducer';
+
+const AddForm = ({ setNewBlog,newBlog }) => {
+  const dispatch = useDispatch();
   const { notification } = useSelector(state=>state.notification);
+  
+  const handleAddBlogs = (e) => {
+    e.preventDefault();
+     dispatch(createBlog(newBlog))
+  }
+
+  const handleInput = (e) =>{
+    setNewBlog({...newBlog, [e.target.name]: e.target.value});
+  }
+  
   return(
-    <form id="form" className='formAdd'>
+    <form id="form" onSubmit={handleAddBlogs} className='formAdd' >
       <div className='formContainer'>
         <label>Title </label>
-        <input type="text" placeholder='the blogverse title' required name="title" onChange={({ target }) => setTitle(target.value)} value={ title }/>
+        <input type="text" placeholder='the blogverse title' required name="title" onChange={handleInput} value={ newBlog.title }/>
         <label>Author </label>
-        <input type="text" placeholder='Jhon Travis' required name="author" onChange={({ target }) => setAuthor(target.value)} value={ author }/>
+        <input type="text" placeholder='Jhon Travis' required name="author" onChange={handleInput} value={ newBlog.author }/>
         <label>Url </label>
-        <input type="url" placeholder='https://exampleweb.com' required onChange={({ target }) => setUrl(target.value)} name="url" value={ url }/>
+        <input type="url" placeholder='https://exampleweb.com' required onChange={handleInput} name="url" value={ newBlog.url }/>
       </div>
-      <button name='addFormButton' onClick={handleAddBlogs} style={{ display:notification&&'none', marginTop:'1.65rem' }} type="submit">Add</button>
+      <button  type='submit' name='addFormButton' style={{ display:notification&&'none', marginTop:'1.65rem' }}>Add</button>
       {notification&&<Notification />}
     </form>
   )

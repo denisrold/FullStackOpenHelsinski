@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 const AddedMessage =({ newBlog }) => {
   const {notification} = useSelector(state=>state.notification)
-  console.log('newNot', notification)
   const { title,author } = newBlog;
   return(
     <div className="notificationContainer">
