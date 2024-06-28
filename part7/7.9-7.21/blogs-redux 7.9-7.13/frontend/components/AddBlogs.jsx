@@ -1,5 +1,4 @@
 import { useState,useRef } from 'react';
-import blogs from '../src/service/blogs';
 import AddedMessage from './AddedMessage';
 import Toggable from './Toggable';
 import AddForm from './AddForm';
@@ -8,35 +7,33 @@ import { createNotification } from '../redux/notificationReducer/notificationRed
 import { createBlog } from '../redux/blogReducer/blogReducer';
 
 
+
 const AddBlogs = ({ setNewBlog }) => {
   const dispatch = useDispatch();
   const [addState,setAddState] = useState(false);
   const [addedState,setAddedState] = useState(false);
-  const [title,setTitle] =useState("");
-  const [url,setUrl] =useState("");
-  const [author,setAuthor] =useState("");
+  const [title,setTitle] = useState("");
+  const [url,setUrl] = useState("");
+  const [author,setAuthor] = useState("");
   const blogFormRef = useRef();
 
   const handleAddBlogs = async (event) => {
     event.preventDefault();
-    const userToken = window.localStorage.getItem('userLogged');
-    const JSONPARSE = await JSON.parse(userToken)
-    blogs.setToken(JSONPARSE.token);
     const newBlog = { url,title,author };
     try {
-      //redux added update .then(blog=>dispatch(appendBlog(blog)))
-      await blogs.createBlogs(newBlog).then(blog=>dispatch(createBlog(blog)));
-      //
-      setNewBlog(true);
-      setAddState(false);
-      setAddedState(true);
-      blogFormRef.current.toggleVisibility();
-      setTimeout(() => {
-        setAddedState(false);
-        setTitle('');
-        setUrl('');
-        setAuthor('');
-      },2000)
+      const {response} =await dispatch(createBlog(newBlog));
+      if(response){
+        setNewBlog(true);
+        setAddState(false);
+        setAddedState(true);
+        blogFormRef.current.toggleVisibility();
+        setTimeout(() => {
+          setAddedState(false);
+          setTitle('');
+          setUrl('');
+          setAuthor('');
+        },2000)
+      }
     }
     catch(err){
       if(err.response.data.error.includes('Blog validation failed')){
