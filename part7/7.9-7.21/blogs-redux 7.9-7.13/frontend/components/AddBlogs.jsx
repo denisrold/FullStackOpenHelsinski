@@ -5,6 +5,8 @@ import Toggable from './Toggable';
 import AddForm from './AddForm';
 import { useDispatch } from 'react-redux';
 import { createNotification } from '../redux/notificationReducer/notificationReducer';
+import { createBlog } from '../redux/blogReducer/blogReducer';
+
 
 const AddBlogs = ({ setNewBlog }) => {
   const dispatch = useDispatch();
@@ -22,7 +24,9 @@ const AddBlogs = ({ setNewBlog }) => {
     blogs.setToken(JSONPARSE.token);
     const newBlog = { url,title,author };
     try {
-      await blogs.createBlogs(newBlog);
+      //redux added update .then(blog=>dispatch(appendBlog(blog)))
+      await blogs.createBlogs(newBlog).then(blog=>dispatch(createBlog(blog)));
+      //
       setNewBlog(true);
       setAddState(false);
       setAddedState(true);

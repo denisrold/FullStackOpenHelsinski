@@ -1,20 +1,31 @@
 import { blogState } from "../states";
+import { createSlice } from "@reduxjs/toolkit";
+import blogService from "../../src/service/blogs";
 
-const blogReducer = (state = blogState, action) => {
-  switch (action.type) {
-    case "ADD_BLOG":
-      return { ...state, blogs: [...state.blogs, action.payload] };
-    case "DELETE_BLOG":
-      return { ...state, blogs: [...state.blogs, action.payload] };
-    case "UPDATE_BLOG":
-      return { ...state, blogs: [...state.blogs, action.payload] };
-    case "GET_BLOG": {
-      console.log("reducer payload", action.payload);
-      return { ...state, blogs: [...action.payload] };
-    }
-    default:
+const blogSlice = createSlice({
+  name: "blog",
+  initialState: blogState,
+  reducers: {
+    deleteBlog(state, action) {
+      const content = action.payload;
       return state;
-  }
-};
+    },
+    updateBlog(state, action) {
+      const content = action.payload;
+      return state;
+    },
+    createBlog(state, action) {
+      state.push(action.payload);
+    },
+    appendBlog(state, action) {
+      state.push(action.payload);
+    },
+    setBloges(state, action) {
+      return action.payload;
+    },
+  },
+});
 
-export default blogReducer;
+export const { createBlog, deleteBlog, updateBlog, appendBlog, setBloges } =
+  blogSlice.actions;
+export default blogSlice.reducer;
