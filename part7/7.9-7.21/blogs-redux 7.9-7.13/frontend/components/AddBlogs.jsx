@@ -10,17 +10,17 @@ const AddBlogs = () => {
   const statusCreate = useSelector(state=>state.status.states.created)
   const [newBlog, setNewBlog] = useState({title:'',author:'',url:''})
   const blogFormRef = useRef();
-console.log(statusCreate)
- useEffect(()=>{
-  if(statusCreate){
-    blogFormRef.current.toggleVisibility();
-   const timedOut = setTimeout(() => {
-    setNewBlog({title:'',author:'',url:''})
-    dispatch(clearStatus())
-  },2000)
-  return ()=> clearTimeout(timedOut);
-  }
- },[statusCreate])
+  
+   useEffect(()=>{
+    if(statusCreate){
+      blogFormRef.current.toggleVisibility();
+     const timedOut = setTimeout(() => {
+      setNewBlog({title:'',author:'',url:''})
+      dispatch(clearStatus())
+    },2000)
+    return ()=> clearTimeout(timedOut);
+    }
+   },[statusCreate])
 
   return(
     <div className='containerAbsolute'>

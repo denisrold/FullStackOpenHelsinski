@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateBlog } from '../redux/blogReducer/blogReducer';
 import { clearStatus } from '../redux/statusReducer/statusReducer';
 
-const UpdateBlogView = ({ setNewBlog,blog,setUpdateBlog }) => {
+const UpdateBlogView = ({ blog,setUpdateBlog }) => {
   const dispatch = useDispatch();
   const {notification} = useSelector(state=>state.notification);
   const { updated } = useSelector(state => state.status.states);
@@ -23,11 +23,11 @@ const UpdateBlogView = ({ setNewBlog,blog,setUpdateBlog }) => {
 
   useEffect(()=>{
     if(updated) {
-      setNewBlog(true);
       dispatch(clearStatus());
       setUpdateBlog({ id:'',editState:false });
     }
   },[updated])
+
   const handleInput = (e) => {
     setUpdateBlogs({...updatedBlogs, [e.target.name] : e.target.value})
   }

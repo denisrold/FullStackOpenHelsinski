@@ -6,7 +6,7 @@ import EditBlog from "./EditBlog";
 import UpdateBlogView from "./UpdateBlogView";
 import { useSelector } from "react-redux";
 
-const Blogs = ({ user, blog,setNewBlog }) => {
+const Blogs = ({ user, blog }) => {
   const loggedUserID = useSelector(state => state.user.userId)
   const [updateBlog,setUpdateBlog] = useState({ id:'',editState:false });
   const { title,author,userId,url } = blog;
@@ -15,7 +15,7 @@ const Blogs = ({ user, blog,setNewBlog }) => {
     <section data-testid="blogContainer" className='blogContainer'>
       {updateBlog.id === blog.id && updateBlog.editState?(
         (<>
-          <UpdateBlogView setNewBlog={setNewBlog} blog={blog} setUpdateBlog={setUpdateBlog}/>
+          <UpdateBlogView blog={blog} setUpdateBlog={setUpdateBlog}/>
         </>)
       ):
         (<>

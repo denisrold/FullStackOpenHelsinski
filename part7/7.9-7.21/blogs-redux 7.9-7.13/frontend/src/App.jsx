@@ -15,13 +15,13 @@ function App() {
   const loggedUserID = useSelector(state => state.user.userId)
   const [user,setUser] = useState(null);
   const [loadState,setLoadState] = useState(false);
-  const [newBlog,setNewBlog] = useState(true);
-
 
   const getBlogs = async () => {
     try{
       dispatch(initializeBlogs());
-    
+      if(user){
+        if(!loggedUserID) dispatch(setUserID());
+      } 
     }
     catch(err){
       console.error(err.response.data);
@@ -30,20 +30,7 @@ function App() {
 
   useEffect(() => {
       getBlogs(); 
-      if(user){
-        if(!loggedUserID) dispatch(setUserID());
-      } 
   },[user])
-  
- //original
-  useEffect(() => {
-    if(newBlog){
-      if(user){
-        getBlogs();
-        setNewBlog(false);
-      }
-    }
-  },[newBlog,user])
 
   return (
     <>
@@ -59,7 +46,7 @@ function App() {
           <h3 name='userInfo'>{user.name} logged in</h3>
           <section className='bodyContainer'>
             {blogs.length?blogs.map((b,i) => (
-              <Blogs user={user} blog={b} setNewBlog={setNewBlog} key={i}/>
+              <Blogs user={user} blog={b} key={i}/>
             ))
               :<h3 data-testid="noBlogs">No Blogs</h3>}
           </section>

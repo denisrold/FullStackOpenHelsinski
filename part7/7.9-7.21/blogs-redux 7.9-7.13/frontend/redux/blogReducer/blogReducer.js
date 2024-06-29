@@ -13,8 +13,11 @@ const blogSlice = createSlice({
       state.blogs = filteredBlogs;
     },
     updateBlogs(state, action) {
-      const content = action.payload;
-      return state;
+      const { id, response } = action.payload;
+      const index = state.blogs.findIndex((b) => b.id === id);
+      if (index !== -1) {
+        state.blogs[index] = response;
+      }
     },
     appendBlog(state, action) {
       state.blogs.push(action.payload);
@@ -74,12 +77,10 @@ export const updateBlog = (content) => {
     const JSONPARSE = await JSON.parse(userToken);
     blogService.setToken(JSONPARSE.token);
     try {
-      await blogService.updateBlogs(id, updatedBlogs);
+      const response = await blogService.updateBlogs(id, updatedBlogs);
       await dispatch(updatedStatus(true));
-      await initializeBlogs();
+      await dispatch(updateBlogs({ id, response }));
     } catch (err) {
-      console.log("entre");
-      console.log("Erroreste", err.response.data.error);
       if (err.response) {
         if (err.response.data.error.includes("Validation failed")) {
           let errorMessage = err.response.data.error
@@ -89,9 +90,7 @@ export const updateBlog = (content) => {
             .split("`")
             .join("")
             .replace(/\(([^)]+)\)/g, '"$1"');
-          console.log("entre");
           dispatch(createNotification(errorMessage));
-          console.log("sali");
         } else {
           console.log(err.response.data);
         }
