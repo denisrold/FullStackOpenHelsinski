@@ -54,7 +54,7 @@ const Blogs = ({ user, blog,setNewBlog }) => {
               {userLoggedId === userId.id&& (
                 <section className="blogButtons">
                   <EditBlog setUpdateBlog={setUpdateBlog} blog={blog}/>
-                  <DeleteBlog setNewBlog={ setNewBlog } blog={ blog }/>
+                  <DeleteBlog blog={ blog }/>
                 </section>)}
             </>
             )}

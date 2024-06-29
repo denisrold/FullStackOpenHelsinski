@@ -6,7 +6,6 @@ const statusSlice = createSlice({
   initialState: statusState,
   reducers: {
     changeStatus(state, action) {
-      console.log("entre", action.payload);
       state.states.updated = true;
     },
     clearStatus(state) {

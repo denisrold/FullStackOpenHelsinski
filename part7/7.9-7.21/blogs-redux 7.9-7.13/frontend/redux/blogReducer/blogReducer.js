@@ -9,8 +9,8 @@ const blogSlice = createSlice({
   initialState: blogState,
   reducers: {
     deleteBlogs(state, action) {
-      const newState = state.blogs.filter((b) => b.id !== action.payload);
-      state.blogs = newState;
+      const filteredBlogs = state.blogs.filter((b) => b.id !== action.payload);
+      state.blogs = filteredBlogs;
     },
     updateBlog(state, action) {
       const content = action.payload;
@@ -20,7 +20,7 @@ const blogSlice = createSlice({
       state.blogs.push(action.payload);
     },
     setBlogs(state, action) {
-      return { blogs: action.payload, states: false };
+      return { blogs: action.payload };
     },
   },
 });
@@ -75,7 +75,6 @@ export const deleteBlog = (id) => {
         blogService.setToken(token);
         await blogService.deleteBlogs(id);
         await dispatch(deleteBlogs(id));
-        // setNewBlog(true);
       } else {
         return;
       }
