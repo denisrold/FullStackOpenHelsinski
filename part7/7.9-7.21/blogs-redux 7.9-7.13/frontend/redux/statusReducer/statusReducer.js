@@ -12,7 +12,11 @@ const statusSlice = createSlice({
       state.states.updated = true;
     },
     clearStatus(state) {
-      state.states.updated = false;
+      state.states = {
+        created: false,
+        updated: false,
+        loading: false,
+      };
     },
   },
 });

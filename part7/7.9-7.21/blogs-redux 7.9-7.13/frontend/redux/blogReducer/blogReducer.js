@@ -68,13 +68,13 @@ export const createBlog = (content) => {
 
 //UPDATE BLOG:
 export const updateBlog = (content) => {
-  const { id, updatedBlog } = content;
+  const { id, updatedBlogs } = content;
   return async (dispatch) => {
     const userToken = window.localStorage.getItem("userLogged");
     const JSONPARSE = await JSON.parse(userToken);
     blogService.setToken(JSONPARSE.token);
     try {
-      await blogService.updateBlogs(id, updatedBlog);
+      await blogService.updateBlogs(id, updatedBlogs);
       await dispatch(updatedStatus(true));
       await initializeBlogs();
     } catch (err) {

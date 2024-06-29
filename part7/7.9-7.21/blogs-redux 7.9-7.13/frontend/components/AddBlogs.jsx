@@ -10,7 +10,7 @@ const AddBlogs = () => {
   const statusCreate = useSelector(state=>state.status.states.created)
   const [newBlog, setNewBlog] = useState({title:'',author:'',url:''})
   const blogFormRef = useRef();
-
+console.log(statusCreate)
  useEffect(()=>{
   if(statusCreate){
     blogFormRef.current.toggleVisibility();

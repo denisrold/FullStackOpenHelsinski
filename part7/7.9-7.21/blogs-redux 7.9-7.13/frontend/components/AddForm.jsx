@@ -5,7 +5,7 @@ import { createBlog } from '../redux/blogReducer/blogReducer';
 const AddForm = ({ setNewBlog,newBlog }) => {
   const dispatch = useDispatch();
   const { notification } = useSelector(state=>state.notification);
-  
+
   const handleAddBlogs = (e) => {
     e.preventDefault();
      dispatch(createBlog(newBlog))

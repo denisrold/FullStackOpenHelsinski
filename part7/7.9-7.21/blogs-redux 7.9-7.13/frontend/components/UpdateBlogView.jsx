@@ -8,19 +8,17 @@ const UpdateBlogView = ({ setNewBlog,blog,setUpdateBlog }) => {
   const dispatch = useDispatch();
   const {notification} = useSelector(state=>state.notification);
   const { updated } = useSelector(state => state.status.states);
-  const { title,author,url,userId,id } = blog;
-  const [updateTitle,setUpdateTitle] = useState(title)
-  const [updateAuthor,setUpdateAuthor] = useState(author)
-  const [updateUrl,setUpdateUrl] = useState(url);
+  const { id,userId } = blog;
+  
+  const [updatedBlogs,setUpdateBlogs] = useState({
+    title: blog.title,
+    author: blog.author,
+    url: blog.url,
+  })
 
   const handleEdit = async (e) => {
     e.preventDefault();
-    const updatedBlog = {
-      title:updateTitle,
-      author:updateAuthor,
-      url:updateUrl
-    }
-    await dispatch(updateBlog({id,updatedBlog}))
+    await dispatch(updateBlog({id,updatedBlogs}))
   };
 
   useEffect(()=>{
@@ -30,7 +28,9 @@ const UpdateBlogView = ({ setNewBlog,blog,setUpdateBlog }) => {
       setUpdateBlog({ id:'',editState:false });
     }
   },[updated])
-
+  const handleInput = (e) => {
+    setUpdateBlogs({...updatedBlogs, [e.target.name] : e.target.value})
+  }
   const handleCancel = (e) => {
     e.preventDefault();
     setUpdateBlog({ id:'',editState:false });
@@ -39,21 +39,24 @@ const UpdateBlogView = ({ setNewBlog,blog,setUpdateBlog }) => {
   return (
     <>
       <article className="flexRow">
-        <form>
-          <input data-testid='updateTitle' onChange={(e) => setUpdateTitle(e.target.value)} value={ updateTitle }/>
+        <form onSubmit={handleEdit}>
+          <input data-testid='updateTitle' type='text' name='title' onChange={handleInput} value={ updatedBlogs.title }/>
           <span>by </span>
-          <input data-testid='updateAuthor' onChange={(e) => setUpdateAuthor(e.target.value)} value={ updateAuthor }/>
+          <input data-testid='updateAuthor' type='text' name='author' onChange={handleInput} value={ updatedBlogs.author }/>
           <h5>
                   User: { userId.name }
           </h5>
           <h5>
-                  url: <input data-testid='updateUrl' onChange={(e) => setUpdateUrl(e.target.value)} value={ updateUrl }/>
+                  url: <input data-testid='updateUrl' type='url' name='url' onChange={handleInput} value={ updatedBlogs.url }/>
           </h5>
           {notification&&<Notification />}
-          {!notification&&(<>
-            <button data-testid='editBlog' type='submit' onClick={handleEdit}>edit</button>
-            <button onClick={handleCancel}>cancel</button>
-          </>)}
+          {
+            !notification&&(
+            <>
+              <button data-testid='editBlog' type='submit' >edit</button>
+              <button onClick={handleCancel}>cancel</button>
+            </>
+          )}
         </form>
       </article>
     </>

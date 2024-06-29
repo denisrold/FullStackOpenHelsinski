@@ -7,3 +7,5 @@ export const statusState = {
   },
 };
 export const blogState = [];
+
+export const userState = { userId: "" };

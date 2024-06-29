@@ -1,30 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Toggable from "./Toggable";
 import Likes from './Likes';
 import DeleteBlog from "./DeleteBlog";
 import EditBlog from "./EditBlog";
 import UpdateBlogView from "./UpdateBlogView";
-import userService from '../src/service/user';
+import { useSelector } from "react-redux";
 
 const Blogs = ({ user, blog,setNewBlog }) => {
+  const loggedUserID = useSelector(state => state.user.userId)
   const [updateBlog,setUpdateBlog] = useState({ id:'',editState:false });
-  const [userLoggedId,setUserLoggedId] = useState('');
   const { title,author,userId,url } = blog;
-  const getLoggedUserId = async () => {
-    try{
-      const getUserToken = window.localStorage.getItem('userLogged');
-      let token = ''
-      if(getUserToken) token = await JSON.parse(getUserToken).token
-      userService.setToken(token);
-      const ID = await userService.userId();
-      setUserLoggedId(ID);
-    }
-    catch(err){console.log(err)}
-  }
-
-  useEffect(() => {
-    if(!userLoggedId.length)getLoggedUserId()
-  },[])
 
   return(
     <section data-testid="blogContainer" className='blogContainer'>
@@ -51,7 +36,7 @@ const Blogs = ({ user, blog,setNewBlog }) => {
             </h5>
             {!!user.token && ( <>
               <Likes blog={ blog } />
-              {userLoggedId === userId.id&& (
+              {loggedUserID === userId.id&& (
                 <section className="blogButtons">
                   <EditBlog setUpdateBlog={setUpdateBlog} blog={blog}/>
                   <DeleteBlog blog={ blog }/>

@@ -7,26 +7,35 @@ import LogoutButton from '../components/LogoutButton';
 import Blogs from '../components/Blog';
 import AddBlogs from '../components/AddBlogs';
 import { initializeBlogs } from '../redux/blogReducer/blogReducer';
+import { setUserID } from "../redux/userReducer/userReducer";
 
 function App() {
   const dispatch = useDispatch();
   const  { blogs }  = useSelector(state => state.blogs);
+  const loggedUserID = useSelector(state => state.user.userId)
   const [user,setUser] = useState(null);
   const [loadState,setLoadState] = useState(false);
   const [newBlog,setNewBlog] = useState(true);
 
+
   const getBlogs = async () => {
     try{
       dispatch(initializeBlogs());
+    
     }
     catch(err){
       console.error(err.response.data);
     }
   }
 
-  useEffect(() => {getBlogs();},[])
+  useEffect(() => {
+      getBlogs(); 
+      if(user){
+        if(!loggedUserID) dispatch(setUserID());
+      } 
+  },[user])
   
-  //original
+ //original
   useEffect(() => {
     if(newBlog){
       if(user){
