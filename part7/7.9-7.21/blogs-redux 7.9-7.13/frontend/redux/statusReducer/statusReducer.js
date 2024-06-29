@@ -5,7 +5,10 @@ const statusSlice = createSlice({
   name: "status",
   initialState: statusState,
   reducers: {
-    changeStatus(state, action) {
+    createdStatus(state, action) {
+      state.states.created = true;
+    },
+    updatedStatus(state, action) {
       state.states.updated = true;
     },
     clearStatus(state) {
@@ -14,5 +17,6 @@ const statusSlice = createSlice({
   },
 });
 
-export const { changeStatus, clearStatus } = statusSlice.actions;
+export const { createdStatus, clearStatus, updatedStatus } =
+  statusSlice.actions;
 export default statusSlice.reducer;

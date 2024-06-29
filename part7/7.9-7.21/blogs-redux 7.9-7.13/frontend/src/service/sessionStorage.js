@@ -10,7 +10,6 @@ function saveData(key = "tokenExpires", value) {
   };
   localStorage.setItem(key, JSON.stringify(data));
 }
-
 function getData(
   key = "tokenExpires",
   maxDays = 0,

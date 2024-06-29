@@ -1,12 +1,13 @@
-import { useState } from 'react';
-import blogService from '../src/service/blogs';
+import { useEffect, useState } from 'react';
 import Notification from './Notifications';
 import { useDispatch, useSelector } from 'react-redux';
-import { createNotification } from '../redux/notificationReducer/notificationReducer';
+import { updateBlog } from '../redux/blogReducer/blogReducer';
+import { clearStatus } from '../redux/statusReducer/statusReducer';
 
 const UpdateBlogView = ({ setNewBlog,blog,setUpdateBlog }) => {
   const dispatch = useDispatch();
   const {notification} = useSelector(state=>state.notification);
+  const { updated } = useSelector(state => state.status.states);
   const { title,author,url,userId,id } = blog;
   const [updateTitle,setUpdateTitle] = useState(title)
   const [updateAuthor,setUpdateAuthor] = useState(author)
@@ -14,37 +15,27 @@ const UpdateBlogView = ({ setNewBlog,blog,setUpdateBlog }) => {
 
   const handleEdit = async (e) => {
     e.preventDefault();
-    const updateBlog = {
+    const updatedBlog = {
       title:updateTitle,
       author:updateAuthor,
       url:updateUrl
     }
-    try {
-      if(window.confirm("Do you really want to edit this blog?")){
-        //get token with userdata
-        const getUserToken = window.localStorage.getItem('userLogged');
-        const { token } = await JSON.parse(getUserToken);
-        blogService.setToken(token);
-        await blogService.updateBlogs(id,updateBlog);
-        setNewBlog(true);
-        setUpdateBlog({ id:'',editState:false });
-      }
-      else{
-        setUpdateBlog({ id:'',editState:false })
-        return;
-      }
-    }
-    catch(err){
-      let errorMessage = err.response.data.error.split('.')[0].split(':')[2].replace("Path","").split('`').join("").replace(/\(([^)]+)\)/g, '"$1"')
-      dispatch(createNotification(errorMessage));
-      console.log(err)
-    }
+    await dispatch(updateBlog({id,updatedBlog}))
   };
+
+  useEffect(()=>{
+    if(updated) {
+      setNewBlog(true);
+      dispatch(clearStatus());
+      setUpdateBlog({ id:'',editState:false });
+    }
+  },[updated])
 
   const handleCancel = (e) => {
     e.preventDefault();
     setUpdateBlog({ id:'',editState:false });
   }
+  
   return (
     <>
       <article className="flexRow">

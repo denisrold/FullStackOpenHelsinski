@@ -7,7 +7,7 @@ import { clearStatus } from '../redux/statusReducer/statusReducer';
 
 const AddBlogs = () => {
   const dispatch = useDispatch();
-  const statusCreate = useSelector(state=>state.status.states.updated)
+  const statusCreate = useSelector(state=>state.status.states.created)
   const [newBlog, setNewBlog] = useState({title:'',author:'',url:''})
   const blogFormRef = useRef();
 

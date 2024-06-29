@@ -2,7 +2,7 @@ import { blogState } from "../states";
 import { createSlice } from "@reduxjs/toolkit";
 import blogService from "../../src/service/blogs";
 import { createNotification } from "../notificationReducer/notificationReducer";
-import { changeStatus } from "../statusReducer/statusReducer";
+import { createdStatus, updatedStatus } from "../statusReducer/statusReducer";
 
 const blogSlice = createSlice({
   name: "blog",
@@ -12,7 +12,7 @@ const blogSlice = createSlice({
       const filteredBlogs = state.blogs.filter((b) => b.id !== action.payload);
       state.blogs = filteredBlogs;
     },
-    updateBlog(state, action) {
+    updateBlogs(state, action) {
       const content = action.payload;
       return state;
     },
@@ -25,9 +25,10 @@ const blogSlice = createSlice({
   },
 });
 
-export const { deleteBlogs, updateBlog, appendBlog, setBlogs } =
+export const { deleteBlogs, updateBlogs, appendBlog, setBlogs } =
   blogSlice.actions;
 
+//GET ALL BLOGS
 export const initializeBlogs = () => {
   return async (dispatch) => {
     const blogs = await blogService.getBlogs();
@@ -35,6 +36,7 @@ export const initializeBlogs = () => {
   };
 };
 
+//CREATE A NEW BLOGS
 export const createBlog = (content) => {
   return async (dispatch) => {
     const userToken = window.localStorage.getItem("userLogged");
@@ -42,9 +44,8 @@ export const createBlog = (content) => {
     blogService.setToken(JSONPARSE.token);
     try {
       const newBlog = await blogService.createBlogs(content);
-      await dispatch(changeStatus(true));
+      await dispatch(createdStatus(true));
       await dispatch(appendBlog(newBlog));
-      return newBlog;
     } catch (err) {
       if (err.response) {
         if (err.response.data.error.includes("Blog validation failed")) {
@@ -65,6 +66,42 @@ export const createBlog = (content) => {
   };
 };
 
+//UPDATE BLOG:
+export const updateBlog = (content) => {
+  const { id, updatedBlog } = content;
+  return async (dispatch) => {
+    const userToken = window.localStorage.getItem("userLogged");
+    const JSONPARSE = await JSON.parse(userToken);
+    blogService.setToken(JSONPARSE.token);
+    try {
+      await blogService.updateBlogs(id, updatedBlog);
+      await dispatch(updatedStatus(true));
+      await initializeBlogs();
+    } catch (err) {
+      console.log("entre");
+      console.log("Erroreste", err.response.data.error);
+      if (err.response) {
+        if (err.response.data.error.includes("Validation failed")) {
+          let errorMessage = err.response.data.error
+            .split(".")[0]
+            .split(":")[2]
+            .replace("Path", "")
+            .split("`")
+            .join("")
+            .replace(/\(([^)]+)\)/g, '"$1"');
+          console.log("entre");
+          dispatch(createNotification(errorMessage));
+          console.log("sali");
+        } else {
+          console.log(err.response.data);
+        }
+      }
+      console.error(err);
+    }
+  };
+};
+
+//DELETE BLOG
 export const deleteBlog = (id) => {
   return async (dispatch) => {
     try {
