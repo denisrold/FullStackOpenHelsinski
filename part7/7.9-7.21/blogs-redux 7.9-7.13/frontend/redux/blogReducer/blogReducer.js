@@ -8,9 +8,9 @@ const blogSlice = createSlice({
   name: "blog",
   initialState: blogState,
   reducers: {
-    deleteBlog(state, action) {
-      const content = action.payload;
-      return state;
+    deleteBlogs(state, action) {
+      const newState = state.blogs.filter((b) => b.id !== action.payload);
+      state.blogs = newState;
     },
     updateBlog(state, action) {
       const content = action.payload;
@@ -25,7 +25,7 @@ const blogSlice = createSlice({
   },
 });
 
-export const { deleteBlog, updateBlog, appendBlog, setBlogs } =
+export const { deleteBlogs, updateBlog, appendBlog, setBlogs } =
   blogSlice.actions;
 
 export const initializeBlogs = () => {
@@ -61,6 +61,26 @@ export const createBlog = (content) => {
         }
       }
       console.error(err);
+    }
+  };
+};
+
+export const deleteBlog = (id) => {
+  return async (dispatch) => {
+    try {
+      if (window.confirm("Do you really want to delete this blog?")) {
+        //get token with userdata
+        const getUserToken = window.localStorage.getItem("userLogged");
+        const { token } = await JSON.parse(getUserToken);
+        blogService.setToken(token);
+        await blogService.deleteBlogs(id);
+        await dispatch(deleteBlogs(id));
+        // setNewBlog(true);
+      } else {
+        return;
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 };
