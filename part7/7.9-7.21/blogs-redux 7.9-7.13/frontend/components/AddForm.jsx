@@ -1,6 +1,6 @@
 import Notification from './Notifications';
 import { useSelector,useDispatch } from 'react-redux';
-import { createBlog } from '../redux/blogReducer/blogReducer';
+import { createBlog } from '../redux/reducers/blogReducer';
 
 const AddForm = ({ setNewBlog,newBlog }) => {
   const dispatch = useDispatch();

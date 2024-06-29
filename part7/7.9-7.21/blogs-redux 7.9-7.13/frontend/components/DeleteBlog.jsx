@@ -1,7 +1,5 @@
-
-import blogService from '../src/service/blogs';
 import { useDispatch } from 'react-redux';
-import { deleteBlog } from '../redux/blogReducer/blogReducer';
+import { deleteBlog } from '../redux/reducers/blogReducer';
 
 const DeleteBlog = ({ blog }) => {
   const dispatch = useDispatch()

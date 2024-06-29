@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import Notification from './Notifications';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateBlog } from '../redux/blogReducer/blogReducer';
-import { clearStatus } from '../redux/statusReducer/statusReducer';
+import { updateBlog } from '../redux/reducers/blogReducer';
+import { clearStatus } from '../redux/reducers/statusReducer';
 
 const UpdateBlogView = ({ blog,setUpdateBlog }) => {
   const dispatch = useDispatch();

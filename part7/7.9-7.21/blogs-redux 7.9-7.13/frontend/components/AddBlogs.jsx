@@ -3,7 +3,7 @@ import AddedMessage from './AddedMessage';
 import Toggable from './Toggable';
 import AddForm from './AddForm';
 import { useDispatch,useSelector } from 'react-redux';
-import { clearStatus } from '../redux/statusReducer/statusReducer';
+import { clearStatus } from '../redux/reducers/statusReducer';
 
 const AddBlogs = () => {
   const dispatch = useDispatch();

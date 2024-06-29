@@ -6,8 +6,8 @@ import Login from '../components/Login';
 import LogoutButton from '../components/LogoutButton';
 import Blogs from '../components/Blog';
 import AddBlogs from '../components/AddBlogs';
-import { initializeBlogs } from '../redux/blogReducer/blogReducer';
-import { setUserID } from "../redux/userReducer/userReducer";
+import { initializeBlogs } from '../redux/reducers/blogReducer';
+import { setUserID } from "../redux/reducers/userReducer";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,15 +17,10 @@ function App() {
   const [loadState,setLoadState] = useState(false);
 
   const getBlogs = async () => {
-    try{
       dispatch(initializeBlogs());
       if(user){
         if(!loggedUserID) dispatch(setUserID());
-      } 
-    }
-    catch(err){
-      console.error(err.response.data);
-    }
+      }
   }
 
   useEffect(() => {

@@ -1,8 +1,8 @@
 import { blogState } from "../states";
 import { createSlice } from "@reduxjs/toolkit";
 import blogService from "../../src/service/blogs";
-import { createNotification } from "../notificationReducer/notificationReducer";
-import { createdStatus, updatedStatus } from "../statusReducer/statusReducer";
+import { createNotification } from "./notificationReducer";
+import { createdStatus, updatedStatus } from "./statusReducer";
 
 const blogSlice = createSlice({
   name: "blog",
