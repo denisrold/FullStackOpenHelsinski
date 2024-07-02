@@ -1,26 +1,19 @@
 import blogService from '../src/service/blogs';
-import userService from "../src/service/user";
 import { useDispatch,useSelector } from 'react-redux';
 import { useEffect,useState } from "react";
 import { updateLike } from '../redux/reducers/blogReducer';
-import sessionService from '../src/service/sessionStorage';
 
 const Likes =({ blog }) => {
   const dispatch = useDispatch();
   const { id } = blog;
+  const { userId } = useSelector(state => state.user);
   const likesRedux = useSelector(state=>state.blogs.blogs.filter(b=>b.id===blog.id)[0].likes)
   const [unlikes,setUnlike] = useState(false);
 
   const getUserLike = async () => {
     try{
-      //gettoken with userdata
-      const token = await sessionService.getUserToken()
-      //get this blog by id
-      const res = await blogService.getBlogsByID(id);
-      //get UserId
-      userService.setToken(token);
-      const userId = await userService.userId();
-      const arrayUser = res.likesUserId.find(u => u === userId);
+      const blog = await blogService.getBlogsByID(id);
+      const arrayUser = blog.likesUserId.find(u => u === userId);
       if(!arrayUser) setUnlike(false)
       else setUnlike(true);
     }
@@ -30,8 +23,10 @@ const Likes =({ blog }) => {
   }
 
   useEffect(() => {
-    getUserLike();
-  },[]);
+    if(userId){
+      getUserLike();
+    }
+  },[userId]);
 
   //Likes or Unlikes.
   const handleLikes = async() => {
