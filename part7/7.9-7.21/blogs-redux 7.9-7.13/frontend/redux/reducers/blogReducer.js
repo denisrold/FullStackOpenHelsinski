@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import blogService from "../../src/service/blogs";
 import { createNotification } from "./notificationReducer";
 import { createdStatus, updatedStatus } from "./statusReducer";
+import sessionService from "../../src/service/sessionStorage";
 
 const blogSlice = createSlice({
   name: "blog",
@@ -49,9 +50,8 @@ export const initializeBlogs = () => {
 //CREATE A NEW BLOGS
 export const createBlog = (content) => {
   return async (dispatch) => {
-    const userToken = window.localStorage.getItem("userLogged");
-    const JSONPARSE = await JSON.parse(userToken);
-    blogService.setToken(JSONPARSE.token);
+    const token = await sessionService.getUserToken();
+    blogService.setToken(token);
     try {
       const newBlog = await blogService.createBlogs(content);
       await dispatch(createdStatus(true));
@@ -80,9 +80,8 @@ export const createBlog = (content) => {
 export const updateBlog = (content) => {
   const { id, updatedBlogs } = content;
   return async (dispatch) => {
-    const userToken = window.localStorage.getItem("userLogged");
-    const JSONPARSE = await JSON.parse(userToken);
-    blogService.setToken(JSONPARSE.token);
+    const token = await sessionService.getUserToken();
+    blogService.setToken(token);
     try {
       const response = await blogService.updateBlogs(id, updatedBlogs);
       await dispatch(updatedStatus(true));
@@ -114,8 +113,7 @@ export const updateLike = (content) => {
   return async (dispatch) => {
     try {
       //USER AND LIKES INFO.
-      const getUserToken = window.localStorage.getItem("userLogged");
-      const { token } = await JSON.parse(getUserToken);
+      const token = await sessionService.getUserToken();
       blogService.setToken(token);
       //update likes on database
       const service = await blogService.updateLikes(blog, unlikes);
@@ -132,8 +130,7 @@ export const deleteBlog = (id) => {
     try {
       if (window.confirm("Do you really want to delete this blog?")) {
         //get token with userdata
-        const getUserToken = window.localStorage.getItem("userLogged");
-        const { token } = await JSON.parse(getUserToken);
+        const token = await sessionService.getUserToken();
         blogService.setToken(token);
         await blogService.deleteBlogs(id);
         await dispatch(deleteBlogs(id));

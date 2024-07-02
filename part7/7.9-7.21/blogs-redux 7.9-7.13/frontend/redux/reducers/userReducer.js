@@ -1,7 +1,6 @@
 import { userState } from "../states";
 import { createSlice } from "@reduxjs/toolkit";
 import userService from "../../src/service/user";
-import blogService from "../../src/service/blogs";
 
 const userSlice = createSlice({
   name: "user",
