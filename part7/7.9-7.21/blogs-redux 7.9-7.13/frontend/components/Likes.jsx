@@ -3,6 +3,7 @@ import userService from "../src/service/user";
 import { useDispatch,useSelector } from 'react-redux';
 import { useEffect,useState } from "react";
 import { updateLike } from '../redux/reducers/blogReducer';
+import sessionService from '../src/service/sessionStorage';
 
 const Likes =({ blog }) => {
   const dispatch = useDispatch();
@@ -13,15 +14,14 @@ const Likes =({ blog }) => {
   const getUserLike = async () => {
     try{
       //gettoken with userdata
-      const getUserToken = window.localStorage.getItem('userLogged');
-      const { token } = await JSON.parse(getUserToken);
+      const token = await sessionService.getUserToken()
       //get this blog by id
       const res = await blogService.getBlogsByID(id);
       //get UserId
       userService.setToken(token);
       const userId = await userService.userId();
       const arrayUser = res.likesUserId.find(u => u === userId);
-      if(!arrayUser)setUnlike(false)
+      if(!arrayUser) setUnlike(false)
       else setUnlike(true);
     }
     catch(err){
