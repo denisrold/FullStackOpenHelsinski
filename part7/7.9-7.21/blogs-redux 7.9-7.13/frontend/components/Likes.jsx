@@ -2,9 +2,12 @@ import blogService from '../src/service/blogs';
 import userService from "../src/service/user";
 import { useDispatch,useSelector } from 'react-redux';
 import { useEffect,useState } from "react";
+import { updateLike } from '../redux/reducers/blogReducer';
 const Likes =({ blog }) => {
+  const dispatch = useDispatch();
+  const likesRedux = useSelector(state=>state.blogs.blogs.filter(b=>b.id===blog.id)[0].likes)
   const [like ,setLike] = useState(0);
-  const [unlikes,setUnlike] =useState(false);
+  const [unlikes,setUnlike] = useState(false);
   const { id } = blog;
   const getUserLike = async () => {
     try{
@@ -29,23 +32,29 @@ const Likes =({ blog }) => {
     getUserLike();
   },[]);
   //Likes or Unlikes.
-  const handleLikes= async() => {
-    try{
-      //USER AND LIKES INFO.
-      const getUserToken = window.localStorage.getItem('userLogged');
-      const { token } = await JSON.parse(getUserToken);
-      blogService.setToken(token);
-      //like or unlike user on Click.
-      setUnlike(!unlikes);
-      //update likes on database
-      const service = await blogService.updateLikes(blog,unlikes);
-      setLike(service.likes);
-    }catch(err){ console.error(err) }}
+
+  const handleLikes = async() => {
+    setUnlike(!unlikes);
+    dispatch(updateLike({unlikes:unlikes,blog:blog}))
+    // try{
+    //   // //USER AND LIKES INFO.
+    //   // const getUserToken = window.localStorage.getItem('userLogged');
+    //   // const { token } = await JSON.parse(getUserToken);
+    //   // blogService.setToken(token);
+    //   // //like or unlike user on Click.
+    // setUnlike(!unlikes);
+    //   // //update likes on database
+    //   // const service = await blogService.updateLikes(blog,unlikes);
+    //   // setLike(service.likes);
+    // }
+    // catch(err){ console.error(err) }
+  }
+  
   return(
     <section className='likeContainer'>
       <span>
           Likes:
-        <span data-testid='likecount' className={ 'Liked' }style={{ fontWeight:'bolder' }}> { like }</span>
+        <span data-testid='likecount' className={ 'Liked' }style={{ fontWeight:'bolder' }}> { likesRedux }</span>
       </span>
       <button data-testid='likeButton' onClick={handleLikes}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`heart ${unlikes?"heartLike":''}`}>

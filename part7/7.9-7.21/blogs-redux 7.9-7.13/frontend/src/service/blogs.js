@@ -30,8 +30,8 @@ const updateBlogs = async (id, updateBlog) => {
 };
 const updateLikes = async (blogs, unlike) => {
   const config = { headers: { Authorization: token } };
-  const updatedBlog = blogs;
-  blogs.unlike = unlike;
+  const updatedBlog = { blogs: blogs, unlike: unlike };
+  // blogs.unlike = unlike;
   const response = await axios.put(
     `${baseUrl}/likes/${blogs.id}`,
     updatedBlog,
@@ -39,6 +39,7 @@ const updateLikes = async (blogs, unlike) => {
   );
   return response.data;
 };
+
 export default {
   getBlogs,
   createBlogs,

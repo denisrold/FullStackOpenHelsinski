@@ -12,6 +12,13 @@ const blogSlice = createSlice({
       const filteredBlogs = state.blogs.filter((b) => b.id !== action.payload);
       state.blogs = filteredBlogs;
     },
+    updateLikes(state, action) {
+      const { id, likes } = action.payload;
+      const indexBlog = state.blogs.findIndex((b) => b.id === id);
+      if (blog !== -1) {
+        state.blogs[indexBlog].likes = likes;
+      }
+    },
     updateBlogs(state, action) {
       const { id, response } = action.payload;
       const index = state.blogs.findIndex((b) => b.id === id);
@@ -28,7 +35,7 @@ const blogSlice = createSlice({
   },
 });
 
-export const { deleteBlogs, updateBlogs, appendBlog, setBlogs } =
+export const { deleteBlogs, updateBlogs, appendBlog, setBlogs, updateLikes } =
   blogSlice.actions;
 
 //GET ALL BLOGS
@@ -102,30 +109,18 @@ export const updateBlog = (content) => {
 
 //UPDATELIKE BLOG:
 export const updateLike = (content) => {
-  const { id, updatedBlogs } = content;
+  const unlikes = content.unlikes;
+  const blog = content.blog;
   return async (dispatch) => {
-    const userToken = window.localStorage.getItem("userLogged");
-    const JSONPARSE = await JSON.parse(userToken);
-    blogService.setToken(JSONPARSE.token);
     try {
-      const response = await blogService.updateBlogs(id, updatedBlogs);
-      await dispatch(updatedStatus(true));
-      await dispatch(updateBlogs({ id, response }));
+      //USER AND LIKES INFO.
+      const getUserToken = window.localStorage.getItem("userLogged");
+      const { token } = await JSON.parse(getUserToken);
+      blogService.setToken(token);
+      //update likes on database
+      const service = await blogService.updateLikes(blog, unlikes);
+      dispatch(updateLikes({ id: service.id, likes: service.likes }));
     } catch (err) {
-      if (err.response) {
-        if (err.response.data.error.includes("Validation failed")) {
-          let errorMessage = err.response.data.error
-            .split(".")[0]
-            .split(":")[2]
-            .replace("Path", "")
-            .split("`")
-            .join("")
-            .replace(/\(([^)]+)\)/g, '"$1"');
-          dispatch(createNotification(errorMessage));
-        } else {
-          console.log(err.response.data);
-        }
-      }
       console.error(err);
     }
   };
