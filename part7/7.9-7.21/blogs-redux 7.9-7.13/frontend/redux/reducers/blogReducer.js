@@ -100,6 +100,37 @@ export const updateBlog = (content) => {
   };
 };
 
+//UPDATELIKE BLOG:
+export const updateLike = (content) => {
+  const { id, updatedBlogs } = content;
+  return async (dispatch) => {
+    const userToken = window.localStorage.getItem("userLogged");
+    const JSONPARSE = await JSON.parse(userToken);
+    blogService.setToken(JSONPARSE.token);
+    try {
+      const response = await blogService.updateBlogs(id, updatedBlogs);
+      await dispatch(updatedStatus(true));
+      await dispatch(updateBlogs({ id, response }));
+    } catch (err) {
+      if (err.response) {
+        if (err.response.data.error.includes("Validation failed")) {
+          let errorMessage = err.response.data.error
+            .split(".")[0]
+            .split(":")[2]
+            .replace("Path", "")
+            .split("`")
+            .join("")
+            .replace(/\(([^)]+)\)/g, '"$1"');
+          dispatch(createNotification(errorMessage));
+        } else {
+          console.log(err.response.data);
+        }
+      }
+      console.error(err);
+    }
+  };
+};
+
 //DELETE BLOG
 export const deleteBlog = (id) => {
   return async (dispatch) => {
