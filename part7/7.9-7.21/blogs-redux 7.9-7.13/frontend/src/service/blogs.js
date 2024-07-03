@@ -15,8 +15,9 @@ const getBlogsByID = async (blogID) => {
 
 const createBlogs = async (newBlog) => {
   const config = { headers: { Authorization: token } };
-  const response = await axios.post(baseUrl, newBlog, config);
-  return response.data;
+  const created = await axios.post(baseUrl, newBlog, config);
+  const response = await getBlogsByID(created.data.id);
+  return response;
 };
 const deleteBlogs = async (id) => {
   const config = { headers: { Authorization: token } };
