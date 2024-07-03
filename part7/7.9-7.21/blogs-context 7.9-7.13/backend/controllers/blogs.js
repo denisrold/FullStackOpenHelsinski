@@ -71,10 +71,11 @@ blogsRouter.put("/:id", async (request, response) => {
 
 /// /likes unlikes
 blogsRouter.put("/likes/:id", async (request, response) => {
+  const { blogs, unlike } = request.body;
   if (request.token === undefined) {
     response.status(401).json({ error: "token invalid" });
   }
-  const { unlike } = request.body;
+  // const { unlike } = request.body;
   const { id } = request.params;
   const userId = request.user.id;
   let updatedBlog = {};

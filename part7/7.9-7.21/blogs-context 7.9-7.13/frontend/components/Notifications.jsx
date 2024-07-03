@@ -1,15 +1,17 @@
 import { useEffect } from "react";
-const Notification = ({ errorMessage,setErrorMessage }) => {
-
+import { useDispatch, useSelector } from "react-redux";
+import { clearNotification } from "../redux/reducers/notificationReducer"; 
+const Notification = () => {
+  const dispatch = useDispatch();
+  const {notification} = useSelector(state=>state.notification);
   useEffect(() => {
-    if(errorMessage ===null){ return }
     setTimeout(() => {
-      setErrorMessage(null)
+      dispatch(clearNotification())
     },3000)
-  },[errorMessage])
+  },[notification])
   return (
     <div className='notificationContainer'>
-      <h4 className="title">{ `* ${ errorMessage }` }</h4>
+      <h4 className="title">{ `* ${ notification }` }</h4>
     </div>
   );
 };

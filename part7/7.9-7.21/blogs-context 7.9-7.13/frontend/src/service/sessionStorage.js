@@ -10,7 +10,6 @@ function saveData(key = "tokenExpires", value) {
   };
   localStorage.setItem(key, JSON.stringify(data));
 }
-
 function getData(
   key = "tokenExpires",
   maxDays = 0,
@@ -43,4 +42,16 @@ function removeStorageData(storageLoggedUser) {
 
 // const sessionData = getData("tokenExpires", 0, 1, "TokenDataName");
 
-export default { saveData, getData, removeStorageData, saveUserSession };
+async function getUserToken() {
+  const userToken = window.localStorage.getItem("userLogged");
+  const { token } = await JSON.parse(userToken);
+  return token;
+}
+
+export default {
+  saveData,
+  getData,
+  removeStorageData,
+  saveUserSession,
+  getUserToken,
+};

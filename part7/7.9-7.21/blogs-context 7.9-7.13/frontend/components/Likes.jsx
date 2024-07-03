@@ -1,50 +1,44 @@
 import blogService from '../src/service/blogs';
-import userService from "../src/service/user";
+import { useDispatch,useSelector } from 'react-redux';
 import { useEffect,useState } from "react";
+import { updateLike } from '../redux/reducers/blogReducer';
+
 const Likes =({ blog }) => {
-  const [like ,setLike] = useState(0);
-  const [unlikes,setUnlike] =useState(false);
+  const dispatch = useDispatch();
   const { id } = blog;
+  const { userId } = useSelector(state => state.user);
+  const likesRedux = useSelector(state=>state.blogs.blogs.filter(b=>b.id===blog.id)[0].likes)
+  const [unlikes,setUnlike] = useState(false);
+
   const getUserLike = async () => {
     try{
-      //gettoken with userdata
-      const getUserToken = window.localStorage.getItem('userLogged');
-      const { token } = await JSON.parse(getUserToken);
-      //get this blog by id
-      const res = await blogService.getBlogsByID(id);
-      //get UserId
-      userService.setToken(token);
-      const userId = await userService.userId();
-      const arrayUser = res.likesUserId.find(u => u === userId);
-      if(!arrayUser)setUnlike(false)
+      const blog = await blogService.getBlogsByID(id);
+      const arrayUser = blog.likesUserId.find(u => u === userId);
+      if(!arrayUser) setUnlike(false)
       else setUnlike(true);
-      setLike(res.likes);
     }
     catch(err){
       console.error(err);
     }
   }
+
   useEffect(() => {
-    getUserLike();
-  },[]);
+    if(userId){
+      getUserLike();
+    }
+  },[userId]);
+
   //Likes or Unlikes.
-  const handleLikes= async() => {
-    try{
-      //USER AND LIKES INFO.
-      const getUserToken = window.localStorage.getItem('userLogged');
-      const { token } = await JSON.parse(getUserToken);
-      blogService.setToken(token);
-      //like or unlike user on Click.
-      setUnlike(!unlikes);
-      //update likes on database
-      const service = await blogService.updateLikes(blog,unlikes);
-      setLike(service.likes);
-    }catch(err){ console.error(err) }}
+  const handleLikes = async() => {
+    setUnlike(!unlikes);
+    dispatch(updateLike({unlikes:unlikes,blog:blog}))
+  }
+  
   return(
     <section className='likeContainer'>
       <span>
           Likes:
-        <span data-testid='likecount' className={ 'Liked' }style={{ fontWeight:'bolder' }}> { like }</span>
+        <span data-testid='likecount' className={ 'Liked' }style={{ fontWeight:'bolder' }}> { likesRedux }</span>
       </span>
       <button data-testid='likeButton' onClick={handleLikes}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`heart ${unlikes?"heartLike":''}`}>

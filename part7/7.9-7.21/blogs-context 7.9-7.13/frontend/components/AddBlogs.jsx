@@ -1,52 +1,34 @@
-import { useState,useRef } from 'react';
-import blogs from '../src/service/blogs';
+import { useState,useRef, useEffect } from 'react';
 import AddedMessage from './AddedMessage';
 import Toggable from './Toggable';
 import AddForm from './AddForm';
+import { useDispatch,useSelector } from 'react-redux';
+import { clearStatus } from '../redux/reducers/statusReducer';
 
-const AddBlogs = ({ setNewBlog }) => {
-  const [addState,setAddState] = useState(false);
-  const [addedState,setAddedState] = useState(false);
-  const [title,setTitle] =useState("");
-  const [url,setUrl] =useState("");
-  const [author,setAuthor] =useState("");
-  const [errorMessage,setErrorMessage] = useState("");
+const AddBlogs = () => {
+  const dispatch = useDispatch();
+  const statusCreate = useSelector(state=>state.status.states.created)
+  const [newBlog, setNewBlog] = useState({title:'',author:'',url:''})
   const blogFormRef = useRef();
-
-  const handleAddBlogs = async (event) => {
-    event.preventDefault();
-    const userToken = window.localStorage.getItem('userLogged');
-    const JSONPARSE = await JSON.parse(userToken)
-    blogs.setToken(JSONPARSE.token);
-    const newBlog = { url,title,author };
-    try {
-      await blogs.createBlogs(newBlog);
-      setNewBlog(true);
-      setAddState(false);
-      setAddedState(true);
+  
+   useEffect(()=>{
+    if(statusCreate){
       blogFormRef.current.toggleVisibility();
-      setTimeout(() => {
-        setAddedState(false);
-        setTitle('');
-        setUrl('');
-        setAuthor('');
-      },2000)
+     const timedOut = setTimeout(() => {
+      setNewBlog({title:'',author:'',url:''})
+      dispatch(clearStatus())
+    },2000)
+    return ()=> clearTimeout(timedOut);
     }
-    catch(err){
-      if(err.response.data.error.includes('Blog validation failed')){
-        setErrorMessage(err.response.data.error.split('.')[0].split(':')[2].replace("Path","").split('`').join("").replace(/\(([^)]+)\)/g, '"$1"'));
-      }else{
-        console.log(err.response.data)
-      }
-    }
-  }
+   },[statusCreate])
+
   return(
     <div className='containerAbsolute'>
-      {addedState&&<AddedMessage newBlog={ { title,author } }/>}
-      <section className={addState?'createContainer':null}>
+      {statusCreate && <AddedMessage newBlog={ newBlog }/>}
+      <section >
         <div className='ToggableAddBlogs'>
           <Toggable buttonLabel={'Add Blog'} ref={blogFormRef}>
-            <AddForm  errorMessage={errorMessage} author={author} setAuthor={setAuthor} setTitle={setTitle} title={title}  setErrorMessage={setErrorMessage} handleAddBlogs={handleAddBlogs} setUrl={setUrl} url={url}/>
+            <AddForm newBlog={newBlog} setNewBlog={setNewBlog}/>
           </Toggable>
         </div>
       </section>

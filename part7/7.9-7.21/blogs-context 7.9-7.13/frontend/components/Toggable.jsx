@@ -1,14 +1,15 @@
 import { useState, forwardRef, useImperativeHandle } from 'react'
-
+import { clearNotification } from '../redux/reducers/notificationReducer';
 import PropTypes from 'prop-types'
+
 const Toggable = forwardRef((props,refs) => {
   const [visible, setVisible] = useState(false)
   const hideWhitVisible = { display:visible?'none':'' }
   const showHideVisible = { display:visible?'':'none' }
   
   const toggleVisibility = () => {
-    if(props.setErrorMessage){
-      props.setErrorMessage(null);
+    if(props.dispatch){
+      props.dispatch(clearNotification());
     }
     setVisible(!visible)
   }

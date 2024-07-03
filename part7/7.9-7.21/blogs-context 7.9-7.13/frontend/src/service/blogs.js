@@ -15,8 +15,9 @@ const getBlogsByID = async (blogID) => {
 
 const createBlogs = async (newBlog) => {
   const config = { headers: { Authorization: token } };
-  const response = await axios.post(baseUrl, newBlog, config);
-  return response.data;
+  const created = await axios.post(baseUrl, newBlog, config);
+  const response = await getBlogsByID(created.data.id);
+  return response;
 };
 const deleteBlogs = async (id) => {
   const config = { headers: { Authorization: token } };
@@ -30,8 +31,8 @@ const updateBlogs = async (id, updateBlog) => {
 };
 const updateLikes = async (blogs, unlike) => {
   const config = { headers: { Authorization: token } };
-  const updatedBlog = blogs;
-  blogs.unlike = unlike;
+  const updatedBlog = { blogs: blogs, unlike: unlike };
+  // blogs.unlike = unlike;
   const response = await axios.put(
     `${baseUrl}/likes/${blogs.id}`,
     updatedBlog,
@@ -39,6 +40,7 @@ const updateLikes = async (blogs, unlike) => {
   );
   return response.data;
 };
+
 export default {
   getBlogs,
   createBlogs,
