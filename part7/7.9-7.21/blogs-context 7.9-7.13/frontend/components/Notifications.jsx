@@ -1,12 +1,13 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { clearNotification } from "../redux/reducers/notificationReducer"; 
+import {useNotificationValue,useNotificationDispatch } from '../context/notificationContext';
 const Notification = () => {
-  const dispatch = useDispatch();
-  const {notification} = useSelector(state=>state.notification);
+  // const dispatch = useDispatch();
+  const notification = useNotificationValue()
+  const dispatch = useNotificationDispatch();
+  // const {notification} = useSelector(state=>state.notification);
   useEffect(() => {
     setTimeout(() => {
-      dispatch(clearNotification())
+      dispatch({type:'CLEAR',payload:''})
     },3000)
   },[notification])
   return (

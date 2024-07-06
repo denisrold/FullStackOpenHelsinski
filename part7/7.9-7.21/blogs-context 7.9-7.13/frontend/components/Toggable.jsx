@@ -9,7 +9,7 @@ const Toggable = forwardRef((props,refs) => {
   
   const toggleVisibility = () => {
     if(props.dispatch){
-      props.dispatch(clearNotification());
+      props.dispatch({type:'CLEAR',payload:''});
     }
     setVisible(!visible)
   }
