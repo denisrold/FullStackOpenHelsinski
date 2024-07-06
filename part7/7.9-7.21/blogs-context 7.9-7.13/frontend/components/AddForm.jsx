@@ -1,10 +1,12 @@
 import Notification from './Notifications';
 import { useSelector,useDispatch } from 'react-redux';
 import { createBlog } from '../redux/reducers/blogReducer';
+import {useNotificationValue,useNotificationDispatch } from '../context/notificationContext';
 
 const AddForm = ({ setNewBlog,newBlog }) => {
+  const notificationDispatch = useNotificationDispatch();
+  const notification = useNotificationValue()
   const dispatch = useDispatch();
-  const { notification } = useSelector(state=>state.notification);
 
   const handleAddBlogs = (e) => {
     e.preventDefault();
