@@ -7,7 +7,6 @@ import { useDispatch,useSelector } from 'react-redux';
 import { clearStatus } from '../redux/reducers/statusReducer';
 
 const AddBlogs = () => {
-
   const dispatch = useDispatch();
   const statusCreate = useSelector(state=>state.status.states.created)
   const [newBlog, setNewBlog] = useState({title:'',author:'',url:''})

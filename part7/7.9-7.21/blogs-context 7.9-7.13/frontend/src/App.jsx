@@ -9,7 +9,7 @@ import AddBlogs from '../components/AddBlogs';
 import { initializeBlogs } from '../redux/reducers/blogReducer';
 import userService from './service/user';
 import { useQuery } from '@tanstack/react-query'
-import {useBlogsDispatch,useBlogsValue} from '../context/blogsContext';
+import { useBlogsDispatch,useBlogsValue } from '../context/blogsContext';
 import { useUserDispatch,useUserValue } from '../context/userContext';
 import axios from 'axios';
 
@@ -18,7 +18,7 @@ function App() {
   const userDispatch = useUserDispatch();
   const loggedUserContext = useUserValue()
   const dispatch = useDispatch();
-  const  { blogs }  = useSelector(state => state.blogs);
+  const blogs = useBlogsValue();
   const [user,setUser] = useState(null);
   const [loadState,setLoadState] = useState(false);
   const result = useQuery({
@@ -46,8 +46,8 @@ function App() {
 
   useEffect(() => {
       getBlogs(); 
-      console.log('este user',loggedUserContext)
-  },[user])
+    },[user])
+    console.log('este user',loggedUserContext)
 
   return (
     <>

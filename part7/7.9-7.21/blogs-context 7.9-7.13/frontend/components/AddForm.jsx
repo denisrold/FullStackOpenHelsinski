@@ -1,16 +1,41 @@
 import Notification from './Notifications';
 import { useSelector,useDispatch } from 'react-redux';
-import { createBlog } from '../redux/reducers/blogReducer';
+import { appendBlog, createBlog } from '../redux/reducers/blogReducer';
 import {useNotificationValue,useNotificationDispatch } from '../context/notificationContext';
+import { useBlogsDispatch, useBlogsValue } from '../context/blogsContext';
+import { createdStatus } from '../redux/reducers/statusReducer';
+import sessionService from '../src/service/sessionStorage';
+import blogService from '../src/service/blogs';
 
-const AddForm = ({ setNewBlog,newBlog }) => {
+  const AddForm = ({ setNewBlog,newBlog }) => {
+  const blogDispatch = useBlogsDispatch();
   const notificationDispatch = useNotificationDispatch();
   const notification = useNotificationValue()
-  const dispatch = useDispatch();
-
-  const handleAddBlogs = (e) => {
+  // const dispatch = useDispatch();
+  const handleAddBlogs = async (e) => {
     e.preventDefault();
-     dispatch(createBlog(newBlog))
+      const token = await sessionService.getUserToken();
+      blogService.setToken(token);
+      try {
+        const blog = await blogService.createBlogs(newBlog);
+        blogDispatch({ type:'APPEND_BLOG',payload:blog })
+      } catch (err) {
+        if (err.response) {
+          if (err.response.data.error.includes("Blog validation failed")) {
+            let errorMessage = err.response.data.error
+              .split(".")[0]
+              .split(":")[2]
+              .replace("Path", "")
+              .split("`")
+              .join("")
+              .replace(/\(([^)]+)\)/g, '"$1"');
+              notificationDispatch({ type:'ADD', payload:errorMessage });
+          } else {
+            console.log(err.response.data);
+          }
+        }
+        console.error(err);
+      }
   }
 
   const handleInput = (e) =>{
