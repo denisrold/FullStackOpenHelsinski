@@ -2,12 +2,13 @@ import { useState } from "react";
 import Toggable from "./Toggable";
 import Likes from './Likes';
 import DeleteBlog from "./DeleteBlog";
+import { useUserValue } from "../context/userContext";
 import EditBlog from "./EditBlog";
 import UpdateBlogView from "./UpdateBlogView";
 import { useSelector } from "react-redux";
 
 const Blogs = ({ user, blog }) => {
-  const loggedUserID = useSelector(state => state.user.userId)
+  const loggedUserID = useUserValue();
   const [updateBlog,setUpdateBlog] = useState({ id:'',editState:false });
   const { title,author,userId,url } = blog;
 

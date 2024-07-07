@@ -7,6 +7,11 @@ const blogsReducer = (state, action) => {
       return action.payload;
     case "APPEND_BLOG":
       return state.push(action.payload);
+      case "DELETE_BLOG":{
+        const id = action.payload;
+        const newState = state.filter( b=>b.id !== id );
+        return newState
+      }
     default:
       return state;
   }

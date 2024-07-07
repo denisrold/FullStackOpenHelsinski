@@ -1,5 +1,4 @@
 import { useState, forwardRef, useImperativeHandle } from 'react'
-import { clearNotification } from '../redux/reducers/notificationReducer';
 import PropTypes from 'prop-types'
 
 const Toggable = forwardRef((props,refs) => {
