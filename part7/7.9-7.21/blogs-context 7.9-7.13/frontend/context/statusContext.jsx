@@ -5,10 +5,10 @@ const statusReducer = (state, action) => {
   switch (action.type) {
     case "ADD_CREATED":
       return {...state, created:action.payload };
-    case "ADD_LOADING":
-      return {...state, loading:action.payload };
+    case "ADD_UPDATED":
+      return {...state, updated:action.payload };
     case "CLEAR":
-      return   {loading:'',created:''};
+      return   { updated:'',created:'' };
     default:
       return state;
   }
@@ -22,7 +22,7 @@ export const StatusProvider = (props) => {
   //USEREDUCER
   const [status, statusDispatch] = useReducer(
     statusReducer,
-    {loading:'',created:''}
+    {updated:'',created:''}
   );
   return (
     <StatusContext.Provider value={[status, statusDispatch]}>
