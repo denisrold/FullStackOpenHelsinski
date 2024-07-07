@@ -11,6 +11,13 @@ const blogsReducer = (state, action) => {
         const id = action.payload;
         const newState = state.filter( b=>b.id !== id );
         return newState
+      };
+      case "UPDATE_BLOG":{
+        const { id } = action.payload;
+        const { response } = action.payload;
+        const index = state.findIndex( b=> b.id !== id );
+        state[index] = response;
+        return state;
       }
     default:
       return state;

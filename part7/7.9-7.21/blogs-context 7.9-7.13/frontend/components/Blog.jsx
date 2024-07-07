@@ -5,7 +5,6 @@ import DeleteBlog from "./DeleteBlog";
 import { useUserValue } from "../context/userContext";
 import EditBlog from "./EditBlog";
 import UpdateBlogView from "./UpdateBlogView";
-import { useSelector } from "react-redux";
 
 const Blogs = ({ user, blog }) => {
   const loggedUserID = useUserValue();

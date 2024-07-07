@@ -3,10 +3,12 @@ import { createContext, useReducer, useContext } from "react";
 //CREATE REDUCER
 const statusReducer = (state, action) => {
   switch (action.type) {
-    case "ADD":
-      return action.payload;
+    case "ADD_CREATED":
+      return {...state, created:action.payload };
+    case "ADD_LOADING":
+      return {...state, loading:action.payload };
     case "CLEAR":
-      return "";
+      return   {loading:'',created:''};
     default:
       return state;
   }
@@ -20,7 +22,7 @@ export const StatusProvider = (props) => {
   //USEREDUCER
   const [status, statusDispatch] = useReducer(
     statusReducer,
-    ""
+    {loading:'',created:''}
   );
   return (
     <StatusContext.Provider value={[status, statusDispatch]}>

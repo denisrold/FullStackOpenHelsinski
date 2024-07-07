@@ -3,10 +3,16 @@ import Notification from './Notifications';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateBlog } from '../redux/reducers/blogReducer';
 import { clearStatus } from '../redux/reducers/statusReducer';
+import { useNotificationDispatch , useNotificationValue } from '../context/notificationContext';
+import { useStatusDispatch,useStatusValue } from '../context/statusContext';
+import { useBlogsDispatch,useBlogsValue } from '../context/blogsContext';
+import sessionService from '../src/service/sessionStorage';
+import blogService from '../src/service/blogs';
 
 const UpdateBlogView = ({ blog,setUpdateBlog }) => {
-  const dispatch = useDispatch();
-  const {notification} = useSelector(state=>state.notification);
+  const notificationDispatch = useNotificationDispatch();
+  const statusDistpach = useStatusDispatch();
+  const notification = useNotificationValue();
   const { updated } = useSelector(state => state.status.states);
   const { id,userId } = blog;
   
@@ -18,12 +24,33 @@ const UpdateBlogView = ({ blog,setUpdateBlog }) => {
 
   const handleEdit = async (e) => {
     e.preventDefault();
-    await dispatch(updateBlog({id,updatedBlogs}))
+    const token = await sessionService.getUserToken();
+    blogService.setToken(token);
+    try {
+      const response = await blogService.updateBlogs(id, updatedBlogs);
+      await statusDistpach({ type:'ADD_LOADING',payload:true });
+      await useBlogsDispatch({ type:'UPDATE_BLOG',payload:{ id, response } });
+    } catch (err) {
+      if (err.response) {
+        if (err.response.data.error.includes("Validation failed")) {
+          let errorMessage = err.response.data.error
+            .split(".")[0]
+            .split(":")[2]
+            .replace("Path", "")
+            .split("`")
+            .join("")
+            .replace(/\(([^)]+)\)/g, '"$1"');
+            notificationDispatch({type:'ADD',payload:errorMessage});
+        } else {
+          console.log(err.response.data);
+        }
+      }
+    }
   };
 
   useEffect(()=>{
     if(updated) {
-      dispatch(clearStatus());
+      statusDistpach({type:'CLEAR',payload:''})
       setUpdateBlog({ id:'',editState:false });
     }
   },[updated])

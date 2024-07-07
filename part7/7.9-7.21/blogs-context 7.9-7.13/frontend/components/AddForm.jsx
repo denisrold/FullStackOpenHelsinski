@@ -1,10 +1,9 @@
 import Notification from './Notifications';
 import {useNotificationValue,useNotificationDispatch } from '../context/notificationContext';
-import { useBlogsDispatch, useBlogsValue } from '../context/blogsContext';
-import { createdStatus } from '../redux/reducers/statusReducer';
+import { useBlogsDispatch } from '../context/blogsContext';
 import sessionService from '../src/service/sessionStorage';
 import blogService from '../src/service/blogs';
-import { useStatusDispatch,useStatusValue } from '../context/statusContext';
+import { useStatusDispatch } from '../context/statusContext';
 
   const AddForm = ({ setNewBlog,newBlog }) => {
   const blogDispatch = useBlogsDispatch();
@@ -18,7 +17,7 @@ import { useStatusDispatch,useStatusValue } from '../context/statusContext';
       try {
         const blog = await blogService.createBlogs(newBlog);
         blogDispatch({ type:'APPEND_BLOG',payload:blog })
-        statusDispatch({type:'ADD', payload:true});
+        statusDispatch({type:'ADD_CREATED', payload:true});
       } catch (err) {
         if (err.response) {
           if (err.response.data.error.includes("Blog validation failed")) {

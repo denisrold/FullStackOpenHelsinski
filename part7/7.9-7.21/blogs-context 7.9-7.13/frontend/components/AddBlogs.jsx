@@ -1,21 +1,17 @@
 import { useState,useRef, useEffect } from 'react';
-import {useNotificationValue,useNotificationDispatch } from '../context/notificationContext';
 import { useStatusDispatch,useStatusValue } from '../context/statusContext';
 import AddedMessage from './AddedMessage';
 import Toggable from './Toggable';
 import AddForm from './AddForm';
-import { useDispatch,useSelector } from 'react-redux';
-import { clearStatus } from '../redux/reducers/statusReducer';
 
 const AddBlogs = () => {
-  const dispatch = useDispatch();
   const statusDispatch = useStatusDispatch()
-  const statusCreate = useStatusValue()
+  const { created } = useStatusValue()
   const [newBlog, setNewBlog] = useState({title:'',author:'',url:''})
   const blogFormRef = useRef();
   
    useEffect(()=>{
-    if(statusCreate){
+    if(created){
       blogFormRef.current.toggleVisibility();
      const timedOut = setTimeout(() => {
       setNewBlog({title:'',author:'',url:''})
@@ -23,11 +19,11 @@ const AddBlogs = () => {
     },2000)
     return ()=> clearTimeout(timedOut);
     }
-   },[statusCreate])
+   },[created])
 
   return(
     <div className='containerAbsolute'>
-      {statusCreate && <AddedMessage newBlog={ newBlog }/>}
+      {created && <AddedMessage newBlog={ newBlog }/>}
       <section >
         <div className='ToggableAddBlogs'>
           <Toggable buttonLabel={'Add Blog'} ref={blogFormRef}>
