@@ -1,12 +1,11 @@
 import blogService from '../src/service/blogs';
-import { useDispatch,useSelector } from 'react-redux';
 import { useEffect,useState } from "react";
-import { updateLike } from '../redux/reducers/blogReducer';
 import { useBlogsDispatch,useBlogsValue } from '../context/blogsContext';
 import { useUserValue } from '../context/userContext';
+import sessionService from '../src/service/sessionStorage';
 
 const Likes =({ blog }) => {
-  const dispatch = useDispatch();
+  const blogsDispatch = useBlogsDispatch();
   const { id } = blog;
   const userId = useUserValue();
   const likesRedux = useBlogsValue().filter(b=>b.id===blog.id)[0].likes;
@@ -33,8 +32,16 @@ const Likes =({ blog }) => {
   //Likes or Unlikes.
   const handleLikes = async() => {
     setUnlike(!unlikes);
-    dispatch(updateLike({unlikes:unlikes,blog:blog}))
-  }
+        try {
+          const token = await sessionService.getUserToken();
+          blogService.setToken(token);
+          //update likes on database
+          const service = await blogService.updateLikes(blog, unlikes);
+          blogsDispatch({type:'UPDATE_LIKES',payload:{id:service.id,likes:service.likes}})
+        } catch (err) {
+          console.error(err);
+        }
+    }
   
   return(
     <section className='likeContainer'>

@@ -19,6 +19,14 @@ const blogsReducer = (state, action) => {
         state[index] = response;
         return state;
       }
+      case "UPDATE_LIKES":{
+        const { id, likes } = action.payload;
+        const index = state.findIndex(b=> b.id === id);
+        if(index !==-1){
+          state[index] = likes;
+        }
+      return state;
+      }
     default:
       return state;
   }
