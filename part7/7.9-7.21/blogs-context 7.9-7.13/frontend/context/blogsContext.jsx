@@ -6,26 +6,22 @@ const blogsReducer = (state, action) => {
     case "ADD_BLOGS":
       return action.payload;
     case "APPEND_BLOG":
-      return state.push(action.payload);
+      return state = [...state, action.payload];
       case "DELETE_BLOG":{
         const id = action.payload;
-        const newState = state.filter( b=>b.id !== id );
-        return newState
+        return state.filter( b=>b.id !== id );
       };
       case "UPDATE_BLOG":{
         const { id } = action.payload;
         const { response } = action.payload;
         const index = state.findIndex( b=> b.id !== id );
         state[index] = response;
-        return state;
+        console.log('este state',state);
+        return state = [...state];
       }
       case "UPDATE_LIKES":{
         const { id, likes } = action.payload;
-        const index = state.findIndex(b=> b.id === id);
-        if(index !==-1){
-          state[index] = likes;
-        }
-      return state;
+      return state.map(b=>b.id !== id?b:{...b,likes:likes});
       }
     default:
       return state;

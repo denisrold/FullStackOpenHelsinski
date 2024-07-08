@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import Notification from './Notifications';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateBlog } from '../redux/reducers/blogReducer';
-import { clearStatus } from '../redux/reducers/statusReducer';
 import { useNotificationDispatch , useNotificationValue } from '../context/notificationContext';
 import { useStatusDispatch,useStatusValue } from '../context/statusContext';
-import { useBlogsDispatch,useBlogsValue } from '../context/blogsContext';
+import { useBlogsDispatch } from '../context/blogsContext';
 import sessionService from '../src/service/sessionStorage';
 import blogService from '../src/service/blogs';
 
