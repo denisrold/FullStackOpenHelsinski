@@ -3,12 +3,13 @@ import { useDispatch,useSelector } from 'react-redux';
 import { useEffect,useState } from "react";
 import { updateLike } from '../redux/reducers/blogReducer';
 import { useBlogsDispatch,useBlogsValue } from '../context/blogsContext';
+import { useUserValue } from '../context/userContext';
 
 const Likes =({ blog }) => {
   const dispatch = useDispatch();
   const { id } = blog;
-  const { userId } = useSelector(state => state.user);
-  const likesRedux = useSelector(state=>state.blogs.blogs.filter(b=>b.id===blog.id)[0].likes)
+  const userId = useUserValue();
+  const likesRedux = useBlogsValue().filter(b=>b.id===blog.id)[0].likes;
   const [unlikes,setUnlike] = useState(false);
 
   const getUserLike = async () => {

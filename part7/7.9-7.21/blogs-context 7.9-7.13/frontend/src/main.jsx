@@ -12,17 +12,17 @@ import { StatusProvider } from '../context/statusContext.jsx'
 
 const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <QueryClientProvider client={queryClient}>
-    <UserProvider>
-      <StatusProvider>
-        <BlogsProvider>
-          <NotificationProvider>
-            <Provider store={store}>
-              <App />
-            </Provider>
-          </NotificationProvider>
-        </BlogsProvider>
-      </StatusProvider>
-    </UserProvider>
-  </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <UserProvider>
+          <StatusProvider>
+            <BlogsProvider>
+              <NotificationProvider>
+                <Provider store={store}>
+                  <App />
+                </Provider>
+              </NotificationProvider>
+            </BlogsProvider>
+          </StatusProvider>
+        </UserProvider>
+      </QueryClientProvider>
 )
