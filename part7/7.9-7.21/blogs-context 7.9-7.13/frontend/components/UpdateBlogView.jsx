@@ -10,6 +10,7 @@ const UpdateBlogView = ({ blog,setUpdateBlog }) => {
   const notificationDispatch = useNotificationDispatch();
   const statusDistpach = useStatusDispatch();
   const notification = useNotificationValue();
+  const blogDispatch = useBlogsDispatch();
   const { updated } = useStatusValue();
   const { id,userId } = blog;
   
@@ -26,7 +27,7 @@ const UpdateBlogView = ({ blog,setUpdateBlog }) => {
     try {
       const response = await blogService.updateBlogs(id, updatedBlogs);
       await statusDistpach({ type:'ADD_UPDATED', payload:true });
-      await useBlogsDispatch({ type:'UPDATE_BLOG', payload:{ id, response } });
+      await blogDispatch({ type:"UPDATE_BLOG", payload:{ id, response } });
     } catch (err) {
       if (err.response) {
         if (err.response.data.error.includes("Validation failed")) {

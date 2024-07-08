@@ -26,8 +26,9 @@ const deleteBlogs = async (id) => {
 };
 const updateBlogs = async (id, updateBlog) => {
   const config = { headers: { Authorization: token } };
-  const response = await axios.put(`${baseUrl}/${id}`, updateBlog, config);
-  return response.data;
+  const uploaded = await axios.put(`${baseUrl}/${id}`, updateBlog, config);
+  const response = await getBlogsByID(uploaded.data.id);
+  return response;
 };
 const updateLikes = async (blogs, unlike) => {
   const config = { headers: { Authorization: token } };

@@ -14,14 +14,11 @@ const blogsReducer = (state, action) => {
       case "UPDATE_BLOG":{
         const { id } = action.payload;
         const { response } = action.payload;
-        const index = state.findIndex( b=> b.id !== id );
-        state[index] = response;
-        console.log('este state',state);
-        return state = [...state];
+        return state.map(b=> b.id!==id? b : response )
       }
       case "UPDATE_LIKES":{
         const { id, likes } = action.payload;
-      return state.map(b=>b.id !== id?b:{...b,likes:likes});
+      return state.map(b=>b.id !== id?b:{ ...b,likes:likes });
       }
     default:
       return state;

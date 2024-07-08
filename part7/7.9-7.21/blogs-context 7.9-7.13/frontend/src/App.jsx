@@ -22,7 +22,7 @@ function App() {
   //   queryKey: ['blogs'],
   //   queryFn: () => axios.get('http://localhost:3003/api/blogs').then(res =>res.data )
   // })
-  console.log(useBlogsValue());
+
   const getBlogs = async () => {
     if(user){
       const result = await axios.get('http://localhost:3003/api/blogs');
@@ -43,7 +43,6 @@ function App() {
   useEffect(() => {
       getBlogs(); 
     },[user])
-    console.log('este user',loggedUserContext)
 
   return (
     <>
