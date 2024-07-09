@@ -8,6 +8,7 @@ import AddBlogs from '../components/AddBlogs';
 import userService from './service/user';
 import { useBlogsDispatch,useBlogsValue } from '../context/blogsContext';
 import { useUserDispatch,useUserValue } from '../context/userContext';
+import { useQuery } from '@tanstack/react-query'
 import axios from 'axios';
 
 function App() {
@@ -17,10 +18,11 @@ function App() {
   const blogs = useBlogsValue()
   const [user,setUser] = useState(null);
   const [loadState,setLoadState] = useState(false);
-  // const result = useQuery({
-  //   queryKey: ['blogs'],
-  //   queryFn: () => axios.get('http://localhost:3003/api/blogs').then(res =>res.data )
-  // })
+  const result = useQuery({
+    queryKey: ['blogs'],
+    queryFn: () => axios.get('http://localhost:3003/api/blogs').then(res =>res.data )
+  })
+  console.log('thisresult',result.data);
 
   const getBlogs = async () => {
     if(user){
