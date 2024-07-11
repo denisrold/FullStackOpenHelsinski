@@ -4,7 +4,7 @@ import AddedMessage from './AddedMessage';
 import Toggable from './Toggable';
 import AddForm from './AddForm';
 
-const AddBlogs = () => {
+const AddBlogs = ({setRefreshBlog}) => {
   const statusDispatch = useStatusDispatch()
   const { created } = useStatusValue()
   const [newBlog, setNewBlog] = useState({title:'',author:'',url:''})

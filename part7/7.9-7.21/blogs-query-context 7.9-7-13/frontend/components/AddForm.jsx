@@ -24,7 +24,9 @@ const AddForm = ({ setNewBlog,newBlog }) => {
       blogService.setToken(token);
       try {
         const blog = await mutation.mutateAsync(newBlog);
+        
         statusDispatch({type:'ADD_CREATED', payload:true});
+
       } catch (err) {
         if (err.response) {
           if (err.response.data.error.includes("Blog validation failed")) {

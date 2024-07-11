@@ -20,21 +20,23 @@ function App() {
   const getBlogs = async () => {
     setBLogues(blogs);
     if(user){
-        if(!loggedUserContext)  try {
-          const getUserToken = window.localStorage.getItem("userLogged");
-          let token = "";
-          if (getUserToken) token = await JSON.parse(getUserToken).token;
-          userService.setToken(token);
-          const ID = await userService.userId();
-          await userDispatch({type:'ADD_USER_ID',payload:ID});
+      if(!loggedUserContext)  try {
+        const getUserToken = window.localStorage.getItem("userLogged");
+        let token = "";
+        if (getUserToken) token = await JSON.parse(getUserToken).token;
+        userService.setToken(token);
+        const ID = await userService.userId();
+        await userDispatch({type:'ADD_USER_ID',payload:ID});
+        setRefreshBlog(false);
         } catch (err) {
+        setRefreshBlog(false);
           console.log(err);
         };
       }
   }
   useEffect(() => {
-    getBlogs(); 
-    },[user,userDispatch])
+      getBlogs(); 
+    },[user])
 
   return (
     <>
@@ -49,14 +51,14 @@ function App() {
         <>
           <h3 name='userInfo'>{user.name} logged in</h3>
           <section className='bodyContainer'>
-           { blogues&&
-            blogues.length?blogues.sort((a,b)=>b.likes-a.likes).map((b,i) => (
+           { blogs&&
+            blogs.length?blogs.map((b,i) => (
                 <Blogs user={user} blog={b} key={i}/>
               ))
               :<h3 data-testid="noBlogs">No Blogs</h3>
             }
           </section>
-          <AddBlogs />
+          <AddBlogs/>
           <LogoutButton logoutStates={ { setUser,setLoadState } }/>
         </>
       )

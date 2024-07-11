@@ -18,6 +18,7 @@ const DeleteBlog = ({ blog }) => {
           const token = await sessionService.getUserToken();
           blogService.setToken(token);
           await mutation.mutateAsync(id);
+      
         } else {
           return;
         }
