@@ -1,4 +1,3 @@
-import { BlogsProvider } from "../context/blogsContext";
 import { NotificationProvider } from "../context/notificationContext";
 import { StatusProvider } from "../context/statusContext";
 import { UserProvider } from "../context/userContext";
@@ -8,11 +7,9 @@ return (
 <>  
     <UserProvider>
       <StatusProvider>
-        <BlogsProvider>
-          <NotificationProvider>
-            {children}
-          </NotificationProvider>
-        </BlogsProvider>
+        <NotificationProvider>
+          {children}
+        </NotificationProvider>
       </StatusProvider>
     </UserProvider>
 </>

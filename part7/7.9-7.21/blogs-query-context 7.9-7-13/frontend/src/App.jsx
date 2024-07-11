@@ -27,9 +27,7 @@ function App() {
         userService.setToken(token);
         const ID = await userService.userId();
         await userDispatch({type:'ADD_USER_ID',payload:ID});
-        setRefreshBlog(false);
         } catch (err) {
-        setRefreshBlog(false);
           console.log(err);
         };
       }
