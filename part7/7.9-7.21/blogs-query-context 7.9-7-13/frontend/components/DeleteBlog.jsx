@@ -1,9 +1,15 @@
-import { useBlogsDispatch } from '../context/blogsContext';
 import blogService from '../src/service/blogs';
 import sessionService from '../src/service/sessionStorage';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const DeleteBlog = ({ blog }) => {
-  const dispatch = useBlogsDispatch()
+  const queryClient = useQueryClient()
+  const mutation = useMutation({
+    mutationFn: blogService.deleteBlogs,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['blogs']);
+    },
+  });
   const { id } = blog;
   const handleDelete = async () => {
       try {
@@ -11,8 +17,7 @@ const DeleteBlog = ({ blog }) => {
           //get token with userdata
           const token = await sessionService.getUserToken();
           blogService.setToken(token);
-          await blogService.deleteBlogs(id);
-          await dispatch({type:'DELETE_BLOG',payload:id});
+          await mutation.mutateAsync(id);
         } else {
           return;
         }

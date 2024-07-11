@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Toggable from "./Toggable";
 import Likes from './Likes';
 import DeleteBlog from "./DeleteBlog";
@@ -9,6 +9,7 @@ import UpdateBlogView from "./UpdateBlogView";
 const Blogs = ({ user, blog }) => {
   const loggedUserID = useUserValue();
   const [updateBlog,setUpdateBlog] = useState({ id:'',editState:false });
+  
   const { title,author,userId,url } = blog;
 
   return(

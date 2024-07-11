@@ -1,22 +1,35 @@
 import blogService from '../src/service/blogs';
 import { useEffect,useState } from "react";
-import { useBlogsDispatch,useBlogsValue } from '../context/blogsContext';
 import { useUserValue } from '../context/userContext';
 import sessionService from '../src/service/sessionStorage';
+import { useMutation, useQueryClient, } from '@tanstack/react-query';
 
 const Likes =({ blog }) => {
-  const blogsDispatch = useBlogsDispatch();
   const { id } = blog;
   const userId = useUserValue();
-  const likesRedux = useBlogsValue().filter(b=>b.id===blog.id)[0].likes;
   const [unlikes,setUnlike] = useState(false);
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: blogService.updateLikes,
+       onSuccess: () => {
+      queryClient.invalidateQueries(['blogs']);
+    },
+  });
+
+  const mutationUserLikes = useMutation({
+    mutationFn: blogService.getBlogsByID,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['blogs']);
+    },
+  });
 
   const getUserLike = async () => {
     try{
-      const blog = await blogService.getBlogsByID(id);
+      const blog = await mutationUserLikes.mutateAsync(id);
       const arrayUser = blog.likesUserId.find(u => u === userId);
-      if(!arrayUser) setUnlike(false)
-      else setUnlike(true);
+      // if(!arrayUser) setUnlike(false)
+      // else setUnlike(true);
+      setUnlike(!!arrayUser);
     }
     catch(err){
       console.error(err);
@@ -31,23 +44,20 @@ const Likes =({ blog }) => {
 
   //Likes or Unlikes.
   const handleLikes = async() => {
-    setUnlike(!unlikes);
-        try {
-          const token = await sessionService.getUserToken();
-          blogService.setToken(token);
-          //update likes on database
-          const service = await blogService.updateLikes(blog, unlikes);
-          blogsDispatch({type:'UPDATE_LIKES',payload:{id:service.id,likes:service.likes}})
-        } catch (err) {
-          console.error(err);
-        }
+    try {
+      const token = await sessionService.getUserToken();
+      blogService.setToken(token);
+      setUnlike(!unlikes);
+      await mutation.mutateAsync({blog,unlikes})
+      } catch (err) {
+        console.error(err);
+      }
     }
-  
   return(
     <section className='likeContainer'>
       <span>
           Likes:
-        <span data-testid='likecount' className={ 'Liked' }style={{ fontWeight:'bolder' }}> { likesRedux }</span>
+        <span data-testid='likecount' className={ 'Liked' }style={{ fontWeight:'bolder' }}> {blog.likes}</span>
       </span>
       <button data-testid='likeButton' onClick={handleLikes}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`heart ${unlikes?"heartLike":''}`}>

@@ -1,9 +1,12 @@
 import axios from "axios";
+// import { useMutation, useQueryClient } from "@tanstack/react-query";
 const baseUrl = "/api/blogs";
 let token = "";
+
 const setToken = (tokenConfig) => {
   token = `Bearer ${tokenConfig}`;
 };
+
 const getBlogs = async () => {
   const response = await axios.get(baseUrl);
   return response;
@@ -24,23 +27,35 @@ const deleteBlogs = async (id) => {
   const response = await axios.delete(`${baseUrl}/${id}`, config);
   return response.data;
 };
-const updateBlogs = async (id, updateBlog) => {
+const updateBlogs = async (content) => {
+  const { id, updatedBlogs } = content;
   const config = { headers: { Authorization: token } };
-  const uploaded = await axios.put(`${baseUrl}/${id}`, updateBlog, config);
+  const uploaded = await axios.put(`${baseUrl}/${id}`, updatedBlogs, config);
   const response = await getBlogsByID(uploaded.data.id);
   return response;
 };
-const updateLikes = async (blogs, unlike) => {
+const updateLikes = async (content) => {
   const config = { headers: { Authorization: token } };
-  const updatedBlog = { blogs: blogs, unlike: unlike };
+  const { blog, unlikes } = content;
+  const updatedBlog = { blogs: blog, unlike: unlikes };
   // blogs.unlike = unlike;
   const response = await axios.put(
-    `${baseUrl}/likes/${blogs.id}`,
+    `${baseUrl}/likes/${blog.id}`,
     updatedBlog,
     config
   );
   return response.data;
 };
+
+// const useCreateBlog = () => {
+//   const queryClient = useQueryClient();
+
+//   return useMutation(axios.post(baseUrl, newBlog, config), {
+//     onSuccess: () => {
+//       queryClient.invalidateQueries(["blogs"]);
+//     },
+//   });
+// };
 
 export default {
   getBlogs,
@@ -50,4 +65,5 @@ export default {
   getBlogsByID,
   deleteBlogs,
   updateBlogs,
+  // useCreateBlog,
 };

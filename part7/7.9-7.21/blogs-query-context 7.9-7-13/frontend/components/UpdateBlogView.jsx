@@ -2,15 +2,22 @@ import { useEffect, useState } from 'react';
 import Notification from './Notifications';
 import { useNotificationDispatch , useNotificationValue } from '../context/notificationContext';
 import { useStatusDispatch,useStatusValue } from '../context/statusContext';
-import { useBlogsDispatch } from '../context/blogsContext';
 import sessionService from '../src/service/sessionStorage';
 import blogService from '../src/service/blogs';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const UpdateBlogView = ({ blog,setUpdateBlog }) => {
+  const queryClient = useQueryClient()
+  const mutation = useMutation({
+    mutationFn: blogService.updateBlogs,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['blogs']);
+    },
+  });
+
   const notificationDispatch = useNotificationDispatch();
   const statusDistpach = useStatusDispatch();
   const notification = useNotificationValue();
-  const blogDispatch = useBlogsDispatch();
   const { updated } = useStatusValue();
   const { id,userId } = blog;
   
@@ -25,9 +32,8 @@ const UpdateBlogView = ({ blog,setUpdateBlog }) => {
     const token = await sessionService.getUserToken();
     blogService.setToken(token);
     try {
-      const response = await blogService.updateBlogs(id, updatedBlogs);
+      await mutation.mutateAsync({id,updatedBlogs});
       await statusDistpach({ type:'ADD_UPDATED', payload:true });
-      await blogDispatch({ type:"UPDATE_BLOG", payload:{ id, response } });
     } catch (err) {
       if (err.response) {
         if (err.response.data.error.includes("Validation failed")) {

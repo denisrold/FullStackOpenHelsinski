@@ -6,28 +6,24 @@ import LogoutButton from '../components/LogoutButton';
 import Blogs from '../components/Blog';
 import AddBlogs from '../components/AddBlogs';
 import userService from './service/user';
-import { useBlogsDispatch,useBlogsValue } from '../context/blogsContext';
 import { useUserDispatch,useUserValue } from '../context/userContext';
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios';
 
 function App() {
-  const blogsDispatch = useBlogsDispatch();
   const userDispatch = useUserDispatch();
   const loggedUserContext = useUserValue()
-  const blogs = useBlogsValue()
   const [user,setUser] = useState(null);
   const [loadState,setLoadState] = useState(false);
-  const result = useQuery({
+  const [blogues,setBLogues] = useState();
+  const blogs = useQuery({
     queryKey: ['blogs'],
     queryFn: () => axios.get('http://localhost:3003/api/blogs').then(res =>res.data )
   })
-  console.log('thisresult',result.data);
+  console.log('thisresult',blogs.data);
 
   const getBlogs = async () => {
     if(user){
-      const result = await axios.get('http://localhost:3003/api/blogs');
-      blogsDispatch({type:'ADD_BLOGS',payload:result.data});
         if(!loggedUserContext)  try {
           const getUserToken = window.localStorage.getItem("userLogged");
           let token = "";
@@ -42,7 +38,7 @@ function App() {
   }
 
   useEffect(() => {
-      getBlogs(); 
+    getBlogs(); 
     },[user])
 
   return (
@@ -58,7 +54,7 @@ function App() {
         <>
           <h3 name='userInfo'>{user.name} logged in</h3>
           <section className='bodyContainer'>
-            {blogs.length?blogs.map((b,i) => (
+            {blogs.data.length?blogs.data.sort((a,b)=>{return b.likes - a.likes}).map((b,i) => (
               <Blogs user={user} blog={b} key={i}/>
             ))
               :<h3 data-testid="noBlogs">No Blogs</h3>}

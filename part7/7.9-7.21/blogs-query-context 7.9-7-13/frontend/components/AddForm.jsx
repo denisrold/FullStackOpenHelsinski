@@ -1,22 +1,29 @@
 import Notification from './Notifications';
 import { useNotificationValue,useNotificationDispatch } from '../context/notificationContext';
-import { useBlogsDispatch } from '../context/blogsContext';
 import sessionService from '../src/service/sessionStorage';
 import blogService from '../src/service/blogs';
 import { useStatusDispatch } from '../context/statusContext';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-  const AddForm = ({ setNewBlog,newBlog }) => {
-  const blogDispatch = useBlogsDispatch();
+const AddForm = ({ setNewBlog,newBlog }) => {
   const statusDispatch = useStatusDispatch()
   const notificationDispatch = useNotificationDispatch();
   const notification = useNotificationValue()
+  const queryClient = useQueryClient();
+  // el tema esa el blogService: este hace qu eno funcione e service
+  const mutation = useMutation({
+    mutationFn:blogService.createBlogs,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['blogs']);
+    },
+  });
+  
   const handleAddBlogs = async (e) => {
     e.preventDefault();
       const token = await sessionService.getUserToken();
       blogService.setToken(token);
       try {
-        const blog = await blogService.createBlogs(newBlog);
-        blogDispatch({ type:'APPEND_BLOG',payload:blog })
+        const blog = await mutation.mutateAsync(newBlog);
         statusDispatch({type:'ADD_CREATED', payload:true});
       } catch (err) {
         if (err.response) {
