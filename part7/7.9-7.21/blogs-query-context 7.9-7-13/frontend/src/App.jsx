@@ -7,22 +7,18 @@ import Blogs from '../components/Blog';
 import AddBlogs from '../components/AddBlogs';
 import userService from './service/user';
 import { useUserDispatch,useUserValue } from '../context/userContext';
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios';
+import useFetchBlogs from '../src/service/useFetchBlogs';
 
 function App() {
+  const { data: blogs, isLoading, error } = useFetchBlogs(); 
   const userDispatch = useUserDispatch();
   const loggedUserContext = useUserValue()
   const [user,setUser] = useState(null);
   const [loadState,setLoadState] = useState(false);
   const [blogues,setBLogues] = useState();
-  const blogs = useQuery({
-    queryKey: ['blogs'],
-    queryFn: () => axios.get('http://localhost:3003/api/blogs').then(res =>res.data )
-  })
-  console.log('thisresult',blogs.data);
 
   const getBlogs = async () => {
+    setBLogues(blogs);
     if(user){
         if(!loggedUserContext)  try {
           const getUserToken = window.localStorage.getItem("userLogged");
@@ -36,10 +32,9 @@ function App() {
         };
       }
   }
-
   useEffect(() => {
     getBlogs(); 
-    },[user])
+    },[user,userDispatch])
 
   return (
     <>
@@ -54,10 +49,12 @@ function App() {
         <>
           <h3 name='userInfo'>{user.name} logged in</h3>
           <section className='bodyContainer'>
-            {blogs.data.length?blogs.data.sort((a,b)=>{return b.likes - a.likes}).map((b,i) => (
-              <Blogs user={user} blog={b} key={i}/>
-            ))
-              :<h3 data-testid="noBlogs">No Blogs</h3>}
+           { blogues&&
+            blogues.length?blogues.sort((a,b)=>b.likes-a.likes).map((b,i) => (
+                <Blogs user={user} blog={b} key={i}/>
+              ))
+              :<h3 data-testid="noBlogs">No Blogs</h3>
+            }
           </section>
           <AddBlogs />
           <LogoutButton logoutStates={ { setUser,setLoadState } }/>

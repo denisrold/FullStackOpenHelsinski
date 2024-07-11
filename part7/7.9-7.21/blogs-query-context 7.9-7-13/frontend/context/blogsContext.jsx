@@ -5,17 +5,6 @@ const blogsReducer = (state, action) => {
   switch (action.type) {
     case "ADD_BLOGS":
       return action.payload;
-    case "APPEND_BLOG":
-      return state = [...state, action.payload];
-      case "DELETE_BLOG":{
-        const id = action.payload;
-        return state.filter( b=>b.id !== id );
-      };
-      case "UPDATE_BLOG":{
-        const { id } = action.payload;
-        const { response } = action.payload;
-        return state.map(b=> b.id!==id? b : response )
-      }
       case "UPDATE_LIKES":{
         const { id, likes } = action.payload;
       return state.map(b=>b.id !== id?b:{ ...b,likes:likes });

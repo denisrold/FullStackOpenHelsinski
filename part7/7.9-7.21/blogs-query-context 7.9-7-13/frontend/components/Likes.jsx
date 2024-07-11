@@ -8,6 +8,7 @@ const Likes =({ blog }) => {
   const { id } = blog;
   const userId = useUserValue();
   const [unlikes,setUnlike] = useState(false);
+  const [blogLike,setBlogLike] = useState(blog.likes);
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: blogService.updateLikes,
@@ -40,8 +41,8 @@ const Likes =({ blog }) => {
     if(userId){
       getUserLike();
     }
+    
   },[userId]);
-
   //Likes or Unlikes.
   const handleLikes = async() => {
     try {
@@ -49,6 +50,12 @@ const Likes =({ blog }) => {
       blogService.setToken(token);
       setUnlike(!unlikes);
       await mutation.mutateAsync({blog,unlikes})
+      if(blog.likes>=0 && unlikes===true){
+        setBlogLike(blogLike-1);
+      }
+      if(unlikes===false){
+        setBlogLike(blogLike+1);
+      }
       } catch (err) {
         console.error(err);
       }
@@ -57,7 +64,7 @@ const Likes =({ blog }) => {
     <section className='likeContainer'>
       <span>
           Likes:
-        <span data-testid='likecount' className={ 'Liked' }style={{ fontWeight:'bolder' }}> {blog.likes}</span>
+        <span data-testid='likecount' className={ 'Liked' }style={{ fontWeight:'bolder' }}> {blogLike}</span>
       </span>
       <button data-testid='likeButton' onClick={handleLikes}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`heart ${unlikes?"heartLike":''}`}>
