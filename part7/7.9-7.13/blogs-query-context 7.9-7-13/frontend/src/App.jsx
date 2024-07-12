@@ -15,10 +15,8 @@ function App() {
   const loggedUserContext = useUserValue()
   const [user,setUser] = useState(null);
   const [loadState,setLoadState] = useState(false);
-  const [blogues,setBLogues] = useState();
-
   const getBlogs = async () => {
-    setBLogues(blogs);
+
     if(user){
       if(!loggedUserContext)  try {
         const getUserToken = window.localStorage.getItem("userLogged");
