@@ -9,6 +9,7 @@ import Blogs from '../components/Blog';
 import AddBlogs from '../components/AddBlogs';
 import { initializeBlogs } from '../redux/reducers/blogReducer';
 import { setUserID } from "../redux/reducers/userReducer";
+import Landing from '../components/Landing';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,15 +32,21 @@ function App() {
   return (
     <>
     <Routes>
-      <Route path='/' element={<div>Hola</div>}/>
+      <Route path='/' element={<Landing/>}/>
+      <Route path='/login' element={
+        <>
+        {
+        !user&&<Login
+            user={user}
+          setUser={setUser}
+          setLoadState={setLoadState}
+            loadState={loadState}/>
+          }
+        </>
+      }/>
       <Route path='/home' element={(<>
         <Header/>
-        {!user&&<Login
-          user={user}
-        setUser={setUser}
-        setLoadState={setLoadState}
-          loadState={loadState}/>
-        }
+        
         {user&&(
           <>
             <h3 name='userInfo'>{user.name} logged in</h3>
