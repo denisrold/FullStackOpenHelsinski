@@ -1,6 +1,8 @@
 import sessionStorage from "../src/service/sessionStorage";
+import { useNavigate } from "react-router-dom";
 
 const LogoutButton = ({ logoutStates }) => {
+  const navigate = useNavigate();
   const { setUser,setLoadState }= logoutStates;
   const handleLogout = async (event) => {
     event.preventDefault();
@@ -10,6 +12,7 @@ const LogoutButton = ({ logoutStates }) => {
     // window.localStorage.removeItem('userLogged');
     setUser(null);
     setLoadState(false);
+    navigate('/')
   }
   return(
     <div className='logOutButton'>

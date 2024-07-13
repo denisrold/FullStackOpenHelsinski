@@ -6,8 +6,10 @@ import sessionStorage from '../src/service/sessionStorage';
 import loginService from "../src/service/login"
 import Toggable from './Toggable';
 import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router-dom';
 
 const Login =({ user,setUser,setLoadState,loadState }) => {
+  const navigate=useNavigate();
   const dispatch = useDispatch();
   const { notification } = useSelector(state => state.notification);
   const [username,setUsername] = useState('');
@@ -24,6 +26,7 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
       sessionStorage.saveData('tokenExpires','userLogged')
       // window.localStorage.setItem('userLogged',JSON.stringify(userLog));
       setUser(userLog);
+      navigate('/home')
     }
     catch(err){
       let errorMessage = err.response.data.error.replace(err.response.data.error[0],err.response.data.error[0].toUpperCase()) + '.' 
@@ -39,9 +42,11 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
     if(loggedUser){
       setLoadState(true)
       const userLog = JSON.parse(loggedUser);
+   
       setTimeout(() => {
         setLoadState(false);
         setUser(userLog);
+        navigate('/home')
       },1000)
     }
   },[])
@@ -50,6 +55,9 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
     setUsername('rooter');
     setPassword('Password123*');
   }
+
+
+
   return(
     <>
       {loadState ? (<div className='loadStateContainer'><h3>Loading...</h3></div>):

@@ -35,6 +35,7 @@ function App() {
       <Route path='/' element={<Landing/>}/>
       <Route path='/login' element={
         <>
+          <Header/>
         {
         !user&&<Login
             user={user}
@@ -45,7 +46,6 @@ function App() {
         </>
       }/>
       <Route path='/home' element={(<>
-        <Header/>
         
         {user&&(
           <>
