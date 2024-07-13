@@ -4,6 +4,13 @@
   padding: 3rem;
   text-align: center;
 }
+
+.landingPage{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 80vh;
+}
 .containerHeader{
   margin-top: -2.5rem;
 }

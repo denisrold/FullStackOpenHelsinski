@@ -1,4 +1,5 @@
 import './App.css'
+import { Routes, Route, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Headers';
@@ -29,27 +30,33 @@ function App() {
 
   return (
     <>
-      <Header/>
-      {!user&&<Login
-        user={user}
+    <Routes>
+      <Route path='/' element={<div>Hola</div>}/>
+      <Route path='/home' element={(<>
+        <Header/>
+        {!user&&<Login
+          user={user}
         setUser={setUser}
         setLoadState={setLoadState}
-        loadState={loadState}/>
+          loadState={loadState}/>
+        }
+        {user&&(
+          <>
+            <h3 name='userInfo'>{user.name} logged in</h3>
+            <section className='bodyContainer'>
+              {blogs.length?blogs.map((b,i) => (
+                <Blogs user={user} blog={b} key={i}/>
+              ))
+                :<h3 data-testid="noBlogs">No Blogs</h3>}
+            </section>
+            <AddBlogs />
+            <LogoutButton logoutStates={ { setUser,setLoadState } }/>
+          </>
+        )
       }
-      {user&&(
-        <>
-          <h3 name='userInfo'>{user.name} logged in</h3>
-          <section className='bodyContainer'>
-            {blogs.length?blogs.map((b,i) => (
-              <Blogs user={user} blog={b} key={i}/>
-            ))
-              :<h3 data-testid="noBlogs">No Blogs</h3>}
-          </section>
-          <AddBlogs />
-          <LogoutButton logoutStates={ { setUser,setLoadState } }/>
-        </>
-      )
-      }
+        </>)}>
+      </Route>
+    </Routes>
     </>
   )
 }
