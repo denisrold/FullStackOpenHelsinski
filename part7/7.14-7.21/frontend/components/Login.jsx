@@ -8,6 +8,7 @@ import Toggable from './Toggable';
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom';
 import RegisterForm from './RegisterForm';
+
 const Login =({ user,setUser,setLoadState,loadState }) => {
   const [ register,setRegister ]= useState(false);
   const navigate=useNavigate();
@@ -51,7 +52,7 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
       },1000)
     }
   },[])
-  const handleDemo =(e)=>{
+  const handleDemo = (e) => {
     e.preventDefault()
     setUsername('rooter');
     setPassword('Password123*');
@@ -64,17 +65,18 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
           <Toggable buttonLabel={"Login"} dispatch={dispatch}>
             <section className='formContainer'>
               {!register&&(
-              <form name="LoginForm" className='form'>
-                <div>
-                  <input data-testid='username' required type="text" value={username} onChange={({ target }) => setUsername(target.value)} placeholder='user'></input>
-                </div>
-                <div>
-                  <input data-testid='password' required type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder='password'></input>
-                </div>
-                <button name="Login" onClick={handleForm}>Login</button>
-                <button onClick={handleDemo}>demo</button>
-                <p className="loginToRegister">Don&apos;t have an account yet?<a onClick={()=>{setRegister(true)}}> Register.</a></p>
-              </form>)
+             <form name="LoginForm" className='form'>
+             <div>
+               <input data-testid='username' required type="text" value={username} onChange={({ target }) => setUsername(target.value)} placeholder='user'></input>
+             </div>
+             <div>
+               <input data-testid='password' required type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder='password'></input>
+             </div>
+             <button name="Login" onClick={handleForm}>Login</button>
+             <button onClick={handleDemo}>demo</button>
+             <p className="loginToRegister">Don&apos;t have an account yet?<a onClick={()=>{setRegister(true)}}> Register.</a></p>
+           </form>
+             )
             }
             {register&&(
              <RegisterForm setRegister={setRegister} setUsername={setUsername} setPassword={setPassword} username={username} password={password} handleForm={handleForm}/>

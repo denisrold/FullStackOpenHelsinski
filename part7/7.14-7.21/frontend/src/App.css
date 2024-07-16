@@ -43,9 +43,12 @@ body button{
   
 }
 
-
 .containerHeader{
   margin-top: -2.5rem;
+}
+
+.loginToRegister{
+  cursor: pointer;
 }
 
 .flexRow{
