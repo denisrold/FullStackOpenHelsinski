@@ -79,7 +79,7 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
              )
             }
             {register&&(
-             <RegisterForm setRegister={setRegister} setUsername={setUsername} setPassword={setPassword} username={username} password={password} handleForm={handleForm}/>
+             <RegisterForm setRegister={setRegister} user={user} setUser={setUser} setUsername={setUsername} setPassword={setPassword} username={username} password={password} handleForm={handleForm}/>
             )}
             </section>
           </Toggable>

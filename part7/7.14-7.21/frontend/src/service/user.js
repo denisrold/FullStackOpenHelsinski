@@ -14,7 +14,6 @@ const userId = async () => {
 const createUser = async (newUser) => {
   console.log("entre", newUser);
   const response = await axios.post(`${baseUrl}`, newUser);
-  console.log(response);
   return response.data;
 };
 

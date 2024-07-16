@@ -1,25 +1,42 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import userService from '../src/service/user';
 import { useNavigate } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
+import { createNotification, clearNotification } from '../redux/reducers/notificationReducer';
+
 const RegisterForm = ({username,password,setPassword,setUsername,setRegister}) => {
-    const navigate = useNavigate();
-    const [repeatPassword,setRepeatPassword] = useState(false);
-    const [isRegister,setIsRegister] = useState(false);
+
+  const dispatch = useDispatch();
     const [name,setName] = useState('');
-    const handleRegister = ()=>{
+    useEffect(()=>{
+      setPassword('');
+      setUsername('');
+      setName('');
+    },[])
+    const handleRegister = async  (e)=>{
+      e.preventDefault()
+      dispatch(clearNotification());
        const newUSer = {
             username:username,
             name:name,
             password:password
         }
         try{
-            userService.createUser(newUSer)
-            setIsRegister(true);
+        await userService.createUser(newUSer)  
+        window.alert('you can login now.')
+        setPassword('');
+        setRegister(false)
         }catch(err){
-            console.log('este error',err);
+          console.log('este error',err.response.data.error);
+          let errorMessage = ''
+          if(err.response.data.error === "expected `username` to be unique"){
+          errorMessage = err.response.data.error.replace(err.response.data.error,'username already exist.')}
+          else{
+          errorMessage = err.response.data.error.replace(err.response.data.error[0],err.response.data.error[0].toUpperCase()) + '.' 
+          }
+          dispatch(createNotification(errorMessage))
         }
     }
-    // if(isRegister){navigate('/home')}
     return(
         <form name="LoginForm" className='form' onSubmit={handleRegister}>
           <div>
