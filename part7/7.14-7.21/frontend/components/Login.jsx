@@ -7,8 +7,9 @@ import loginService from "../src/service/login"
 import Toggable from './Toggable';
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom';
-
+import RegisterForm from './RegisterForm';
 const Login =({ user,setUser,setLoadState,loadState }) => {
+  const [ register,setRegister ]= useState(false);
   const navigate=useNavigate();
   const dispatch = useDispatch();
   const { notification } = useSelector(state => state.notification);
@@ -56,14 +57,13 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
     setPassword('Password123*');
   }
 
-
-
   return(
     <>
       {loadState ? (<div className='loadStateContainer'><h3>Loading...</h3></div>):
         !user && (
           <Toggable buttonLabel={"Login"} dispatch={dispatch}>
             <section className='formContainer'>
+              {!register&&(
               <form name="LoginForm" className='form'>
                 <div>
                   <input data-testid='username' required type="text" value={username} onChange={({ target }) => setUsername(target.value)} placeholder='user'></input>
@@ -72,9 +72,13 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
                   <input data-testid='password' required type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder='password'></input>
                 </div>
                 <button name="Login" onClick={handleForm}>Login</button>
-                <button onClick={handleDemo}>userDemo</button>
-                <p className="loginToRegister">Don&apos;t have an account yet?<a onClick={() => { console.log("go to Register")}}>Register.</a></p>
-              </form>
+                <button onClick={handleDemo}>demo</button>
+                <p className="loginToRegister">Don&apos;t have an account yet?<a onClick={()=>{setRegister(true)}}> Register.</a></p>
+              </form>)
+            }
+            {register&&(
+             <RegisterForm setRegister={setRegister} setUsername={setUsername} setPassword={setPassword} username={username} password={password} handleForm={handleForm}/>
+            )}
             </section>
           </Toggable>
         )

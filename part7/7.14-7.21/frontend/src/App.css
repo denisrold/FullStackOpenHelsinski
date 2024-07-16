@@ -4,6 +4,15 @@
   padding: 3rem;
   text-align: center;
 }
+body button{
+  font-size: large;
+  font-weight: bolder;
+  padding: 1rem 3rem; 
+  background: transparent;
+  border: 1.5px solid;
+  margin-top: 1rem;
+  border-radius: 2rem;
+}
 .background{
   position:absolute; z-index: -10;
   background-image:url('../public/background2.jpg');
@@ -34,15 +43,6 @@
   
 }
 
-.landingPage button{
-  font-size: large;
-  font-weight: bolder;
-  padding: 1rem 3rem; 
-  background: transparent;
-  border: 1.5px solid;
-  margin-top: 1rem;
-  border-radius: 2rem;
-}
 
 .containerHeader{
   margin-top: -2.5rem;
@@ -228,13 +228,19 @@ font-size: small;
 
 }
 /* BACK BUTTON */
-.backButtonContainer{height: 2.3rem;}
+.backButtonContainer{
+  height: 2.3rem;
+  padding-bottom: 2rem;
+}
+
 .backButton{
+
   color: white;
   width: 1rem;
   height: 1rem;
 }
 .formAdd button{
+
   margin-top: .9rem;
   padding-left: 4rem;
   padding-right: 4rem;
@@ -254,6 +260,17 @@ font-size: small;
   min-width: 20rem;
   backdrop-filter: blur(10px)
 }
+
+@media screen and (max-width: 1024px) {
+  .landingPage{
+   margin: 35vh auto;
+   color:black;
+   height:15vh;
+  }
+  .landingPage button{
+    color: black;
+  }
+}
 @media screen and (max-width: 630px) {
   .background{
     width: 100vw;
@@ -265,7 +282,7 @@ font-size: small;
  width: 50vw;
  flex-direction: column;
  align-items: center; 
- margin: auto;
+ margin: 20vh auto;
 }
   .bodyContainer{
     height: 70vh;
