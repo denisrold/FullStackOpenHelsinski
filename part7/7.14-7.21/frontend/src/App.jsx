@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Headers';
@@ -10,9 +10,11 @@ import AddBlogs from '../components/AddBlogs';
 import { initializeBlogs } from '../redux/reducers/blogReducer';
 import { setUserID } from "../redux/reducers/userReducer";
 import Landing from '../components/Landing';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const  { blogs }  = useSelector(state => state.blogs);
   const loggedUserID = useSelector(state => state.user.userId)
   const [user,setUser] = useState(null);
@@ -28,7 +30,7 @@ function App() {
   useEffect(() => {
       getBlogs(); 
   },[user])
-
+ 
   return (
     <>
     <Routes>
@@ -36,17 +38,16 @@ function App() {
       <Route path='/login' element={
         <>
           <Header/>
-        {
-        !user&&<Login
+          {
+          !user&&<Login
             user={user}
-          setUser={setUser}
-          setLoadState={setLoadState}
+            setUser={setUser}
+            setLoadState={setLoadState}
             loadState={loadState}/>
           }
         </>
       }/>
       <Route path='/home' element={(<>
-        
         {user&&(
           <>
             <h3 name='userInfo'>{user.name} logged in</h3>

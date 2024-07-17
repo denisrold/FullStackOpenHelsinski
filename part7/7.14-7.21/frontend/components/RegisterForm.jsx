@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import userService from '../src/service/user';
-import { useNavigate } from "react-router-dom";
-import { useSelector,useDispatch } from "react-redux";
+import {useDispatch } from "react-redux";
 import { createNotification, clearNotification } from '../redux/reducers/notificationReducer';
 
 const RegisterForm = ({username,password,setPassword,setUsername,setRegister}) => {
@@ -23,8 +22,9 @@ const RegisterForm = ({username,password,setPassword,setUsername,setRegister}) =
         }
         try{
         await userService.createUser(newUSer)  
-        window.alert('you can login now.')
+        window.alert('Account created! you can login now.')
         setPassword('');
+        setUsername('');
         setRegister(false)
         }catch(err){
           console.log('este error',err.response.data.error);

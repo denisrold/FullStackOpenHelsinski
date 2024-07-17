@@ -16,7 +16,7 @@ const blogSlice = createSlice({
     updateLikes(state, action) {
       const { id, likes } = action.payload;
       const indexBlog = state.blogs.findIndex((b) => b.id === id);
-      if (blog !== -1) {
+      if (indexBlog !== -1) {
         state.blogs[indexBlog].likes = likes;
       }
     },

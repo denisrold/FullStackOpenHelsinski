@@ -51,7 +51,7 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
         navigate('/home')
       },1000)
     }
-  },[])
+  },[register])
   const handleDemo = (e) => {
     e.preventDefault()
     setUsername('rooter');
