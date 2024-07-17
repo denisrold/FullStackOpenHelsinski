@@ -49,7 +49,7 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
         setLoadState(false);
         setUser(userLog);
         navigate('/home')
-      },1000)
+      },500)
     }
   },[register])
   const handleDemo = (e) => {
@@ -60,8 +60,7 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
 
   return(
     <>
-      {loadState ? (<div className='loadStateContainer'><h3>Loading...</h3></div>):
-        !user && (
+      {loadState ? (<div className='loadStateContainer'><h3>Loading...</h3></div>):!user && (
           <Toggable buttonLabel={"Login"} dispatch={dispatch}>
             <section className='formContainer'>
               {!register&&(

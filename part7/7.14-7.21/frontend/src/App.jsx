@@ -13,6 +13,7 @@ import Landing from '../components/Landing';
 import { useNavigate } from 'react-router-dom';
 import sessionStorage from './service/sessionStorage';
 import userService from '../src/service/user';
+import Navbar from '../components/Navbar/Navbar';
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ function App() {
       <Route path='/home' element={(<>
         {user&&(
           <>
+            <Navbar />
             <h3 name='userInfo'>{user.name} logged in</h3>
             <section className='bodyContainer'>
               {blogs&&(blogs.length?blogs.map((b,i) => (
