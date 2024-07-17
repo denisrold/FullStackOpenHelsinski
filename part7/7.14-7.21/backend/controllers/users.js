@@ -19,7 +19,11 @@ usersRouter.get("/user", async (req, res) => {
     res.status(401).json({ error: "Invalid token" });
   }
   const user = await User.findById(req.user.id);
-  res.status(200).json(user);
+  const response = {
+    username: user.username,
+    name: user.name,
+  };
+  res.status(200).json(response);
 });
 
 usersRouter.post("/", async (req, res) => {
