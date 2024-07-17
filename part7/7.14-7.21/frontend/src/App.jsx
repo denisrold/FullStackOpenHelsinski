@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Headers';
@@ -23,7 +23,6 @@ function App() {
   const [loadState,setLoadState] = useState(false);
 
   const getBlogs = async () => {
-    console.log('user',user)
     dispatch(initializeBlogs());
     if(user){
       if(!loggedUserID) dispatch(setUserID());
@@ -68,10 +67,10 @@ function App() {
           <>
             <h3 name='userInfo'>{user.name} logged in</h3>
             <section className='bodyContainer'>
-              {blogs.length?blogs.map((b,i) => (
+              {blogs&&(blogs.length?blogs.map((b,i) => (
                 <Blogs user={user} blog={b} key={i}/>
               ))
-                :<h3 data-testid="noBlogs">No Blogs</h3>}
+                :<h3 data-testid="noBlogs">No Blogs</h3>)}
             </section>
             <AddBlogs />
             <LogoutButton logoutStates={ { setUser,setLoadState } }/>
