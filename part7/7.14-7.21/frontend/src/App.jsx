@@ -11,6 +11,8 @@ import { initializeBlogs } from '../redux/reducers/blogReducer';
 import { setUserID } from "../redux/reducers/userReducer";
 import Landing from '../components/Landing';
 import { useNavigate } from 'react-router-dom';
+import sessionStorage from './service/sessionStorage';
+import userService from '../src/service/user';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,13 +23,27 @@ function App() {
   const [loadState,setLoadState] = useState(false);
 
   const getBlogs = async () => {
-      dispatch(initializeBlogs());
-      if(user){
-        if(!loggedUserID) dispatch(setUserID());
-      }
+    console.log('user',user)
+    dispatch(initializeBlogs());
+    if(user){
+      if(!loggedUserID) dispatch(setUserID());
+    }
+  }
+  
+  const getUser = async () => {
+    const token = await sessionStorage.getUserToken();
+    if(token){
+      userService.setToken(token);
+      const user = await userService.getUser()
+      setUser({name:user.name,token:token,username:user.username});
+    }
+    else navigate('/')
   }
 
   useEffect(() => {
+    if(!user){   
+      getUser()
+    }
       getBlogs(); 
   },[user])
  

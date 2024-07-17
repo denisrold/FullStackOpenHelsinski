@@ -10,11 +10,15 @@ const userId = async () => {
   const response = await axios.get(`${baseUrl}/userId`, config);
   return response.data;
 };
-
+const getUser = async () => {
+  const config = { headers: { Authorization: token } };
+  const response = await axios.get(`${baseUrl}/user`, config);
+  return response.data;
+};
 const createUser = async (newUser) => {
   console.log("entre", newUser);
   const response = await axios.post(`${baseUrl}`, newUser);
   return response.data;
 };
 
-export default { setToken, userId, createUser };
+export default { setToken, userId, createUser, getUser };
