@@ -32,6 +32,7 @@ function App() {
   
   const getUser = async () => {
     const token = await sessionStorage.getUserToken();
+    console.log(token);
     if(token){
       userService.setToken(token);
       const user = await userService.getUser()

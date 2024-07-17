@@ -44,6 +44,9 @@ function removeStorageData(storageLoggedUser) {
 
 async function getUserToken() {
   const userToken = window.localStorage.getItem("userLogged");
+  if (!userToken) {
+    return null;
+  }
   const { token } = await JSON.parse(userToken);
   return token;
 }
