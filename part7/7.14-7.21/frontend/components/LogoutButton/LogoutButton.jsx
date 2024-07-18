@@ -1,7 +1,8 @@
-import sessionStorage from "../src/service/sessionStorage";
+import './LogoutButton.css';
+import sessionStorage from "../../src/service/sessionStorage";
 import { useNavigate } from "react-router-dom";
 import { useDispatch , useSelector } from 'react-redux';
-import { logoutUserId } from "../redux/reducers/userReducer";
+import { logoutUserId } from "../../redux/reducers/userReducer";
 
 const LogoutButton = ({ logoutStates }) => {
   const dispatch = useDispatch();

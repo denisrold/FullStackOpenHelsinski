@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Headers';
 import Login from '../components/Login';
-import LogoutButton from '../components/LogoutButton';
+import LogoutButton from '../components/LogoutButton/LogoutButton';
 import Blogs from '../components/Blog';
 import AddBlogs from '../components/AddBlogs';
 import { initializeBlogs } from '../redux/reducers/blogReducer';
@@ -66,7 +66,7 @@ function App() {
       <Route path='/home' element={(<>
         {user&&(
           <>
-            <Navbar />
+            <Navbar setUser={setUser} setLoadState={setLoadState} />
             <h3 name='userInfo'>{user.name} logged in</h3>
             <section className='bodyContainer'>
               {blogs&&(blogs.length?blogs.map((b,i) => (
@@ -75,7 +75,6 @@ function App() {
                 :<h3 data-testid="noBlogs">No Blogs</h3>)}
             </section>
             <AddBlogs />
-            <LogoutButton logoutStates={ { setUser,setLoadState } }/>
           </>
         )
       }

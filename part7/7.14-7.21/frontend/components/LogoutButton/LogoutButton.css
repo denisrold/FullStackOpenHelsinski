@@ -1,0 +1,16 @@
+.logOutButton{
+    width: 5rem ;
+    margin-right: -10rem;
+}
+
+.logOutButton button{   
+    border: none;
+    padding: 0 1rem;
+    font-weight: normal;
+    margin: auto 1rem;
+    
+}
+
+.logOutButton button:hover{   
+color: rgb(0, 0, 189);
+}

@@ -1,12 +1,39 @@
-
 .navbar_container{
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.367);
+    background-color: rgba(0, 0, 0, 0.537);
     backdrop-filter: blur(15px);
-    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.562);
-padding: 1rem;
-border: 1px solid rgba(0, 0, 0, 0.256);
+    box-shadow: 0 0 8px 5px rgba(0, 0, 0, 0.562);
+    padding: .7rem;
+    display: flex; 
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ul_navbar{
+    margin-left: -15rem;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    list-style: none;
+    gap: 2rem;
+}
+
+.ul_navbar a {
+    cursor: pointer;
+    color: white;
+}
+
+.titleNav{
+    font-weight: bolder;
+}
+
+.Logo{
+
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding: 0;
+    margin: 0 -10rem;
+
 }
