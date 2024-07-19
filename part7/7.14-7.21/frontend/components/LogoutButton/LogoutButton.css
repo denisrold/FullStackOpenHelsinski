@@ -1,6 +1,8 @@
 .logOutButton{
-    width: 5rem;
+    width: 7rem;
     grid-column: 6 / 6;
+    justify-self: end;
+
 }
 
 .logOutButton button{   
@@ -13,16 +15,10 @@
     color: rgb(79, 79, 221);
 }
 
-@media screen and (max-width: 990px) {
-    .logOutButton{
 
+@media screen and (max-width: 769px) {
+    .logOutButton button{
+        font-size: large;
+        margin-top: 1.1rem;
     }
 }
-/* 
-
-@media screen and (max-width: 752px) {
-    .logOutButton{
-    display: none;
-        }
-      } */
-    
