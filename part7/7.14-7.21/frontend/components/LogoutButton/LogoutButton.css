@@ -22,3 +22,10 @@
         margin-top: 1.1rem;
     }
 }
+
+
+@media screen and (max-width: 720px) { 
+    .logOutButton{
+        display: none;
+    }
+}
