@@ -1,16 +1,28 @@
 .logOutButton{
-    width: 5rem ;
-    margin-right: -10rem;
+    width: 5rem;
+    grid-column: 6 / 6;
 }
 
 .logOutButton button{   
     border: none;
     padding: 0 1rem;
     font-weight: normal;
-    margin: auto 1rem;
-    
 }
 
 .logOutButton button:hover{   
-color: rgb(0, 0, 189);
+    color: rgb(79, 79, 221);
 }
+
+@media screen and (max-width: 990px) {
+    .logOutButton{
+
+    }
+}
+/* 
+
+@media screen and (max-width: 752px) {
+    .logOutButton{
+    display: none;
+        }
+      } */
+    
