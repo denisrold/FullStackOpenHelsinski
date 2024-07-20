@@ -12,7 +12,8 @@
 }
 
 .logOutButton button:hover{   
-    color: rgb(79, 79, 221);
+    color: #646cff;
+
 }
 
 
@@ -22,7 +23,6 @@
         margin-top: 1.1rem;
     }
 }
-
 
 @media screen and (max-width: 720px) { 
     .logOutButton{

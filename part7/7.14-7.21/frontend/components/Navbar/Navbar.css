@@ -1,7 +1,7 @@
 .Cell_view{
     display: none;
 }
-
+  
 .navbar_container{
     position: fixed;
     left: 0;
@@ -24,7 +24,7 @@
     display: flex;
     flex-direction: row;
     list-style: none;
-    gap: 1.5rem;
+    gap: 3rem;
     grid-column: 3 / 5;
 }
 
@@ -51,8 +51,15 @@
     display: none;
 }
 .LogoCell{display:none}
+.Cell_view {
+    display: none;
 
+  }
     @media screen and (max-width: 990px) {
+        
+.ul_navbar{
+    gap: 1.5rem;
+}
         .Logo{
             margin: auto;
             font-size: xx-large;
@@ -115,6 +122,10 @@
     .burguerButton:hover{
         cursor: pointer;
     }
+    .burguerButton:active{
+        color: #646cff;
+    }
+    
 }
  
 @media screen and (max-width: 500px) {

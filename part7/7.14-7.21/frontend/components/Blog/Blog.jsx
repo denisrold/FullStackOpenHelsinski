@@ -1,10 +1,11 @@
 import { useState } from "react";
-import Toggable from "./Toggable";
-import Likes from './Likes';
-import DeleteBlog from "./DeleteBlog";
-import EditBlog from "./EditBlog";
-import UpdateBlogView from "./UpdateBlogView";
+import Toggable from "../Toggable";
+import Likes from '../Likes';
+import DeleteBlog from "../DeleteBlog";
+import EditBlog from "../EditBlog";
+import UpdateBlogView from "../UpdateBlogView";
 import { useSelector } from "react-redux";
+import './Blog.css';
 
 const Blogs = ({ user, blog }) => {
   const loggedUserID = useSelector(state => state.user.userId)

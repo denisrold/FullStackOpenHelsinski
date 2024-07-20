@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Headers';
 import Login from '../components/Login';
-import LogoutButton from '../components/LogoutButton/LogoutButton';
-import Blogs from '../components/Blog';
+import Blogs from '../components/Blog/Blog';
 import AddBlogs from '../components/AddBlogs';
 import { initializeBlogs } from '../redux/reducers/blogReducer';
 import { setUserID } from "../redux/reducers/userReducer";
@@ -67,7 +66,7 @@ function App() {
         {user&&(
           <>
             <Navbar setUser={setUser} setLoadState={setLoadState} />
-            <h3 name='userInfo'>{user.name} logged in</h3>
+            <span name='userInfo' className='userInfo'>Hello {user.name}!</span>
             <section className='bodyContainer'>
               {blogs&&(blogs.length?blogs.map((b,i) => (
                 <Blogs user={user} blog={b} key={i}/>

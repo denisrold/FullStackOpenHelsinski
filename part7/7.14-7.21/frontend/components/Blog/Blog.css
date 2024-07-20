@@ -1,0 +1,45 @@
+
+.bodyContainer{
+width: 83vw;
+display: grid;
+grid-template-columns: repeat(3, 1fr); 
+margin-bottom: 10rem;
+}
+
+.blogContainer{
+display: flex;
+justify-content: center;
+flex-direction: column;
+border-radius: .3rem;
+border: 2px solid white;
+max-width: 26rem; 
+margin-top: 1rem;
+min-height: 25rem;
+
+}
+
+  @media screen and (max-width: 630px) {
+    .bodyContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: solid 1.5px rgba(255, 255, 255, 0.675);
+        border-radius: 3px;
+        width: 85%;
+        height: 55vh;
+        padding:1rem;
+        max-width: 80vh;
+        overflow-y: auto;
+        margin: 0 auto 0 auto;
+      }
+
+      .blogContainer{
+        border: solid 1px red;
+        border-radius: 3px;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        width: 70vh;
+        max-width: 70vh;
+      }
+  }
