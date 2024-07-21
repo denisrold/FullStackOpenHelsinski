@@ -4,6 +4,9 @@ width: 83vw;
 display: grid;
 grid-template-columns: repeat(3, 1fr); 
 margin-bottom: 10rem;
+overflow-y: auto;
+max-height: 100vh;
+scrollbar-width: none;
 }
 
 .blogContainer{
@@ -19,14 +22,16 @@ min-height: 25rem;
 }
 
 
+@media screen and (max-width: 1300px) {
+  .bodyContainer{
+    grid-template-columns: repeat(3, .75fr); 
+    gap: 1rem;
+  }
+}
 @media screen and (max-width: 1024px) {
     .bodyContainer{
         grid-template-columns: repeat(2, 1fr); 
         gap: 1rem;
-      }
-
-      .blogContainer{
-        
       }
   }
 
@@ -66,5 +71,6 @@ min-height: 25rem;
     }
     .bodyContainer{
         margin-left: -2.5rem;
+    
       }
   }
