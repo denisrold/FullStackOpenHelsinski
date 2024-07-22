@@ -10,9 +10,9 @@ const Navbar = ({setUser, setLoadState}) => {
             <h1 className='Logo'>Blogguerse</h1>
             <ul className='ul_navbar'>
               <li><Link to={'/home'}>Home</Link></li>
-              <li><Link to={'myblogs'}>My blogs</Link></li>
-              <li><Link to={'users'}>Users</Link></li>
-              <li><Link to={'info'}>My info</Link></li>
+              <li><Link to={'/myblogs'}>My blogs</Link></li>
+              <li><Link to={'/users'}>Users</Link></li>
+              <li><Link to={'/info'}>My info</Link></li>
             </ul>
             <LogoutButton logoutStates={{setUser,setLoadState}}/>
             </div>

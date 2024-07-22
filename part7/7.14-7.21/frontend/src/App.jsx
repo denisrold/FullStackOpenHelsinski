@@ -13,6 +13,9 @@ import { useNavigate } from 'react-router-dom';
 import sessionStorage from './service/sessionStorage';
 import userService from '../src/service/user';
 import Navbar from '../components/Navbar/Navbar';
+import Myblogs from '../components/Myblogs/Myblogs';
+import Users from '../components/Users/Users';
+import Info from '../components/Info/Info';
 
 function App() {
   const dispatch = useDispatch();
@@ -78,8 +81,11 @@ function App() {
           </>
         )
       }
-        </>)}>
-      </Route>
+        </>)}/>
+
+      <Route path='/myblogs' element={<Myblogs/>}/>
+      <Route path='/users' element={<Users/>}/>
+      <Route path='/info' element={<Info/>}/>
     </Routes>
     </>
   )
