@@ -6,7 +6,6 @@ grid-template-columns: repeat(3, 1fr);
 margin-bottom: 10rem;
 overflow-y: auto;
 max-height: 100vh;
-scrollbar-width: none;
 }
 
 .blogContainer{

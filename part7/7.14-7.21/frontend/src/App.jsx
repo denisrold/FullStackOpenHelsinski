@@ -48,6 +48,7 @@ function App() {
  
   return (
     <>
+    {user&&window.location.pathname !=='/'&&<Navbar setUser={setUser} setLoadState={setLoadState} />}
     <Routes>
       <Route path='/' element={<Landing/>}/>
       <Route path='/login' element={
@@ -65,7 +66,7 @@ function App() {
       <Route path='/home' element={(<>
         {user&&(
           <>
-            <Navbar setUser={setUser} setLoadState={setLoadState} />
+           
             <span name='userInfo' className='userInfo'>Hello {user.name}!</span>
             <section className='bodyContainer'>
               {blogs&&(blogs.length?blogs.map((b,i) => (
