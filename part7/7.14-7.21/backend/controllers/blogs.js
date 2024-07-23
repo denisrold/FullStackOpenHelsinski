@@ -64,7 +64,11 @@ blogsRouter.put("/:id", async (request, response) => {
       runValidators: true,
       // context: "query",
     }
-  );
+  ).populate("userId", {
+    username: 1,
+    name: 1,
+  });
+  console.log("esteupdated", updatedBlog);
   if (!updatedBlog) response.status(404).json({ err: "no such blog" });
   else response.status(200).json(updatedBlog);
 });

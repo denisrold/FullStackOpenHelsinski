@@ -13,15 +13,18 @@ const Myblogs = ({ user })=>{
     },[loggedUserID]);
     const  { blogs }  = useSelector(state => state.blogs);
     const [myBlogs,setMyBlogs] = useState([]);
-    
+    console.log('este blogs',blogs);
     const filterCreatedBlogs = ()=>{
         if(blogs){
+            console.log('blogues3',blogs)
             const myBlogues = blogs.filter(b => b.userId.id === loggedUserID)
+            console.log('myBlogues',myBlogues);
             setMyBlogs(myBlogues);
         }
     } 
 
     useEffect(()=>{
+        console.log('blogues2',blogs)
         filterCreatedBlogs()
     },[blogs])
 
