@@ -1,0 +1,10 @@
+
+.userInfo{
+    display: flex;
+    justify-content: center;
+    width: 83.5vw;
+    padding: 3rem 0 1rem 0;
+    font-weight: normal;
+    font-size: large;
+  }
+  

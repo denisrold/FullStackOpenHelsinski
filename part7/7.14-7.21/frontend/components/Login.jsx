@@ -58,9 +58,9 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
     setPassword('Password123*');
   }
 
-  return(
+  return(!user&&(
     <>
-      {loadState ? (<div className='loadStateContainer'><h3>Loading...</h3></div>):!user && (
+      {loadState ? (<div className='loadStateContainer'><h3>Loading...</h3></div>):(
           <Toggable buttonLabel={"Login"} dispatch={dispatch}>
             <section className='formContainer'>
               {!register&&(
@@ -86,6 +86,7 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
       }
       {notification&&<Notifications/>}
     </>
+   )
   )
 }
 

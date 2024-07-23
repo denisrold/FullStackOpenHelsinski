@@ -2,7 +2,7 @@
 const Header = () => {
   return(
     <header id="blog" className='containerHeader'>
-      <h1 >Bloggerse</h1>
+      <h1>Bloggerse</h1>
     </header>
   )
 }

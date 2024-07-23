@@ -237,15 +237,6 @@ font-size: small;
   backdrop-filter: blur(10px)
 }
 
-.userInfo{
-  display: flex;
-  justify-content: center;
-  width: 83.5vw;
-  padding: 2rem 0 .5rem 0;
-  font-weight: normal;
-  font-size: large;
-}
-
 @media screen and (max-width: 1024px) {
   .landingPage{
    margin: 35vh auto;

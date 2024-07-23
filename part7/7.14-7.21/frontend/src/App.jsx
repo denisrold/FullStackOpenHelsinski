@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Headers';
 import Login from '../components/Login';
-import Blogs from '../components/Blog/Blog';
-import AddBlogs from '../components/AddBlogs';
 import { initializeBlogs } from '../redux/reducers/blogReducer';
 import { setUserID } from "../redux/reducers/userReducer";
 import Landing from '../components/Landing';
@@ -21,7 +19,6 @@ import Home from '../components/Home/Home';
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const  { blogs }  = useSelector(state => state.blogs);
   const loggedUserID = useSelector(state => state.user.userId)
   const [user,setUser] = useState(null);
   const [loadState,setLoadState] = useState(false);
@@ -32,7 +29,7 @@ function App() {
       if(!loggedUserID) dispatch(setUserID());
     }
   }
-  
+
   const getUser = async () => {
     const token = await sessionStorage.getUserToken();
     if(token){
@@ -58,19 +55,17 @@ function App() {
       <Route path='/login' element={
         <>
           <Header/>
-          {
-          !user&&<Login
+          <Login
             user={user}
             setUser={setUser}
             setLoadState={setLoadState}
             loadState={loadState}/>
-          }
         </>
       }/>
-      <Route path='/home' element={<Home blogs={blogs} user={user}/>}/>
-      <Route path='/myblogs' element={<Myblogs/>}/>
-      <Route path='/users' element={<Users/>}/>
-      <Route path='/info' element={<Info/>}/>
+      <Route path='/home' element={ <Home user={user}/> }/>
+      <Route path='/myblogs' element={ <Myblogs/> }/>
+      <Route path='/users' element={ <Users/> }/>
+      <Route path='/info' element={ <Info/> }/>
     </Routes>
     </>
   )
