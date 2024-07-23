@@ -6,6 +6,7 @@ grid-template-columns: repeat(3, 1fr);
 margin-bottom: 10rem;
 overflow-y: auto;
 max-height: 100vh;
+gap: 1rem;
 }
 
 .blogContainer{
@@ -20,6 +21,26 @@ min-height: 25rem;
 
 }
 
+/*scrollBar Config.*/
+.bodyContainer::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra de scroll vertical */
+  height: 8px; /* Ancho de la barra de scroll horizontal */
+}
+
+.bodyContainer::-webkit-scrollbar-thumb {
+
+  background-color: rgba(0, 0, 0, 0.767); /* Color de la barra de desplazamiento */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+.bodyContainer::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.523); /* Color de la barra de desplazamiento cuando se pasa el mouse por encima */
+}
+
+.bodyContainer::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1); /* Fondo de la pista */
+  border-radius: 10px; /* Bordes redondeados de la pista */
+}
 
 @media screen and (max-width: 1300px) {
   .bodyContainer{

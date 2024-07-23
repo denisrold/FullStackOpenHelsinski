@@ -16,6 +16,7 @@ import Navbar from '../components/Navbar/Navbar';
 import Myblogs from '../components/Myblogs/Myblogs';
 import Users from '../components/Users/Users';
 import Info from '../components/Info/Info';
+import Home from '../components/Home/Home';
 
 function App() {
   const dispatch = useDispatch();
@@ -66,23 +67,7 @@ function App() {
           }
         </>
       }/>
-      <Route path='/home' element={(<>
-        {user&&(
-          <>
-           
-            <span name='userInfo' className='userInfo'>Hello {user.name}!</span>
-            <section className='bodyContainer'>
-              {blogs&&(blogs.length?blogs.map((b,i) => (
-                <Blogs user={user} blog={b} key={i}/>
-              ))
-                :<h3 data-testid="noBlogs">No Blogs</h3>)}
-            </section>
-            <AddBlogs />
-          </>
-        )
-      }
-        </>)}/>
-
+      <Route path='/home' element={<Home blogs={blogs} user={user}/>}/>
       <Route path='/myblogs' element={<Myblogs/>}/>
       <Route path='/users' element={<Users/>}/>
       <Route path='/info' element={<Info/>}/>
