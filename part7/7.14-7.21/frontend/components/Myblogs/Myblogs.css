@@ -1,4 +1,6 @@
-.myblogs_container{
-    padding: 5rem;
-    background-color: blue;
+.myBlogsTitle{
+    margin-top: 4rem;
+}
+.myblogs{
+    margin-top: 2rem;
 }

@@ -5,8 +5,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-
-const Home = ({ user})=>{
+const Home = ({ user })=>{
     const navigate = useNavigate();
     useEffect(()=>{
         if(!user)navigate('/');
