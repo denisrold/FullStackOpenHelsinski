@@ -203,39 +203,8 @@ font-size: small;
   padding-bottom: .5rem;
 
 }
-/* BACK BUTTON */
-.backButtonContainer{
-  height: 2.3rem;
-  padding-bottom: 2rem;
-}
 
-.backButton{
 
-  color: white;
-  width: 1rem;
-  height: 1rem;
-}
-.formAdd button{
-
-  margin-top: .9rem;
-  padding-left: 4rem;
-  padding-right: 4rem;
-}
-
-.containerAbsolute{
-  position: relative;
-
-}
-.createContainer{
-  position: absolute;
-  bottom:-3rem;
-  left: 50%; 
-
-  transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.726);
-  min-width: 20rem;
-  backdrop-filter: blur(10px)
-}
 
 @media screen and (max-width: 1024px) {
   .landingPage{

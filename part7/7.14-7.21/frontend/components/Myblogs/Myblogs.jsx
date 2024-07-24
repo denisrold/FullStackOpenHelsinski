@@ -28,17 +28,23 @@ const Myblogs = ({ user })=>{
  
     return(user&&(
       <>
-        <h3 className='myBlogsTitle'>
-            You've created {myBlogs.length} blogs.
-        </h3>
+        <section className='myBlogsTitle'>
+          <h3 >
+            You've created {myBlogs.length} blogs.
+          </h3>
+          <h4>
+            <a href='#newBlogButton'>
+              Create a new Blog?
+            </a>
+          </h4>
+        </section>
         <section className="bodyContainer myblogs">
-            
          {myBlogs&&(myBlogs.length?myBlogs.map((b,i) => (
-          <>
+          <section className='myBlogsViews'>
             <Blogs user={user} blog={b} key={i}>
               <span>likes: {b.likes}</span>
             </Blogs>
-          </>
+          </section>
          ))
           :<h3 data-testid="noBlogs">You don't have any blogs yet</h3>)}
         </section>

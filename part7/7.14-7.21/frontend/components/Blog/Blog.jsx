@@ -36,8 +36,7 @@ const Blogs = ({ user, blog, children }) => {
             url: { url }
             </h5>
             {!!user.token && ( <>
-            {children}
-             {/* <Likes blog={ blog } /> */}
+              {children}
               {loggedUserID === userId.id&& (
                 <section className="blogButtons">
                   <EditBlog setUpdateBlog={setUpdateBlog} blog={blog}/>
