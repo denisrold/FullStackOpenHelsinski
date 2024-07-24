@@ -40,9 +40,9 @@ const Myblogs = ({ user })=>{
         </section>
         <section className="bodyContainer myblogs">
          {myBlogs&&(myBlogs.length?myBlogs.map((b,i) => (
-          <section className='myBlogsViews'>
+          <section key={i} className='myBlogsViews'>
             <Blogs user={user} blog={b} key={i}>
-              <span>likes: {b.likes}</span>
+              <div >likes: {b.likes}</div>
             </Blogs>
           </section>
          ))

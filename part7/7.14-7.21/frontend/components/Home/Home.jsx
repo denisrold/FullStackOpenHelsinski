@@ -18,7 +18,7 @@ const Home = ({ user })=>{
        <section className='bodyContainer'>
          {blogs&&(blogs.length?blogs.map((b,i) => (
            <Blogs user={user} blog={b} key={i}>
-           <Likes blog={b}/>
+           <Likes blog={b} key={i}/>
            </Blogs>
          ))
           :<h3 data-testid="noBlogs">No Blogs</h3>)}
