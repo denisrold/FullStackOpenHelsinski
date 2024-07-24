@@ -131,7 +131,7 @@ export const deleteBlog = (id) => {
       if (window.confirm("Do you really want to delete this blog?")) {
         //get token with userdata
         const token = await sessionService.getUserToken();
-        blogService.setToken(token);
+        await blogService.setToken(token);
         await blogService.deleteBlogs(id);
         await dispatch(deleteBlogs(id));
       } else {

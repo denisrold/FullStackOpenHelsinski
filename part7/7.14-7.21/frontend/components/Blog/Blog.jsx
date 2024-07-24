@@ -7,7 +7,7 @@ import UpdateBlogView from "../UpdateBlogView";
 import { useSelector } from "react-redux";
 import './Blog.css';
 
-const Blogs = ({ user, blog }) => {
+const Blogs = ({ user, blog, children }) => {
   const loggedUserID = useSelector(state => state.user.userId)
   const [updateBlog,setUpdateBlog] = useState({ id:'',editState:false });
   const { title,author,userId,url } = blog;
@@ -36,7 +36,8 @@ const Blogs = ({ user, blog }) => {
             url: { url }
             </h5>
             {!!user.token && ( <>
-              <Likes blog={ blog } />
+            {children}
+             {/* <Likes blog={ blog } /> */}
               {loggedUserID === userId.id&& (
                 <section className="blogButtons">
                   <EditBlog setUpdateBlog={setUpdateBlog} blog={blog}/>
