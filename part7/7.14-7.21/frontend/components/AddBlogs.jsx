@@ -22,8 +22,9 @@ const AddBlogs = () => {
     }
    },[statusCreate])
 
+
   return(
-    <div id='newBlogButton' className='containerAbsolute'>
+    <div id='newBlogButton'  className='containerAbsolute'>
       {statusCreate && <AddedMessage newBlog={ newBlog }/>}
       <section >
         <div className='ToggableAddBlogs'>

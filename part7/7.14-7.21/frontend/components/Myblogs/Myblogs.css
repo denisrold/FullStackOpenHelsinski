@@ -1,3 +1,11 @@
+.a_addBlogs{
+  text-decoration: none;
+  color: white;
+}
+.a_addBlogs:hover{
+  text-decoration: none;
+  color: white;
+}
 .myBlogsTitle{
     margin: 4rem auto;
     display: flex;
@@ -10,14 +18,13 @@
 }
 
 .formAdd{
-   margin-left: -1rem;
-   margin-right: -1rem;
-    background-color: rgba(0, 0, 0, 0.688);
-    backdrop-filter: blur(20px);
-    width: auto;
-    height: 22rem;
-    border-radius: 2rem;
-    
+  margin-left: -1rem;
+  margin-right: -1rem;
+  background-color: rgba(0, 0, 0, 0.688);
+  backdrop-filter: blur(20px);
+  width: auto;
+  height: 22rem;
+  border-radius: 2rem;
 }
 /* BACK BUTTON */
 .backButtonContainer{
@@ -31,40 +38,42 @@
     width: 1rem;
     height: 1rem;
   }
+  .formAdd{
+    padding-top: 1.5rem;
+  }
   .formAdd button{
     margin-top: .9rem;
     padding-left: 4rem;
     padding-right: 4rem;
   }
-  
-.myblogs{
+
+  .myblogs{
     margin-top: 2rem;
     margin-right: -1rem;
-}
+  }
 
 @media screen and (max-width: 1280px) {
-    .myblogs{
-margin-left: auto;
-margin-right: auto;
+  .myblogs{
+  margin-left: auto;
+  margin-right: auto;
     }
-  }
-  @media screen and (max-width: 680px) {
+}
+
+@media screen and (max-width: 680px) {
     .myBlogsTitle{
         flex-direction: column;
         margin-bottom: 3rem;
         
     }
-
     .formAdd{
         margin-left: auto;
-margin-right: auto;
+        margin-right: auto;
         margin-top: 5rem;
         height: 27rem;
     }
-
   }
 
-  @media screen and (max-width: 369px) {
+@media screen and (max-width: 369px) {
     .myBlogsTitle{
         margin-left: .5rem;
     }
@@ -74,5 +83,4 @@ margin-right: auto;
       height: 26rem;
       margin-top: 5rem;
     }
-
   }

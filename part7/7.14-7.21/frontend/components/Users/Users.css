@@ -1,4 +1,43 @@
 .Users_container{
-    padding: 5rem;
-    background-color: blue;
+    padding: 3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
 }
+
+.userItem{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20%;
+    padding-right: 20%;
+    margin-bottom: -3rem;
+}
+
+
+
+@media screen and (max-width: 900px) {
+    .userItem{
+        padding-left: 10%;
+        padding-right: 10%;
+      }
+  }
+  
+  @media screen and (max-width: 680px) {
+    .userItem{
+        padding-left: 0%;
+        padding-right: 0%;
+        margin-left: -2rem;
+      }
+    }
+  
+  @media screen and (max-width: 550px) {
+    .userItem{
+        font-size: small;
+        margin-left: -5rem;
+        margin-right: -2rem;
+      }
+    }

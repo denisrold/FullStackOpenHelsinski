@@ -25,7 +25,7 @@ const Myblogs = ({ user })=>{
     useEffect(()=>{
         filterCreatedBlogs()
     },[blogs])
- 
+
     return(user&&(
       <>
         <section className='myBlogsTitle'>
@@ -48,7 +48,7 @@ const Myblogs = ({ user })=>{
          ))
           :<h3 data-testid="noBlogs">You don't have any blogs yet</h3>)}
         </section>
-        <AddBlogs />
+        <AddBlogs/>
       </>
       )
     )

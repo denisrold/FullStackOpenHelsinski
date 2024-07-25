@@ -16,9 +16,13 @@ const getUser = async () => {
   return response.data;
 };
 const createUser = async (newUser) => {
-  console.log("entre", newUser);
   const response = await axios.post(`${baseUrl}`, newUser);
   return response.data;
 };
 
-export default { setToken, userId, createUser, getUser };
+const getAllUsers = async () => {
+  const response = await axios.get(`${baseUrl}`);
+  return response.data;
+};
+
+export default { setToken, userId, createUser, getUser, getAllUsers };

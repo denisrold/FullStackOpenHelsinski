@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Toggable from "../Toggable";
-import Likes from '../Likes';
+// import Likes from '../Likes';
 import DeleteBlog from "../DeleteBlog";
 import EditBlog from "../EditBlog";
 import UpdateBlogView from "../UpdateBlogView";
@@ -30,7 +30,7 @@ const Blogs = ({ user, blog, children }) => {
           </article>
           <Toggable buttonLabel={ "show" } buttonlabelCancel={ "hide" } >
             <h5>
-            User: { userId.name }
+              Creator: { userId.name }
             </h5>
             <h5>
             url: { url }
