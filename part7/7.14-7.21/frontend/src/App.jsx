@@ -15,6 +15,7 @@ import Myblogs from '../components/Myblogs/Myblogs';
 import Users from '../components/Users/Users';
 import Info from '../components/Info/Info';
 import Home from '../components/Home/Home';
+import OneUser from '../components/OneUser/OneUser';
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function App() {
       }/>
       <Route path='/home' element={ <Home user={user}/> }/>
       <Route path='/myblogs' element={ <Myblogs user={user}/> }/>
+      <Route path='/user/:id' element={ <OneUser/> }/>
       <Route path='/users' element={ <Users/> }/>
       <Route path='/info' element={ <Info/> }/>
     </Routes>

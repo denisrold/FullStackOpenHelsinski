@@ -1,6 +1,6 @@
 import './Users.css';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import { getAllUsers } from '../../redux/reducers/userReducer';
 
@@ -8,7 +8,7 @@ const Users = ()=>{
     const navigate = useNavigate();
     const loggedUserID = useSelector(state => state.user.userId)
     const dispatch = useDispatch();
-    //getAllUsers
+  
     useEffect(()=>{
         if(!loggedUserID)navigate('/');
         dispatch(getAllUsers());
@@ -21,7 +21,7 @@ const Users = ()=>{
         {users&&users.map((user,i)=>(
         <ul className='usersList'  key={i}>
           <li className='userItem'>
-            <h3>{user.username}</h3> 
+            <Link to={`/user/${user.id}`} >{user.username}</Link> 
             <h3>{user.blogs.length} blogs</h3>
           </li>
         </ul>
@@ -30,4 +30,5 @@ const Users = ()=>{
        </section>
     )
 }
+
 export default Users;

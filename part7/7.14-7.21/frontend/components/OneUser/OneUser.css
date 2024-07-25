@@ -1,0 +1,16 @@
+.oneUser{
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.userBlogsList{
+display: flex;
+justify-content: space-between;
+align-items: start;
+list-style: none;
+text-decoration: none;
+flex-direction: column;
+}
+
+
