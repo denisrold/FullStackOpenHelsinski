@@ -9,23 +9,26 @@ const OneUser = () => {
     useEffect(()=>{
         if(!loggedUserID)navigate('/');
     },[loggedUserID]);
-  const { id } = useParams()
-  const { users } = useSelector(state=>state.user);
-  if(!users){return navigate('/')}
+    const { users } = useSelector(state=>state.user);
+    const { id } = useParams()
+    if(!users){return navigate('/')}
   const user = users.find(user=>user.id===id);
 return (
   <section className="oneUser">
     <h3>
-      { user.name }
+     { user.username }
     </h3>
     <ul className="userBlogsList">
     {user.blogs && user.blogs.map((b,i) => (
+
       <li key={i}>
-        { b.title }
+        { b.title }  likes: {b.likes}
       </li>
+
     )
    )}
    </ul>
+   {!user.blogs.length && <h4>hasn't created blogs yet</h4>}
   </section>
   )
 }

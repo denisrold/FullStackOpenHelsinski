@@ -1,16 +1,20 @@
 .oneUser{
-    margin-top: 10rem;
+    margin: 3rem auto;
     display: flex;
     flex-direction: column;
+    width: 50%;
+
 }
 
 .userBlogsList{
 display: flex;
 justify-content: space-between;
-align-items: start;
+align-items: center;
 list-style: none;
 text-decoration: none;
 flex-direction: column;
+gap: 1rem;
+margin-left:-3rem;
 }
 
 
