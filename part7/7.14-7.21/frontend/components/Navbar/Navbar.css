@@ -3,11 +3,12 @@
 }
   
 .navbar_container{
+    z-index: 100;
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.537);
+    background-color: rgba(0, 0, 0, 0.808);
     backdrop-filter: blur(15px);
     box-shadow: 0 0 8px 5px rgba(0, 0, 0, 0.562);
     padding: .7rem

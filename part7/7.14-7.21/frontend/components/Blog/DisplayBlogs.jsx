@@ -12,9 +12,10 @@ import './Blog.css';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 export default function DisplayBlogs({blogs}) {
+    const rankedBlogs = blogs.slice(0,5); 
     return (
-    <>
-      <div>
+      <>
+        Most Ranked Blogs! 
         <Swiper
           spaceBetween={30}
           centeredSlides={true}
@@ -29,10 +30,20 @@ export default function DisplayBlogs({blogs}) {
           modules={[Autoplay, Pagination, Navigation]}
           className="mySwiper"
         >
-        {blogs.map(b=>(<SwiperSlide>{b.title}</SwiperSlide> ))}
+        {rankedBlogs.map(b=>(
+            <SwiperSlide>
+              <article className='displayContainer'>
+                <span>{b.title} </span>
+                <span>by {b.author} </span>
+                  <a>{b.url}</a>
+                <div>
+                  <span>likes: </span>
+                  <span className='likesStyle'>{b.likes}</span>
+                </div>
+              </article>
+            </SwiperSlide> ))}
         </Swiper>
-      </div>
-    </>
+      </>
   );
 }
 
