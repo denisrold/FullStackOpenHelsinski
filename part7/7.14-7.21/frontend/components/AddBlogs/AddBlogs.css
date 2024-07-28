@@ -1,0 +1,61 @@
+.whiteSpace{
+    height:15rem;
+    margin-top: 5rem;
+
+}
+.addformContainer{
+    margin-top: -2rem;
+}
+
+.addformContainer button:nth-child(1){
+    width: 30rem;
+}
+
+
+
+  
+  @media screen and (max-width: 680px) {
+
+      .formAdd{
+          margin-left: auto;
+          margin-right: auto;
+          height: 27rem;
+      }
+
+      .whiteSpace{
+        height:15rem;
+        margin-top: 10rem;
+    
+    }
+    }
+
+    
+  @media screen and (max-width: 624px) {
+
+    .formAdd{
+margin-top: 10rem;
+    }
+
+    .whiteSpace{
+      height:15rem;
+      margin-top: 10rem;
+  
+  }
+  
+.addformContainer button:nth-child(1){
+    margin-top: 10rem;
+}
+.addformContainer button:nth-child(1){
+    width: 12rem;
+}
+  }
+  
+  @media screen and (max-width: 369px) {
+
+      .formAdd{
+        margin-left: auto;
+        margin-right: auto;
+        height: 26rem;
+
+      }
+    }

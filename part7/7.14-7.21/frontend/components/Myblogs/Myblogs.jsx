@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './Myblogs.css';
 import Blogs from '../Blog/Blog';
-import AddBlogs from '../AddBlogs';
-import Likes from '../Likes';
+import AddBlogs from '../AddBlogs/AddBlogs';
 
 
 const Myblogs = ({ user })=>{
@@ -33,7 +32,7 @@ const Myblogs = ({ user })=>{
             You've created {myBlogs.length} blogs.
           </h3>
           <h4>
-            <a href='#newBlogButton'>
+            <a href='#idspaceform'>
               Create a new Blog?
             </a>
           </h4>

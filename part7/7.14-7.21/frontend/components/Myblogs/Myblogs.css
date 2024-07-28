@@ -72,22 +72,12 @@ input{
         margin-bottom: 3rem;
         
     }
-    .formAdd{
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 5rem;
-        height: 27rem;
-    }
+ 
   }
 
 @media screen and (max-width: 369px) {
     .myBlogsTitle{
         margin-left: .5rem;
     }
-    .formAdd{
-      margin-left: auto;
-      margin-right: auto;
-      height: 26rem;
-      margin-top: 5rem;
-    }
+
   }
