@@ -16,6 +16,7 @@ import Users from '../components/Users/Users';
 import Info from '../components/Info/Info';
 import Home from '../components/Home/Home';
 import OneUser from '../components/OneUser/OneUser';
+import OneBlog from '../components/OneBlog/OneBlog';
 
 function App() {
   const dispatch = useDispatch();
@@ -67,6 +68,7 @@ function App() {
       <Route path='/myblogs' element={ <Myblogs user={user}/> }/>
       <Route path='/user/:id' element={ <OneUser/> }/>
       <Route path='/users' element={ <Users/> }/>
+      <Route path='/blog/:id' element={ <OneBlog /> }/>
       <Route path='/info' element={ <Info/> }/>
     </Routes>
     </>

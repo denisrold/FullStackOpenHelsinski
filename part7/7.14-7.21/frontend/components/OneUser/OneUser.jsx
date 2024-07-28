@@ -23,7 +23,7 @@ return (
     {user.blogs && user.blogs.map((b,i) => (
 
       <li key={i} className="list_blogs_user">
-        <span>{ b.title }</span><span>likes: {b.likes} </span><span>url: <a to='#'>{b.url}</a></span>
+        <Link to={`/blog/${b.id}`}>{ b.title }</Link><span>likes: {b.likes} </span><span>url: <a to='#'>{b.url}</a></span>
       </li>
 
     )

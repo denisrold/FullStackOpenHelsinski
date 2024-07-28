@@ -22,7 +22,7 @@ const Blogs = ({ user, blog, children }) => {
       ):
         (<>
           <article className="flexRow">
-            title:<Link>
+            title:<Link to={`/blog/${blog.id}`}>
               <h4 id='testTitle'>
                 { title }
              </h4>

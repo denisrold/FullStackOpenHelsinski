@@ -10,6 +10,7 @@ import './Blog.css';
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Link } from 'react-router-dom';
 
 export default function DisplayBlogs({blogs}) {
     const rankedBlogs = blogs.slice(0,5); 
@@ -33,8 +34,8 @@ export default function DisplayBlogs({blogs}) {
         {rankedBlogs.map((b,i)=>(
             <SwiperSlide key={i}>
               <article className='displayContainer'>
-                <span>{b.title} </span>
-                <span>by {b.author} </span>
+                <Link to={`/blog/${b.id}`}>{b.title}</Link>
+                <span>by <Link to={`/user/${b.userId.id}`}>{b.author} </Link></span>
                   <a>{b.url}</a>
                 <div>
                   <span>likes: </span>
