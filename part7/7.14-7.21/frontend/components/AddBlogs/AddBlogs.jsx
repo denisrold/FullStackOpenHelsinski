@@ -31,7 +31,7 @@ const AddBlogs = () => {
           <Toggable buttonLabel={'Create Blog'} ref={blogFormRef}>
             <AddForm newBlog={newBlog} setNewBlog={setNewBlog}/>
           </Toggable>
-          <div id='idspaceform' className='whiteSpace'></div>
+          <div id='createBlog' className='whiteSpace'></div>
         </div>
       </section>
     </div>

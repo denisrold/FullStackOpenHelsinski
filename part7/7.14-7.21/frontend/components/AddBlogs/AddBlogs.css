@@ -1,6 +1,6 @@
 .whiteSpace{
     height:15rem;
-    margin-top: 5rem;
+    margin-top: 6rem;
 
 }
 .addformContainer{
@@ -11,9 +11,6 @@
     width: 30rem;
 }
 
-
-
-  
   @media screen and (max-width: 680px) {
 
       .formAdd{

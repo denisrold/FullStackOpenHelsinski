@@ -32,7 +32,7 @@ const Myblogs = ({ user })=>{
             You've created {myBlogs.length} blogs.
           </h3>
           <h4>
-            <a href='#idspaceform'>
+            <a href='#createBlog'>
               Create a new Blog?
             </a>
           </h4>
