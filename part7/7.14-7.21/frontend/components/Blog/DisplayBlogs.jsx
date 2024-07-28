@@ -15,7 +15,7 @@ export default function DisplayBlogs({blogs}) {
     const rankedBlogs = blogs.slice(0,5); 
     return (
       <>
-        Most Ranked Blogs! 
+        Most Ranked Blogs: 
         <Swiper
           spaceBetween={30}
           centeredSlides={true}
@@ -30,8 +30,8 @@ export default function DisplayBlogs({blogs}) {
           modules={[Autoplay, Pagination, Navigation]}
           className="mySwiper"
         >
-        {rankedBlogs.map(b=>(
-            <SwiperSlide>
+        {rankedBlogs.map((b,i)=>(
+            <SwiperSlide key={i}>
               <article className='displayContainer'>
                 <span>{b.title} </span>
                 <span>by {b.author} </span>

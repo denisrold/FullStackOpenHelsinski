@@ -6,6 +6,7 @@ import EditBlog from "../EditBlog";
 import UpdateBlogView from "../UpdateBlogView";
 import { useSelector } from "react-redux";
 import './Blog.css';
+import { Link } from "react-router-dom";
 
 const Blogs = ({ user, blog, children }) => {
   const loggedUserID = useSelector(state => state.user.userId)
@@ -21,30 +22,32 @@ const Blogs = ({ user, blog, children }) => {
       ):
         (<>
           <article className="flexRow">
-            <h4 id='testTitle'>
-              { title }
-            </h4>
-            <h4 id='testAuthor'>
-            by: { author }
-            </h4>
+            title:<Link>
+              <h4 id='testTitle'>
+                { title }
+             </h4>
+            </Link>
+            by:<Link to={`/user/${userId.id}`}>
+              <h4 id='testAuthor'>
+                { author }
+              </h4>
+            </Link>
           </article>
-          <Toggable buttonLabel={ "show" } buttonlabelCancel={ "hide" } >
+            <a href='#'> 
+           { url }
+            </a>
             <h5>
               Creator: { userId.name }
             </h5>
-            <h5>
-            url: { url }
-            </h5>
-            {!!user.token && ( <>
+            {!!user.token && ( <div className="userOptions">
               {children}
               {loggedUserID === userId.id&& (
                 <section className="blogButtons">
                   <EditBlog setUpdateBlog={setUpdateBlog} blog={blog}/>
                   <DeleteBlog blog={ blog }/>
                 </section>)}
-            </>
+            </div>
             )}
-          </Toggable>
         </>)
       }
     </section>

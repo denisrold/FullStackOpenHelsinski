@@ -72,7 +72,7 @@ min-height: 25rem;
 
 .displayContainer{
   z-index: -100;
-  height: 21rem;
+  height: 16rem;
   display: flex; 
   flex-direction: column;
   justify-content: center;
@@ -89,6 +89,22 @@ min-height: 25rem;
   text-align: center;
   color: green;
  font-weight: bold;
+}
+
+.userOptions{
+  height: 5rem;
+}
+.userOptions button{
+  border: 1px solid white;
+  padding: .8rem 1.2rem;
+  border-radius: .3rem;
+margin-bottom: .3rem;
+
+  /* border: none; */
+}
+.userOptions button:nth-child(2){
+  margin-left:1rem ;
+  /* border: none; */
 }
 
 @media screen and (max-width: 1300px) {
