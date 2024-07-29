@@ -62,7 +62,7 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
     <>
       {loadState ? (<div className='loadStateContainer'><h3>Loading...</h3></div>):(
           <Toggable buttonLabel={"Login"} dispatch={dispatch}>
-            <section className='formContainer'>
+            <section className='formContainer '>
               {!register&&(
              <form name="LoginForm" className='form'>
              <div>

@@ -40,7 +40,7 @@ const Blogs = ({ user, blog, children }) => {
               Creator: { userId.name }
             </h5>
             {!!user.token && ( <div className="userOptions">
-              {children}
+             {children}
               {loggedUserID === userId.id&& (
                 <section className="blogButtons">
                   <EditBlog setUpdateBlog={setUpdateBlog} blog={blog}/>

@@ -18,6 +18,7 @@ import Home from '../components/Home/Home';
 import OneUser from '../components/OneUser/OneUser';
 import OneBlog from '../components/OneBlog/OneBlog';
 
+
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -64,12 +65,12 @@ function App() {
             loadState={loadState}/>
         </>
       }/>
-      <Route path='/home' element={ user?<Home user={user}/>: <Navigate replace to='/'/>  }/>
-      <Route path='/myblogs' element={ loggedUserID?<Myblogs user={user}/>: <Navigate replace to='/'/> }/>
-      <Route path='/user/:id' element={ loggedUserID?<OneUser/>: <Navigate replace to='/'/>  }/>
-      <Route path='/users' element={ loggedUserID?<Users/>: <Navigate replace to='/'/>  }/>
-      <Route path='/blog/:id' element={ loggedUserID?<OneBlog />: <Navigate replace to='/'/>  }/>
-      <Route path='/info' element={ loggedUserID?<Info/>: <Navigate replace to='/'/>  }/>
+      <Route path='/home' element={ user?<Home user={user}/>: <Navigate replace to='/login'/>  }/>
+      <Route path='/myblogs' element={ loggedUserID?<Myblogs user={user}/>: <Navigate replace to='/login'/> }/>
+      <Route path='/user/:id' element={ loggedUserID?<OneUser/>: <Navigate replace to='/login'/>  }/>
+      <Route path='/users' element={ loggedUserID?<Users/>: <Navigate replace to='/login'/>  }/>
+      <Route path='/blog/:id' element={ loggedUserID?<OneBlog />: <Navigate replace to='/login'/>  }/>
+      <Route path='/info' element={ loggedUserID?<Info/>: <Navigate replace to='/login'/>  }/>
     </Routes>
     </>
   )

@@ -19,11 +19,11 @@ const AddForm = ({ setNewBlog,newBlog }) => {
     <form id="form" onSubmit={handleAddBlogs} className='formAdd' >
       <div className='formContainer'>
         <label>Title </label>
-        <input type="text" placeholder='the blogverse title' required name="title" onChange={handleInput} value={ newBlog.title }/>
-        <label>Author </label>
-        <input type="text" placeholder='Jhon Travis' required name="author" onChange={handleInput} value={ newBlog.author }/>
+        <input maxLength={16} type="text" placeholder='the blogverse title' required name="title" onChange={handleInput} value={ newBlog.title }/>
+        <label >Author </label>
+        <input maxLength={16} type="text" placeholder='Jhon Travis' required name="author" onChange={handleInput} value={ newBlog.author }/>
         <label>Url </label>
-        <input type="url" placeholder='https://exampleweb.com' required onChange={handleInput} name="url" value={ newBlog.url }/>
+        <input maxLength={20} type="url" placeholder='https://exampleweb.com' required onChange={handleInput} name="url" value={ newBlog.url }/>
       </div>
       <button  type='submit' name='addFormButton' style={{ display:notification&&'none', marginTop:'1.65rem' }}>Add</button>
       {notification&&<Notification />}

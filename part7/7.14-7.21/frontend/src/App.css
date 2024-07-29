@@ -4,6 +4,7 @@
   padding: 3rem;
   text-align: center;
 }
+
 body button{
   font-size: large;
   font-weight: bolder;
@@ -76,6 +77,12 @@ body button{
 padding: .3rem;
 margin: .3rem;
 }
+.form input{
+ width: 10rem;
+ height: 2rem;
+ border-radius:1rem ;
+}
+
 /* NOTIFICATIONS CONTAINERS */
 .notificationContainer{
   display: flex;

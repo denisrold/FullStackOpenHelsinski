@@ -50,6 +50,10 @@ button:focus,
 button:focus-visible {
   outline: none;
 }
+input{
+  font-weight: bolder;
+  border: none;
+}
 input:focus:focus-visible{
   outline: none;
 }

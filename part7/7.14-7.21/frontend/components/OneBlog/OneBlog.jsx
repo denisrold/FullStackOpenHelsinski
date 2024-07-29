@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import './OneBlog.css';
 import { useSelector } from 'react-redux';
+import Comments from './Comments';
 
 const OneBlog = () => {
     const  { blogs }  = useSelector(state => state.blogs);
@@ -17,12 +18,7 @@ const OneBlog = () => {
           <Link to={`/user/${blog.userId.id}`} >{blog.userId.username}</Link>
           </span>
         </section>
-        <section className='comments_container'>
-            Comments:
-            <p>
-        Aca van los comments
-            </p>
-        </section>
+        <Comments/>
         </div>
     )
  }

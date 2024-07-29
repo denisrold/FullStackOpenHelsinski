@@ -40,13 +40,13 @@ const RegisterForm = ({username,password,setPassword,setUsername,setRegister}) =
     return(
         <form name="LoginForm" className='form' onSubmit={handleRegister}>
           <div>
-            <input data-testid='username' required type="text" value={username} onChange={({ target }) => setUsername(target.value)} placeholder='user'></input>
+            <input maxLength={12} data-testid='username' required type="text" value={username} onChange={({ target }) => setUsername(target.value)} placeholder='user'></input>
           </div>
           <div>
-            <input data-testid='name' required type="text" value={name} onChange={({ target }) => setName(target.value)} placeholder='your name'></input>
+            <input maxLength={16} data-testid='name' required type="text" value={name} onChange={({ target }) => setName(target.value)} placeholder='your name'></input>
           </div>
           <div>
-            <input data-testid='password' required type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder='password'></input>
+            <input maxLength={20} data-testid='password' required type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder='password'></input>
           </div> 
         {/* <div>
           <input required type="password" value={password} onChange={({ target }) => setPassword(target.value)} placeholder='repeat password'></input>

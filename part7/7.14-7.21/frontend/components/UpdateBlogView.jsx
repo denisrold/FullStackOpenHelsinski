@@ -40,14 +40,14 @@ const UpdateBlogView = ({ blog,setUpdateBlog }) => {
     <>
       <article className="flexRow">
         <form onSubmit={handleEdit}>
-          <input data-testid='updateTitle' type='text' name='title' onChange={handleInput} value={ updatedBlogs.title }/>
+          <input maxLength={16} data-testid='updateTitle' type='text' name='title' onChange={handleInput} value={ updatedBlogs.title }/>
           <span>by </span>
-          <input data-testid='updateAuthor' type='text' name='author' onChange={handleInput} value={ updatedBlogs.author }/>
+          <input maxLength={16} data-testid='updateAuthor' type='text' name='author' onChange={handleInput} value={ updatedBlogs.author }/>
           <h5>
                   User: { userId.name }
           </h5>
           <h5>
-                  url: <input data-testid='updateUrl' type='url' name='url' onChange={handleInput} value={ updatedBlogs.url }/>
+                  url: <input max={20} data-testid='updateUrl' type='url' name='url' onChange={handleInput} value={ updatedBlogs.url }/>
           </h5>
           {notification&&<Notification />}
           {
