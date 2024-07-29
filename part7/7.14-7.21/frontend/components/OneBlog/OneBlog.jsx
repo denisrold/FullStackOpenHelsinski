@@ -8,13 +8,13 @@ const OneBlog = () => {
     const { id } = useParams();
     const blog = blogs.find(blog => blog.id === id);
     return(
-        <div className='Oneblog_Container'>
+        <div className='Oneblog_Container '>
         <section className='oneblog_info'>
-          <span>{ blog.title }</span><span>likes: {blog.likes} </span><span>url: <a to='#'>{blog.url}</a></span>
-          <span>
+          <span className='capitalizeText'>{ blog.title }</span><span>likes: {blog.likes} </span><span>url: <a to='#'>{blog.url}</a></span>
+          <span className='capitalizeText'>
               {blog.author}
           </span>
-          <span>
+          <span className='capitalizeText'>
           <Link to={`/user/${blog.userId.id}`} >{blog.userId.username}</Link>
           </span>
         </section>

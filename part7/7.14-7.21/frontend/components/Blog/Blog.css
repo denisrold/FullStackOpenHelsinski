@@ -44,7 +44,9 @@ min-height: 25rem;
   border-radius: 10px; /* Bordes redondeados de la pista */
 }
 
-
+.capitalizeText{
+  text-transform: capitalize;
+}
 .swiper {
   z-index: -100;
   margin-bottom: 3rem;

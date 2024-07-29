@@ -1,10 +1,14 @@
 
 .userInfo{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     width: 83.5vw;
     padding: 3rem 0 1rem 0;
     font-weight: normal;
     font-size: large;
   }
+ .userInfo p{
+  color: white;
+  text-transform: capitalize;
+ } 
   

@@ -22,13 +22,13 @@ const Blogs = ({ user, blog, children }) => {
       ):
         (<>
           <article className="flexRow">
-            title:<Link to={`/blog/${blog.id}`}>
-              <h4 id='testTitle'>
+            <Link to={`/blog/${blog.id}`}>
+              <h4 className="capitalizeText" id='testTitle'>
                 { title }
              </h4>
             </Link>
             by:<Link to={`/user/${userId.id}`}>
-              <h4 id='testAuthor'>
+              <h4 className="capitalizeText" id='testAuthor'>
                 { author }
               </h4>
             </Link>
@@ -36,7 +36,7 @@ const Blogs = ({ user, blog, children }) => {
             <a href='#'> 
            { url }
             </a>
-            <h5>
+            <h5 className="capitalizeText">
               Creator: { userId.name }
             </h5>
             {!!user.token && ( <div className="userOptions">

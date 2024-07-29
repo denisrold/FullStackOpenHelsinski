@@ -52,12 +52,12 @@ function App() {
  
   return (
     <>
-    {user&&window.location.pathname !=='/'&&<Navbar setUser={setUser} setLoadState={setLoadState} />}
+    {user&&window.location.pathname !=='/'&&<Navbar user={user} setUser={setUser} setLoadState={setLoadState} />}
     <Routes>
       <Route path='/' element={<Landing/>}/>
       <Route path='/login' element={
         <>
-          <Header/>
+ 
           <Login
             user={user}
             setUser={setUser}

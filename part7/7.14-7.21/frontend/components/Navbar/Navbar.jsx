@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import LogoutButton from '../LogoutButton/LogoutButton'; 
-const Navbar = ({setUser, setLoadState}) => {
-  
+
+const Navbar = ({setUser, setLoadState,user}) => {
+
     return(
       <>
         <nav className="navbar_container">
@@ -12,7 +13,7 @@ const Navbar = ({setUser, setLoadState}) => {
               <li><Link to={'/home'}>Home</Link></li>
               <li><Link to={'/myblogs'}>My blogs</Link></li>
               <li><Link to={'/users'}>Users</Link></li>
-              <li><Link to={'/info'}>My info</Link></li>
+              {/* <li><Link to={'/info'}>My info</Link></li> */}
             </ul>
             <LogoutButton logoutStates={{setUser,setLoadState}}/>
             </div>
