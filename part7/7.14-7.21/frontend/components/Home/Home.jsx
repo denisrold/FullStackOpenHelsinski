@@ -1,18 +1,11 @@
 import './Home.css';
 import Blogs from "../Blog/Blog";
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Likes from '../Likes';
 import DisplayBlogs from '../Blog/DisplayBlogs';
 
 const Home = ({ user })=>{
-    const navigate = useNavigate();
-    useEffect(()=>{
-        if(!user)navigate('/');
-    },[user]);
     const  { blogs }  = useSelector(state => state.blogs);
-    
    return ( user&&(
       <>
        <div name='userInfo' className='userInfo'>Hello {user.name}!</div>

@@ -1,17 +1,15 @@
 import { useParams,useNavigate, Link } from "react-router-dom";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import './OneUser.css';
+import { useEffect } from "react";
 
 const OneUser = () => {
     const navigate = useNavigate();
-    const loggedUserID = useSelector(state => state.user.userId)
-    useEffect(()=>{
-        if(!loggedUserID)navigate('/');
-    },[loggedUserID]);
     const { users } = useSelector(state=>state.user);
     const { id } = useParams()
-    if(!users){return navigate('/')}
+    useEffect(()=>{
+      if(!users){return navigate('/')}
+    },[users])
   const user = users.find(user=>user.id===id);
 return (
   <>

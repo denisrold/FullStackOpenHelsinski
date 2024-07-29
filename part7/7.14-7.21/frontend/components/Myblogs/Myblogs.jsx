@@ -7,11 +7,7 @@ import AddBlogs from '../AddBlogs/AddBlogs';
 
 
 const Myblogs = ({ user })=>{
-    const navigate = useNavigate();
     const loggedUserID = useSelector(state => state.user.userId)
-    useEffect(()=>{
-        if(!loggedUserID)navigate('/');
-    },[loggedUserID]);
     const  { blogs }  = useSelector(state => state.blogs);
     const [myBlogs,setMyBlogs] = useState([]);
     const filterCreatedBlogs = ()=>{

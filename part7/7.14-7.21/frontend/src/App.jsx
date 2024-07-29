@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Headers';
@@ -64,12 +64,12 @@ function App() {
             loadState={loadState}/>
         </>
       }/>
-      <Route path='/home' element={ <Home user={user}/> }/>
-      <Route path='/myblogs' element={ <Myblogs user={user}/> }/>
-      <Route path='/user/:id' element={ <OneUser/> }/>
-      <Route path='/users' element={ <Users/> }/>
-      <Route path='/blog/:id' element={ <OneBlog /> }/>
-      <Route path='/info' element={ <Info/> }/>
+      <Route path='/home' element={ user?<Home user={user}/>: <Navigate replace to='/'/>  }/>
+      <Route path='/myblogs' element={ loggedUserID?<Myblogs user={user}/>: <Navigate replace to='/'/> }/>
+      <Route path='/user/:id' element={ loggedUserID?<OneUser/>: <Navigate replace to='/'/>  }/>
+      <Route path='/users' element={ loggedUserID?<Users/>: <Navigate replace to='/'/>  }/>
+      <Route path='/blog/:id' element={ loggedUserID?<OneBlog />: <Navigate replace to='/'/>  }/>
+      <Route path='/info' element={ loggedUserID?<Info/>: <Navigate replace to='/'/>  }/>
     </Routes>
     </>
   )
