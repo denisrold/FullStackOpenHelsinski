@@ -18,7 +18,7 @@ const OneBlog = () => {
           <Link to={`/user/${blog.userId.id}`} >{blog.userId.username}</Link>
           </span>
         </section>
-        <Comments/>
+        <Comments blog={blog}/>
         </div>
     )
  }

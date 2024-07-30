@@ -118,6 +118,18 @@ blogsRouter.delete("/:id", async (req, res) => {
   res.status(204).json({ deleted: "OK" });
 });
 
+blogsRouter.put("/comments/:id", async (req, res) => {
+  const { id } = req.params;
+  const { comment } = req.body;
+  updatedComment = await Blog.findByIdAndUpdate(
+    id,
+    { $push: { comments: comment } },
+    {
+      new: true,
+    }
+  );
+  res.status(201).json({ comment });
+});
 module.exports = blogsRouter;
 
 /* eslint-enable no-underscore-dangle, quotes, comma-dangle  */

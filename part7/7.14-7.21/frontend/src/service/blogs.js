@@ -40,6 +40,14 @@ const updateLikes = async (blogs, unlike) => {
   return response.data;
 };
 
+const updateComments = async (comment, blog) => {
+  const newComment = { comment: comment };
+  const response = await axios.put(`${baseUrl}/comments/${blog.id}`, {
+    comment,
+  });
+  return response.data;
+};
+
 export default {
   getBlogs,
   createBlogs,
@@ -48,4 +56,5 @@ export default {
   getBlogsByID,
   deleteBlogs,
   updateBlogs,
+  updateComments,
 };
