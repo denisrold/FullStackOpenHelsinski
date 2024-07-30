@@ -120,6 +120,7 @@ blogsRouter.delete("/:id", async (req, res) => {
 
 blogsRouter.put("/comments/:id", async (req, res) => {
   const { id } = req.params;
+
   const { comment } = req.body;
   updatedComment = await Blog.findByIdAndUpdate(
     id,
