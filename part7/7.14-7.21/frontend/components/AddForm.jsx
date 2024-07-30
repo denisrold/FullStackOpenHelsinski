@@ -19,7 +19,7 @@ const AddForm = ({ setNewBlog,newBlog }) => {
     <form id="form" onSubmit={handleAddBlogs} className='formAdd' >
       <div className='formContainer'>
         <label>Title </label>
-        <input maxLength={16} type="text" placeholder='the blogverse title' required name="title" onChange={handleInput} value={ newBlog.title }/>
+        <input maxLength={25} type="text" placeholder='the blogverse title' required name="title" onChange={handleInput} value={ newBlog.title }/>
         <label >Author </label>
         <input maxLength={16} type="text" placeholder='Jhon Travis' required name="author" onChange={handleInput} value={ newBlog.author }/>
         <label>Url </label>

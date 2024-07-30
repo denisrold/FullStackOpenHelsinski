@@ -3,7 +3,8 @@ import blogService from '../../src/service/blogs';
 import { useState } from 'react';
 const Comments = ({ blog })=>{
   const [comments, setComments] = useState('');
-
+  console.log('esteblog',blog);
+  
     const sendComments = async (e)=>{
         e.preventDefault()
         try{
@@ -26,6 +27,11 @@ const Comments = ({ blog })=>{
               <button type='submit'>Send</button>
             </form>
             <div >Comments:</div>
+            <ul>
+              {blog.comments&&blog.comments.map((c,i)=>(
+                <li key={i}>{c}sss</li>
+              ))}
+            </ul>
           </article>
         </section>
         </>
