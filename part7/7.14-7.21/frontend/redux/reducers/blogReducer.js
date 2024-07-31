@@ -33,11 +33,29 @@ const blogSlice = createSlice({
     setBlogs(state, action) {
       return { blogs: action.payload };
     },
+    appendComment(state, action) {
+      const { blog, comment } = action.payload;
+      const id = blog.id;
+      console.log("este", blog.comments);
+      const commentsUpdated = {
+        ...blog,
+        comments: [...blog.comments, comment],
+      };
+      console.log("estecommend", commentsUpdated);
+      state.blogs = state.blogs.map((b) => (b.id !== id ? b : commentsUpdated));
+      return state;
+    },
   },
 });
 
-export const { deleteBlogs, updateBlogs, appendBlog, setBlogs, updateLikes } =
-  blogSlice.actions;
+export const {
+  deleteBlogs,
+  updateBlogs,
+  appendBlog,
+  setBlogs,
+  updateLikes,
+  appendComment,
+} = blogSlice.actions;
 
 //GET ALL BLOGS
 export const initializeBlogs = () => {
@@ -124,6 +142,18 @@ export const updateLike = (content) => {
   };
 };
 
+//UPDATE COMMENT BLOG:
+export const updateComment = (content) => {
+  const { blog, comment } = content;
+  return async (dispatch) => {
+    try {
+      await blogService.updateComments(comment, blog);
+      dispatch(appendComment({ blog, comment }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
 //DELETE BLOG
 export const deleteBlog = (id) => {
   return async (dispatch) => {

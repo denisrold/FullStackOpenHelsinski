@@ -5,12 +5,11 @@
     justify-content: center;
     align-items: center;
 }
+
 .comments_container{
     margin: 5rem auto;
-
-
-
 }
+
 .displayComment{
     margin: auto;
     width: 30rem;
@@ -18,6 +17,7 @@
     align-items: start;
     flex-direction: column;
 }
+
 .displayComment form{
     width: 100%;
     padding: 1rem;
@@ -35,4 +35,12 @@
 .displayComment form input{
     width: 10rem;
     margin-left: -1rem;
+}
+
+.comment_list{
+    margin-left:1rem;
+    text-align: start;
+}
+.comment_list li{
+    list-style: none;
 }
