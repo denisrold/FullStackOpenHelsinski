@@ -15,7 +15,8 @@ const OneBlog = () => {
               {blog.author}
           </span>
           <span className='capitalizeText'>
-          <Link to={`/user/${blog.userId.id}`} >{blog.userId.username}</Link>
+          User:
+          <Link to={`/user/${blog.userId.id}`} > {blog.userId.username}</Link>
           </span>
         </section>
         <Comments blog={blog}/>

@@ -32,7 +32,7 @@ const Comments = ({ blog })=>{
             <div className='titleComments'>Comments:</div>
             <ul  className='comment_list'>
               {blog.comments&&blog.comments.map((c,i)=>(
-                <li key={i}>{c}sss</li>
+                <li key={i}>{c}</li>
               ))}
             </ul>
             </article>

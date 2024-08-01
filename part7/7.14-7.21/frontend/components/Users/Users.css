@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     margin: auto;
+    height: 78vh;
 }
 
 .userItem{
