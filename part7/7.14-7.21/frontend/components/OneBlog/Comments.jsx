@@ -28,12 +28,14 @@ const Comments = ({ blog })=>{
               <input maxLength={70} name='comment' type='text' placeholder='your comment...' onChange={(e)=>setComments(e.target.value)} value={comments} />
               <button type='submit'>Send</button>
             </form>
-            <div>Comments:</div>
+            <article className='box_comment'>
+            <div className='titleComments'>Comments:</div>
             <ul  className='comment_list'>
               {blog.comments&&blog.comments.map((c,i)=>(
                 <li key={i}>{c}sss</li>
               ))}
             </ul>
+            </article>
           </article>
         </section>
         </>

@@ -1,15 +1,55 @@
+.Oneblog_Container{
+    padding: 5rem 1rem; 
+} 
 .oneblog_info{
-    margin-top: 3rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .comments_container{
     margin: 5rem auto;
 }
 
+.displayComment form{
+    margin-top: 2rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.displayComment form input{
+  width: 50vw;
+}
+.displayComment form button{
+    justify-content: center;
+    margin: 1rem auto;
+    margin-left: 1rem;
+    padding: .5rem;
+    border-radius: .8rem;
+    width: 11rem;
+}
+
+.box_comment{
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    justify-content: start;
+    align-items: start;
+}
+.comment_list{
+    width: 70vw;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    text-align: start;
+    margin-left: -2rem;
+}
+.comment_list li{
+    list-style: none;
+    align-items: start;
+    margin: auto;
+}
+
+/*
 .displayComment{
     margin: auto;
     width: 30rem;
@@ -44,3 +84,62 @@
 .comment_list li{
     list-style: none;
 }
+
+
+@media screen and (max-width: 580px) {
+        
+  .comments_container{
+    display: flex;
+    flex-direction: column;
+  }
+  .displayComment form{
+  display: flex;
+  width: 80vw;
+  justify-content: center;
+  }
+  .displayComment form input{
+    flex-grow: 1;
+    }
+  }
+
+@media screen and (max-width: 450px) {
+    .Oneblog_Container{
+        width: 80vw;
+    } 
+ .oneblog_info{
+
+ }
+  .displayComment form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: start;
+    margin: 0;
+    width: 80vw;
+    padding: 0;
+    margin-top: 2rem;
+    align-items: center;
+    }
+
+
+    .displayComment form input{
+        margin: 0;
+        width: 50vw;
+        }
+        .displayComment form button{
+    
+            width: 50vw;
+           
+        }
+        .titleComments{
+            margin-top: 3rem;
+        }
+        .comment_list{
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            margin: 1rem;
+            padding: 0;
+        }
+} */
