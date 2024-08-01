@@ -41,7 +41,6 @@ const blogSlice = createSlice({
         ...blog,
         comments: [...blog.comments, comment],
       };
-      console.log("estecommend", commentsUpdated);
       state.blogs = state.blogs.map((b) => (b.id !== id ? b : commentsUpdated));
       return state;
     },

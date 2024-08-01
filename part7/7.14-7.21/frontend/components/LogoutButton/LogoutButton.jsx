@@ -20,9 +20,14 @@ const LogoutButton = ({ logoutStates }) => {
     navigate('/')
   }
   return(
+    <>
     <div className='logOutButton'>
       <button data-testid="LogoutButton" onClick={ handleLogout }>Logout</button>
     </div>
+    <div className='displayButton'>
+      <button data-testid="LogoutButton" onClick={ handleLogout }>Logout</button>
+    </div>
+    </>
   )
 }
 export default LogoutButton;
