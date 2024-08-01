@@ -44,9 +44,10 @@
     margin-left: -2rem;
 }
 .comment_list li{
-    list-style: none;
-    align-items: start;
+
+    max-width: 20rem;
     margin: auto;
+    word-wrap: break-word;
 }
 
 /*
