@@ -5,9 +5,11 @@ import { useState } from 'react';
 
 const Navbar = ({setUser, setLoadState,user}) => {
     const [viewNavList,setViewNavList] = useState(false);
+    const [openClose,setOpenClose] = useState(true);
 
     const onCloseNavbar = () => {
       setViewNavList(false);
+    
     }
     return(
       <>
