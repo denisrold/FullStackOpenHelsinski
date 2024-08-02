@@ -1,10 +1,4 @@
 
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 3rem;
-  text-align: center;
-}
 
 body button{
   font-size: large;
@@ -15,21 +9,7 @@ body button{
   margin-top: 1rem;
   border-radius: 2rem;
 }
-.background{
-  position:absolute; z-index: -10;
-  background-image:url('../public/background2.jpg');
-  background-size: cover;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  filter: contrast(1.1);
-  filter: brightness(0.9);
-  filter:saturate(1.1);
-  overflow: hidden;
-}
+
 .landingPage{
   font-weight: bold;
  color: white;
@@ -67,6 +47,23 @@ body button{
   max-width: 20rem;
 }
 /* FORM CONTAINER  */
+.loginFormContainer{
+  display: flex;
+  justify-content: center;
+  margin: 6rem auto;
+  padding: 1rem;
+  max-width: 20rem;
+}
+.loginFormContainer input{
+  margin-bottom:1rem ;
+}
+.loginContainer{
+display: flex;
+justify-content: center;
+align-items: center;
+height: 80vh;
+}
+
 .formContainer{
   display: flex;
   justify-content: center;
@@ -219,11 +216,11 @@ font-size: small;
 @media screen and (max-width: 1024px) {
   .landingPage{
    margin: 35vh auto;
-   color:black;
+   color:rgb(255, 255, 255);
    height:15vh;
   }
   .landingPage button{
-    color: black;
+    color: rgb(255, 255, 255);
   }
 }
 @media screen and (max-width: 630px) {

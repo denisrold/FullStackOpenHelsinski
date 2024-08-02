@@ -17,7 +17,7 @@ import Info from '../components/Info/Info';
 import Home from '../components/Home/Home';
 import OneUser from '../components/OneUser/OneUser';
 import OneBlog from '../components/OneBlog/OneBlog';
-import Footer from '../components/Footer/Footer';
+
 
 
 function App() {

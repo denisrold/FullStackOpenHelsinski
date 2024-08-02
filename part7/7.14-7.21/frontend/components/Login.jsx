@@ -60,9 +60,10 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
 
   return(!user&&(
     <>
+    <section className='loginContainer'>
       {loadState ? (<div className='loadStateContainer'><h3>Loading...</h3></div>):(
           <Toggable buttonLabel={"Login"} dispatch={dispatch}>
-            <section className='formContainer '>
+            <section className='loginFormContainer '>
               {!register&&(
              <form name="LoginForm" className='form'>
              <div>
@@ -85,6 +86,7 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
         )
       }
       {notification&&<Notifications/>}
+      </section>
     </>
    )
   )

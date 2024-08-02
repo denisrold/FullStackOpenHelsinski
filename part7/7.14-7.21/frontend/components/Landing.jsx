@@ -4,9 +4,6 @@ const Landing = () => {
   const loggedUserID = useSelector(state => state.user.userId)
     return (
     <>
-    <section>
-        <div className="background"></div>
-    </section>
     <section >
       <article className="landingPage">
       { !loggedUserID && <h3>Welcome to:</h3> }
