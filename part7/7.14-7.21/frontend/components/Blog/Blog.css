@@ -19,7 +19,7 @@ margin: 1.5rem 0 0 1.5rem;
 display: flex;
 justify-content: center;
 flex-direction: column;
-border-radius: .3rem;
+border-radius: 1rem;
 border: 2px solid white;
 /* max-width: 26rem;  */
 margin-top: 1rem;
@@ -96,6 +96,9 @@ min-height: 25rem;
  font-weight: bold;
 }
 
+.swiper-pagination-bullet-active{
+  background: white !important;
+}
 .userOptions{
   height: 5rem;
 }

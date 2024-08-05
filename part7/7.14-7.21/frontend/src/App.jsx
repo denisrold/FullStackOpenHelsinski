@@ -52,29 +52,28 @@ function App() {
   },[user])
  
   return (
-    <>
-    {user&&window.location.pathname !=='/'&&<Navbar user={user} setUser={setUser} setLoadState={setLoadState} />}
-    <Routes>
-      <Route path='/' element={<Landing/>}/>
-      <Route path='/login' element={
-        <>
- 
-          <Login
-            user={user}
-            setUser={setUser}
-            setLoadState={setLoadState}
-            loadState={loadState}/>
-        </>
-      }/>
-      <Route path='/home' element={ user?<Home user={user}/>: <Navigate replace to='/login'/>  }/>
-      <Route path='/myblogs' element={ loggedUserID?<Myblogs user={user}/>: <Navigate replace to='/login'/> }/>
-      <Route path='/user/:id' element={ loggedUserID?<OneUser/>: <Navigate replace to='/login'/>  }/>
-      <Route path='/users' element={ loggedUserID?<Users/>: <Navigate replace to='/login'/>  }/>
-      <Route path='/blog/:id' element={ loggedUserID?<OneBlog />: <Navigate replace to='/login'/>  }/>
-      <Route path='/info' element={ loggedUserID?<Info/>: <Navigate replace to='/login'/>  }/>
-    </Routes>
-    {user&&window.location.pathname !=='/'&&<Footer user={user} setUser={setUser} setLoadState={setLoadState} />}
-    </>
+  <>
+    { user&&window.location.pathname !=='/'&&<Navbar user={user} setUser={setUser} setLoadState={setLoadState} /> }
+      <Routes>
+        <Route path='/' element={<Landing/>}/>
+        <Route path='/login' element={
+          <>
+            <Login
+              user={user}
+              setUser={setUser}
+              setLoadState={setLoadState}
+              loadState={loadState}/>
+          </>
+        }/>
+        <Route path='/home' element={ user?<Home user={user}/>: <Navigate replace to='/login'/>  }/>
+        <Route path='/myblogs' element={ loggedUserID?<Myblogs user={user}/>: <Navigate replace to='/login'/> }/>
+        <Route path='/user/:id' element={ loggedUserID?<OneUser/>: <Navigate replace to='/login'/>  }/>
+        <Route path='/users' element={ loggedUserID?<Users/>: <Navigate replace to='/login'/>  }/>
+        <Route path='/blog/:id' element={ loggedUserID?<OneBlog />: <Navigate replace to='/login'/>  }/>
+        <Route path='/info' element={ loggedUserID?<Info/>: <Navigate replace to='/login'/>  }/>
+      </Routes>
+      { user && window.location.pathname !=='/' && window.location.pathname !=='/login' && <Footer user={user} setUser={setUser} setLoadState={setLoadState} /> }
+  </>
   )
 }
 

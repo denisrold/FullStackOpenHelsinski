@@ -12,6 +12,7 @@
 .comments_container{
     margin: 5rem auto;
     width: 80%;
+
 }
 
 .displayComment form{
@@ -33,6 +34,7 @@
 }
 
 .box_comment{
+
     display: flex;
     flex-direction: column;
     width: 70vw;
