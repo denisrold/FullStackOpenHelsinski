@@ -24,6 +24,7 @@ border: 2px solid white;
 /* max-width: 26rem;  */
 margin-top: 1rem;
 min-height: 25rem;
+background-image: linear-gradient(to right,#0b0b1d 70%,#13132f 100%);
 }
 
 /*scrollBar Config.*/
