@@ -31,6 +31,7 @@ const Comments = ({ blog })=>{
             <article className='box_comment'>
             <div className='titleComments'>Comments:</div>
             <ul  className='comment_list'>
+              {!blog.comments.length&&<div className='noComments'>No comments yet.</div>}
               {blog.comments&&blog.comments.map((c,i)=>(
                 <li key={i}>{c}</li>
               ))}
