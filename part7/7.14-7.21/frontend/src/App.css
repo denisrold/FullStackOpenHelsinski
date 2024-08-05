@@ -19,6 +19,7 @@ body button{
  align-items: start;
  gap: 1.5rem;
  margin-top: 5rem;
+ padding: 2rem 6rem;
 }
 .landingPage h3, .landingPage h1{
   margin: 0;

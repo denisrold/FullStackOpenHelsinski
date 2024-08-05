@@ -7,10 +7,11 @@
   color: white;
 }
 .myBlogsTitle{
-    margin: 4rem auto;
+    margin: 7rem auto;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    
 }
 input{
   padding: .5rem;
@@ -47,6 +48,8 @@ input{
   }
   .formAdd{
     padding-top: 1.5rem;
+    width: 80%;
+    margin: auto;
   }
   .formAdd button{
     margin-top: .9rem;
@@ -55,8 +58,7 @@ input{
   }
 
   .myblogs{
-    margin-top: 2rem;
-    margin-right: -1rem;
+    width: 100%;
   }
 
 @media screen and (max-width: 1280px) {

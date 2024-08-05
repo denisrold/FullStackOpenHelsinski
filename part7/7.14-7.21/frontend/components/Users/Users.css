@@ -1,5 +1,6 @@
 .Users_container{
     padding: 3rem;
+    padding-top: 5rem;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -36,9 +37,4 @@
     }
   
   @media screen and (max-width: 550px) {
-    .userItem{
-        font-size: small;
-        margin-left: -5rem;
-        margin-right: -2rem;
-      }
     }

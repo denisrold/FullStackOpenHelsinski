@@ -2,7 +2,6 @@ import './App.css'
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Header from '../components/Headers';
 import Login from '../components/Login';
 import { initializeBlogs } from '../redux/reducers/blogReducer';
 import { setUserID } from "../redux/reducers/userReducer";
@@ -17,6 +16,7 @@ import Info from '../components/Info/Info';
 import Home from '../components/Home/Home';
 import OneUser from '../components/OneUser/OneUser';
 import OneBlog from '../components/OneBlog/OneBlog';
+import Footer from '../components/Footer/Footer';
 
 
 
@@ -73,7 +73,7 @@ function App() {
       <Route path='/blog/:id' element={ loggedUserID?<OneBlog />: <Navigate replace to='/login'/>  }/>
       <Route path='/info' element={ loggedUserID?<Info/>: <Navigate replace to='/login'/>  }/>
     </Routes>
-   
+    {user&&window.location.pathname !=='/'&&<Footer user={user} setUser={setUser} setLoadState={setLoadState} />}
     </>
   )
 }
