@@ -36,7 +36,6 @@ const blogSlice = createSlice({
     appendComment(state, action) {
       const { blog, comment } = action.payload;
       const id = blog.id;
-      console.log("este", blog.comments);
       const commentsUpdated = {
         ...blog,
         comments: [...blog.comments, comment],
