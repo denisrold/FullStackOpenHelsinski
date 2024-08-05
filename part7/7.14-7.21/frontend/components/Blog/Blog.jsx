@@ -39,6 +39,7 @@ const Blogs = ({ user, blog, children }) => {
             <h5 className="capitalizeText">
               Creator: { userId.name }
             </h5>
+            <h5 className="comments">Comments: {blog.comments.length?blog.comments.length:0}</h5>
             {!!user.token && ( <div className="userOptions">
              {children}
               {loggedUserID === userId.id&& (

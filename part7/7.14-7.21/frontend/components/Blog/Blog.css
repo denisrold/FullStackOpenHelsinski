@@ -116,6 +116,9 @@ margin-bottom: .3rem;
   /* border: none; */
 }
 
+.comments{
+  margin-top: -1rem;
+}
 @media screen and (max-width: 1300px) {
   .bodyContainer{
     grid-template-columns: repeat(3, .75fr); 

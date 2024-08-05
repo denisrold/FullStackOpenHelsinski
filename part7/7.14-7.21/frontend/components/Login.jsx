@@ -44,7 +44,6 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
     if(loggedUser){
       setLoadState(true)
       const userLog = JSON.parse(loggedUser);
-   
       setTimeout(() => {
         setLoadState(false);
         setUser(userLog);
@@ -52,6 +51,7 @@ const Login =({ user,setUser,setLoadState,loadState }) => {
       },500)
     }
   },[register])
+  
   const handleDemo = (e) => {
     e.preventDefault()
     setUsername('rooter');
