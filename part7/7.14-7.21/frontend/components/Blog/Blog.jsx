@@ -27,18 +27,19 @@ const Blogs = ({ user, blog, children }) => {
                 { title }
              </h4>
             </Link>
-            by:<Link to={`/user/${userId.id}`}>
+            by:
               <h4 className="capitalizeText" id='testAuthor'>
                 { author }
               </h4>
-            </Link>
           </article>
             <a href='#'> 
            { url }
             </a>
+         
             <h5 className="capitalizeText">
               Creator: { userId.name }
             </h5>
+   
             <h5 className="comments">Comments: {blog.comments.length?blog.comments.length:0}</h5>
             {!!user.token && ( <div className="userOptions">
              {children}

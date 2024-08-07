@@ -2,27 +2,15 @@ import { useParams,useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import './OneUser.css';
 import { useEffect, useState } from "react";
-import { getAllUsers } from "../../redux/reducers/userReducer";
 
 const OneUser = () => {
-  const [user,setUser] = useState([]);
+
   const { id } = useParams()
-  const loggedUserID = useSelector(state => state.user.userId)
 
-    const dispatch = useDispatch();
-    useEffect(()=>{
-        dispatch(getAllUsers());
-    },[loggedUserID]);
-    const  { users }  = useSelector(state => state.user)
-  useEffect(()=>{
-      if(users){
-        const findUsers = users.find(user=>user.id===id);
-        setUser([findUsers]);
-      }
-},[users]);
+  const { users } = useSelector(state=>state.user);
 
+  const user = users.find(user=>user.id===id);
 return (
-  user.length&&(
   <>
   <section className="oneUser">
     <h3>
@@ -38,14 +26,14 @@ return (
     )
    )}
    </ul>
-   {!user.blogs && <h4>hasn't created blogs yet</h4>}
+   {!user.blogs.length && <h4>hasn't created blogs yet</h4>}
   </section>
   <div className="buttonsBack">
   Back to: 
   <Link to='/home'>home</Link>
   <Link to='/users'>users</Link>
   </div>
-  </>)
+  </>
   )
 }
 export default OneUser;

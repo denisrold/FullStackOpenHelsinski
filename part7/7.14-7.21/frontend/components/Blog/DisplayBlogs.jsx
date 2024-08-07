@@ -35,7 +35,7 @@ export default function DisplayBlogs({blogs}) {
             <SwiperSlide key={i}>
               <article className='displayContainer'>
                 <Link to={`/blog/${b.id}`}>{b.title}</Link>
-                <span>by <Link to={`/user/${b.userId.id}`}>{b.author} </Link></span>
+                <span>by {b.author}</span>
                   <a>{b.url}</a>
                 <div>
                   <span>likes: </span>
