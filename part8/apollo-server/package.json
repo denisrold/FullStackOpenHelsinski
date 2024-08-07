@@ -12,6 +12,7 @@
     "@apollo/server": "^4.10.5",
     "apollo-server": "^3.13.0",
     "graphql": "^16.9.0",
-    "graphql-tag": "^2.12.6"
+    "graphql-tag": "^2.12.6",
+    "uuid": "^10.0.0"
   }
 }
