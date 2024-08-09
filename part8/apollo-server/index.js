@@ -106,6 +106,7 @@ const resolvers = {
       if (!person) {
         return null;
       }
+
       const updatedPerson = { ...person, phone: args.phone };
       persons = persons.map((p) => (p.name === args.name ? updatedPerson : p));
       return updatedPerson;
