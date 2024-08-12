@@ -1,6 +1,5 @@
 import { useLazyQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
-import PersonForm from "../PersonForm/PersonForm";
 import { FIND_PERSON } from "../../queries";
 
 const Persons = ({ persons }) => {
@@ -43,7 +42,7 @@ const Persons = ({ persons }) => {
           </button> 
         </div>  
       )}
-      <PersonForm/>
+   
     </div>
   )
 }

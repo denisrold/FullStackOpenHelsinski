@@ -2,13 +2,28 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { ALL_PERSONS,CREATE_PERSON } from '../../queries';
 
-const PersonForm = () => {
+
+const PersonForm = ({ setError }) => {
   const [ name, setName ] = useState('')
   const [ phone, setPhone ] = useState('')
   const [ street, setStreet ] = useState('')
   const [ city, setCity ] = useState('')
   const [ createPerson]  = useMutation(CREATE_PERSON,{
-      refetchQueries: [ { query: ALL_PERSONS } ]
+      refetchQueries: [ { query: ALL_PERSONS } ],
+      onError: (error) => {
+        console.log('Error completo:', error);
+        console.log('Errores de GraphQL:', error.graphQLErrors);
+        // Manejo de errores de GraphQL
+        if (error.graphQLErrors && error.graphQLErrors.length > 0) {
+          const graphQLError = error.graphQLErrors[0];
+          const message = graphQLError.message || 'Error desconocido.';
+          setError(message);
+        } else if (error.networkError) {
+          setError('Error de red ocurrió.');
+        } else {
+          setError('Error desconocido.');
+        }
+      },
   });
 
   const submit = (e) => {

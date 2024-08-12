@@ -1,11 +1,23 @@
 import './App.css'
-import React from 'react'
+import { useState } from 'react'
 import { useQuery } from '@apollo/client';
 import Persons from '../components/Persons/Persons';
+import PersonForm from '../../frontend/components/PersonForm/PersonForm';
 import { ALL_PERSONS } from '../queries';
+import Notify from '../components/Notify/Notify';
 
 const App = () => {
-  const result = useQuery(ALL_PERSONS)
+  const [errorMessage, setErrorMessage] = useState(null)
+
+  const result = useQuery(ALL_PERSONS) 
+
+  const notify = (message) => {
+    setErrorMessage(message)
+    setTimeout(() => {
+      setErrorMessage(null)
+    }, 10000)
+  }
+ 
 
   if (result.loading)  {
     return <div>loading...</div>
@@ -13,10 +25,13 @@ const App = () => {
 
   return (
     <div>
+      <Notify errorMessage={errorMessage} />
       <Persons persons={result.data.allPersons} />
+      <PersonForm  setError={notify}/>
     </div>
   )
 }
+
 
 
 export default App
