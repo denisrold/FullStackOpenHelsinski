@@ -103,13 +103,11 @@ const resolvers = {
       const person = persons.find((p) => p.name === args.name);
       if (!person) {
         return null;
-      } else {
-        const updatedPerson = { ...person, phone: args.phone };
-        persons = persons.map((p) =>
-          p.name === args.name ? updatedPerson : p
-        );
-        return updatedPerson;
       }
+
+      const updatedPerson = { ...person, phone: args.phone };
+      persons = persons.map((p) => (p.name === args.name ? updatedPerson : p));
+      return updatedPerson;
     },
   },
 };
