@@ -160,7 +160,7 @@ const resolvers = {
           (b) => b.author === args.author && b.genres.includes(args.genre)
         );
       }
-      books;
+      return books;
     },
     bookCount: () => books.length,
     authorCount: () => authors.length,
