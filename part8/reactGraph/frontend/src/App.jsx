@@ -1,10 +1,11 @@
 import './App.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client';
 import Persons from '../components/Persons/Persons';
 import PersonForm from '../../frontend/components/PersonForm/PersonForm';
 import { ALL_PERSONS } from '../queries';
 import Notify from '../components/Notify/Notify';
+import PhoneForm from '../components/PhoneForm/PhoneForm';
 
 const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
@@ -19,6 +20,7 @@ const App = () => {
   }
  
 
+ 
   if (result.loading)  {
     return <div>loading...</div>
   }
@@ -28,6 +30,7 @@ const App = () => {
       <Notify errorMessage={errorMessage} />
       <Persons persons={result.data.allPersons} />
       <PersonForm  setError={notify}/>
+      <PhoneForm  setError={notify}/>
     </div>
   )
 }

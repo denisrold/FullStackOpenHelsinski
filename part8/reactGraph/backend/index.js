@@ -32,7 +32,7 @@ const typeDefs = `
   }
 
   type Person {
-    name: String!
+    name: String
     phone: String
     address: Address!
     id: ID!
@@ -46,7 +46,7 @@ const typeDefs = `
       city: String!
     ): Person
 
-    editNumber(name: String!, phone: String!): Person
+    editNumber(name: String, phone: String!): Person
   }
 
   enum YesNo {
@@ -103,11 +103,13 @@ const resolvers = {
       const person = persons.find((p) => p.name === args.name);
       if (!person) {
         return null;
+      } else {
+        const updatedPerson = { ...person, phone: args.phone };
+        persons = persons.map((p) =>
+          p.name === args.name ? updatedPerson : p
+        );
+        return updatedPerson;
       }
-
-      const updatedPerson = { ...person, phone: args.phone };
-      persons = persons.map((p) => (p.name === args.name ? updatedPerson : p));
-      return updatedPerson;
     },
   },
 };

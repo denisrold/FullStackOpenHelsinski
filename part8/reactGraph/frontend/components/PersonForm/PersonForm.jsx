@@ -11,8 +11,6 @@ const PersonForm = ({ setError }) => {
   const [ createPerson]  = useMutation(CREATE_PERSON,{
       refetchQueries: [ { query: ALL_PERSONS } ],
       onError: (error) => {
-        console.log('Error completo:', error);
-        console.log('Errores de GraphQL:', error.graphQLErrors);
         // Manejo de errores de GraphQL
         if (error.graphQLErrors && error.graphQLErrors.length > 0) {
           const graphQLError = error.graphQLErrors[0];
