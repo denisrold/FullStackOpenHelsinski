@@ -1,4 +1,6 @@
+import { useMutation } from '@apollo/client'
 import { useState } from 'react'
+import { ADD_BOOKS, ALL_BOOKS } from '../querys'
 
 const NewBook = (props) => {
   const [title, setTitle] = useState('')
@@ -7,15 +9,34 @@ const NewBook = (props) => {
   const [genre, setGenre] = useState('')
   const [genres, setGenres] = useState([])
 
-  if (!props.show) {
-    return null
-  }
+  const [ createBook]  = useMutation(ADD_BOOKS,
+    {
+      refetchQueries: [ { query: ALL_BOOKS } ]
+    ,
+      onError: (error) => {
+        // Manejo de errores de GraphQL
+        if (error.graphQLErrors && error.graphQLErrors.length > 0) {
+          const graphQLError = error.graphQLErrors[0];
+          const message = graphQLError.message || 'Error desconocido.';
+          console.log(message);
+        } else if (error.networkError) {
+          console.log('Error de red ocurrió.');
+        } else {
+          console.log('Error desconocido.');
+        }
+      },
+    }
+
+    
+  );
+
+    if (!props.show) {
+      return null
+    }
 
   const submit = async (event) => {
     event.preventDefault()
-
-    console.log('add book...')
-
+    createBook({variables: {title,author,published:Number(published),genres}})
     setTitle('')
     setPublished('')
     setAuthor('')
