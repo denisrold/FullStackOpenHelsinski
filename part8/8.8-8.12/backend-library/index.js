@@ -126,7 +126,7 @@ const typeDefs = `
       genres: [String]
     ): Book
 
-     editAuthor(name: String, setBornTo: Int): Author
+     editAuthor(name: String!, born: Int!): Author
   }
 
   type Query {
@@ -179,7 +179,7 @@ const resolvers = {
       if (authors.find((a) => a.name === args.name)) {
         const author = authors.find((a) => a.name === args.name);
         author.name = args.name;
-        author.born = args.setBornTo;
+        author.born = args.born;
         return author;
       } else {
         return null;
