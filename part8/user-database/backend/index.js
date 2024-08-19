@@ -1,11 +1,12 @@
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
-const { v1: uuid } = require("uuid");
 const { GraphQLError } = require("graphql");
+const jwt = require("jsonwebtoken");
+
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const Person = require("./models/person.js");
-
+const User = require("./models/user.js");
 require("dotenv").config();
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -42,6 +43,20 @@ let persons = [
 ];
 
 const typeDefs = `
+  type User {
+    username: String!
+    friends: [Person!]!
+    id: ID!
+  }
+
+  type Token {
+    value: String!
+  }
+  
+  type Query {
+    me: User
+  }
+  
   type Address {
     street: String!
     city: String!
@@ -55,6 +70,15 @@ const typeDefs = `
   }
 
   type Mutation {
+    createUser(
+     username: String!
+    ): User
+
+    login(
+      username: String!
+      password: String!
+    ): Token
+
     addPerson(
       name: String!
       phone: String
@@ -79,6 +103,9 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
+    me: (root, args, context) => {
+      return context.currentUser;
+    },
     personCount: async () => Person.collection.countDocuments(),
     allPersons: async (root, args) => {
       if (!args.phone) {
@@ -98,6 +125,35 @@ const resolvers = {
     },
   },
   Mutation: {
+    createUser: async (root, args) => {
+      const user = new User({ username: args.username });
+
+      return user.save().catch((error) => {
+        throw new GraphQLError("Creating the user failed", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+            invalidArgs: args.name,
+            error,
+          },
+        });
+      });
+    },
+    login: async (root, args) => {
+      const user = await User.findOne({ username: args.username });
+      if (!user || args.password !== "secret") {
+        throw new GraphQLError("wrong credentials", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+          },
+        });
+      }
+      const userForToken = {
+        username: user.username,
+        id: user._id,
+      };
+      return { value: jwt.sign(userForToken, process.env.JWT_SECRET) };
+    },
+
     addPerson: async (root, args) => {
       const person = new Person({ ...args });
       try {
@@ -133,6 +189,19 @@ const server = new ApolloServer({
 
 startStandaloneServer(server, {
   listen: { port: 4000 },
+  context: async ({ req, res }) => {
+    const auth = req ? req.headers.authorization : null;
+    if (auth && auth.startsWith("Bearer ")) {
+      const decodedToken = jwt.verify(
+        auth.substring(7),
+        process.env.JWT_SECRET
+      );
+      const currentUser = await User.findById(decodedToken.id).populate(
+        "friends"
+      );
+      return { currentUser };
+    }
+  },
 }).then(({ url }) => {
   console.log(`Server ready at ${url}`);
 });
