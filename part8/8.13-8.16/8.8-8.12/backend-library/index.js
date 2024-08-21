@@ -158,6 +158,20 @@ const resolvers = {
   Query: {
     allAuthors: async () => await Author.find({}),
     allBooks: async (root, args) => {
+      if (args.genre && args.author) {
+        const author = await Author.findOne({ name: args.author });
+        if (!author) {
+          return await Book.find({}).populate("author");
+        }
+        let genre =
+          args.genre.charAt(0).toUpperCase() +
+          args.genre.slice(1).toLowerCase();
+
+        return await Book.find({
+          author: author._id,
+          genres: genre,
+        }).populate("author");
+      }
       if (args.author) {
         const author = await Author.findOne({ name: args.author });
         if (!author) {
@@ -170,13 +184,9 @@ const resolvers = {
         let genre =
           args.genre.charAt(0).toUpperCase() +
           args.genre.slice(1).toLowerCase();
-        return await Book.find({ genres: { $in: genre } }).populate("author");
+        return await Book.find({ genres: genre }).populate("author");
       }
-      if (args.genre && args.author) {
-        return books.filter(
-          (b) => b.author === args.author && b.genres.includes(args.genre)
-        );
-      }
+
       return await Book.find({}).populate("author");
     },
 
@@ -186,7 +196,6 @@ const resolvers = {
   //root apunta a Author
   Author: {
     bookCount: async (root) => {
-      // return books.filter((book) => book.author === root.name).length;
       const author = await Author.findOne({ name: root.name });
       return (await Book.find({ author: author._id })).length;
     },
@@ -215,14 +224,30 @@ const resolvers = {
 
       return book.populate("author");
     },
-    editAuthor: (root, args) => {
-      if (authors.find((a) => a.name === args.name)) {
-        const author = authors.find((a) => a.name === args.name);
-        author.name = args.name;
-        author.born = args.born;
-        return author;
-      } else {
-        return null;
+    editAuthor: async (root, args) => {
+      try {
+        let author = await Author.findOne({ name: args.name });
+        if (!author) {
+          throw new GraphQLError("Author not found", {
+            extensions: {
+              code: "NOT_FOUND",
+              invalidArgs: args.name,
+            },
+          });
+        }
+        const updatedAutor = await Author.findByIdAndUpdate(
+          author._id,
+          { born: args.born },
+          { new: true }
+        );
+        return updatedAutor;
+      } catch (err) {
+        throw new GraphQLError("Fail to update author", {
+          extensions: {
+            code: "INTERNAL_SERVER_ERROR",
+            error: err.message,
+          },
+        });
       }
     },
   },
