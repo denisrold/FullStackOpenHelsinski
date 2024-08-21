@@ -12,4 +12,4 @@ const schema = new mongoose.Schema({
   },
 });
 
-module.export = mongoose.model("Author", schema);
+module.exports = mongoose.model("Author", schema);
