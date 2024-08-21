@@ -1,7 +1,5 @@
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
-const { v1: uuid } = require("uuid");
-
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const Book = require("./models/book.js");
@@ -103,22 +101,6 @@ let books = [
   },
 ];
 
-/*
-  you can remove the placeholder query once your first one has been implemented 
-*/
-/*
- type Address {
-    street: String!
-    city: String!
-  }
-
-  type Person {
-    name: String!
-    phone: String
-    address: Address!
-    id: ID!
-  }
-*/
 const typeDefs = `
   type Book {
     title: String!,
@@ -156,38 +138,58 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    allAuthors: async () => await Author.find({}),
+    allAuthors: async () => {
+      try {
+        return await Author.find({});
+      } catch (err) {
+        throw new GraphQLError("Fail Queries all authors", {
+          extensions: {
+            code: "INTERNAL_SERVER_ERROR",
+            error: err.message,
+          },
+        });
+      }
+    },
     allBooks: async (root, args) => {
-      if (args.genre && args.author) {
-        const author = await Author.findOne({ name: args.author });
-        if (!author) {
-          return await Book.find({}).populate("author");
+      try {
+        if (args.genre && args.author) {
+          const author = await Author.findOne({ name: args.author });
+          if (!author) {
+            return await Book.find({}).populate("author");
+          }
+          let genre =
+            args.genre.charAt(0).toUpperCase() +
+            args.genre.slice(1).toLowerCase();
+
+          return await Book.find({
+            author: author._id,
+            genres: genre,
+          }).populate("author");
         }
-        let genre =
-          args.genre.charAt(0).toUpperCase() +
-          args.genre.slice(1).toLowerCase();
+        if (args.author) {
+          const author = await Author.findOne({ name: args.author });
+          if (!author) {
+            return await Book.find({}).populate("author");
+          }
 
-        return await Book.find({
-          author: author._id,
-          genres: genre,
-        }).populate("author");
-      }
-      if (args.author) {
-        const author = await Author.findOne({ name: args.author });
-        if (!author) {
-          return await Book.find({}).populate("author");
+          return await Book.find({ author: author._id }).populate("author");
+        }
+        if (args.genre) {
+          let genre =
+            args.genre.charAt(0).toUpperCase() +
+            args.genre.slice(1).toLowerCase();
+          return await Book.find({ genres: genre }).populate("author");
         }
 
-        return await Book.find({ author: author._id }).populate("author");
+        return await Book.find({}).populate("author");
+      } catch (err) {
+        throw new GraphQLError("Fail Queries all books", {
+          extensions: {
+            code: "INTERNAL_SERVER_ERROR",
+            error: err.message,
+          },
+        });
       }
-      if (args.genre) {
-        let genre =
-          args.genre.charAt(0).toUpperCase() +
-          args.genre.slice(1).toLowerCase();
-        return await Book.find({ genres: genre }).populate("author");
-      }
-
-      return await Book.find({}).populate("author");
     },
 
     bookCount: async () => await Book.collection.countDocuments(),
@@ -196,33 +198,66 @@ const resolvers = {
   //root apunta a Author
   Author: {
     bookCount: async (root) => {
-      const author = await Author.findOne({ name: root.name });
-      return (await Book.find({ author: author._id })).length;
+      try {
+        const author = await Author.findOne({ name: root.name });
+        return (await Book.find({ author: author._id })).length;
+      } catch (err) {
+        throw new GraphQLError("Author book count", {
+          extensions: {
+            code: "INTERNAL_SERVER_ERROR",
+            error: err.message,
+          },
+        });
+      }
     },
   },
   Mutation: {
     addBook: async (root, args) => {
-      let authorExist = await Author.findOne({ name: args.author });
-      if (!authorExist) {
-        authorExist = await Author.create({ name: args.author });
-      }
-      const book = new Book({
-        title: args.title,
-        published: args.published,
-        author: authorExist._id,
-        genres: args.genres,
-      });
-      await book.save().catch((error) => {
-        throw new GraphQLError("Creating the book failed", {
+      try {
+        let authorExist = await Author.findOne({ name: args.author });
+        if (!authorExist) {
+          authorExist = await Author.create({ name: args.author });
+        }
+        const book = new Book({
+          title: args.title,
+          published: args.published,
+          author: authorExist._id,
+          genres: args.genres,
+        });
+        await book.save().catch((error) => {
+          throw new GraphQLError("Creating the book failed", {
+            extensions: {
+              code: "BAD_USER_INPUT",
+              invalidArgs: args.name,
+              error,
+            },
+          });
+        });
+
+        return book.populate("author");
+      } catch (err) {
+        if (err.extensions.code === "BAD_USER_INPUT") {
+          let objerror = Object.values(err.extensions.error);
+          // for (obj in objerror[0].title) {
+          //   console.log("este", obj);
+          // }
+          // console.log("dos", objerror[0].title.properties.message);
+          throw new GraphQLError("Validation error while adding the book", {
+            extensions: {
+              code: "BAD_USER_INPUT",
+              invalidArgs: args,
+              error: objerror[0].title.properties.message,
+            },
+          });
+        }
+
+        throw new GraphQLError("Fail adding Books", {
           extensions: {
-            code: "BAD_USER_INPUT",
-            invalidArgs: args.name,
-            error,
+            code: "INTERNAL_SERVER_ERROR",
+            error: objerror[0].title,
           },
         });
-      });
-
-      return book.populate("author");
+      }
     },
     editAuthor: async (root, args) => {
       try {
