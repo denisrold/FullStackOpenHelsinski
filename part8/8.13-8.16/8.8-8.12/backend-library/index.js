@@ -125,7 +125,7 @@ const typeDefs = `
     published: Int!,
     author: Author!,
     id: ID!,
-    genres: [String!]!,
+    genres: [String!]!
   }
     
   type Author{
@@ -140,7 +140,7 @@ const typeDefs = `
       title: String!,
       author: String!,
       published:Int!,
-      genres: [String]
+      genres: [String!]!
     ): Book
 
      editAuthor(name: String!, born: Int!): Author
@@ -157,19 +157,27 @@ const typeDefs = `
 const resolvers = {
   Query: {
     allAuthors: async () => await Author.find({}),
-    allBooks: (root, args) => {
+    allBooks: async (root, args) => {
       if (args.author) {
-        return books.filter((b) => b.author === args.author);
+        const author = await Author.findOne({ name: args.author });
+        if (!author) {
+          return await Book.find({}).populate("author");
+        }
+
+        return await Book.find({ author: author._id }).populate("author");
       }
       if (args.genre) {
-        return books.filter((b) => b.genres.includes(args.genre));
+        let genre =
+          args.genre.charAt(0).toUpperCase() +
+          args.genre.slice(1).toLowerCase();
+        return await Book.find({ genres: { $in: genre } }).populate("author");
       }
       if (args.genre && args.author) {
         return books.filter(
           (b) => b.author === args.author && b.genres.includes(args.genre)
         );
       }
-      return books;
+      return await Book.find({}).populate("author");
     },
 
     bookCount: async () => await Book.collection.countDocuments(),
