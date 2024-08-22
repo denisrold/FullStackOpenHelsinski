@@ -8,8 +8,9 @@ const PersonForm = ({ setError }) => {
   const [ phone, setPhone ] = useState('')
   const [ street, setStreet ] = useState('')
   const [ city, setCity ] = useState('')
-  const [ createPerson]  = useMutation(CREATE_PERSON,{
-      refetchQueries: [ { query: ALL_PERSONS } ],
+
+  const [ createPerson ]  = useMutation(CREATE_PERSON,{
+      // refetchQueries: [ { query: ALL_PERSONS } ],
       onError: (error) => {
         // Manejo de errores de GraphQL
         if (error.graphQLErrors && error.graphQLErrors.length > 0) {
@@ -21,6 +22,13 @@ const PersonForm = ({ setError }) => {
         } else {
           setError('Error desconocido.');
         }
+      },
+      update: (cache, response) => {
+        cache.updateQuery({ query: ALL_PERSONS }, ({ allPersons }) => {
+          return {
+            allPersons: allPersons.concat(response.data.addPerson),
+          }
+        })
       },
   });
 
