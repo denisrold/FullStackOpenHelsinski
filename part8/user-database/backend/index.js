@@ -86,7 +86,7 @@ const typeDefs = `
       city: String!
     ): Person
 
-    editNumber(name: String, phone: String!): Person
+    editNumber(name: String, phone: String!): Person!
 
     addAsFriend(
       name: String!
@@ -183,13 +183,13 @@ const resolvers = {
       return person;
     },
     editNumber: async (root, args) => {
-      const person = await Person.findOne({ name: args.name });
-      if (!person) {
-        return null;
-      }
-      person.phone = args.phone;
       try {
-        await person.save();
+        const person = await Person.findOneAndUpdate(
+          { name: args.name },
+          { phone: args.phone },
+          { new: true }
+        );
+        return person;
       } catch (error) {
         throw new UserInputError(error.message, {
           invalidArgs: args,

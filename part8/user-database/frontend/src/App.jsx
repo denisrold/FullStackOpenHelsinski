@@ -13,7 +13,7 @@ import LoginForm from '../components/LoginForm/LoginForm';
 const App = () => {
   const [token, setToken] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
-  const result = useQuery(ALL_PERSONS) 
+ 
   const client = useApolloClient()
 
   const notify = (message) => {
@@ -22,7 +22,9 @@ const App = () => {
       setErrorMessage(null)
     }, 5000)
   }
- 
+  
+  
+  const result = useQuery(ALL_PERSONS) 
   if (!token) {
     return (
       <div>

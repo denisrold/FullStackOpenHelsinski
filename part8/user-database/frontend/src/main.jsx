@@ -1,33 +1,35 @@
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
+import { ALL_PERSONS_ONE } from '../queries.js'
+import { ApolloClient, ApolloProvider, createHttpLink, HttpLink, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, gql } from '@apollo/client'
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('phonenumbers-user-token')
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : null,
+    }
+  }
+ })
+ 
+ const httpLink = createHttpLink({
+  uri: 'http://localhost:4000',
+})
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new HttpLink({
-    uri: 'http://localhost:4000',
-  })
+  link: authLink.concat(httpLink)
 })
 
-const query = gql`
-query {  
-allPersons {
-    name
-    phone
-    address{
-      street
-      city
-    }
-    id
-  }
-}
-`
+const query = ALL_PERSONS_ONE;
 
 client.query({ query })
   .then((response) => {
-    console.log(response.data)
+    console.log("client connect OK")
   })
 
 createRoot(document.getElementById('root')).render(
