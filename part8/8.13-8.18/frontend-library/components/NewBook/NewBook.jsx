@@ -1,15 +1,19 @@
 import { useMutation } from '@apollo/client'
 import { useState } from 'react'
-import { ADD_BOOKS, ALL_BOOKS } from '../querys'
+import { ADD_BOOKS, ALL_BOOKS } from'../../service/querys';
 
-const NewBook = (props) => {
+const NewBook = ({show,setErrorMessage}) => {
+  if (!show) {
+    return null
+  }
+
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [published, setPublished] = useState('')
   const [genre, setGenre] = useState('')
   const [genres, setGenres] = useState([])
 
-  const [ createBook]  = useMutation(ADD_BOOKS,
+  const [ createBook ]  = useMutation(ADD_BOOKS,
     {
       refetchQueries: [ { query: ALL_BOOKS } ]
     ,
@@ -30,12 +34,14 @@ const NewBook = (props) => {
     
   );
 
-    if (!props.show) {
-      return null
-    }
 
   const submit = async (event) => {
     event.preventDefault()
+    if(!title.length || !author.length || !published.length || !genres.length ){
+      setErrorMessage('Missin data');
+      throw Error('Missin data');
+    }
+
     createBook({variables: {title,author,published:Number(published),genres}})
     setTitle('')
     setPublished('')
@@ -45,7 +51,9 @@ const NewBook = (props) => {
   }
 
   const addGenre = () => {
-    setGenres(genres.concat(genre))
+    let lowerCase = genre.toLowerCase();
+    let gramatical = lowerCase.charAt(0).toUpperCase()+lowerCase.slice(1);
+    setGenres(genres.concat(gramatical))
     setGenre('')
   }
 

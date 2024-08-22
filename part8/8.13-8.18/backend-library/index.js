@@ -136,6 +136,7 @@ const typeDefs = `
     ): Book
 
     editAuthor(name: String!, born: Int!): Author
+
     createUser(
       username: String!
       favoriteGenre: String!
@@ -203,7 +204,6 @@ const resolvers = {
             args.genre.slice(1).toLowerCase();
           return await Book.find({ genres: genre }).populate("author");
         }
-
         return await Book.find({}).populate("author");
       } catch (err) {
         throw new GraphQLError("Fail Queries all books", {
@@ -285,6 +285,7 @@ const resolvers = {
         });
       }
     },
+
     editAuthor: async (root, args, context) => {
       try {
         if (!context.currentUser) {

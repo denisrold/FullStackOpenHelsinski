@@ -1,8 +1,9 @@
 import { useQuery } from '@apollo/client';
-import { ALL_AUTHORS } from '../querys';
-import SetBorn from './setBorn';
-const Authors = (props) => {
-  if (!props.show) {
+import { ALL_AUTHORS } from '../../service/querys';
+import SetBorn from '../setBorn/setBorn';
+
+const Authors = ({show,token}) => {
+  if (!show) {
     return null
   }
   const {data,loading,error} = useQuery(ALL_AUTHORS) 
@@ -13,7 +14,8 @@ const Authors = (props) => {
   }
   const authors = [...data.allAuthors]
 
-  return (
+  return (<>
+  
     <div>
       <h2>authors</h2>
       <table>
@@ -32,8 +34,9 @@ const Authors = (props) => {
           ))}
         </tbody>
       </table>
-      <SetBorn authors={authors}/>
+      {token && <SetBorn authors={authors}/>}
     </div>
+    </>
   )
 }
 

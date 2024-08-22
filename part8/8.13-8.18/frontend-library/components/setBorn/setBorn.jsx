@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
-import { ALL_AUTHORS, EDIT_BORN } from "../querys";
+import { ALL_AUTHORS, EDIT_BORN } from '../../service/querys';
 
 const SetBorn = ({authors}) => {
 
