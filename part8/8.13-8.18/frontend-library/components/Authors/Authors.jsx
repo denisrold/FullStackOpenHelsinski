@@ -8,9 +8,10 @@ const Authors = ({show,token}) => {
   }
   const {data,loading,error} = useQuery(ALL_AUTHORS) 
   if(loading){
-    return <>
-    loading...
-    </>
+    return (
+    <>
+      loading...
+    </>)
   }
   const authors = [...data.allAuthors]
 

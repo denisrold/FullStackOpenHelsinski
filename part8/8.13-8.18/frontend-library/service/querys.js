@@ -84,6 +84,7 @@ export const EDIT_BORN = gql`
     editAuthor(name: $name, born: $born) {
       name
       born
+      bookCount
     }
   }
 `;

@@ -7,7 +7,6 @@ const SetBorn = ({authors}) => {
     const [ name,setName ] = useState('');
     const [ born,setBorn ] = useState(0);
     const [ editAuthor ] = useMutation(EDIT_BORN , {
-        refetchQueries: [ { query: ALL_AUTHORS } ],
         onError: (error) => {
             // Manejo de errores de GraphQL
             if (error.graphQLErrors && error.graphQLErrors.length > 0) {
@@ -20,7 +19,16 @@ const SetBorn = ({authors}) => {
               console.log('Error desconocido.');
             }
           },
-    } )
+          update: (cache, { data: { editAuthor } }) => {
+            cache.updateQuery({ query: ALL_AUTHORS }, ({ allAuthors }) => {
+              return {
+                allAuthors: allAuthors.map(author =>
+                  author.name === editAuthor.name ? editAuthor : author
+                ),
+              };
+            });
+          },
+      });
 
     const editBorn = (e) => {
       e.preventDefault();  
