@@ -1,4 +1,20 @@
 import { gql } from "@apollo/client";
+
+export const RECOMMEND = gql`
+  query MeAndAllBooks($genre: String) {
+    me {
+      favoriteGenre
+    }
+    allBooks(genre: $genre) {
+      title
+      published
+      genres
+      author {
+        name
+      }
+    }
+  }
+`;
 export const ALL_AUTHORS = gql`
   query {
     allAuthors {
