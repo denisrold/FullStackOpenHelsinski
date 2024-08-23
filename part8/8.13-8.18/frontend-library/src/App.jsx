@@ -17,9 +17,7 @@ const App = () => {
     if(token){
       setToken(token);
     }
-    console.log('este',token);
-
-  },[])
+    },[])
   const logout = () => {
     setToken(null)
     localStorage.clear()
