@@ -2,7 +2,21 @@ const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const { GraphQLError } = require("graphql");
 const jwt = require("jsonwebtoken");
+const { PubSub } = require("graphql-subscriptions");
+/*Web Socket */
+const express = require("express");
+const http = require("http");
+const cors = require("cors");
+const { createServer } = require("http");
+const { expressMiddleware } = require("@apollo/server/express4");
+const {
+  ApolloServerPluginDrainHttpServer,
+} = require("@apollo/server/plugin/drainHttpServer");
+const { makeExecutableSchema } = require("@graphql-tools/schema");
+const { WebSocketServer } = require("ws");
+const { useServer } = require("graphql-ws/lib/use/ws");
 
+//mongo connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const Person = require("./models/person.js");
@@ -19,28 +33,30 @@ mongoose
     console.log("error connection to MongoDB:", error.message);
   });
 
-let persons = [
-  {
-    name: "Arto Hellas",
-    phone: "040-123543",
-    street: "Tapiolankatu 5 A",
-    city: "Espoo",
-    id: "3d594650-3436-11e9-bc57-8b80ba54c431",
-  },
-  {
-    name: "Matti Luukkainen",
-    phone: "040-432342",
-    street: "Malminkaari 10 A",
-    city: "Helsinki",
-    id: "3d599470-3436-11e9-bc57-8b80ba54c431",
-  },
-  {
-    name: "Venla Ruuska",
-    street: "Nallemäentie 22 C",
-    city: "Helsinki",
-    id: "3d599471-3436-11e9-bc57-8b80ba54c431",
-  },
-];
+const pubsub = new PubSub();
+
+// let persons = [
+//   {
+//     name: "Arto Hellas",
+//     phone: "040-123543",
+//     street: "Tapiolankatu 5 A",
+//     city: "Espoo",
+//     id: "3d594650-3436-11e9-bc57-8b80ba54c431",
+//   },
+//   {
+//     name: "Matti Luukkainen",
+//     phone: "040-432342",
+//     street: "Malminkaari 10 A",
+//     city: "Helsinki",
+//     id: "3d599470-3436-11e9-bc57-8b80ba54c431",
+//   },
+//   {
+//     name: "Venla Ruuska",
+//     street: "Nallemäentie 22 C",
+//     city: "Helsinki",
+//     id: "3d599471-3436-11e9-bc57-8b80ba54c431",
+//   },
+// ];
 
 const typeDefs = `
   type User {
@@ -104,6 +120,11 @@ const typeDefs = `
     allPersons(phone: YesNo): [Person!]!
     findPerson(name: String!): Person
   }
+
+  type Subscription {
+  personAdded: Person!
+}   
+
 `;
 
 const resolvers = {
@@ -180,8 +201,10 @@ const resolvers = {
           },
         });
       }
+      pubsub.publish("PERSON_ADDED", { personAdded: person });
       return person;
     },
+
     editNumber: async (root, args) => {
       try {
         const person = await Person.findOneAndUpdate(
@@ -214,28 +237,59 @@ const resolvers = {
       return currentUser;
     },
   },
+  Subscription: {
+    personAdded: {
+      subscribe: () => pubsub.asyncIterator(["PERSON_ADDED"]),
+    },
+  },
 };
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+const app = express();
+const httpServer = http.createServer(app);
+
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+// Crear el servidor WebSocket para suscripciones
+const wsServer = new WebSocketServer({
+  server: httpServer,
+  path: "/",
 });
 
-startStandaloneServer(server, {
-  listen: { port: 4000 },
-  context: async ({ req, res }) => {
-    const auth = req ? req.headers.authorization : null;
-    if (auth && auth.startsWith("Bearer ")) {
-      const decodedToken = jwt.verify(
-        auth.substring(7),
-        process.env.JWT_SECRET
-      );
-      const currentUser = await User.findById(decodedToken.id).populate(
-        "friends"
-      );
-      return { currentUser };
-    }
-  },
-}).then(({ url }) => {
-  console.log(`Server ready at ${url}`);
+useServer({ schema }, wsServer);
+
+const server = new ApolloServer({
+  schema,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
+
+async function startServer() {
+  await server.start();
+
+  app.use(
+    "/",
+    cors(),
+    express.json(),
+    expressMiddleware(server, {
+      context: async ({ req }) => {
+        const auth = req ? req.headers.authorization : null;
+        if (auth && auth.startsWith("Bearer ")) {
+          const decodedToken = jwt.verify(
+            auth.substring(7),
+            process.env.JWT_SECRET
+          );
+          const currentUser = await User.findById(decodedToken.id).populate(
+            "friends"
+          );
+          return { currentUser };
+        }
+        return {};
+      },
+    })
+  );
+
+  httpServer.listen({ port: 4000 }, () => {
+    console.log(`🚀 Server ready at http://localhost:4000/`);
+  });
+}
+
+startServer().catch((error) => console.error("Failed to start server", error));
