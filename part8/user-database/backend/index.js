@@ -1,5 +1,4 @@
 const { ApolloServer } = require("@apollo/server");
-const { startStandaloneServer } = require("@apollo/server/standalone");
 const { GraphQLError } = require("graphql");
 const jwt = require("jsonwebtoken");
 const { PubSub } = require("graphql-subscriptions");
@@ -7,7 +6,6 @@ const { PubSub } = require("graphql-subscriptions");
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
-const { createServer } = require("http");
 const { expressMiddleware } = require("@apollo/server/express4");
 const {
   ApolloServerPluginDrainHttpServer,
