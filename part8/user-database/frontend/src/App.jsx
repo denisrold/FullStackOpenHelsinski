@@ -1,9 +1,9 @@
 import './App.css'
 import { useState } from 'react'
-import { useApolloClient, useQuery } from '@apollo/client';
+import { useApolloClient, useQuery, useMutation, useSubscription } from '@apollo/client';
 import Persons from '../components/Persons/Persons';
 import PersonForm from '../../frontend/components/PersonForm/PersonForm';
-import { ALL_PERSONS } from '../queries';
+import { ALL_PERSONS, PERSON_ADDED } from '../queries';
 import Notify from '../components/Notify/Notify';
 import PhoneForm from '../components/PhoneForm/PhoneForm';
 import LoginForm from '../components/LoginForm/LoginForm';
@@ -22,9 +22,14 @@ const App = () => {
       setErrorMessage(null)
     }, 5000)
   }
-  
-  
-  const result = useQuery(ALL_PERSONS) 
+
+  const result = useQuery(ALL_PERSONS)
+  useSubscription(PERSON_ADDED, {
+    onData: ({ data }) => {
+      console.log('esta subscription',data)
+    }
+  }) 
+
   if (!token) {
     return (
       <div>
@@ -38,6 +43,7 @@ const App = () => {
     )
   } 
 
+
   const logout = () => {
     setToken(null)
     localStorage.clear()
@@ -47,6 +53,7 @@ const App = () => {
   if (result.loading)  {
     return <div>loading...</div>
   }
+  
 
   return (
     <div>
