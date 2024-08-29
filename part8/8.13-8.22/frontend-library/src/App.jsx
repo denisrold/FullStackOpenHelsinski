@@ -3,15 +3,15 @@ import Authors from "../components/Authors/Authors";
 import Books from "../components/Books/Books";
 import NewBook from "../components/NewBook/NewBook";
 import Notify from "../components/Notify/Notify";
-import { useApolloClient } from "@apollo/client";
+import { useSubscription } from "@apollo/client";
 import Login from "../components/Login/Login";
 import Recommend from "../components/Recommend/Recommend";
+import { BOOK_ADDED } from "../service/querys";
 
-const App = () => {
+const App = ({client}) => {
   const [token, setToken] = useState(null)
   const [page, setPage] = useState("authors");
   const [errorMessage,setErrorMessage] = useState(null);
-  const client = useApolloClient();
 
   useEffect(()=>{
     const token = localStorage.getItem('phonenumbers-user-token');
@@ -31,6 +31,14 @@ const App = () => {
       setErrorMessage(null)
     }, 5000)
   }
+
+  useSubscription(BOOK_ADDED, {
+    onData: ({ data }) => {
+      const addedBook = data.data.bookAdded
+      alert(`${addedBook.title} added`)
+      // // updateCacheWith(addedPerson)
+    }
+  }) 
 
   return (
     <div>

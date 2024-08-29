@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client"
-import { ALL_BOOKS } from '../../service/querys';
+import { ALL_BOOKS} from '../../service/querys';
 
 const Books = ({show}) => {
   if (!show) {
