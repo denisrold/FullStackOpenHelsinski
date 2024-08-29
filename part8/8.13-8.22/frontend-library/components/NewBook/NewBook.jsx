@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client'
 import { useState } from 'react'
 import { ADD_BOOKS, ALL_BOOKS } from'../../service/querys';
 
-const NewBook = ({show,setErrorMessage}) => {
+const NewBook = ({show,setErrorMessage,updateCacheWith}) => {
   if (!show) {
     return null
   }
@@ -15,8 +15,6 @@ const NewBook = ({show,setErrorMessage}) => {
 
   const [ createBook ]  = useMutation(ADD_BOOKS,
     {
-      refetchQueries: [ { query: ALL_BOOKS } ]
-    ,
       onError: (error) => {
         // Manejo de errores de GraphQL
         if (error.graphQLErrors && error.graphQLErrors.length > 0) {
@@ -24,11 +22,15 @@ const NewBook = ({show,setErrorMessage}) => {
           const message = graphQLError.message || 'Error desconocido.';
           console.log(message);
         } else if (error.networkError) {
+          console.log('Error de red:', error.networkError);
           console.log('Error de red ocurrió.');
         } else {
           console.log('Error desconocido.');
         }
       },
+      update: (store, response) => {
+        updateCacheWith(response.data.addBook)
+      }
     }
 
     

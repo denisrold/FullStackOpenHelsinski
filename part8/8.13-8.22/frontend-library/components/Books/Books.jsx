@@ -9,7 +9,9 @@ const Books = ({show}) => {
   const [selectedGenre, setSelectedGenre] = useState(null);
 
   const {data,loading,error} = useQuery(ALL_BOOKS, {
-    variables: { genre: selectedGenre }});
+    variables: { genre: selectedGenre },
+    fetchPolicy: 'cache-and-network'
+  });
 
   if(loading){
     return (<>

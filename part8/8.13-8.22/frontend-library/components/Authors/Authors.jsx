@@ -6,7 +6,7 @@ const Authors = ({show,token}) => {
   if (!show) {
     return null
   }
-  const {data,loading,error} = useQuery(ALL_AUTHORS) 
+  const {data,loading,error} = useQuery(ALL_AUTHORS, {fetchPolicy: 'cache-and-network'},) 
   if(loading){
     return (
     <>

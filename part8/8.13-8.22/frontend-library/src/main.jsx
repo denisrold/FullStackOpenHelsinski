@@ -6,7 +6,7 @@ import { setContext } from '@apollo/client/link/context';
 import { getMainDefinition } from '@apollo/client/utilities'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
-import { ALL_BOOKS } from "../service/querys.js";
+import { ALL_AUTHORS, ALL_BOOKS } from "../service/querys.js";
 
 
 const authLink = setContext((_, { headers }) => {
@@ -48,7 +48,11 @@ const client = new ApolloClient({
   link: splitLink
 })
 
-
+const query = ALL_BOOKS;
+client.query({ query })
+  .then((response) => {
+    console.log("client connect OK")
+  })
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ApolloProvider client={client}>
     <App />
