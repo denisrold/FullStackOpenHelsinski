@@ -80,6 +80,7 @@ const typeDefs = `
     name: String
     phone: String
     address: Address!
+    friendOf: [User!]!
     id: ID!
   }
 
@@ -133,9 +134,17 @@ const resolvers = {
     personCount: async () => Person.collection.countDocuments(),
     allPersons: async (root, args) => {
       if (!args.phone) {
-        return Person.find({});
+        return Person.find({}).populate({
+          path: "friendOf",
+          select: "username",
+        });
       }
-      return Person.find({ phone: { $exists: args.phone === "YES" } });
+      return Person.find({ phone: { $exists: args.phone === "YES" } }).populate(
+        {
+          path: "friendOf",
+          select: "username",
+        }
+      );
     },
     findPerson: async (root, args) => Person.findOne({ name: args.name }),
   },
@@ -147,6 +156,16 @@ const resolvers = {
         city: root.city,
       };
     },
+    //Problema de n+1
+    // friendOf: async (root) => {
+    //   const friends = await User.find({
+    //     friends: {
+    //       $in: [root._id],
+    //     },
+    //   });
+
+    //   return friends;
+    // },
   },
   Mutation: {
     createUser: async (root, args) => {
@@ -177,7 +196,6 @@ const resolvers = {
       return { value: jwt.sign(userForToken, process.env.JWT_SECRET) };
     },
     addPerson: async (root, args, context) => {
-      const person = new Person({ ...args });
       const currentUser = context.currentUser;
       if (!currentUser) {
         throw new GraphQLError("not authenticated", {
@@ -186,6 +204,7 @@ const resolvers = {
           },
         });
       }
+      const person = new Person({ ...args, friendOf: currentUser._id });
       try {
         await person.save();
         currentUser.friends = currentUser.friends.concat(person);
