@@ -39,7 +39,7 @@ const Books = ({show}) => {
             <th>published</th>
           </tr>
           { filteredBooks.map((a,i) => (
-            <tr key={i}>
+            <tr key={a.title}>
               <td>{a.title}</td>
               <td>{a.author.name}</td>
               <td>{a.published}</td>
