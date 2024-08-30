@@ -1,5 +1,4 @@
 const { ApolloServer } = require("@apollo/server");
-const { startStandaloneServer } = require("@apollo/server/standalone");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
@@ -181,8 +180,26 @@ const resolvers = {
       return await User.findOne({ username: context.currentUser.username });
     },
     allAuthors: async () => {
+      //SEGUIR DESDE ACA!
       try {
-        return await Author.find({});
+        // Primero obtenemos todos los autores
+        const authors = await Author.find({});
+        // Luego obtenemos el conteo de libros por autor en una sola consulta
+        const bookCounts = await Book.aggregate([
+          { $group: { _id: "$author", count: { $sum: 1 } } },
+        ]);
+
+        // Creamos un mapa para acceso rápido
+        const bookCountMap = bookCounts.reduce((acc, item) => {
+          acc[item._id.toString()] = item.count;
+          return acc;
+        }, {});
+
+        // Asignamos el conteo de libros a cada autor
+        return authors.map((author) => ({
+          ...author.toObject(),
+          bookCount: bookCountMap[author._id.toString()] || 0,
+        }));
       } catch (err) {
         throw new GraphQLError("Fail Queries all authors", {
           extensions: {
@@ -233,7 +250,7 @@ const resolvers = {
       }
     },
 
-    bookCount: async () => await Book.collection.countDocuments(),
+    // bookCount: async () => await Book.collection.countDocuments(),
     authorCount: async () => await Author.collection.countDocuments(),
   },
   //root apunta a Author

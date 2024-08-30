@@ -123,7 +123,6 @@ const typeDefs = `
   type Subscription {
   personAdded: Person!
 }   
-
 `;
 
 const resolvers = {
