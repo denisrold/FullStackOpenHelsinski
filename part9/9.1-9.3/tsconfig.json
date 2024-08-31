@@ -1,0 +1,6 @@
+//La opción del compilador noImplicitAny, que hace que sea obligatorio tener tipos para todas las variables utilizadas.
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+  }
+}
