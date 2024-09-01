@@ -4,15 +4,12 @@ interface CheckedValues {
 }
 
 const parsedArgs = (args: string[]): CheckedValues => {
-  if (args.length < 10) throw new Error('Not enough arguments');
+  if (args.length < 4) throw new Error('Not enough arguments');
   if (args.length > 10) throw new Error('Too many arguments');
 
   let lastArgs = args.pop();
   let arrs = args.slice(2)
-  let first = arrs[0].split('[')[1];
-  let last = arrs[arrs.length - 1].split(']')[0]
-  let resultArray = [first, ...arrs.slice(1, -1), last];
-
+  let resultArray = [ ...arrs ];
   const weekArray : number[] = []
   for (let value of resultArray){
     if(!isNaN(Number(value))){
@@ -84,4 +81,5 @@ catch(error:unknown){
     throw new Error(`Something was Wrong: ${error.message}`);
   }
 }
-// console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1],2))
+// npm run exerciseCalculator [3, 0, 2, 4.5, 0, 3, 1] 2
+
