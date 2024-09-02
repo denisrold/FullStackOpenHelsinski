@@ -5,14 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bmiCalculator":"ts-node ./bmiCalculator.ts",
+    "ts-node": "ts-node",
+    "dev": "ts-node-dev index.ts",
+    "bmiCalculator": "ts-node ./bmiCalculator.ts",
     "exerciseCalculator": "ts-node ./exerciseCalculator.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.19.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
     "y": "^0.3.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "ts-node-dev": "^2.0.0"
   }
 }

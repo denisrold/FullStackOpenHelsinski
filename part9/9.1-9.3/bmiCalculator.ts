@@ -1,4 +1,5 @@
 
+
 interface MultiplyValues {
   value1: number;
   value2: number;
@@ -17,6 +18,8 @@ const parseArguments = (args: string[]): MultiplyValues => {
     throw new Error('Provided values were not numbers!');
   }
 }
+
+
 const checkNumbersErrors = (peso:number, altura:number):boolean => {
   if(peso === 0)throw new Error("weight can't be 0");
   if(altura === 0)throw new Error("Height can't be 0");
@@ -24,7 +27,7 @@ const checkNumbersErrors = (peso:number, altura:number):boolean => {
   return true;
 }
 
-const bmiCalcualator = (peso:number, altura:number) : (string | void) => {
+const calcualator = (peso:number, altura:number) : (string | void) => {
     if(checkNumbersErrors(peso,altura)){
       const heightParse = altura / 100;
       let bmi = peso / (heightParse * heightParse);
@@ -35,10 +38,15 @@ const bmiCalcualator = (peso:number, altura:number) : (string | void) => {
     } 
 }
 
+export default calcualator
+
 try{
+
   const args = process.argv;
-  parseArguments(args);
-  console.log(bmiCalcualator(Number(args[2]), Number(args[3])));
+  if(!args.length){
+    parseArguments(args);
+    console.log(calcualator(Number(args[2]), Number(args[3])));
+  }
 }
 catch(error:unknown){
   let errorMessage = 'something was wrong'
