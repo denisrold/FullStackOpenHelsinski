@@ -28,6 +28,6 @@ module.exports = [
     parserOptions: {
       project: "./tsconfig.json",
     },
-    ignores: ["node_modules/", "dist/"],
+    ignores: ["node_modules/", "dist/", "/build"],
   },
 ];
