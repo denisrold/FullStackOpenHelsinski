@@ -1,5 +1,4 @@
 // eslint.config.js
-
 const typescriptParser = require("@typescript-eslint/parser");
 const typescriptPlugin = require("@typescript-eslint/eslint-plugin");
 
@@ -25,6 +24,9 @@ module.exports = [
         { argsIgnorePattern: "^_" },
       ],
       "no-case-declarations": "off",
+    },
+    parserOptions: {
+      project: "./tsconfig.json",
     },
     ignores: ["node_modules/", "dist/"],
   },
