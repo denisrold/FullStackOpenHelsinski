@@ -8,18 +8,21 @@
     "ts-node": "ts-node",
     "dev": "ts-node-dev index.ts",
     "bmiCalculator": "ts-node ./bmiCalculator.ts",
-    "exerciseCalculator": "ts-node ./exerciseCalculator.ts"
+    "exerciseCalculator": "ts-node ./exerciseCalculator.ts",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4",
     "y": "^0.3.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
-    "ts-node-dev": "^2.0.0"
+    "@typescript-eslint/eslint-plugin": "^8.4.0",
+    "@typescript-eslint/parser": "^8.4.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.4"
   }
 }

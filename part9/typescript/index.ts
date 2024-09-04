@@ -15,10 +15,10 @@ app.post('/calculate', (req, res) => {
        throw new Error('Invalid value 1');
     }
     if ( !value2 || isNaN(Number(value2)) ) {
-      throw new Error('Invalid value 1');
+      throw new Error('Invalid value 2');
     }
     if ( !op ){
-      throw new Error('Invalid value 1');
+      throw new Error('Invalid operation');
     }
     const result = calculator(value1, value2, op);
     res.status(200).json({ result });

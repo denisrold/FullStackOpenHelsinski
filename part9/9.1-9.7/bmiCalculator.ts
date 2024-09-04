@@ -13,11 +13,11 @@ const parseArguments = (args: string[]): MultiplyValues => {
     return {
       value1: Number(args[2]),
       value2: Number(args[3])
-    }
+    };
   } else {
     throw new Error('Provided values were not numbers!');
   }
-}
+};
 
 
 const checkNumbersErrors = (peso:number, altura:number):boolean => {
@@ -25,7 +25,7 @@ const checkNumbersErrors = (peso:number, altura:number):boolean => {
   if(altura === 0)throw new Error("Height can't be 0");
   if(String(altura).includes('.')) throw new Error('Height must parse in centimeters');
   return true;
-}
+};
 
 const calcualator = (peso:number, altura:number) : (string | void) => {
     if(checkNumbersErrors(peso,altura)){
@@ -36,20 +36,20 @@ const calcualator = (peso:number, altura:number) : (string | void) => {
       else if ( bmi < 30) return "overweight";
       else if (bmi >= 30.00) return "obesity";
     } 
-}
+};
 
-export default calcualator
+export default calcualator;
 
 try{
 
+  if(require.main === module){
   const args = process.argv;
-  if(!args.length){
     parseArguments(args);
     console.log(calcualator(Number(args[2]), Number(args[3])));
   }
 }
 catch(error:unknown){
-  let errorMessage = 'something was wrong'
+  let errorMessage = 'something was wrong';
   if(error instanceof Error){
     throw new Error(errorMessage +` Error: ${error.message}`);
   }

@@ -8,9 +8,9 @@ const parsedArgs = (args: string[]): CheckedValues => {
   if (args.length > 10) throw new Error('Too many arguments');
 
   let lastArgs = args.pop();
-  let arrs = args.slice(2)
+  let arrs = args.slice(2);
   let resultArray = [ ...arrs ];
-  const weekArray : number[] = []
+  const weekArray : number[] = [];
   for (let value of resultArray){
     if(!isNaN(Number(value))){
       weekArray.push(Number(value));
@@ -21,11 +21,11 @@ const parsedArgs = (args: string[]): CheckedValues => {
     return {
       value1: weekArray,
       value2: Number(lastArgs)
-    }
+    };
   } else {
     throw new Error('Provided values were not numbers!');
   }
-}
+};
 
 type Rating = 1 | 2 | 3;
 type ratingDescription = "Nice! you have a perfect training time." | "not too bad but could be better" | "you exercise times is so bad. check it"
@@ -40,12 +40,12 @@ interface ExecerciseControl {
   average:number
 }
 
-const calculateExercises  = (arr : number[] , objetivo:number ): ExecerciseControl => {
+export const calculateExercises  = (arr : number[] , objetivo:number ): ExecerciseControl => {
   let Trained = { days:0, hours:0, success:false, ratingDescription:"not too bad but could be better", raiting:2  };
   for (let hours of arr){
     if(hours !=0){
-      Trained.days += 1
-      Trained.hours+= hours
+      Trained.days += 1;
+      Trained.hours+= hours;
     }
   }
   if ((Trained.hours / arr.length) >= objetivo){
@@ -66,15 +66,17 @@ const calculateExercises  = (arr : number[] , objetivo:number ): ExecerciseContr
     ratingDescription: Trained.ratingDescription as ratingDescription,
     target:objetivo as number,
     average: Trained.hours / arr.length as number
-  }
-  console.log(Result)
-  return Result
-}
+  };
+  console.log(Result);
+  return Result;
+};
 
 try{
+  if(require.main === module){
   let args = process.argv;
-const { value1, value2 } = parsedArgs(args); 
-calculateExercises( value1,value2 )
+    const { value1, value2 } = parsedArgs(args); 
+    calculateExercises( value1,value2 );
+  }
 }
 catch(error:unknown){
   if( error instanceof Error){
