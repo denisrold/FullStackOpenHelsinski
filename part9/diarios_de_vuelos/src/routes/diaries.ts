@@ -24,17 +24,9 @@ router.post('/', (_req, res) => {
 
 
 router.post('/', (req, res) => {
-  try{
+  try{  
     const newDiaryEntry = toNewDiaryEntry(req.body);
-  
-    const { date, weather, visibility, comment } = req.body;
-  
-    const addedEntry = diaryService.addDiary(
-      date,
-      weather,
-      visibility,
-      comment,
-    );
+    const addedEntry = diaryService.addDiary(newDiaryEntry);
     res.json(addedEntry);
   }
   catch(err: unknown){

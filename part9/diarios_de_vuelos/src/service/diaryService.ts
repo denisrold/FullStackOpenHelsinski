@@ -16,16 +16,30 @@ const getNonSensitiveEntries = (): NonSensitiveDiaryEntry[] => {
  };
 
  
-const addDiary = ( date: string, weather: Weather, visibility: Visibility, comment?: string ) : NewDiaryEntry => {
-    const newDiaryEntry = { 
-      id: Math.max(...diaries.map(d => d.id)) + 1,
-      date,
-      weather,
-      visibility,
-      comment,
-    }
-    diaries.push(newDiaryEntry);
-    return newDiaryEntry;
+ const addEntry = (
+  date: string, weather: Weather, visibility: Visibility, comment: string
+): DiaryEntry => {
+
+const newDiaryEntry = {
+  id: Math.max(...diaries.map(d => d.id)) + 1,
+  date,
+  weather,
+  visibility,
+  comment,
+}
+
+diaries.push(newDiaryEntry);
+return newDiaryEntry;
+};
+
+const addDiary = ( entry: NewDiaryEntry ): DiaryEntry => {
+  const newDiaryEntry = {
+    id: Math.max(...diaries.map(d => d.id)) + 1,
+    ...entry
+  };
+
+  diaries.push(newDiaryEntry);
+  return newDiaryEntry;
 };
 
 const findById = (id: number): DiaryEntry | undefined => {
@@ -36,8 +50,9 @@ const findById = (id: number): DiaryEntry | undefined => {
  
 
 export default {
+  addDiary,
   findById,
   getEntries,
-  addDiary,
+  addEntry,
   getNonSensitiveEntries
 };
