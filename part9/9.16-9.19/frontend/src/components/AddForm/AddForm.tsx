@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { sensitivityDiaryes, Visibility, Weather } from "../../types";
 import { createFlight } from "../../services/flightServices";
+import RadioInputs from "./RadioInputs";
 
 const AddForm = ()=>{
   const [errorCreate,setErrorCreate] =useState<string>('');
@@ -46,35 +47,9 @@ const AddForm = ()=>{
         <label> date </label>
         <input type='date' name='date' onChange={inputHandle} value={flight.date}></input>
         <label> Visibility </label>
-        <div>
-          {Object.values(Visibility).map((visibility) => (
-            <label key={visibility}>
-              <input
-                type="radio"
-                name="visibility"
-                value={visibility} 
-                onChange={inputHandle}
-                checked={flight.visibility === visibility}
-              />
-              {visibility}
-            </label>
-          ))}
-        </div>
+        <RadioInputs selectedType={Visibility} compare={flight.visibility} inputHandle={inputHandle} name={'visibility'}/>
         <label> weather </label>
-        <div>
-          {Object.values(Weather).map((weather) => (
-            <label key={weather}>
-              <input
-                type="radio"
-                name="weather"
-                value={weather} 
-                onChange={inputHandle}
-                checked={flight.weather === weather}
-              />
-              {weather}
-            </label>
-          ))}
-        </div>
+        <RadioInputs selectedType={Weather} compare={flight.weather} inputHandle={inputHandle} name={'weather'}/>
         <label> comment </label>
         <input name='comment' onChange={inputHandle} value={flight.comment}></input>
        <button type='submit'>Add Entry</button>

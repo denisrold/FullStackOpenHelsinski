@@ -28,11 +28,14 @@ export interface titleProps {
   diaries : sensitivityDiaryes[]
 }
 
-
-export interface RadioGroupProps<T> {
-  name: string;
-  options: T[];
-  selectedValue: T;
-  onChange: (value: T) => void;
-  labelFormatter?: (value: T) => string; // Si deseas un formato personalizado para la etiqueta
+export interface RadioInputsProps<T> {
+  selectedType: T;
+  inputHandle: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: keyof T) => void; 
+  compare: Visibility | Weather;
+  name:string
 }
+
+export type EnumType = {
+  [key: string]: string;
+};
