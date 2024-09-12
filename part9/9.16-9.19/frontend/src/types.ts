@@ -22,10 +22,17 @@ export interface DiaryEntry {
   comment?: string;
 }
 
-
 export type sensitivityDiaryes = Omit<DiaryEntry, 'id'>
 
 export interface titleProps {
   diaries : sensitivityDiaryes[]
 }
-  
+
+
+export interface RadioGroupProps<T> {
+  name: string;
+  options: T[];
+  selectedValue: T;
+  onChange: (value: T) => void;
+  labelFormatter?: (value: T) => string; // Si deseas un formato personalizado para la etiqueta
+}

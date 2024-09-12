@@ -5,7 +5,7 @@ import toNewDiaryEntry from '../utils';
 const router = express.Router();
 
 router.get('/', (_req, res) => {
-  res.send(diaryService.getNonSensitiveEntries());
+  res.status(200).json(diaryService.getNonSensitiveEntries());
 })
 
 router.get('/:id',(req,res)=>{
@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
     if (err instanceof Error) {
       errorMessage += ' Error: ' + err.message;
     }
-    res.status(400).send(errorMessage);
+    res.status(400).json(errorMessage);
   }
 });
 

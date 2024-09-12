@@ -14,6 +14,7 @@ const AddForm = ()=>{
     }
   },[errorCreate])
 
+
   const [flight, setFlight] = useState<sensitivityDiaryes>( {
     date:'',
     weather:Weather.Sunny,
@@ -34,20 +35,46 @@ const AddForm = ()=>{
   }
 
   const inputHandle = (event : React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>{
-    event.preventDefault();
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setFlight((prevFlight) => ({...prevFlight, [name]: value}));
   }
+  
   return (
     <> 
     {errorCreate && <span style={{ color: 'red' }}>{errorCreate}</span>} 
       <form onSubmit={diaryCreate}>
         <label> date </label>
         <input type='date' name='date' onChange={inputHandle} value={flight.date}></input>
-        <label> visibility </label>
-        <input name='visibility' onChange={inputHandle} value={flight.visibility}></input>
+        <label> Visibility </label>
+        <div>
+          {Object.values(Visibility).map((visibility) => (
+            <label key={visibility}>
+              <input
+                type="radio"
+                name="visibility"
+                value={visibility} 
+                onChange={inputHandle}
+                checked={flight.visibility === visibility}
+              />
+              {visibility}
+            </label>
+          ))}
+        </div>
         <label> weather </label>
-        <input name="weather" onChange={inputHandle} value={flight.weather}></input>
+        <div>
+          {Object.values(Weather).map((weather) => (
+            <label key={weather}>
+              <input
+                type="radio"
+                name="weather"
+                value={weather} 
+                onChange={inputHandle}
+                checked={flight.weather === weather}
+              />
+              {weather}
+            </label>
+          ))}
+        </div>
         <label> comment </label>
         <input name='comment' onChange={inputHandle} value={flight.comment}></input>
        <button type='submit'>Add Entry</button>
