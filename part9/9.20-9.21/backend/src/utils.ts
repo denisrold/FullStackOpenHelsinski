@@ -60,7 +60,7 @@ const toNewPatientEntry = (object: unknown): NewPatientEntry  => {
     };
     return newEntry;
   }
-
+  
   throw new Error('Incorrect data: some fields are missing');
 };
 export default toNewPatientEntry;
