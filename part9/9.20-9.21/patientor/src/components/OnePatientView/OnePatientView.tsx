@@ -36,6 +36,16 @@ else{
       </article>
         <h4>ssh: {patient.ssn}</h4>
         <h4>occupation: {patient.occupation}</h4>
+        <article>
+          <h4>Entries:</h4>
+          {patient.entries.map(e=>(
+            <>
+            <p><b>date: </b>{e.date}</p>
+            {e.description}
+            {e.diagnosisCodes? (<p>DiagnosisCode:{e.diagnosisCodes.map(d=>(<p>{d}</p>))}</p>): null}
+            </>
+          ))}
+        </article>
       </>)
       }
 }
