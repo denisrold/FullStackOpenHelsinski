@@ -3,3 +3,8 @@
   gap: 1rem;
   align-items: center;
 }
+
+.listEntries ul , li{
+  list-style: none;
+  margin-top: .5rem;
+}

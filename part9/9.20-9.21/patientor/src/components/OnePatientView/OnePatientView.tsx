@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { patientId } from "../../types";
+import { Diagnosis, patientId } from "../../types";
 import { useParams } from "react-router-dom";
 import patientService from '../../services/patients'
 import './OnePatientView.css'; 
 
 
 const OnePatientView = () => {
-  const [patient, setPatient] = useState<patientId>();  
+  const [patient, setPatient] = useState<patientId>();
+  const [diagnosis,setDiagnosis] = useState<Diagnosis[]>()
   const { id } = useParams()
 
   const fetchPatientList = async () => {
@@ -15,14 +16,23 @@ const OnePatientView = () => {
       if(patientById)
         setPatient(patientById);
     };
-    }
+  }
+
+  const fetchDiagnosis = async () => {
+      const diagnosisList = await patientService.getDiagnoses();
+      if(diagnosisList)
+        setDiagnosis(diagnosisList);
+  }
+
   useEffect(() => {
     void fetchPatientList();
+    void fetchDiagnosis();
   }, []);
 
 if(!patient){
   <h3>Loading...</h3>
 }
+
 else{
  return ( 
       <> 
@@ -36,14 +46,26 @@ else{
       </article>
         <h4>ssh: {patient.ssn}</h4>
         <h4>occupation: {patient.occupation}</h4>
-        <article>
+        <article className="listEntries">
           <h4>Entries:</h4>
-          {patient.entries.map(e=>(
-            <>
-            <p><b>date: </b>{e.date}</p>
-            {e.description}
-            {e.diagnosisCodes? (<p>DiagnosisCode:{e.diagnosisCodes.map(d=>(<p>{d}</p>))}</p>): null}
-            </>
+          {patient.entries.map((e,i)=>(
+            <ul key={i}>
+            <li><b>date: </b>{e.date}</li>
+            <li>{e.description}</li>
+            <li>{e.diagnosisCodes? (
+              <ul>
+                <b>DiagnosisCode:</b>
+                {e.diagnosisCodes.map((d,i)=>{
+                const diagnosisEntry = diagnosis?.find(l=>l.code === d)
+                return(  
+                <li key={i}>
+                 <b>{ d }</b>{ diagnosisEntry? ` ${diagnosisEntry.name}` : null }
+                </li>
+              )
+            }
+            )}</ul>): null}
+            </li>
+            </ul>
           ))}
         </article>
       </>)
