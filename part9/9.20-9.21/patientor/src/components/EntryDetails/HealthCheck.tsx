@@ -1,20 +1,20 @@
 
 import { Entry } from "../../types"
+import { IconButton } from "@mui/material";
 import { HealtCheckRating } from "./HealthCheckRating.tsx";
-
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 
 export const HealthCheck: React.FC<{ entry : Entry }> = ({entry}) => {
     
   if (entry.type === 'HealthCheck'){
   return (
-  /**
-  "Healthy" = 0,
-  "LowRisk" = 1,
-  "HighRisk" = 2,
-  "CriticalRisk" = 3
-  */
       <article className="healtcheckrating">
+        <div className="typeIcon">
+        <IconButton>
+          <HealthAndSafetyIcon/>
+        </IconButton>
         HealtCheck Rating: 
+        </div>
         <HealtCheckRating rate={entry.healthCheckRating}/>
       </article>)
   }

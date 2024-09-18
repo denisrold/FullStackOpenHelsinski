@@ -11,3 +11,8 @@
 .healtcheckrating{
   align-items: center;
 }
+.typeIcon{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

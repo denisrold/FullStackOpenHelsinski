@@ -17,9 +17,9 @@ return <section className="EntriesSection">
                 {e.diagnosisCodes.map((d,i)=>{
                 const diagnosisEntry = diagnosis?.find(l=>l.code === d)
                 return(  
-                <li key={i}>
+                <div key={i}>
                  <b>{ d }</b>{ diagnosisEntry? ` ${diagnosisEntry.name}` : null }
-                </li>
+                </div>
                 )
                }
               )}</div>): null}
