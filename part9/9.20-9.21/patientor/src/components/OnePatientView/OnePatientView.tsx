@@ -3,6 +3,7 @@ import { Diagnosis, patientId } from "../../types";
 import { useParams } from "react-router-dom";
 import patientService from '../../services/patients'
 import './OnePatientView.css'; 
+import EntriesBase from "../EntryDetails/EntriesBase";
 
 
 const OnePatientView = () => {
@@ -46,28 +47,7 @@ else{
       </article>
         <h4>ssh: {patient.ssn}</h4>
         <h4>occupation: {patient.occupation}</h4>
-        <article className="listEntries">
-          <h4>Entries:</h4>
-          {patient.entries.map((e,i)=>(
-            <ul key={i}>
-            <li><b>date: </b>{e.date}</li>
-            <li>{e.description}</li>
-            <li>{e.diagnosisCodes? (
-              <ul>
-                <b>DiagnosisCode:</b>
-                {e.diagnosisCodes.map((d,i)=>{
-                const diagnosisEntry = diagnosis?.find(l=>l.code === d)
-                return(  
-                <li key={i}>
-                 <b>{ d }</b>{ diagnosisEntry? ` ${diagnosisEntry.name}` : null }
-                </li>
-              )
-            }
-            )}</ul>): null}
-            </li>
-            </ul>
-          ))}
-        </article>
+        <EntriesBase patient={patient} diagnosis={diagnosis}/> 
       </>)
       }
 }

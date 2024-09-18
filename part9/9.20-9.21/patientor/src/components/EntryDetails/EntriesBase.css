@@ -1,0 +1,13 @@
+.EntriesSection{
+  margin-top: 2rem;
+  border: 1px black solid;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+}
+.listEntries, li ,ul{
+  margin-left: 0;
+}
+
+.healtcheckrating{
+  align-items: center;
+}
