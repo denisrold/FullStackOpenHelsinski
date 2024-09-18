@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { Diagnosis, patientId } from "../../types";
 import './EntriesBase.css';
 import EntryDetails from "./EntryDetails";
@@ -26,10 +27,13 @@ return <section className="EntriesSection">
             <p>Specialist {e.specialist}</p>
             <EntryDetails entry={e}/>
             </li>
+            <hr/>
+            <br/>
             </ul>
           ))}
         </article>
         :<h4>No Entries Data.</h4>}
+        <Button className='buttonEntry' variant="contained">Add Entry</Button>
         </section>
 }
 export default EntriesBase;
