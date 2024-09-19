@@ -30,6 +30,7 @@ const postEntryById = (id:string, entry : Entry) : Patient | undefined => {
     const entryId = uuid();
     const newEntry = {...entry, id:entryId};
     patient.entries = [...(patient.entries || []) , newEntry]
+    return patient
   }
   
   return undefined;
