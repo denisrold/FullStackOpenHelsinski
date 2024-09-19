@@ -12,8 +12,7 @@ router.get('/', (_req, res) => {
 })
 router.get('/:id', (_req, res) => {
   const { id }= _req.params
-  const result = getPatientService.getPatientById(id);
-  console.log(result)
+  // const result = getPatientService.getPatientById(id);
   res.send( getPatientService.getPatientById(id) );
 })
 
@@ -33,4 +32,19 @@ router.post('/', (_req, res) => {
  }
 })
 
+router.post('/:id/entries', (req,res)=>{
+  const { id } = req.params;
+  try{
+    const patient =  getPatientService.getPatientById(id);
+    console.log('este',patient);
+    const { entry } = req.body;
+    console.log('entry',entry)
+    res.json({msg:'hola'})
+  }
+  catch(err : unknown){
+    if (err instanceof Error)
+      res.json({error : err.message});
+  }
+
+})
 export default router;
