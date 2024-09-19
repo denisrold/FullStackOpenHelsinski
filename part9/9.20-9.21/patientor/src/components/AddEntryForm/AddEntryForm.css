@@ -1,0 +1,36 @@
+.formEntry{
+  margin: auto;
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+  align-items: stretch;
+  gap:.8rem;
+  border: dotted  .5px;
+
+}
+
+.inputsContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputsContainer label{
+  width: 100%;
+justify-content: start;
+}
+
+.inputsContainer input{
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: .2rem 1rem;
+  border: none;
+  border-bottom: black dotted .3px;
+}
+
+.inputsContainer input:focus{
+  outline: none;
+  border-bottom: 1px solid rgb(29, 22, 235);
+}
