@@ -31,12 +31,11 @@ router.post('/', (_req, res) => {
  }
 })
 
-router.post('/:id/entries', (req,res)=>{
+router.post('/:id/entries', (req,res) => {
   const { id } = req.params;
   try{
     const patient = patientServices.postEntryById(id,req.body.entry)
-    console.log('nuevo',patient);
-    res.json({patient})
+    res.json({ patient })
   }
   catch(err : unknown){
     if (err instanceof Error)
