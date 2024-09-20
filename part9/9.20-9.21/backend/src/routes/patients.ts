@@ -31,16 +31,15 @@ router.post('/', (_req, res) => {
  }
 })
 
-router.post('/:id/entries', (req,res) => {
+router.post('/:id/entries',async (req,res) => {
   const { id } = req.params;
-  try{
-    const patient = patientServices.postEntryById(id,req.body.entry)
-    res.json({ patient })
+  try {
+    const updatedPatient = patientServices.postEntryById(id, req.body);
+    res.status(200).json(updatedPatient); 
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      res.status(400).json({ error: err.message });
+    }
   }
-  catch(err : unknown){
-    if (err instanceof Error)
-      res.json({error : err.message});
-  }
-
 })
 export default router;

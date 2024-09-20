@@ -25,25 +25,26 @@ const getPatientById = (id:string) : Patient | undefined => {
 }
 
 const postEntryById = (id:string, entry : Entry) : Patient | undefined => {
-  
   const patient = getPatientById(id);
   if(patient){
-    if (entry.type === 'Hospital' && !entry.discharge ){
+    if (entry.type === 'Hospital' && entry.discharge === undefined ){
+      console.log('esteTipo',entry.type,'este undefined',entry.discharge);
       throw new Error('Type Hospital must includes discharge.')
     }
+
     if (entry.type === 'OccupationalHealthcare' && !entry.employerName ){
       throw new Error('Type OccupationalHealthcare must includes employer name.')
     }
+
     if (entry.type === 'HealthCheck' && !entry.healthCheckRating ){
       throw new Error('Type HealthCheck must includes healthCheckRating.')
     }
-    const entryId = uuid();
-    const parseDiagnosisEntry = parseDiagnosisCodes(entry)
-    const newEntry = {...entry, id:entryId, diagnosisCodes:parseDiagnosisEntry};
-    patient.entries = [...(patient.entries || []) , newEntry]
-    return patient
+      const entryId = uuid();
+      const parseDiagnosisEntry = parseDiagnosisCodes(entry)
+      const newEntry = {...entry, id:entryId, diagnosisCodes:parseDiagnosisEntry};
+      patient.entries = [...(patient.entries || []) , newEntry]
+      return patient
   }
-  
   return undefined;
 }
 

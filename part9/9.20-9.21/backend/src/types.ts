@@ -68,7 +68,7 @@ export interface HospitalEntry extends BaseEntry {
 
 
 export type Entry =
-  | HospitalEntry
+   HospitalEntry
   | OccupationalHealthCareEntry
   | HealthCheckEntry;
 

@@ -50,3 +50,18 @@ justify-content: start;
 .checkbox input{ 
  margin-top: -1.05rem;
 }
+
+.ErrorForm{
+  padding: .5rem;
+  border: solid yellow;
+  background-color: rgba(255, 255, 0, 0.697);
+  border-radius: 1rem;
+  font-size: small;
+  font-weight: bolder;
+  margin:.5rem ;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+}
