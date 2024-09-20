@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import './AddEntryForm.css';
 import { useState } from "react";
 import DiagnosisCheck from "./DiagnosisCheck";
+import SelectType from "./SelectType";
 
 export const AddEntryForm : React.FC<{ patientId : patientId, onClose:()=>void,diagnosis: Diagnosis[] | undefined  }> = ({ patientId , onClose,diagnosis }) => {
   
@@ -21,10 +22,7 @@ export const AddEntryForm : React.FC<{ patientId : patientId, onClose:()=>void,d
       setNewEntry({...newEntry, [target.name]:target.value})
    }  
  
-   const handleOnSelect = (e : React.ChangeEvent<HTMLSelectElement>) => {
-    const target = e.target as HTMLInputElement | HTMLSelectElement;;
-      setNewEntry({...newEntry, [target.name]:target.value})
-   }  
+   
 
    const handleSubmit = (e : React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
@@ -39,14 +37,7 @@ export const AddEntryForm : React.FC<{ patientId : patientId, onClose:()=>void,d
 return(
 <form className="formEntry" onSubmit={handleSubmit}>
 <div className="inputsContainer">
-   <label htmlFor="type">
-      type:
-    </label>
-    <select name='type' value={newEntry.type} onChange={handleOnSelect}>
-      <option value="HealthCheck">HealthCheck</option>
-      <option value="Hospital">Hospital</option>
-      <option value="OccupationalHealthcare">OccupationalHealthcare</option>
-    </select>
+    <SelectType newEntry={ newEntry }  setNewEntry={ setNewEntry } />
   </div>
   <div className="inputsContainer">
    <label htmlFor="date">
