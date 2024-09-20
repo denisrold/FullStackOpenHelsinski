@@ -21,7 +21,7 @@
 justify-content: start;
 }
 
-.inputsContainer input{
+.inputsContainer input,select{
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -33,4 +33,20 @@ justify-content: start;
 .inputsContainer input:focus{
   outline: none;
   border-bottom: 1px solid rgb(29, 22, 235);
+}
+
+ select:focus{
+  outline: none;
+  background-color: none
+}
+.checkbox{
+  display: grid;
+  justify-items: center;
+  align-items: center; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 10px; 
+}
+
+.checkbox input{ 
+ margin-top: -1.05rem;
 }

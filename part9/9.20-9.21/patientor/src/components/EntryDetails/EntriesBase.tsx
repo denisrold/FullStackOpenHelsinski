@@ -14,7 +14,7 @@ const EntriesBase: React.FC<{ patient : patientId, diagnosis: Diagnosis[] | unde
 return (<>
         <Button className='buttonEntry' onClick={handleForm} variant="contained">{!openForm? 'add entry':'cancel'}</Button>
         {openForm&&(
-          <AddEntryForm  patientId={patient} onClose={handleForm} />  
+          <AddEntryForm  patientId={patient} onClose={handleForm} diagnosis={diagnosis}/>  
         )}
       <section className="EntriesSection">
       { patient.entries.length?
