@@ -16,11 +16,16 @@ export const AddEntryForm : React.FC<{ patientId : patientId, onClose:()=>void,d
       healthCheckRating:0,
     });
   
-  const handleOnChange = (e : React.FormEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
+  const handleOnChange = (e : React.FormEvent<HTMLInputElement >) => {
+    const target = e.target as HTMLInputElement | HTMLSelectElement;;
       setNewEntry({...newEntry, [target.name]:target.value})
    }  
  
+   const handleOnSelect = (e : React.ChangeEvent<HTMLSelectElement>) => {
+    const target = e.target as HTMLInputElement | HTMLSelectElement;;
+      setNewEntry({...newEntry, [target.name]:target.value})
+   }  
+
    const handleSubmit = (e : React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     onClose();
@@ -37,12 +42,11 @@ return(
    <label htmlFor="type">
       type:
     </label>
-     <select name='type'>
-        <option value="">default</option>
-        <option value="HealthCheck">HealthCheck</option>
-        <option value="Hospital">Hospital</option>
-        <option value="OccupationalHealthcare">OccupationalHealthcare</option>
-     </select>
+    <select name='type' value={newEntry.type} onChange={handleOnSelect}>
+      <option value="HealthCheck">HealthCheck</option>
+      <option value="Hospital">Hospital</option>
+      <option value="OccupationalHealthcare">OccupationalHealthcare</option>
+    </select>
   </div>
   <div className="inputsContainer">
    <label htmlFor="date">
