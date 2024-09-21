@@ -11,7 +11,9 @@ const HospitalType:React.FC<OccupationalHealth> = ({ newEntry,setNewEntry }) => 
 
   const handleOnChange = (e : React.FormEvent<HTMLInputElement >) => {
     const target = e.target as HTMLInputElement | HTMLSelectElement;
-      setNewEntry({...newEntry, [target.name]:target.value})
+    if(newEntry.type === 'Hospital'){
+      setNewEntry({...newEntry, discharge:{...newEntry.discharge, [target.name]:target.value}})
+    }
    }  
 
   return (

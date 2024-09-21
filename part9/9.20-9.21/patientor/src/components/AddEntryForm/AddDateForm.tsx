@@ -6,6 +6,7 @@ interface ChildComponentProps {
 }
 
 const AddDateForm: React.FC<ChildComponentProps> = ({ handleOnChange, name, required,objectName }) => {
+  console.log('este',required);
   const dateToday = () => {
     const today :string = new Date().toISOString().split('T')[0];
     return today
@@ -15,7 +16,8 @@ const AddDateForm: React.FC<ChildComponentProps> = ({ handleOnChange, name, requ
       <label htmlFor={objectName}>
        {name}
       </label>
-      <input required={required} onChange={handleOnChange} name={objectName} type="date" max={dateToday()} />
+      {<input required={required} onChange={handleOnChange} name={objectName} type="date" max={dateToday()} />
+    }      
     </div>
   )
 }
