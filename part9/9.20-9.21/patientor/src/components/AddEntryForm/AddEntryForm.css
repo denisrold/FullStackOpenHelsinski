@@ -70,7 +70,5 @@ justify-content: start;
 
 .dischargeContainer,.OccupationalHealthcareContainer {
   margin-top: -1rem;
-  border-radius: 1.5rem;
-  border: solid .5px black;
   padding: 1.5rem;
 }

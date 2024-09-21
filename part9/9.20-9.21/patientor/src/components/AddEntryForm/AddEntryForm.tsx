@@ -8,6 +8,9 @@ import patientService from "../../services/patients";
 import axios from "axios";
 import ErrorComponent from "../ErrorComponent/ErrorComponent";
 import AddDateForm from "./AddDateForm";
+import OccupationalHealthcare from "./OccupationalHealthcare";
+import HospitalType from "./HospitalType";
+import HealthCheck from "./HealthCheck";
 
 export const AddEntryForm : React.FC<{ patientId : patientId, onClose:()=>void,diagnosis: Diagnosis[] | undefined  }> = ({ patientId , onClose,diagnosis }) => {
   const [error,setError] = useState<string|null>(null);
@@ -22,7 +25,7 @@ export const AddEntryForm : React.FC<{ patientId : patientId, onClose:()=>void,d
     });
   
   const handleOnChange = (e : React.FormEvent<HTMLInputElement >) => {
-    const target = e.target as HTMLInputElement | HTMLSelectElement;;
+    const target = e.target as HTMLInputElement | HTMLSelectElement;
       setNewEntry({...newEntry, [target.name]:target.value})
    }  
 
@@ -55,18 +58,7 @@ return(
         </label>
           <input required onChange={handleOnChange} name='specialist' type="text" />
       </div>
-      {
-      newEntry.type==="HealthCheck"&&(
-      <div className="inputsContainer">
-        <label htmlFor="HealthCheckRating">
-        Health Check Rating:
-        </label>
-        <input  required onChange={handleOnChange} name='healthCheckRating' type="number" min={0} max={3} 
-        title="Healthy = 0 | LowRisk = 1 | HighRisk = 2 | CriticalRisk = 3"/>
-      </div>
-      )
-      }
-     
+      { newEntry.type==="HealthCheck" && (<HealthCheck newEntry={newEntry} setNewEntry={setNewEntry}/>) }
       <div className="inputsContainer"> 
         <label htmlFor="description">
           description:
@@ -75,44 +67,12 @@ return(
       </div>
         Diagnosis Codes:
         <DiagnosisCheck diagnosis={diagnosis} newEntry={newEntry} setNewEntry={setNewEntry}/>
-    {
-      newEntry.type==="Hospital"&&(
-        <>
-        <h4>DISCHARGE: </h4>
-        <div className="dischargeContainer">
-          <AddDateForm objectName={'dischargeDate'} name={'discharge date'} handleOnChange={handleOnChange} required={true}/>
-          <div className="inputsContainer"> 
-            <label htmlFor="criteria">
-            criteria:
-          </label>
-            <input required onChange={handleOnChange} name='criteria' type="text" />
-          </div>
-        </div>
-        </>
-      )
-      }{
-      newEntry.type==="OccupationalHealthcare"&&(
-        <>
-        <h4>Ocupational healthcare</h4>
-        <div className="OccupationalHealthcareContainer">
-          Sick leave:
-          <AddDateForm objectName={'startDate'} name={'start date'} required={false} handleOnChange={handleOnChange} />
-          <AddDateForm objectName={'endDate'} name={'end date'} required={false} handleOnChange={handleOnChange} />
-          <div className="inputsContainer"> 
-            <label htmlFor="criteria">
-            employerName:
-          </label>
-            <input required onChange={handleOnChange} name='employerName' type="text" maxLength={25} />
-          </div>
-        </div>
-        </>)
-
-      }
-
+      { newEntry.type ==="Hospital" && (<HospitalType newEntry={newEntry} setNewEntry={setNewEntry}/>) }
+      { newEntry.type==="OccupationalHealthcare" && (<OccupationalHealthcare newEntry={newEntry} setNewEntry={setNewEntry}/>) }
       <Button className='buttonEntry' variant="contained" type="submit" > Add </Button>
     </form>
     </>
   )
 }
-/* tener en cuenta sickLeave no es requerido si o si.  */
+
 export default AddEntryForm;
