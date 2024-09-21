@@ -17,6 +17,7 @@
 }
 
 .inputsContainer label{
+  margin-top: 1rem;
   width: 100%;
 justify-content: start;
 }
@@ -31,6 +32,7 @@ justify-content: start;
 }
 
 .inputsContainer input:focus{
+ 
   outline: none;
   border-bottom: 1px solid rgb(29, 22, 235);
 }
@@ -64,4 +66,11 @@ justify-content: start;
   align-items: center;
   justify-content: center;
 
+}
+
+.dischargeContainer,.OccupationalHealthcareContainer {
+  margin-top: 1rem;
+  border-radius: 1.5rem;
+  border: solid .5px black;
+  padding: 1.5rem;
 }

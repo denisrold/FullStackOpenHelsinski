@@ -11,7 +11,7 @@ import AddDateForm from "./AddDateForm";
 
 export const AddEntryForm : React.FC<{ patientId : patientId, onClose:()=>void,diagnosis: Diagnosis[] | undefined  }> = ({ patientId , onClose,diagnosis }) => {
   const [error,setError] = useState<string|null>(null);
-  const [ newEntry,setNewEntry ] = useState<EntryWithoutId>(
+  const [newEntry,setNewEntry ] = useState<EntryWithoutId>(
     {
       description: '',
       date: '',
@@ -47,35 +47,87 @@ return(
   <>
     <ErrorComponent error={error} setError={setError}/>
     <form className="formEntry" onSubmit={handleSubmit}>
-      <div className="inputsContainer">
-        <SelectType newEntry={ newEntry }  setNewEntry={ setNewEntry } />
-      </div>
-      <AddDateForm handleOnChange={handleOnChange} />
+      <SelectType newEntry={ newEntry }  setNewEntry={ setNewEntry } />
+      <AddDateForm objectName={'date'} name={'date'} handleOnChange={handleOnChange} required={true} />
       <div className="inputsContainer">
         <label htmlFor="specialist">
           specialist:
         </label>
-          <input onChange={handleOnChange} name='specialist' type="text" />
+          <input required onChange={handleOnChange} name='specialist' type="text" />
       </div>
+      {
+      newEntry.type==="HealthCheck"&&(
       <div className="inputsContainer">
         <label htmlFor="HealthCheckRating">
         Health Check Rating:
         </label>
-        <input onChange={handleOnChange} name='healthCheckRating' type="number" min={0} max={3} 
+        <input  required onChange={handleOnChange} name='healthCheckRating' type="number" min={0} max={3} 
         title="Healthy = 0 | LowRisk = 1 | HighRisk = 2 | CriticalRisk = 3"/>
       </div>
+      )
+      }
+     
       <div className="inputsContainer"> 
         <label htmlFor="description">
           description:
         </label>
-        <input onChange={handleOnChange} name='description' type="text" />
+        <input required onChange={handleOnChange} name='description' type="text" />
       </div>
         Diagnosis Codes:
         <DiagnosisCheck diagnosis={diagnosis} newEntry={newEntry} setNewEntry={setNewEntry}/>
+        {
+      newEntry.type==="Hospital"&&(
+        <>
+        <h4>discharge: </h4>
+        <div className="dischargeContainer">
+          <AddDateForm objectName={'date'} name={'discharge date'} handleOnChange={handleOnChange} required={true}/>
+          <div className="inputsContainer"> 
+            <label htmlFor="criteria">
+            criteria:
+          </label>
+            <input required onChange={handleOnChange} name='criteria' type="text" />
+          </div>
+        </div>
+        </>
+      )
+      }
+ {
+      newEntry.type==="Hospital"&&(
+        <>
+        <h4>discharge: </h4>
+        <div className="dischargeContainer">
+          <AddDateForm objectName={'dischargeDate'} name={'discharge date'} handleOnChange={handleOnChange} required={true}/>
+          <div className="inputsContainer"> 
+            <label htmlFor="criteria">
+            criteria:
+          </label>
+            <input required onChange={handleOnChange} name='criteria' type="text" />
+          </div>
+        </div>
+        </>
+      )
+      }{
+      newEntry.type==="OccupationalHealthcare"&&(
+        <>
+        <div className="OccupationalHealthcareContainer">
+          Sick leave:
+          <AddDateForm objectName={'startDate'} name={'start date'} required={false} handleOnChange={handleOnChange} />
+          <AddDateForm objectName={'endDate'} name={'end date'} required={false} handleOnChange={handleOnChange} />
+          <div className="inputsContainer"> 
+            <label htmlFor="criteria">
+            employerName:
+          </label>
+            <input required onChange={handleOnChange} name='employerName' type="text" maxLength={25} />
+          </div>
+        </div>
+        </>)
+
+      }
+
       <Button className='buttonEntry' variant="contained" type="submit" > Add </Button>
     </form>
     </>
   )
 }
-
+/* tener en cuenta sickLeave no es requerido si o si.  */
 export default AddEntryForm;
