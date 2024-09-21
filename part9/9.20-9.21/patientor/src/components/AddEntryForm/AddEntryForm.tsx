@@ -75,26 +75,10 @@ return(
       </div>
         Diagnosis Codes:
         <DiagnosisCheck diagnosis={diagnosis} newEntry={newEntry} setNewEntry={setNewEntry}/>
-        {
+    {
       newEntry.type==="Hospital"&&(
         <>
-        <h4>discharge: </h4>
-        <div className="dischargeContainer">
-          <AddDateForm objectName={'date'} name={'discharge date'} handleOnChange={handleOnChange} required={true}/>
-          <div className="inputsContainer"> 
-            <label htmlFor="criteria">
-            criteria:
-          </label>
-            <input required onChange={handleOnChange} name='criteria' type="text" />
-          </div>
-        </div>
-        </>
-      )
-      }
- {
-      newEntry.type==="Hospital"&&(
-        <>
-        <h4>discharge: </h4>
+        <h4>DISCHARGE: </h4>
         <div className="dischargeContainer">
           <AddDateForm objectName={'dischargeDate'} name={'discharge date'} handleOnChange={handleOnChange} required={true}/>
           <div className="inputsContainer"> 
@@ -109,6 +93,7 @@ return(
       }{
       newEntry.type==="OccupationalHealthcare"&&(
         <>
+        <h4>Ocupational healthcare</h4>
         <div className="OccupationalHealthcareContainer">
           Sick leave:
           <AddDateForm objectName={'startDate'} name={'start date'} required={false} handleOnChange={handleOnChange} />
