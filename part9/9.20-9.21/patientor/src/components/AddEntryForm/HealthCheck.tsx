@@ -1,9 +1,9 @@
 import { EntryWithoutId } from "../../types";
+
 export interface HealthCheckInterface {
   newEntry:  EntryWithoutId;
   setNewEntry:  (entry: EntryWithoutId) => void;
 }
-
 const HealthCheck:React.FC<HealthCheckInterface> = ({ newEntry,setNewEntry }) => {
 
   const handleOnChange = (e : React.FormEvent<HTMLInputElement >) => {

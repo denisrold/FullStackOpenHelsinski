@@ -5,7 +5,13 @@ import EntryDetails from "./EntryDetails";
 import { useState } from "react";
 import AddEntryForm from "../AddEntryForm/AddEntryForm";
 
-const EntriesBase: React.FC<{ patient : patientId, diagnosis: Diagnosis[] | undefined }>= ({ patient,diagnosis }) => {
+interface EntriesBaseProps {
+  patient: patientId;
+  diagnosis?: Diagnosis[];
+  setUpdatePatient: (value: boolean) => void;
+}
+
+const EntriesBase: React.FC<EntriesBaseProps>= ({ patient,diagnosis,setUpdatePatient }) => {
   const [openForm, setOpenForm] = useState<boolean>(false);
   const handleForm = () => {
     setOpenForm(!openForm);
@@ -14,7 +20,7 @@ const EntriesBase: React.FC<{ patient : patientId, diagnosis: Diagnosis[] | unde
 return (<>
         <Button className='buttonEntry' onClick={handleForm} variant="contained">{!openForm? 'add entry':'cancel'}</Button>
         {openForm&&(
-          <AddEntryForm  patientId={patient} onClose={handleForm} diagnosis={diagnosis}/>  
+          <AddEntryForm patientId={patient} onClose={handleForm} diagnosis={diagnosis} setUpdatePatient={setUpdatePatient}/>  
         )}
       <section className="EntriesSection">
       { patient.entries.length?

@@ -12,7 +12,14 @@ import OccupationalHealthcare from "./OccupationalHealthcare";
 import HospitalType from "./HospitalType";
 import HealthCheck from "./HealthCheck";
 
-export const AddEntryForm : React.FC<{ patientId : patientId, onClose:()=>void,diagnosis: Diagnosis[] | undefined  }> = ({ patientId , onClose,diagnosis }) => {
+interface AddEntriesProps {
+  patientId: patientId;
+  diagnosis?: Diagnosis[];
+  onClose:()=>void
+  setUpdatePatient: (value: boolean) => void;
+}
+
+export const AddEntryForm : React.FC<AddEntriesProps> = ({ patientId , onClose,diagnosis,setUpdatePatient }) => {
   const [error,setError] = useState<string|null>(null);
   const [newEntry,setNewEntry ] = useState<EntryWithoutId>(
     {
@@ -32,8 +39,8 @@ export const AddEntryForm : React.FC<{ patientId : patientId, onClose:()=>void,d
    const handleSubmit = async(e : React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     try{
-      const response = await patientService.addEntries(patientId,newEntry)
-      console.log('actualizar desde aca',response)
+      await patientService.addEntries(patientId,newEntry)
+      setUpdatePatient(true);
       onClose();
     }
     catch(err:unknown){

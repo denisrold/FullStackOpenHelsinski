@@ -6,8 +6,10 @@ import './OnePatientView.css';
 import EntriesBase from "../EntryDetails/EntriesBase";
 
 
+
 const OnePatientView = () => {
   const [patient, setPatient] = useState<patientId>();
+  const [updatePatient, setupdatePatient] = useState<boolean>(false);
   const [diagnosis,setDiagnosis] = useState<Diagnosis[]>()
   const { id } = useParams()
 
@@ -27,8 +29,11 @@ const OnePatientView = () => {
 
   useEffect(() => {
     void fetchPatientList();
-    void fetchDiagnosis();
-  }, []);
+    if(!diagnosis?.length){
+      void fetchDiagnosis();
+    }
+    setupdatePatient(false);
+  }, [updatePatient]);
 
 if(!patient){
   <h3>Loading...</h3>
@@ -47,7 +52,7 @@ else{
       </article>
         <h4>ssh: {patient.ssn}</h4>
         <h4>occupation: {patient.occupation}</h4>
-        <EntriesBase patient={patient} diagnosis={diagnosis}/> 
+        <EntriesBase patient={patient} diagnosis={diagnosis} setUpdatePatient={setupdatePatient}/> 
       </>)
       }
 }
