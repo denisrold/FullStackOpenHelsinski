@@ -56,13 +56,14 @@ const repositories = [
 ];
 
 const ItemSeparator = () => <View style={styles.separator} />;
-const renderItem = () => <RepositoryItems repositories={repositories}/>
+const renderItem = ({item}) => <RepositoryItems item={item}/>
 const RepositoryList = () => {
   return (
     <FlatList
       data={repositories}
       ItemSeparatorComponent={ItemSeparator}
     	renderItem={renderItem}
+      keyExtractor={(item)=>item.id}
       // other props
     />
   );

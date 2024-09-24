@@ -1,20 +1,16 @@
 import { StyleSheet, Text, View } from "react-native"
 
-const RepositoryItems = ({ repositories }) => {
+const RepositoryItems = ({ item }) => {
   return(
-    <View>
-      {repositories.map((repository,I) => (
-        <View key={I} style={styles.OneView}>
-          <Text>Full Name: {repository.fullName}</Text>
-          <Text>Description: {repository.description}</Text>
-          <Text>Language: {repository.language}</Text>
-          <Text>Stars: {repository.stargazersCount}</Text>
-          <Text>Forks: {repository.forksCount}</Text>
-          <Text>Reviews: {repository.reviewCount}</Text>
-          <Text>Rating: {repository.ratingAverage}</Text>
+        <View style={styles.OneView}>
+          <Text>Full Name: {item.fullName}</Text>
+          <Text>Description: {item.description}</Text>
+          <Text>Language: {item.language}</Text>
+          <Text>Stars: {item.stargazersCount}</Text>
+          <Text>Forks: {item.forksCount}</Text>
+          <Text>Reviews: {item.reviewCount}</Text>
+          <Text>Rating: {item.ratingAverage}</Text>
         </View>
-      ))}
-    </View>
   )
 }
 
