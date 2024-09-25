@@ -14,6 +14,7 @@ const theme = {
   },
   fontWeights: {
     normal: "400",
+    bolder: "500",
     bold: "700",
   },
   paddings: {

@@ -64,7 +64,6 @@ const RepositoryList = () => {
       ItemSeparatorComponent={ItemSeparator}
     	renderItem={renderItem}
       keyExtractor={(item)=>item.id}
-      // other props
     />
   );
 };

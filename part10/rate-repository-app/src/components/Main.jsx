@@ -1,9 +1,8 @@
 
 import React from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
-import theme from '../theme';
 import AppBarTab from './AppBarTab';
 
 const styles = StyleSheet.create({
