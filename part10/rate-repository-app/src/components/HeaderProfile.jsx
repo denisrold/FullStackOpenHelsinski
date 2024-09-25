@@ -7,9 +7,6 @@ const HeaderProfile = ({children}) => {
     </View>
   )
 }
-
-
-
 const styles = StyleSheet.create({
   headerView:{
     display: 'flex',

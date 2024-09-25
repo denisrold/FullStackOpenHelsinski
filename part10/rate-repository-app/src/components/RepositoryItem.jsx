@@ -1,9 +1,9 @@
 import { StyleSheet, Text,Image, View } from "react-native"
 import theme from "../theme";
-import ItemsTab from "./ItemsTab";
 import Rates from "./Rates";
 import HeaderProfile from "./HeaderProfile";
 import ProfileData from "./ProfileData";
+import ItemsTabRates from "./ItemsTab";
 
 const RepositoryItems = ({ item }) => {
   console.log(item)
@@ -18,10 +18,10 @@ const RepositoryItems = ({ item }) => {
             </ProfileData>
           </ HeaderProfile>
           <Rates>
-            <ItemsTab stylesParams={styles} item={item.stargazersCount}/>
-            <ItemsTab stylesParams={styles} item={item.forksCount}/>
-            <ItemsTab stylesParams={styles} item={item.reviewCount}/>
-            <ItemsTab stylesParams={styles} item={item.ratingAverage}/>
+            <ItemsTabRates stylesParams={styles} title={'Stars'} item={item.stargazersCount}/>
+            <ItemsTabRates stylesParams={styles} title={'Forks'} item={item.forksCount}/>
+            <ItemsTabRates stylesParams={styles} title={'Reviews'} item={item.reviewCount}/>
+            <ItemsTabRates stylesParams={styles} title={'Rating'} item={item.ratingAverage}/>
           </Rates>
         </View>
   )
