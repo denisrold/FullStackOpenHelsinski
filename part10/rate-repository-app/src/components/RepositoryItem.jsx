@@ -6,7 +6,6 @@ import ProfileData from "./ProfileData";
 import ItemsTabRates from "./ItemsTab";
 
 const RepositoryItems = ({ item }) => {
-  console.log(item)
   return(
         <View style={styles.OneView}>
           <HeaderProfile>
@@ -29,8 +28,8 @@ const RepositoryItems = ({ item }) => {
 
 const styles = StyleSheet.create({
   OneView:{
-    border:'solid 1px black',
-    padding:theme.paddings.normal
+    padding:theme.paddings.normal,
+    backgroundColor:theme.colors.darkPrimary
   },
   avatar: {
     width: 50,

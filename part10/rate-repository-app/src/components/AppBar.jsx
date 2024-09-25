@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Pressable } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
-import { TouchableWithoutFeedback } from 'react-native-web';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,9 +16,9 @@ const styles = StyleSheet.create({
 
 const AppBar = ({children}) => {
   return (
-      <TouchableWithoutFeedback onPress={() => alert('Pressed!')}>
+      <Pressable onPress={() => alert('Pressed!')}>
         <View style={styles.container}>{children}</View>
-      </TouchableWithoutFeedback>
+      </Pressable>
       )
 };
 
