@@ -21,6 +21,10 @@ const theme = {
   paddings: {
     normal: 20,
   },
+  margins: {
+    normal: 10,
+    extraMargin: 20,
+  },
 };
 
 export default theme;
