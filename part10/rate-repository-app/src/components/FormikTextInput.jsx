@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { useField } from 'formik';
 import TextInput from './TextInput';
 import Text from './Text';
+import theme from '../theme';
 
 
 const FormikTextInput = ({ name, ...props }) => {
@@ -27,7 +28,8 @@ const FormikTextInput = ({ name, ...props }) => {
 const styles = StyleSheet.create({
   errorText: {
     marginTop: 5,
-    color:'red'
+    color:'#d73a4a',
+    fontWeight:theme.fontWeights.bolder
   },
 });
 export default FormikTextInput;
