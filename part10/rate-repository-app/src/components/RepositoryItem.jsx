@@ -1,9 +1,19 @@
-import { StyleSheet, Text,Image, View } from "react-native"
+import { StyleSheet, Text,Image, View, Platform } from "react-native"
 import theme from "../theme";
 import Rates from "./Rates";
 import HeaderProfile from "./HeaderProfile";
 import ProfileData from "./ProfileData";
 import ItemsTabRates from "./ItemsTab";
+
+const fontStyles = {
+  fontFamily: Platform.select({
+    ios: 'Arial',
+    android: 'Roboto',
+    default: theme.fonts.main,
+  }),
+  fontSize: theme.fontSizes.subheading,
+};
+
 
 const RepositoryItems = ({ item }) => {
   return(
@@ -11,9 +21,9 @@ const RepositoryItems = ({ item }) => {
           <HeaderProfile>
             <Image style={styles.avatar} source={{uri: item.ownerAvatarUrl}}/>
             <ProfileData>
-              <Text style={[styles.fullName , {marginBottom:8}]}>{item.fullName}</Text>
-              <Text style={[styles.description, {marginBottom:8}]}>{item.description}</Text>
-              <Text style={styles.language}> {item.language}</Text>
+              <Text style={[styles.fullName ,styles.commonTextStyle, {marginBottom:8}]}>{item.fullName}</Text>
+              <Text style={[styles.description,styles.commonTextStyle, {marginBottom:8}]}>{item.description}</Text>
+              <Text style={[styles.language, styles.commonTextStyle]}> {item.language}</Text>
             </ProfileData>
           </ HeaderProfile>
           <Rates>
@@ -36,19 +46,18 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 5,
   },
-
+  commonTextStyle: {
+    ...fontStyles,
+  },
   fullName:{
-    fontSize:theme.fontSizes.subheading,
     fontWeight:theme.fontWeights.bold,
     color:theme.colors.textPrimary,
   },
   description:{
-    fontSize:theme.fontSizes.subheading,
     fontWeight:theme.fontWeights.bolder,
     color:theme.colors.textSecondary
   },
   language:{
-    fontSize:theme.fontSizes.subheading,
     color:theme.colors.darkPrimary,
     backgroundColor:theme.colors.primary,
     borderRadius:8,

@@ -5,13 +5,14 @@ const theme = {
     primary: "#0366d6",
     darkPrimary: "#ffffff",
     main: "#e1e4e8",
+    error: "#d73a4a",
   },
   fontSizes: {
     body: 14,
     subheading: 16,
   },
   fonts: {
-    main: "System",
+    main: "sans-serif",
   },
   fontWeights: {
     normal: "400",

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, Platform } from 'react-native';
 import theme from '../theme';
 import { Link } from 'react-router-native';
 
@@ -9,7 +9,12 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSizes.subheading,
     fontWeight: theme.fontWeights.bold,
     margin:theme.margins.normal,
-    marginBottom:20
+    marginBottom:20,
+    fontFamily:Platform.select({
+      ios: 'Arial', 
+      android: 'Roboto',
+      default: theme.fonts.main,
+    }),
   }
 });
 

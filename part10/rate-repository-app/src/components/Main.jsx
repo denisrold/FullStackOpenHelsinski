@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     backgroundColor:theme.colors.main,
     flexGrow: 1,
     flexShrink: 1,
+    
   },
 });
 

@@ -3,8 +3,8 @@ import NumberParser from "../utils/NumberParse";
 
 const ItemsTabRates = ({stylesParams,item,title}) => {
   return(<View style={styles.rates}>
-              <Text style={stylesParams.fullName}>{NumberParser(item)}</Text>
-              <Text style={stylesParams.description}>{title}</Text>
+              <Text style={[stylesParams.fullName,stylesParams.commonTextStyle]}>{NumberParser(item)}</Text>
+              <Text style={[stylesParams.description,stylesParams.commonTextStyle]}>{title}</Text>
         </View>
   )
 }
