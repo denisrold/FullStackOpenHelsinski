@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const createApolloClient = () => {
   return new ApolloClient({
-    uri: "http://192.168.0.11:4000/graphql",
+    uri: process.env.EXPO_PUBLIC_URI_GQL,
     cache: new InMemoryCache(), // Necesario para el manejo del cache
   });
 };
