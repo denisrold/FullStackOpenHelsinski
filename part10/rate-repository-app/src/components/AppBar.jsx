@@ -14,11 +14,12 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = ({children}) => {
-  return <View style={styles.container}>
+  return (
+    <View style={styles.container}>
       <ScrollView horizontal>
         {children}
       </ScrollView>
-    </View>
+    </View>)
 };
 
 export default AppBar;

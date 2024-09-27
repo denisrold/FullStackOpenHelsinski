@@ -6,7 +6,7 @@ import AuthStorage from "./src/utils/authStorage";
 import AuthStorageContext from "./src/contexts/AuthStorageContext";
 
 const authStorage = new AuthStorage();
-const apolloClient = createApolloClient();
+const apolloClient = createApolloClient(authStorage);
 export default function App() {
   return (
     <NativeRouter>
