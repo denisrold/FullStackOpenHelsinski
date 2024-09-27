@@ -6,8 +6,8 @@ import AppBar from './AppBar';
 import AppBarTab from './AppBarTab';
 import theme from '../theme';
 import { Route, Routes } from 'react-router-native';
-import SignIn from './SignIn';
 import AuthComponent from './AuthComponent';
+import SignUp from './SignUp';
 
 
 const styles = StyleSheet.create({
@@ -24,12 +24,12 @@ const Main = () => {
     <View style={styles.container}>
       <AppBar >
         <AppBarTab title={'Repositories'} link={'/'}/>
-        <AppBarTab title={'SignIn'} link={'signin'}/>
+        <AppBarTab title={'SignUp'} link={'signup'}/>
         <AppBarTab title={'Login'} link={'login'}/>
       </AppBar >
       <Routes>
         <Route path="/" element={<RepositoryList />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<AuthComponent />} />
       </Routes>
     </View>

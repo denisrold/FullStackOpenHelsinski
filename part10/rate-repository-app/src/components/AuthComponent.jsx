@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import useLogin from '../hooks/useLogin';
-import AuthStorage from '../utils/authStorage';
+import useSignIn from '../hooks/useSignIn';
 import FormikTextInput from './FormikTextInput';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Formik } from 'formik';
@@ -23,14 +22,12 @@ const AuthComponent = () => {
     username:'',password:''
   } 
   const [loginError, setLoginError] = useState(null);
-  const [login] = useLogin();
+  const [login] = useSignIn();
 
   const onLogin = async (values) => {
     try {
       const { username, password } = values;
       const { data } = await login({username, password});
-      const authStorage = new AuthStorage();
-      authStorage.setAccessToken(data.authenticate.accessToken);
     } catch (error) {
       console.error(error)
       setLoginError('Bad username or password');
@@ -38,7 +35,8 @@ const AuthComponent = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onLogin} validationSchema={validationSchema}>
+    <View style={styles.viewContainer}>
+    <Formik  initialValues={initialValues} onSubmit={onLogin} validationSchema={validationSchema}>
        {({ handleSubmit }) => (
     <View style={styles.formContainer}>
       <FormikTextInput
@@ -56,10 +54,17 @@ const AuthComponent = () => {
       {loginError && <Text style={styles.error}>{loginError}</Text>}
     </View>)}
     </Formik>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  viewContainer:{
+    display:'flex',
+    alignContent:'center',
+    justifyContent:'center',
+    marginTop:50
+  },
   error:{
     color:'red',
     flex:'row',
@@ -67,7 +72,8 @@ const styles = StyleSheet.create({
     fontWeight:theme.fontWeights.bolder
   },
   formContainer:{
-    margin:10
+    margin:10,
+    display:'flex',
   },
   button: {
     display:'flex',

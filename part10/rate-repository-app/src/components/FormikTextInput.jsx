@@ -11,7 +11,7 @@ const FormikTextInput = ({ name, ...props }) => {
   const showError = meta.touched && meta.error;
   
   return (
-    <View>
+    <View >
       <TextInput
         onChangeText={value => helpers.setValue(value)}
         onBlur={() => helpers.setTouched(true)}
@@ -31,5 +31,6 @@ const styles = StyleSheet.create({
     color:theme.colors.error,
     fontWeight:theme.fontWeights.bolder
   },
+
 });
 export default FormikTextInput;

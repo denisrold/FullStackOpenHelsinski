@@ -13,11 +13,12 @@ const styles = StyleSheet.create({
   input:{
     padding:theme.paddings.normal,
     borderWidth:2,
-    borderColor:'#a3a8b7',
+    borderColor:'transparent',
     borderRadius:5,
     margin:theme.margins.normal,
     fontSize:theme.fontSizes.subheading,
-    placeholderTextColor:'#a3a8b7'
+    placeholderTextColor:'#a3a8b7',
+    backgroundColor:theme.colors.darkPrimary
   }
 });
 export default TextInput;
