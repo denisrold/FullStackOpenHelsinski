@@ -10,39 +10,39 @@ import AuthComponent from './AuthComponent';
 import SignUp from './SignUp';
 import useLoggedUser from '../hooks/useLoggedUser';
 import LogoutButton from './LogoutButton';
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor:theme.colors.main,
     flexGrow: 1,
     flexShrink: 1,
-    
   },
 });
 
 const Main = () => {
-  const [data, setData] = useState(null);
-  const { data: userData, refetch} = useLoggedUser();
+  const [userLoggued, setuserLoggued] = useState(null);
+  const { data} = useLoggedUser();
 
   useEffect(() => {
-    if (userData) {
-      setData(userData);
+    if (data) {
+      setuserLoggued(data);
     } else {
-      setData(null);
+      setuserLoggued(null);
     }
-  }, [userData]);
+  }, [data]);
 
   return (
     <View style={styles.container}>
       <AppBar >
         <AppBarTab title={'Repositories'} link={'/'}/>
-        {!data && <AppBarTab title={'SignUp'} link={'signup'}/>}
-        {!data && <AppBarTab title={'Login'} link={'login'}/>}
-        {data && <LogoutButton setData={setData} refetch={refetch}/>}
+        {!userLoggued && <AppBarTab title={'SignUp'} link={'signup'}/>}
+        {!userLoggued && <AppBarTab title={'Login'} link={'login'}/>}
+        {userLoggued && <LogoutButton setuserLoggued={setuserLoggued} />}
       </AppBar >
       <Routes>
         <Route path="/" element={<RepositoryList />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<AuthComponent setData={setData}/>} />
+        <Route path="/login" element={<AuthComponent setuserLoggued={setuserLoggued}/>} />
       </Routes>
     </View>
   );

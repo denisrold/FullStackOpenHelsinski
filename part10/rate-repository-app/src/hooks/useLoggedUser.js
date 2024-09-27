@@ -3,7 +3,7 @@ import { LOGUED_USER } from "../graphQL/queries";
 
 const useLoggedUser = () => {
   const { data, refetch } = useQuery(LOGUED_USER, {
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
   });
   return { data, refetch };
 };

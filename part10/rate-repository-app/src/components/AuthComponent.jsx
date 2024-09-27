@@ -15,7 +15,7 @@ const validationSchema = yup.object().shape({
     .required('Password is required'),
  });
 
-const AuthComponent = ({setData}) => {
+const AuthComponent = ({setuserLoggued}) => {
 
 
   const initialValues ={
@@ -28,7 +28,7 @@ const AuthComponent = ({setData}) => {
     try {
       const { username, password } = values;
       const {data} = await login({username, password});
-      setData(data);
+      setuserLoggued(data);
     } catch (error) {
       console.error(error)
       setLoginError('Bad username or password');
