@@ -17,7 +17,8 @@ const validationSchema = yup.object().shape({
  });
 
 const AuthComponent = () => {
-  
+
+
   const initialValues ={
     username:'',password:''
   } 
