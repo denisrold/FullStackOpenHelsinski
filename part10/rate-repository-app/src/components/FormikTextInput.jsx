@@ -27,7 +27,7 @@ const FormikTextInput = ({ name, ...props }) => {
 
 const styles = StyleSheet.create({
   errorText: {
-    marginTop: 5,
+    marginLeft: 10,
     color:theme.colors.error,
     fontWeight:theme.fontWeights.bolder
   },
