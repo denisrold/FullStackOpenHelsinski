@@ -1,14 +1,13 @@
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../graphQL/mutations";
-import AuthStorageContext from "../contexts/AuthStorageContext";
-import { useContext } from "react";
 import { useNavigate } from "react-router-native";
 import createApolloClient from "../utils/apolloClient";
+import { useAuth } from "./useAuth";
 
 const useSignIn = () => {
   const [mutate, { data, error, loading }] = useMutation(LOGIN_USER);
   const apolloClient = createApolloClient();
-  const authStorage = useContext(AuthStorageContext);
+  const authStorage = useAuth();
   const navigate = useNavigate();
   const login = async ({ username, password }) => {
     try {

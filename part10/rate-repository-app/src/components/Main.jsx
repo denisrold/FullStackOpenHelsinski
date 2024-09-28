@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 
 const Main = () => {
   const [userLoggued, setuserLoggued] = useState(null);
-  const { data} = useLoggedUser();
+  const { data } = useLoggedUser();
 
   useEffect(() => {
     if (data) {

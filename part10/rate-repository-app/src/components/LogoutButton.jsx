@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
 import {  StyleSheet, Platform, Pressable, View, Text } from 'react-native';
 import theme from '../theme';
-import AuthStorageContext from '../contexts/AuthStorageContext';
 import { useNavigate } from 'react-router-native';
+import { useAuth } from '../hooks/useAuth';
 
 
 const styles = StyleSheet.create({
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
 
 const LogoutButton = ({ setuserLoggued }) => {
   const navigate = useNavigate();
-  const authStorage = useContext(AuthStorageContext);
+  const authStorage = useAuth()
   const handlePress = async ()=>{
     try{
       await authStorage.removeAccessToken();
