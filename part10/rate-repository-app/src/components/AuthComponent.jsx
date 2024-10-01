@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useSignIn from '../hooks/useSignIn';
 import FormikTextInput from './FormikTextInput';
 import { Pressable, StyleSheet, Text, View } from 'react-native';

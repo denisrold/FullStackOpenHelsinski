@@ -1,4 +1,3 @@
-import React from 'react';
 import { Text, StyleSheet, Platform } from 'react-native';
 import theme from '../theme';
 import { Link } from 'react-router-native';
