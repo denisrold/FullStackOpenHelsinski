@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { RepositoryListContainer } from "../components/RepositoryList";
+import "@testing-library/jest-native/extend-expect";
 
 describe("RepositoryList", () => {
   describe("RepositoryListContainer", () => {
@@ -52,8 +53,8 @@ describe("RepositoryList", () => {
       );
       expect(getByText("jaredpalmer/formik")).toBeTruthy();
       // Obtiene todos los elementos renderizados por el testID asignado en el componente
-      const repositoryItems = getAllByTestId("jaredpalmer.formik");
-      expect(repositoryItems.length).toBeGreaterThan(0); // Asegúrate de que hay elementos
+      const repositoryItems = getAllByTestId("repository-list");
+      expect(repositoryItems.length).toBeGreaterThan(0);
       // Verifica que el primer elemento del arreglo tenga el contenido esperado
       expect(getByText("jaredpalmer/formik")).toBeTruthy();
       expect(getByText("Build forms in React, without the tears")).toBeTruthy();
@@ -61,20 +62,19 @@ describe("RepositoryList", () => {
       expect(getByText("1.6k")).toBeTruthy(); // forksCount
       expect(getByText("21.9k")).toBeTruthy(); // stargazersCount
       expect(getByText("88")).toBeTruthy(); // ratingAverage
-
       expect(queryByTestId("Reviews-jaredpalmer.formik")).toHaveTextContent(
         "3"
       );
-      // //repositorio numero dos.
-      // expect(repositoryItems[1]).toHaveTextContent("async-library/react-async");
-      // expect(repositoryItems[1]).toHaveTextContent(
-      //   "Flexible promise-based React data loader"
-      // );
-      // expect(repositoryItems[1]).toHaveTextContent("JavaScript");
-      // expect(repositoryItems[1]).toHaveTextContent("69"); // forksCount
-      // expect(repositoryItems[1]).toHaveTextContent("1.8k"); // stargazersCount
-      // expect(repositoryItems[1]).toHaveTextContent("72"); // ratingAverage
-      // expect(repositoryItems[1]).toHaveTextContent("3"); // reviewCount
+      //repositorio numero dos.
+      expect(repositoryItems[1]).toHaveTextContent("async-library/react-async");
+      expect(repositoryItems[1]).toHaveTextContent(
+        "Flexible promise-based React data loader"
+      );
+      expect(repositoryItems[1]).toHaveTextContent("JavaScript");
+      expect(repositoryItems[1]).toHaveTextContent("69"); // forksCount
+      expect(repositoryItems[1]).toHaveTextContent("1.8k"); // stargazersCount
+      expect(repositoryItems[1]).toHaveTextContent("72"); // ratingAverage
+      expect(repositoryItems[1]).toHaveTextContent("3"); // reviewCount
     });
   });
 });

@@ -49,6 +49,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@babel/eslint-parser": "^7.25.1",
+    "@testing-library/jest-native": "^5.4.3",
     "eslint": "^8.57.0",
     "eslint-config-expo": "^7.1.2",
     "eslint-plugin-jest": "^28.8.3",

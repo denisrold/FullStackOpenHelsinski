@@ -17,7 +17,7 @@ const fontStyles = {
 
 const RepositoryItems = ({ item }) => {
   return(
-        <View testID={item.id} style={styles.OneView}>
+        <View testID={'repository-list'} style={styles.OneView}>
           <HeaderProfile>
             <Image style={styles.avatar} source={{uri: item.ownerAvatarUrl}}/>
             <ProfileData>
