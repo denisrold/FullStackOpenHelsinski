@@ -17,7 +17,7 @@ const fontStyles = {
 
 const RepositoryItems = ({ item }) => {
   return(
-        <View style={styles.OneView}>
+        <View testID={item.id} style={styles.OneView}>
           <HeaderProfile>
             <Image style={styles.avatar} source={{uri: item.ownerAvatarUrl}}/>
             <ProfileData>
@@ -27,10 +27,10 @@ const RepositoryItems = ({ item }) => {
             </ProfileData>
           </ HeaderProfile>
           <Rates>
-            <ItemsTabRates stylesParams={styles} title={'Stars'} item={item.stargazersCount}/>
-            <ItemsTabRates stylesParams={styles} title={'Forks'} item={item.forksCount}/>
-            <ItemsTabRates stylesParams={styles} title={'Reviews'} item={item.reviewCount}/>
-            <ItemsTabRates stylesParams={styles} title={'Rating'} item={item.ratingAverage}/>
+            <ItemsTabRates  stylesParams={styles} title={'Stars'} testID={item.id}  item={item.stargazersCount}/>
+            <ItemsTabRates  stylesParams={styles} title={'Forks'} testID={item.id}  item={item.forksCount}/>
+            <ItemsTabRates  stylesParams={styles} title={'Reviews'} testID={item.id}  item={item.reviewCount}/>
+            <ItemsTabRates  stylesParams={styles} title={'Rating'} testID={item.id}  item={item.ratingAverage}/>
           </Rates>
         </View>
   )
