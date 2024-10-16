@@ -26,8 +26,8 @@ describe("SignIn", () => {
         // Check that onSubmit was called once
         expect(onSubmit).toHaveBeenCalledTimes(1);
 
-        // Check that it was called with the correct first argument
-        expect(onSubmit).toHaveBeenCalledWith({
+        // Verificar que onSubmit fue llamado con los valores correctos de username y password
+        expect(onSubmit.mock.calls[0][0]).toEqual({
           username: "testuser",
           password: "password",
         });
