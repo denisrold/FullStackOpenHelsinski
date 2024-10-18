@@ -1,4 +1,4 @@
-import {ActivityIndicator, StyleSheet, Text, Platform, View, Button } from "react-native";
+import {ActivityIndicator, StyleSheet, Text, Platform, View, Button, Pressable } from "react-native";
 import RepositoryItems from "../RepositoryItem";
 import useOneRepositories from "../../hooks/useOneRepository";
 import * as Linking from 'expo-linking';
@@ -26,55 +26,35 @@ const OneRepository =()=>{
   return(
     <View style={styles.container}>
     <RepositoryItems item={ repository }/>
-    <Button
-        title="Open in GitHub"
+    <Pressable
         onPress={openInGitHub}
-        style={[styles.OneView, styles.commonTextStyle]}
-      />
+        style={styles.button}
+      >
+      <Text style={styles.buttonText}>
+        Open in GitHub</Text>
+    </Pressable>
     </View>
   )
 }
 
-const fontStyles = {
-  fontFamily: Platform.select({
-    ios: 'Arial',
-    android: 'Roboto',
-    default: 'System',
-  }),
-  fontSize: theme.fontSizes.subheading,
-};
-
 
 const styles = StyleSheet.create({
-  OneView:{
-    padding:theme.paddings.normal,
-    backgroundColor:theme.colors.darkPrimary
-  },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 5,
-  },
-  commonTextStyle: {
-    ...fontStyles,
-  },
-  fullName:{
-    fontWeight:theme.fontWeights.bold,
-    color:theme.colors.textPrimary,
-  },
-  description:{
-    fontWeight:theme.fontWeights.bolder,
-    color:theme.colors.textSecondary
-  },
-  language:{
-    color:theme.colors.darkPrimary,
+  button: {
+    display:'flex',
+    alignItems:'center',
+   
     backgroundColor:theme.colors.primary,
-    borderRadius:8,
-    paddingVertical:8,
-    paddingRight:6,
-    textAlign: 'left', 
-    alignSelf: 'flex-start',
+    padding:theme.paddings.normal,
+    borderRadius:5,
+    margin:theme.margins.normal,
+    fontSize:theme.fontSizes.subheading,
+   
   },
+  buttonText: {
+    color:theme.colors.darkPrimary,
+    fontSize:theme.fontSizes.subheading,
+    fontWeight:theme.fontWeights.bold
+  }
 });
 
 export default OneRepository;
