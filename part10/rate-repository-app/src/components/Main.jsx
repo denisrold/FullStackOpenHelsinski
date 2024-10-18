@@ -10,6 +10,7 @@ import AuthComponent from './AuthComponent';
 import SignUp from './SignUp';
 import useLoggedUser from '../hooks/useLoggedUser';
 import LogoutButton from './LogoutButton';
+import OneRepository from '../components/OneRepository/OneRepository';
 
 const styles = StyleSheet.create({
   container: {
@@ -43,6 +44,7 @@ const Main = () => {
         <Route path="/" element={<RepositoryList />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<AuthComponent setuserLoggued={setuserLoggued}/>} />
+        <Route path="/repository/:id" element={<OneRepository />} />
       </Routes>
     </View>
   );

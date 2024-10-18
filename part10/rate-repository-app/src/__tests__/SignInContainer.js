@@ -10,23 +10,15 @@ describe("SignIn", () => {
         <SignInContainer onSubmit={onSubmit} />
       );
 
-      // Filling the text inputs
       await act(async () => {
         fireEvent.changeText(getByPlaceholderText("Username"), "testuser");
         fireEvent.changeText(getByPlaceholderText("Password"), "password");
       });
-
-      // Pressing the submit button
       await act(async () => {
         fireEvent.press(getByText("Login"));
       });
-
-      // Waiting for the expectation
       await waitFor(() => {
-        // Check that onSubmit was called once
         expect(onSubmit).toHaveBeenCalledTimes(1);
-
-        // Verificar que onSubmit fue llamado con los valores correctos de username y password
         expect(onSubmit.mock.calls[0][0]).toEqual({
           username: "testuser",
           password: "password",

@@ -1,6 +1,7 @@
-import { FlatList, View,Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { FlatList, View,Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import RepositoryItems from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
+import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
   separator: {
@@ -9,9 +10,14 @@ const styles = StyleSheet.create({
 });
 
 const ItemSeparator = () => <View style={styles.separator} />;
-const renderItem = ({item}) => <RepositoryItems item={item}/>
+const renderItem = ({item,handlePress  }) => (<TouchableOpacity onPress={() => handlePress(item.id)}><RepositoryItems item={item}/></TouchableOpacity>)
 
 export const RepositoryListContainer = ({ repositories }) => {
+  const navigate = useNavigate()
+
+  const handlePress = (id) => {
+    navigate(`/repository/${id}`); // Navega a la vista del repositorio único
+  };
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -27,13 +33,16 @@ export const RepositoryListContainer = ({ repositories }) => {
       <FlatList
         data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}
-        renderItem={ renderItem }
+        renderItem={({ item  }) => renderItem({ item ,handlePress })}
         keyExtractor={(item)=>item.id}
       />
     );
 };
 
 const RepositoryList = () => {
+
+
+
   const { repositories, loading, error } = useRepositories();
   if (loading) {
     return <ActivityIndicator size="large" />;
