@@ -4,6 +4,9 @@ import FormikTextInput from "../FormikTextInput";
 import { Formik } from "formik";
 import theme from "../../theme";
 import * as yup from 'yup';
+import { CREATE_REVIEW } from "../../graphQL/mutations";
+import { useNavigate } from "react-router";
+import { useMutation } from "@apollo/react-hooks";
 
 const validationSchema = yup.object().shape({
   owner: yup
@@ -21,13 +24,11 @@ const validationSchema = yup.object().shape({
     .string()
     .optional()
 });
-/**owner,
-      repository,
-      rating,
-      review */
+
 
 const ReviewForm = () => {
-
+  const navigate = useNavigate();
+  const [ createReview ] = useMutation(CREATE_REVIEW);
   const initialValues ={
     owner:'',
     repository:'',
@@ -35,16 +36,29 @@ const ReviewForm = () => {
     review:''
   } 
   const onSubmit = async (values) => {
-    const {owner,
-      repository,
-      rating,
-      review} = values;
+    const {
+        owner,
+        repository,
+        rating,
+        review
+      } = values;
     try{
-       await signUp({username,password})
+      const { data } = await createReview({
+        variables: {
+          review: {
+            ownerName: owner,
+            repositoryName: repository,
+            rating: Number(rating),
+            text: review
+          }
+        }
+      })
+      navigate(`/repository/${data.createReview.repositoryId}`);
     }catch(err){
       throw new Error(err.message);
     }
   };
+
   return (
     <View style={styles.viewContainer}>
     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
@@ -57,7 +71,6 @@ const ReviewForm = () => {
           <FormikTextInput
             name="repository"
             placeholder="Repository name"
-            secureTextEntry
           />
            <FormikTextInput
             name="rating"
@@ -66,7 +79,7 @@ const ReviewForm = () => {
           <FormikTextInput
             name="review"
             placeholder="Review"
-            secureTextEntry
+            multiline
           />
           <View style={styles.button}>
             <Pressable  onPress={handleSubmit} >
