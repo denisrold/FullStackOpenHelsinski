@@ -1,27 +1,44 @@
 import { Pressable, StyleSheet } from "react-native";
 import { Text, View } from "react-native";
-import FormikTextInput from "./FormikTextInput";
+import FormikTextInput from "../FormikTextInput";
 import { Formik } from "formik";
-import theme from "../theme";
+import theme from "../../theme";
 import * as yup from 'yup';
-import useSignUp from "../hooks/useSignUp";
 
 const validationSchema = yup.object().shape({
- username: yup
-   .string()
-   .required('Username is required'),
- password: yup
-   .string()
-   .required('Password is required'),
+  owner: yup
+    .string()
+    .required('Repository Owner name is required'),
+  repository: yup
+    .string()
+    .required('Repository name is required'),
+  rating: yup
+    .number()
+  .min(0, 'The rating must be at least 0')
+  .max(100, 'The rating cannot exceed 100')
+    .required('Rating is required'),
+  review: yup
+    .string()
+    .optional()
 });
+/**owner,
+      repository,
+      rating,
+      review */
 
-const SignUp = () => {
-  const [signUp] = useSignUp();
+const ReviewForm = () => {
+
   const initialValues ={
-    username:'',password:''
+    owner:'',
+    repository:'',
+    rating:'',
+    review:''
   } 
   const onSubmit = async (values) => {
-    const { username, password } = values;
+    const {owner,
+      repository,
+      rating,
+      review} = values;
     try{
        await signUp({username,password})
     }catch(err){
@@ -34,17 +51,26 @@ const SignUp = () => {
       {({ handleSubmit }) => (
         <View style={styles.formContainer}>
           <FormikTextInput
-            name="username"
-            placeholder="Username"
+            name="owner"
+            placeholder="Repository Owner name"
           />
           <FormikTextInput
-            name="password"
-            placeholder="Password"
+            name="repository"
+            placeholder="Repository name"
+            secureTextEntry
+          />
+           <FormikTextInput
+            name="rating"
+            placeholder="Rating between 0 and 100"
+          />
+          <FormikTextInput
+            name="review"
+            placeholder="Review"
             secureTextEntry
           />
           <View style={styles.button}>
             <Pressable  onPress={handleSubmit} >
-              <Text style={styles.buttonText}>Sign Up</Text>
+              <Text style={styles.buttonText}>Create a Review</Text>
             </Pressable>
           </View>
         </View>
@@ -80,4 +106,4 @@ const styles = StyleSheet.create({
     fontWeight:theme.fontWeights.bold
   }
 })
-export default SignUp;
+export default ReviewForm;

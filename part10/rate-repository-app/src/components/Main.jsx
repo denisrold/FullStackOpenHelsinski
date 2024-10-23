@@ -11,6 +11,8 @@ import SignUp from './SignUp';
 import useLoggedUser from '../hooks/useLoggedUser';
 import LogoutButton from './LogoutButton';
 import SingleRepository from '../components/OneRepository/OneRepository';
+import CreateReview from './CreateReview/CreateReview';
+import ReviewForm from './CreateReview/ReviewForm';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,6 +40,7 @@ const Main = () => {
         <AppBarTab title={'Repositories'} link={'/'}/>
         {!userLoggued && <AppBarTab title={'SignUp'} link={'signup'}/>}
         {!userLoggued && <AppBarTab title={'Login'} link={'login'}/>}
+        {userLoggued && <CreateReview />}
         {userLoggued && <LogoutButton setuserLoggued={setuserLoggued} />}
       </AppBar >
       <Routes>
@@ -45,6 +48,7 @@ const Main = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<AuthComponent setuserLoggued={setuserLoggued}/>} />
         <Route path="/repository/:id" element={<SingleRepository />} />
+        <Route path='/createreview' element={<ReviewForm />} />
       </Routes>
     </View>
   );
