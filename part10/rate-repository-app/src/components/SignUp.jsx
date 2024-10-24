@@ -8,17 +8,21 @@ import useSignUp from "../hooks/useSignUp";
 
 const validationSchema = yup.object().shape({
  username: yup
-   .string()
+   .string().min(3,'The username must be at least 3').max(30,'The username cannot exceed 30')
    .required('Username is required'),
  password: yup
-   .string()
+   .string().min(3,'The password must be at least 5').max(30,'The password cannot exceed 50')
    .required('Password is required'),
+   confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .required('Confirm Password is required'),
 });
 
 const SignUp = () => {
   const [signUp] = useSignUp();
   const initialValues ={
-    username:'',password:''
+    username:'',password:'',confirmPassword:''
   } 
   const onSubmit = async (values) => {
     const { username, password } = values;
@@ -40,6 +44,11 @@ const SignUp = () => {
           <FormikTextInput
             name="password"
             placeholder="Password"
+            secureTextEntry
+          />
+             <FormikTextInput
+            name="confirmPassword"
+            placeholder="Confirm Password"
             secureTextEntry
           />
           <View style={styles.button}>

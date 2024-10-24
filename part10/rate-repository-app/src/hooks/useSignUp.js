@@ -14,6 +14,7 @@ const useSignUp = () => {
           password: password,
         },
       });
+      console.log(response);
       if (response) {
         Alert.alert("Registro exitoso", "Ahora puede loguearte", [
           {
@@ -21,6 +22,7 @@ const useSignUp = () => {
             onPress: () => navigate("/login"),
           },
         ]);
+        navigate("/login");
       }
       return response;
     } catch (error) {
