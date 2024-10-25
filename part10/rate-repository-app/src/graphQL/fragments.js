@@ -13,5 +13,6 @@ export const REPOSITORY_DETAILS = gql`
     description
     name
     fullName
+    createdAt
   }
 `;

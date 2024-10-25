@@ -10,6 +10,7 @@ export default {
     resizeMode: "contain", // Ajusta la imagen de splash para que se contenga dentro de la pantalla sin estirarse.
     backgroundColor: "#ffffff", // Color de fondo para la pantalla de carga.
   },
+  jsEngine: "hermes",
   ios: {
     supportsTablet: true, // La aplicación es compatible con iPads.
   },
@@ -19,6 +20,7 @@ export default {
       foregroundImage: "./assets/adaptive-icon.png", // Icono adaptable para Android.
       backgroundColor: "#ffffff", // Fondo del icono adaptable en Android.
     },
+    supportsRtl: true,
   },
   web: {
     favicon: "./assets/favicon.png", // Icono para la pestaña del navegador cuando la app se abre en la web.
