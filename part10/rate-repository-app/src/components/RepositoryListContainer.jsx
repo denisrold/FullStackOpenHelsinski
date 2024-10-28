@@ -15,19 +15,18 @@ const styles = StyleSheet.create({
     padding:5,
   },
     searchInput: {
-    padding: 10, 
+    display:'flex',
+    alignContent:'center',
+
     borderColor: 'gray', 
     borderWidth: 1, 
     backgroundColor: "#fff",
     marginBottom: 10,   
     shadowColor: '#000', 
-    shadowOffset: {
-      width: 0,
-      height: 2, 
-    },
+
     shadowOpacity: 0.25, 
     shadowRadius: 3.5, 
-    elevation: 5,  },
+  },
     emptyText: { textAlign: 'center', margin: 20, fontSize: 16 },
 });
 
@@ -75,6 +74,10 @@ useEffect(() => {
             placeholder="Buscar repositorios..."
             value={searchKeyword}
             onChangeText={setSearchKeywords}
+            role="search"
+            left={
+            <TextInput.Icon icon="magnify" /> 
+          }
           />
           {
           repositoryNodes.length === 0?
