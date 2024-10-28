@@ -34,7 +34,7 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const renderItem = ({item,handlePress  }) => (<Pressable onPress={() => handlePress(item.id)}><RepositoryItems item={item}/></Pressable>)
 
- const RepositoryListContainer = ({searchKeyword , setSearchKeywords , orderBy, setOrderBy, setOrderDirection, repositories }) => {
+ const RepositoryListContainer = ({ onEndReach ,searchKeyword , setSearchKeywords , orderBy, setOrderBy, setOrderDirection, repositories }) => {
  const navigate = useNavigate()
  const [debouncedSearchInput] = useDebounce(searchKeyword, 500);  
  const inputRef = useRef(null); // Crear referencia
@@ -89,6 +89,8 @@ useEffect(() => {
         ItemSeparatorComponent={ItemSeparator}
         renderItem={({ item  }) => renderItem({ item ,handlePress })}
         keyExtractor={(item)=>item.id}
+        onEndReached={onEndReach} 
+        onEndReachedThreshold={0.5} 
       />
     );
 };

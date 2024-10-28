@@ -7,7 +7,7 @@ const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState("CREATED_AT");
   const [orderDirection, setOrderDirection] = useState("DESC");
   const [searchKeyword, setSearchKeywords] = useState('');
-  const { repositories, loading, error } = useRepositories({orderBy,orderDirection,searchKeyword});
+  const { repositories, loading, error, fetchMore, hasNextPage } = useRepositories({orderBy,orderDirection,searchKeyword,first: 2});
 
   if (loading) {
     return <ActivityIndicator size="large" />;
@@ -18,8 +18,13 @@ const RepositoryList = () => {
   if (repositories.length === 0) {
     return <Text style={styles.emptyText}>No repositories found</Text>;
   }
-
-return <RepositoryListContainer searchKeyword={searchKeyword} setSearchKeywords={setSearchKeywords} orderBy={orderBy} setOrderBy={setOrderBy} setOrderDirection={setOrderDirection} repositories={repositories} />;
+  console.log(repositories)
+  const onEndReach = () => {
+    if(hasNextPage){
+      fetchMore(); // Se ejecuta para cargar más repositorios
+    }
+  }
+return <RepositoryListContainer onEndReach={onEndReach} searchKeyword={searchKeyword} setSearchKeywords={setSearchKeywords} orderBy={orderBy} setOrderBy={setOrderBy} setOrderDirection={setOrderDirection} repositories={repositories} />;
 
 };
 

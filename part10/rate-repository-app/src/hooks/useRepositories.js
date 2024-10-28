@@ -1,34 +1,57 @@
-// import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 
 import { GET_REPOSITORIES } from "../graphQL/queries";
 
-const useRepositories = ({ orderBy, orderDirection, searchKeyword }) => {
-  const { data, error, loading } = useQuery(GET_REPOSITORIES, {
-    variables: { orderBy, orderDirection, searchKeyword },
-    fetchPolicy: "cache-and-network",
-  });
-  // const [repositories, setRepositories] = useState();
-  // const [loading, setLoading] = useState(false);
+const useRepositories = ({ orderBy, orderDirection, searchKeyword, first }) => {
+  const { data, error, loading, fetchMore, ...result } = useQuery(
+    GET_REPOSITORIES,
+    {
+      variables: { orderBy, orderDirection, searchKeyword, first },
+      fetchPolicy: "cache-and-network",
+    }
+  );
 
-  // const fetchRepositories = async () => {
-  //   setLoading(true);
-  //   const response = await fetch("http://192.168.0.11:5000/api/repositories");
-  //   const json = await response.json();
-  //   setLoading(false);
-  //   setRepositories(json);
-  // };
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
+    if (!canFetchMore) return;
 
-  // useEffect(() => {
-  //   fetchRepositories();
-  // }, []);
+    fetchMore({
+      variables: {
+        after: data.repositories.pageInfo.endCursor,
+        orderBy,
+        orderDirection,
+        searchKeyword,
+        first,
+      },
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prevResult;
+        return {
+          repositories: {
+            ...fetchMoreResult.repositories,
+            edges: [
+              ...prevResult.repositories.edges,
+              ...fetchMoreResult.repositories.edges,
+            ],
+          },
+        };
+      },
+    });
+  };
+
   const repositories = data ? data.repositories : [];
+
   if (error) {
     console.error("Error fetching repositories: ", error);
-    return { repositories: [], loading, error };
   }
 
-  return { repositories, loading };
+  return {
+    repositories,
+    fetchMore: handleFetchMore,
+    loading,
+    error,
+    hasNextPage: data?.repositories.pageInfo.hasNextPage,
+    ...result,
+  };
 };
 
 export default useRepositories;
