@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-native';
 import RepositoryItems from './RepositoryItem';
-import { Pressable, TextInput } from 'react-native';
+import { Pressable,  } from 'react-native';
+import { TextInput } from 'react-native-paper';
 import OrderSelector from './OrderSelector';
 import { FlatList, View, Text, StyleSheet } from 'react-native';
 import { useDebounce } from 'use-debounce';
@@ -10,9 +11,24 @@ const styles = StyleSheet.create({
   separator: {
     height: 10,
   },
-  separator: { height: 0, backgroundColor: '#ccc' },
-  searchInput: { padding: 10, borderColor: 'gray', borderWidth: 1, marginBottom: 10 },
-  emptyText: { textAlign: 'center', margin: 20, fontSize: 16 },
+  flatListStyle:{
+    padding:5,
+  },
+    searchInput: {
+    padding: 10, 
+    borderColor: 'gray', 
+    borderWidth: 1, 
+    backgroundColor: "#fff",
+    marginBottom: 10,   
+    shadowColor: '#000', 
+    shadowOffset: {
+      width: 0,
+      height: 2, 
+    },
+    shadowOpacity: 0.25, 
+    shadowRadius: 3.5, 
+    elevation: 5,  },
+    emptyText: { textAlign: 'center', margin: 20, fontSize: 16 },
 });
 
 const ItemSeparator = () => <View style={styles.separator} />;
@@ -50,6 +66,7 @@ useEffect(() => {
     return (
       <FlatList
         data={repositoryNodes}
+        style={styles.flatListStyle}
         ListHeaderComponent={
           <>
            <TextInput

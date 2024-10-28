@@ -11,7 +11,7 @@ const OrderSelector = ({ orderBy, setOrderBy, setOrderDirection }) => (
         setOrderDirection(value.endsWith('ASC') ? 'ASC' : 'DESC');
       }
     }}
-    style={{height: 50,background:"#D8D8D8" }}
+    style={{height: 50,borderRadius:6, marginBottom:10,background:"#D8D8D8" }}
   >
 
     <Picker.Item  label="Select filter" value="" />
