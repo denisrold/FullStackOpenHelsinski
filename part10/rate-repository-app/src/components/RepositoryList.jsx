@@ -6,7 +6,8 @@ import RepositoryListContainer from './RepositoryListContainer';
 const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState("CREATED_AT");
   const [orderDirection, setOrderDirection] = useState("DESC");
-  const { repositories, loading, error } = useRepositories({orderBy,orderDirection});
+  const [searchKeyword, setSearchKeywords] = useState('');
+  const { repositories, loading, error } = useRepositories({orderBy,orderDirection,searchKeyword});
 
   if (loading) {
     return <ActivityIndicator size="large" />;
@@ -18,7 +19,7 @@ const RepositoryList = () => {
     return <Text style={styles.emptyText}>No repositories found</Text>;
   }
 
-return <RepositoryListContainer orderBy={orderBy} setOrderBy={setOrderBy} setOrderDirection={setOrderDirection} repositories={repositories} />;
+return <RepositoryListContainer searchKeyword={searchKeyword} setSearchKeywords={setSearchKeywords} orderBy={orderBy} setOrderBy={setOrderBy} setOrderDirection={setOrderDirection} repositories={repositories} />;
 
 };
 

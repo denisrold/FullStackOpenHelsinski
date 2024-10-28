@@ -1,29 +1,40 @@
 import { useNavigate } from 'react-router-native';
 import RepositoryItems from './RepositoryItem';
-import { Pressable } from 'react-native';
+import { Pressable, TextInput } from 'react-native';
 import OrderSelector from './OrderSelector';
 import { FlatList, View, Text, StyleSheet } from 'react-native';
+import { useDebounce } from 'use-debounce';
+import { useEffect, useRef } from 'react';
 
 const styles = StyleSheet.create({
   separator: {
     height: 10,
   },
-  emptyText:{
-    fontSize: 20,
-  }
+  separator: { height: 0, backgroundColor: '#ccc' },
+  searchInput: { padding: 10, borderColor: 'gray', borderWidth: 1, marginBottom: 10 },
+  emptyText: { textAlign: 'center', margin: 20, fontSize: 16 },
 });
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const renderItem = ({item,handlePress  }) => (<Pressable onPress={() => handlePress(item.id)}><RepositoryItems item={item}/></Pressable>)
 
- const RepositoryListContainer = ({orderBy, setOrderBy, setOrderDirection, repositories }) => {
+ const RepositoryListContainer = ({searchKeyword , setSearchKeywords , orderBy, setOrderBy, setOrderDirection, repositories }) => {
  const navigate = useNavigate()
-
+ const [debouncedSearchInput] = useDebounce(searchKeyword, 500);  
+ const inputRef = useRef(null); // Crear referencia
  const handlePress = (id) => {
   navigate(`/repository/${id}`); // Navega a la vista del repositorio único
  };
 
+ useEffect(() => {
+  setSearchKeywords(debouncedSearchInput);
+}, [debouncedSearchInput]);
+useEffect(() => {
+  if (inputRef.current) {
+    inputRef.current.focus(); // Mantener el enfoque
+  }
+}, [repositories]);
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -39,7 +50,16 @@ const renderItem = ({item,handlePress  }) => (<Pressable onPress={() => handlePr
       <FlatList
         data={repositoryNodes}
         ListHeaderComponent={
+          <>
+           <TextInput
+            ref={inputRef}
+            style={styles.searchInput}
+            placeholder="Buscar repositorios..."
+            value={searchKeyword}
+            onChangeText={setSearchKeywords}
+          />
           <OrderSelector orderBy={orderBy} setOrderBy={setOrderBy} setOrderDirection={setOrderDirection} />
+          </>
         }
         ItemSeparatorComponent={ItemSeparator}
         renderItem={({ item  }) => renderItem({ item ,handlePress })}
