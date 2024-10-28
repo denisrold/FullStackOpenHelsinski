@@ -1,4 +1,4 @@
-import {ActivityIndicator, StyleSheet, Text, Platform, View, Button, Pressable, FlatList } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View, Pressable, FlatList } from "react-native";
 import RepositoryItems from "../RepositoryItem";
 import useOneRepositories from "../../hooks/useOneRepository";
 import * as Linking from 'expo-linking';
@@ -18,7 +18,7 @@ const OneRepository =()=>{
   if (error) {
     return <Text style={styles.emptyText}>Error: {error.message}</Text>;
   }
-  if (repository.length === 0) {
+  if (!repository) {
     return <Text style={styles.emptyText}>No repositories found</Text>;
   }
   const openInGitHub = () => {
@@ -39,6 +39,7 @@ const OneRepository =()=>{
 }
 
 const ReviewItem = ({ review }) => {
+  
   const formattedDate = format(new Date(review.createdAt), 'dd.MM.yyyy');
 return(
   <View style={styles.OneView}>
@@ -52,8 +53,8 @@ return(
         </Text>
         <Text
           style={[ styles.textFlex]}
-          numberOfLines={6}          // Limita a 4 líneas el texto, si necesitas más, ajusta este valor
-          ellipsizeMode="tail"       // Agrega "..." si se corta el texto
+          numberOfLines={6}          
+          ellipsizeMode="tail" 
         >
           {review.text}
         </Text>
@@ -64,8 +65,7 @@ return(
 
 const SingleRepository = () => {
   const { id } = useParams();
-  const { reviews, loading, error } = useReviews(id);
-
+  const { reviews, loading, error, fetchMore, hasNextPage } = useReviews(id);
   if (loading) {
     return <ActivityIndicator size="large" />;
   }
@@ -77,10 +77,12 @@ const SingleRepository = () => {
   }
   return (
     <FlatList
-      data={reviews.edges}
+      data={reviews}
       renderItem={({ item }) => <ReviewItem review={item.node} />}
       keyExtractor={({ node }) => node.id}
       ListHeaderComponent={() => <OneRepository />}
+      onEndReached={hasNextPage ? fetchMore : null}
+      onEndReachedThreshold={0.5}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
     />
   );

@@ -50,12 +50,13 @@ export const GET_ONE_REPOSITORY = gql`
   ${REPOSITORY_DETAILS}
 `;
 
-export const GET_REVIEWS = gql`
-  query GetReviews($id: ID!) {
+/*
+query GetReviews($id: ID!, $first: Int, $after: String) {
     repository(id: $id) {
       id
       fullName
-      reviews {
+      reviews(first: $first, after: $after) {  // Añade los argumentos first y after
+        totalCount  // Puedes incluir totalCount para saber cuántas reseñas hay en total
         edges {
           node {
             id
@@ -67,6 +68,42 @@ export const GET_REVIEWS = gql`
               username
             }
           }
+          cursor  // Incluye el cursor para paginación
+        }
+        pageInfo {  // Añade pageInfo para controlar la paginación
+          endCursor  // El cursor del último elemento
+          hasNextPage  // Indica si hay más reseñas disponibles
+        }
+      }
+    }
+  }
+`;
+
+*/
+
+export const GET_REVIEWS = gql`
+  query GetReviews($id: ID!, $first: Int, $after: String) {
+    repository(id: $id) {
+      id
+      fullName
+      reviews(first: $first, after: $after) {
+        totalCount
+        edges {
+          node {
+            id
+            text
+            rating
+            createdAt
+            user {
+              id
+              username
+            }
+          }
+          cursor
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
         }
       }
     }

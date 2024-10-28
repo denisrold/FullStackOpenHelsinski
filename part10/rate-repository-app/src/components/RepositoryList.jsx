@@ -18,7 +18,7 @@ const RepositoryList = () => {
   if (repositories.length === 0) {
     return <Text style={styles.emptyText}>No repositories found</Text>;
   }
-  console.log(repositories)
+
   const onEndReach = () => {
     if(hasNextPage){
       fetchMore(); // Se ejecuta para cargar más repositorios
