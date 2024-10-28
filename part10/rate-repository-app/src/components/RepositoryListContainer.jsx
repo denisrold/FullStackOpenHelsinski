@@ -29,7 +29,8 @@ const renderItem = ({item,handlePress  }) => (<Pressable onPress={() => handlePr
 
  useEffect(() => {
   setSearchKeywords(debouncedSearchInput);
-}, [debouncedSearchInput]);
+}, [debouncedSearchInput,setSearchKeywords]);
+
 useEffect(() => {
   if (inputRef.current) {
     inputRef.current.focus(); // Mantener el enfoque
@@ -43,7 +44,7 @@ useEffect(() => {
       return <Text style={styles.emptyText}>Loading repositories...</Text>;
     }
   
-    if (repositoryNodes.length === 0) {
+    if (repositoryNodes.length === 0 && searchKeyword.length === 0) {
       return <Text style={styles.emptyText}>No repositories found</Text>;
     }
     return (
@@ -58,7 +59,11 @@ useEffect(() => {
             value={searchKeyword}
             onChangeText={setSearchKeywords}
           />
+          {
+          repositoryNodes.length === 0?
+          <Text style={styles.emptyText}>No repositories found</Text>:
           <OrderSelector orderBy={orderBy} setOrderBy={setOrderBy} setOrderDirection={setOrderDirection} />
+          }
           </>
         }
         ItemSeparatorComponent={ItemSeparator}
