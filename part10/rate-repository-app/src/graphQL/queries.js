@@ -124,6 +124,10 @@ export const GET_CURRENT_USER = gql`
             user {
               username
             }
+            repository {
+              ownerName
+              name
+            }
           }
           cursor
         }
@@ -131,6 +135,7 @@ export const GET_CURRENT_USER = gql`
           hasNextPage
           endCursor
         }
+
         totalCount
       }
     }

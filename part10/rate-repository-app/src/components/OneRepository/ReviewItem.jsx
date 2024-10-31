@@ -3,16 +3,22 @@ import { format } from 'date-fns'
 import { StyleSheet, Text, View } from "react-native";
 import theme from "../../theme";
 
-const ReviewItem = ({ review }) => {  
-  console.log('esta',review)
+const ReviewItem = ({ review , myReviews = false }) => {  
   const formattedDate = format(new Date(review.createdAt), 'dd.MM.yyyy');
 return(
   <View style={styles.OneView}>
       <Text style={styles.rating}>{review.rating}</Text>
       <View style={styles.reviewsBox}>
+       
+        { myReviews?(
+        <Text style={[styles.fullName, { marginBottom: 8 }]}>
+          {review.repository.ownerName}/{review.repository.name}
+        </Text>
+        ):
         <Text style={[styles.fullName, { marginBottom: 8 }]}>
           {review.user.username}
         </Text>
+        }
         <Text style={[styles.created,{ marginBottom: 8 }]}>
           {formattedDate}
         </Text>

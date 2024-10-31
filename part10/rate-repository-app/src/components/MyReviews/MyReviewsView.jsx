@@ -3,24 +3,18 @@ import ReviewItem from "../OneRepository/ReviewItem";
 import { GET_CURRENT_USER } from "../../graphQL/queries";
 import { FlatList, StyleSheet, View } from "react-native";
 import theme from "../../theme";
+import useMyReviews from "../../hooks/useMyReviews";
 
 const MyReviewsView = () => {
-  const { loading, error, data } = useQuery(GET_CURRENT_USER, {
-    variables: { includeReviews: true },
-    fetchPolicy: "cache-and-network",
-  });
+  const { loading, error, reviews } = useMyReviews();
 
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  const user = data.me;
-  const reviews = user.reviews ? user.reviews.edges.map(edge => edge.node) : [];
-  console.log('user',reviews);
- 
   return (
     <FlatList
       data={reviews} 
-      renderItem={({ item }) => <ReviewItem review={item} />}
+      renderItem={({ item }) => <ReviewItem myReviews={ true } review={item} />}
       keyExtractor={item => item.id} 
       ItemSeparatorComponent={() => <View style={styles.separator} />}
     />
