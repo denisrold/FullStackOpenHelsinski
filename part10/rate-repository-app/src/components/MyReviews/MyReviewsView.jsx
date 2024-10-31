@@ -7,15 +7,16 @@ import theme from "../../theme";
 const MyReviewsView = () => {
   const { loading, error, data } = useQuery(GET_CURRENT_USER, {
     variables: { includeReviews: true },
+    fetchPolicy: "cache-and-network",
   });
-  console.log(data);
+
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const user = data.me;
   const reviews = user.reviews ? user.reviews.edges.map(edge => edge.node) : [];
   console.log('user',reviews);
-  // const reviews = user.reviews ? user.reviews.edges.map(edge => edge.node) : [];
+ 
   return (
     <FlatList
       data={reviews} 

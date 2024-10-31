@@ -111,7 +111,7 @@ export const GET_REVIEWS = gql`
 `;
 
 export const GET_CURRENT_USER = gql`
-  query getCurrentUser($includeReviews: Boolean = true) {
+  query getCurrentUser($includeReviews: Boolean = false) {
     me {
       id
       reviews @include(if: $includeReviews) {
