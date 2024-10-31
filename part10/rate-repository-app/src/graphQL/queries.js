@@ -109,3 +109,30 @@ export const GET_REVIEWS = gql`
     }
   }
 `;
+
+export const GET_CURRENT_USER = gql`
+  query getCurrentUser($includeReviews: Boolean = true) {
+    me {
+      id
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            id
+            rating
+            createdAt
+            text
+            user {
+              username
+            }
+          }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        totalCount
+      }
+    }
+  }
+`;

@@ -5,7 +5,8 @@ import * as Linking from 'expo-linking';
 import { useParams } from "react-router-native";
 import theme from "../../theme";
 import useReviews from "../../hooks/useReviews";
-import { format } from 'date-fns'
+
+import ReviewItem from "./ReviewItem";
 
 const OneRepository =()=>{
 
@@ -38,30 +39,30 @@ const OneRepository =()=>{
   )
 }
 
-const ReviewItem = ({ review }) => {
+// const ReviewItem = ({ review }) => {
   
-  const formattedDate = format(new Date(review.createdAt), 'dd.MM.yyyy');
-return(
-  <View style={styles.OneView}>
-      <Text style={styles.rating}>{review.rating}</Text>
-      <View style={styles.reviewsBox}>
-        <Text style={[styles.fullName, { marginBottom: 8 }]}>
-          {review.user.username}
-        </Text>
-        <Text style={[styles.created,{ marginBottom: 8 }]}>
-          {formattedDate}
-        </Text>
-        <Text
-          style={[ styles.textFlex]}
-          numberOfLines={6}          
-          ellipsizeMode="tail" 
-        >
-          {review.text}
-        </Text>
-      </View>
-    </View>
-)
-};
+//   const formattedDate = format(new Date(review.createdAt), 'dd.MM.yyyy');
+// return(
+//   <View style={styles.OneView}>
+//       <Text style={styles.rating}>{review.rating}</Text>
+//       <View style={styles.reviewsBox}>
+//         <Text style={[styles.fullName, { marginBottom: 8 }]}>
+//           {review.user.username}
+//         </Text>
+//         <Text style={[styles.created,{ marginBottom: 8 }]}>
+//           {formattedDate}
+//         </Text>
+//         <Text
+//           style={[ styles.textFlex]}
+//           numberOfLines={6}          
+//           ellipsizeMode="tail" 
+//         >
+//           {review.text}
+//         </Text>
+//       </View>
+//     </View>
+// )
+// };
 
 const SingleRepository = () => {
   const { id } = useParams();
@@ -82,7 +83,7 @@ const SingleRepository = () => {
       keyExtractor={({ node }) => node.id}
       ListHeaderComponent={() => <OneRepository />}
       onEndReached={hasNextPage ? fetchMore : null}
-      onEndReachedThreshold={0.5}
+      onEndReachedThreshold={1}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
     />
   );

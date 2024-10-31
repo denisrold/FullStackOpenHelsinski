@@ -17,13 +17,11 @@ const styles = StyleSheet.create({
     searchInput: {
     display:'flex',
     alignContent:'center',
-
     borderColor: 'gray', 
     borderWidth: 1, 
     backgroundColor: "#fff",
     marginBottom: 10,   
     shadowColor: '#000', 
-
     shadowOpacity: 0.25, 
     shadowRadius: 3.5, 
   },

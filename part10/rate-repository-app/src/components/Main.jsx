@@ -13,6 +13,8 @@ import LogoutButton from './LogoutButton';
 import SingleRepository from '../components/OneRepository/OneRepository';
 import CreateReview from './CreateReview/CreateReview';
 import ReviewForm from './CreateReview/ReviewForm';
+import MyReviews from './MyReviews/MyReviews';
+import MyReviewsView from './MyReviews/MyReviewsView';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,10 +40,11 @@ const Main = () => {
     <View style={styles.container}>
       <AppBar >
         <AppBarTab title={'Repositories'} link={'/'}/>
-        {!userLoggued && <AppBarTab title={'SignUp'} link={'signup'}/>}
-        {!userLoggued && <AppBarTab title={'Login'} link={'login'}/>}
-        {userLoggued && <CreateReview />}
-        {userLoggued && <LogoutButton setuserLoggued={setuserLoggued} />}
+        { !userLoggued && <AppBarTab title={'SignUp'} link={'signup'}/> }
+        { !userLoggued && <AppBarTab title={'Login'} link={'login'}/> }
+        { userLoggued && <CreateReview /> }
+        { userLoggued && <MyReviews /> }
+        { userLoggued && <LogoutButton setuserLoggued={setuserLoggued} /> }
       </AppBar >
       <Routes>
         <Route path="/" element={<RepositoryList />} />
@@ -49,6 +52,7 @@ const Main = () => {
         <Route path="/login" element={<AuthComponent setuserLoggued={setuserLoggued}/>} />
         <Route path="/repository/:id" element={<SingleRepository />} />
         <Route path='/createreview' element={<ReviewForm />} />
+        <Route path='/myreviews' element={<MyReviewsView />} />
       </Routes>
     </View>
   );

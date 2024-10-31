@@ -2,7 +2,7 @@
 import { useQuery } from "@apollo/react-hooks";
 import { GET_REVIEWS } from "../graphQL/queries";
 
-const useReviews = (id, first = 5) => {
+const useReviews = (id, first = 3) => {
   const { data, error, loading, fetchMore, ...result } = useQuery(GET_REVIEWS, {
     variables: { id: id, first: first },
     fetchPolicy: "cache-and-network",
