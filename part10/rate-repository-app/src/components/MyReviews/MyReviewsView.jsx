@@ -1,11 +1,29 @@
-import { useQuery } from "@apollo/react-hooks";
 import ReviewItem from "../OneRepository/ReviewItem";
-import { GET_CURRENT_USER } from "../../graphQL/queries";
-import { FlatList, StyleSheet, View } from "react-native";
+import { Button,Text, FlatList, Pressable, StyleSheet, View } from "react-native";
 import theme from "../../theme";
 import useMyReviews from "../../hooks/useMyReviews";
 
 const MyReviewsView = () => {
+
+  const renderFooter = () =>{
+    const handleFirstButtonClick = () => {
+      console.log('Primer botón presionado');
+    };
+  
+    const handleSecondButtonClick = () => {
+      console.log('Segundo botón presionado');
+    };
+    return (
+    <View style={styles.buttonContainer}>
+      <Pressable  style={styles.button} onPress={handleFirstButtonClick} >
+        <Text style={styles.textFlex}>View repository</Text>
+      </ Pressable>
+      <Pressable  style={[styles.button, {backgroundColor:'red'}]} onPress={handleSecondButtonClick} >
+        <Text style={styles.textFlex}>Delete review</Text>
+      </Pressable>
+    </View>
+  );}
+
   const { loading, error, reviews } = useMyReviews();
 
   if (loading) return <p>Cargando...</p>;
@@ -14,64 +32,36 @@ const MyReviewsView = () => {
   return (
     <FlatList
       data={reviews} 
-      renderItem={({ item }) => <ReviewItem myReviews={ true } review={item} />}
+      renderItem={({ item }) => <ReviewItem renderFooter={renderFooter} myReviews={ true } review={item} />}
       keyExtractor={item => item.id} 
       ItemSeparatorComponent={() => <View style={styles.separator} />}
     />
-  
   )
 }
 
 const styles = StyleSheet.create({
-  OneView:{
-    display: 'flex',
-    flexDirection:'row',
-    padding:theme.paddings.normal,
+  buttonContainer: {
     backgroundColor:theme.colors.darkPrimary,
-    flex:1,
-  },
-  reviewsBox:{
-    flex:1,
-    paddingLeft: 10,
-  },
-  textFlex:{
-    flexWrap: 'wrap',
-    textAlign: 'left',
-    flexShrink: 1,   
-  },
-  rating:{
-    display:'flex',
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    borderWidth: 2,             
-    color:theme.colors.primary,
-    borderColor: theme.colors.primary,
-    fontWeight: '700',
-    fontSize: 24,
-    justifyContent: 'center',
-    alignItems: 'center', 
-  },
-  fullName:{
-    fontWeight:theme.fontWeights.bold,
-    color:theme.colors.textPrimary,
-  },
-  created:{
-    color:'gray',
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Asegúrate de que el espacio entre los botones esté bien
+    padding: 10, // Añade un poco de padding si es necesario
   },
   button: {
-    display:'flex',
-    alignItems:'center',
-    backgroundColor:theme.colors.primary,
-    padding:theme.paddings.normal,
-    borderRadius:5,
-    margin:theme.margins.normal,
-    fontSize:theme.fontSizes.subheading,
+    flex: 1, // Cada botón ocupará el mismo espacio
+    marginHorizontal: 5, // Espacio entre los botones
+    backgroundColor: '#007BFF', // Color de fondo del botón
+    padding: 15, // Espaciado interno
+    borderRadius: 5, // Bordes redondeados
   },
-  buttonText: {
+
+  textFlex:{
+    textAlign: 'center', // Centra el texto
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    flexShrink: 1,  
     color:theme.colors.darkPrimary,
     fontSize:theme.fontSizes.subheading,
-    fontWeight:theme.fontWeights.bold
+    fontWeight:theme.fontWeights.bold 
   },
   separator: {
     height: 20,

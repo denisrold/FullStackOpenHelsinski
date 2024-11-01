@@ -3,13 +3,13 @@ import { format } from 'date-fns'
 import { StyleSheet, Text, View } from "react-native";
 import theme from "../../theme";
 
-const ReviewItem = ({ review , myReviews = false }) => {  
+const ReviewItem = ({ renderFooter = null, review , myReviews = false }) => {  
   const formattedDate = format(new Date(review.createdAt), 'dd.MM.yyyy');
 return(
-  <View style={styles.OneView}>
+  <>
+    <View style={styles.OneView}>
       <Text style={styles.rating}>{review.rating}</Text>
       <View style={styles.reviewsBox}>
-       
         { myReviews?(
         <Text style={[styles.fullName, { marginBottom: 8 }]}>
           {review.repository.ownerName}/{review.repository.name}
@@ -31,12 +31,18 @@ return(
         </Text>
       </View>
     </View>
+    { renderFooter && ( renderFooter() ) }
+    </>
 )
 };
 
 
 
 const styles = StyleSheet.create({
+  buttons: {
+    display:'flex',
+    flexDirection:'column',
+  },
   OneView:{
     display: 'flex',
     flexDirection:'row',
