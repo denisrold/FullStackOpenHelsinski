@@ -8,7 +8,7 @@ import useReviews from "../../hooks/useReviews";
 
 import ReviewItem from "./ReviewItem";
 
-const OneRepository =()=>{
+const OneRepository = () =>{
 
   const { id } = useParams();
 
@@ -39,30 +39,6 @@ const OneRepository =()=>{
   )
 }
 
-// const ReviewItem = ({ review }) => {
-  
-//   const formattedDate = format(new Date(review.createdAt), 'dd.MM.yyyy');
-// return(
-//   <View style={styles.OneView}>
-//       <Text style={styles.rating}>{review.rating}</Text>
-//       <View style={styles.reviewsBox}>
-//         <Text style={[styles.fullName, { marginBottom: 8 }]}>
-//           {review.user.username}
-//         </Text>
-//         <Text style={[styles.created,{ marginBottom: 8 }]}>
-//           {formattedDate}
-//         </Text>
-//         <Text
-//           style={[ styles.textFlex]}
-//           numberOfLines={6}          
-//           ellipsizeMode="tail" 
-//         >
-//           {review.text}
-//         </Text>
-//       </View>
-//     </View>
-// )
-// };
 
 const SingleRepository = () => {
   const { id } = useParams();
@@ -137,6 +113,7 @@ const styles = StyleSheet.create({
     fontSize:theme.fontSizes.subheading,
   },
   buttonText: {
+
     color:theme.colors.darkPrimary,
     fontSize:theme.fontSizes.subheading,
     fontWeight:theme.fontWeights.bold

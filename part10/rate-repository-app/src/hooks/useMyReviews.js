@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_CURRENT_USER } from "../graphQL/queries";
 
 const useMyReviews = () => {
-  const { loading, error, data } = useQuery(GET_CURRENT_USER, {
+  const { loading, error, data, refetch } = useQuery(GET_CURRENT_USER, {
     variables: { includeReviews: true },
     fetchPolicy: "cache-and-network",
   });
@@ -17,7 +17,7 @@ const useMyReviews = () => {
     console.error("Error fetching repositories: ", error);
     return { repository: [], loading, error };
   }
-  return { loading, error, reviews };
+  return { loading, error, reviews, refetch };
 };
 
 export default useMyReviews;
