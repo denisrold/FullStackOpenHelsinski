@@ -50,6 +50,8 @@ const MyReviewsView = () => {
     </View>
   );
 
+  if (loading) return <Text>Cargando...</Text>;
+  if (error) return <Text>Error: {error.message}</Text>;
 
   return (
     <FlatList
@@ -60,7 +62,7 @@ const MyReviewsView = () => {
           {renderFooter(item)}
         </>
       )}
-      keyExtractor={item => item.id.toString()}
+    keyExtractor={item => item.id}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
     />
   );

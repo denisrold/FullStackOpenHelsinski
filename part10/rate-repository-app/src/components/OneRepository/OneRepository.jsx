@@ -53,15 +53,16 @@ const SingleRepository = () => {
     return <Text style={styles.emptyText}>No repositories found</Text>;
   }
   return (
-    <FlatList
-      data={reviews}
-      renderItem={({ item }) => <ReviewItem review={item.node} />}
-      keyExtractor={({ node }) => node.id}
-      ListHeaderComponent={() => <OneRepository />}
-      onEndReached={hasNextPage ? fetchMore : null}
-      onEndReachedThreshold={1}
-      ItemSeparatorComponent={() => <View style={styles.separator} />}
-    />
+   <></>
+    // <FlatList
+    //   data={reviews}
+    //   renderItem={({ item }) => <ReviewItem review={item.node} />}
+    //   keyExtractor={({ node }) => node.id}
+    //   ListHeaderComponent={() => <OneRepository />}
+    //   onEndReached={hasNextPage ? fetchMore : null}
+    //   onEndReachedThreshold={1}
+    //   ItemSeparatorComponent={() => <View style={styles.separator} />}
+    // />
   );
 };
 

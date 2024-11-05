@@ -7,7 +7,7 @@ const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState("CREATED_AT");
   const [orderDirection, setOrderDirection] = useState("DESC");
   const [searchKeyword, setSearchKeywords] = useState('');
-  const { repositories, loading, error, fetchMore, hasNextPage } = useRepositories({orderBy,orderDirection,searchKeyword,first: 2});
+  const { repositories, loading, error, fetchMore, hasNextPage } = useRepositories({orderBy,orderDirection,searchKeyword,first: 5});
 
   if (loading) {
     return <ActivityIndicator size="large" />;

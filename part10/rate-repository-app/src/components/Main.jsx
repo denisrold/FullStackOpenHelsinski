@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
+
 const Main = () => {
   const [userLoggued, setuserLoggued] = useState(null);
   const { data } = useLoggedUser();
@@ -37,24 +38,26 @@ const Main = () => {
   }, [data]);
 
   return (
-    <View style={styles.container}>
-      <AppBar >
-        <AppBarTab title={'Repositories'} link={'/'}/>
-        { !userLoggued && <AppBarTab title={'SignUp'} link={'signup'}/> }
-        { !userLoggued && <AppBarTab title={'Login'} link={'login'}/> }
-        { userLoggued && <CreateReview /> }
-        { userLoggued && <MyReviews /> }
-        { userLoggued && <LogoutButton setuserLoggued={setuserLoggued} /> }
-      </AppBar >
-      <Routes>
-        <Route path="/" element={<RepositoryList />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<AuthComponent setuserLoggued={setuserLoggued}/>} />
-        <Route path="/repository/:id" element={<SingleRepository />} />
-        <Route path='/createreview' element={<ReviewForm />} />
-        <Route path='/myreviews' element={<MyReviewsView />} />
-      </Routes>
-    </View>
+
+      <View style={styles.container}>
+        <AppBar>
+          <AppBarTab title={'Repositories'} link={'/'}/>
+          { !userLoggued && <AppBarTab title={'SignUp'} link={'/signup'}/> }
+          { !userLoggued && <AppBarTab title={'Login'} link={'/login'}/> }
+          { userLoggued && <CreateReview /> }
+          { userLoggued && <MyReviews /> }
+          { userLoggued && <LogoutButton setuserLoggued={setuserLoggued} /> }
+        </AppBar>
+        <Routes>
+          <Route path="/" element={<RepositoryList />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<AuthComponent setuserLoggued={setuserLoggued}/>} />
+          <Route path="/repository/:id" element={<SingleRepository />} />
+          <Route path='/createreview' element={<ReviewForm />} />
+          <Route path='/myreviews' element={<MyReviewsView />} />
+        </Routes>
+      </View>
+    
   );
 };
 

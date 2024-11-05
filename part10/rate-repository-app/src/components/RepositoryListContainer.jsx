@@ -61,6 +61,7 @@ useEffect(() => {
       return <Text style={styles.emptyText}>No repositories found</Text>;
     }
     return (
+
       <FlatList
         data={repositoryNodes}
         style={styles.flatListStyle}
@@ -73,9 +74,6 @@ useEffect(() => {
             value={searchKeyword}
             onChangeText={setSearchKeywords}
             role="search"
-            left={
-            <TextInput.Icon icon="magnify" /> 
-          }
           />
           {
           repositoryNodes.length === 0?
