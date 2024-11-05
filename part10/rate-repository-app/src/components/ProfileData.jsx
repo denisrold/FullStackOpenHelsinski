@@ -10,7 +10,7 @@ const ProfileData = ({ children })=>{
 }
 const styles = StyleSheet.create({
   profileData:{
-    display: 'flex',
+
     flexDirection:'column',
     paddingLeft:20,
   },

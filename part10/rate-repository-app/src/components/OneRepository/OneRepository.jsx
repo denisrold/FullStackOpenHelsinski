@@ -53,23 +53,22 @@ const SingleRepository = () => {
     return <Text style={styles.emptyText}>No repositories found</Text>;
   }
   return (
-   <></>
-    // <FlatList
-    //   data={reviews}
-    //   renderItem={({ item }) => <ReviewItem review={item.node} />}
-    //   keyExtractor={({ node }) => node.id}
-    //   ListHeaderComponent={() => <OneRepository />}
-    //   onEndReached={hasNextPage ? fetchMore : null}
-    //   onEndReachedThreshold={1}
-    //   ItemSeparatorComponent={() => <View style={styles.separator} />}
-    // />
+    <FlatList
+      data={reviews}
+      renderItem={({ item }) => <ReviewItem review={item.node} />}
+      keyExtractor={({ node }) => node.id}
+      ListHeaderComponent={() => <OneRepository />}
+      onEndReached={hasNextPage ? fetchMore : null}
+      onEndReachedThreshold={1}
+      ItemSeparatorComponent={() => <View style={styles.separator} />}
+    />
   );
 };
 
 
 const styles = StyleSheet.create({
   OneView:{
-    display: 'flex',
+  
     flexDirection:'row',
     padding:theme.paddings.normal,
     backgroundColor:theme.colors.darkPrimary,
@@ -105,8 +104,8 @@ const styles = StyleSheet.create({
     color:'gray',
   },
   button: {
-    display:'flex',
-    alignItems:'center',
+
+    textAlign:'center',
     backgroundColor:theme.colors.primary,
     padding:theme.paddings.normal,
     borderRadius:5,

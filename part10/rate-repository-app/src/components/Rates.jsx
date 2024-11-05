@@ -9,7 +9,7 @@ const Rates = ({children}) => {
 
 const styles = StyleSheet.create({
   rateProfile:{
-    display:'flex',
+
     flexDirection:'row',
   },
 })

@@ -5,7 +5,7 @@ import { ScrollView } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    display:'flex',
+   
     flexDirection:'row',
     paddingTop: Constants.statusBarHeight,
     backgroundColor:theme.colors.textPrimary,

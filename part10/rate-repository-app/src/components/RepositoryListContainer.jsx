@@ -15,15 +15,13 @@ const styles = StyleSheet.create({
     padding:5,
   },
     searchInput: {
-    display:'flex',
+
     alignContent:'center',
     borderColor: 'gray', 
     borderWidth: 1, 
     backgroundColor: "#fff",
     marginBottom: 10,   
-    shadowColor: '#000', 
-    shadowOpacity: 0.25, 
-    shadowRadius: 3.5, 
+    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)'
   },
     emptyText: { textAlign: 'center', margin: 20, fontSize: 16 },
 });

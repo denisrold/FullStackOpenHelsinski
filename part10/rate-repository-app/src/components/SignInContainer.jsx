@@ -42,7 +42,7 @@ const SignInContainer = ({ onSubmit }) => {
 
 const styles = StyleSheet.create({
   viewContainer:{
-    display:'flex',
+
     alignContent:'center',
     justifyContent:'center',
     marginTop:50
@@ -55,10 +55,10 @@ const styles = StyleSheet.create({
   },
   formContainer:{
     margin:10,
-    display:'flex',
+
   },
   button: {
-    display:'flex',
+
     alignItems:'center',
    
     backgroundColor:theme.colors.primary,

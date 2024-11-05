@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#007BFF',
     padding: 15,
     borderRadius: 5,
+    color:'white',
   },
   textFlex: {
     textAlign: 'center',

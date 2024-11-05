@@ -95,7 +95,7 @@ const ReviewForm = () => {
 
 const styles = StyleSheet.create({
   viewContainer:{
-    display:'flex',
+
     alignContent:'center',
     justifyContent:'center',
     marginTop:50
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     margin:10
   },
   button: {
-    display:'flex',
+
     alignItems:'center',
    
     backgroundColor:theme.colors.primary,

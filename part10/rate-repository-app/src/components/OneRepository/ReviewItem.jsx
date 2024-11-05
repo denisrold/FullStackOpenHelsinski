@@ -40,11 +40,10 @@ return(
 
 const styles = StyleSheet.create({
   buttons: {
-    display:'flex',
-    flexDirection:'column',
+    flexDirection: 'column',
   },
   OneView:{
-    display: 'flex',
+
     flexDirection:'row',
     padding:theme.paddings.normal,
     backgroundColor:theme.colors.darkPrimary,
@@ -80,7 +79,6 @@ const styles = StyleSheet.create({
     color:'gray',
   },
   button: {
-    display:'flex',
     alignItems:'center',
     backgroundColor:theme.colors.primary,
     padding:theme.paddings.normal,
