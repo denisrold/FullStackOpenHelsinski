@@ -1,0 +1,7 @@
+11-1 response:
+In the case we have been working on, we would use Node with Linter and Prettier for linting to maintain consistency in code style among the different developers. Testing could be done with Node test, and compilation so far has been done with Webpack.
+Looking for CI alternatives: GitLab CI/CD, CircleCI, Travis CI, Bamboo, etc. Nowadays, there are many possibilities for CI.
+For a low-complexity project that is just starting, the best option is a cloud environment due to scalability, cost, and ease of configuration. This is especially true with AI-based services that simplify CI setup today.
+For self-hosted projects, one must consider the complexity of the configuration. While it provides total control over the setup and predictable costs, the management would be more challenging. On the other hand, the disadvantage of the cloud is the unpredictability of costs based on usage and the reliance on the features offered by the contracted cloud service.
+From my perspective, if I had the necessary knowledge, I would choose a self-hosted server. However, in my case, I have always used cloud services or third-party solutions, as these have been sample or practice projects. If today I had to work on a large project, I would feel more confident with a self-hosted solution.
+I have an unconscious fear of using a free cloud service that requires credit cards and not fully understanding some of the convoluted services they offer. I worry about waking up one day with an unaffordable cost due to unknowingly activating a feature.
